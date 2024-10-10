@@ -1,0 +1,57 @@
+.ticoImg {
+    text-align: center;
+    margin-bottom: 1vh; /* Adjust as needed */
+  }
+  
+  .introText {
+    text-align: center;
+  }
+  
+  .introText h3 {
+    color: #056efa; /* Set to your preferred color */
+  }
+  
+  .introText div {
+    color: #056efa; /* Set to your preferred color */
+  }
+  
+  .introText ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .introText li {
+    display: flex;
+    align-items: center;
+    color: #056efa; /* Set to your preferred color */
+  }
+  
+  .introText li IonIcon {
+    margin-right: 0.1rem; /* Space between icon and text */
+  }
+
+  
+  
+  .blob:hover {
+    background-color: #fce595;
+  }
+  
+  .blob {
+    background-color: #ffeca7d8;
+    border-radius: 50% 40% 60% 35% / 40% 55% 45% 60%;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    animation: morph 4s ease-in-out infinite;
+}
+
+@keyframes morph {
+    0% {
+        border-radius: 50% 40% 60% 35% / 40% 55% 45% 60%;
+    }
+    50% {
+        border-radius: 55% 45% 50% 40% / 60% 50% 60% 45%;
+    }
+    100% {
+        border-radius: 50% 40% 60% 35% / 40% 55% 45% 60%;
+    }
+}
