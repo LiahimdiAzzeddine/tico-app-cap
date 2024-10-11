@@ -29,9 +29,14 @@
   font-weight: bold;
   font-style: normal;
 }
-
+@font-face {
+  font-family: 'emiExpandedBold';
+  src: url('./assets/fonts/Stapel-SemiExpandedBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 .titre-bold {
-  font-family: 'Poppins', Arial, sans-serif;
+  font-family: 'Poppinsbold', Arial, sans-serif;
   font-weight: bold;
 }
 
@@ -55,8 +60,15 @@ body {
 
 
 /* Ajustements spécifiques pour les tailles d'écran mobile */
-@media (max-aspect-ratio: 7/8) {
+@media (max-width: 640px) { /* Ajustez 640px en fonction de vos besoins */
   html {
-    font-size: 4vw;
+    font-size: 4vw; /* Utilisation de vw pour un dimensionnement réactif */
+  }
+}
+
+/* Exemple d'ajustement pour les écrans plus larges (tablettes et ordinateurs) */
+@media (min-width: 641px) and (max-aspect-ratio: 7/8)  {
+  html {
+    font-size: 3vw; /* Ajustez la taille de police pour les écrans moyens */
   }
 }
