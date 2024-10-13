@@ -1,14 +1,14 @@
 import React from "react";
-import tico_intro from "../assets/intro/tico_intro.png";
-import fleche from "../assets/intro/fleche.png";
-import background from "../assets/intro/background5.png";
+import tico_intro from "../../assets/intro/tico_intro.png";
+import fleche from "../../assets/intro/fleche.png";
+import background from "../../assets/intro/background5.png";
 
 function Intro5() {
   return (
     <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full">
       {/* Logo Section */}
       <div className="grow flex items-end justify-center w-full pt-1">
-        <img className="w-56" src={tico_intro} alt="TiCO Logo" />
+        <img className="w-64" src={tico_intro} alt="TiCO Logo" />
       </div>
 
       {/* Section Texte avec image de fond */}
@@ -25,7 +25,7 @@ function Intro5() {
           </div>
             {/* Flèche */}
             <img
-            className="absolute w-[40vw] md:w-[25vw] lg:w-[15vw] right-0 bottom-11"
+            className="absolute w-[40vmin] md:w-[35vmin] lg:w-[30vmin] xl:w-[25vmin] right-0 bottom-11"
             src={fleche}
             alt="Flèche"
           />

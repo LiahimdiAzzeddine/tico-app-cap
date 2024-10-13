@@ -1,5 +1,5 @@
 import './App.css'
-import WelcomeSlider from './Welcome/WelcomeSlider'
+import WelcomeSlider from './view/welcome/WelcomeSlider';
 import React, { useEffect } from "react";
 
 /* Core CSS required for Ionic components to work properly */
@@ -20,8 +20,9 @@ import "@ionic/react/css/display.css";
 
 import { setupIonicReact } from "@ionic/react";
 import "./theme/variables.css";
-import { StatusBar } from '@capacitor/status-bar';
-import { ScreenOrientation } from '@capacitor/screen-orientation';
+//import { StatusBar } from '@capacitor/status-bar';
+//import { ScreenOrientation } from '@capacitor/screen-orientation';
+import Register from './view/auth/Register';
 
 setupIonicReact();
 
@@ -29,15 +30,15 @@ function App() {
   
   useEffect(() => {
     // Masquer la barre d'état sur iOS
-    StatusBar.setOverlays(true);
+   /* StatusBar.setOverlays(true);
     StatusBar.setBackgroundColor({ color: '#ffffff' }); // Couleur de fond pour la barre d'état
     StatusBar.setStyle({ style: 'DARK' }); // Style sombre pour le texte de la barre d'état
-    //ScreenOrientation.lock({ orientation: 'portrait' });
+    ScreenOrientation.lock({ orientation: 'portrait' });*/
   }, []);
 
   return (
     <>
-      <WelcomeSlider/>
+    <Register/>
     </>
   )
 }

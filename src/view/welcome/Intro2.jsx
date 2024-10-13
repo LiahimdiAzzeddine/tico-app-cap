@@ -1,17 +1,17 @@
 import React from "react";
-import tico_intro from "../assets/intro/tico_intro.png";
-import barcode from "../assets/intro/barcode.svg";
-import background from "../assets/intro/background2.png";
+import tico_intro from "../../assets/intro/tico_intro.png";
+import barcode from "../../assets/intro/barcode.svg";
+import background from "../../assets/intro/background2.png";
 
 function Intro2() {
   return (
     <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full">
       {/* Logo Section */}
       <div className="grow flex items-end justify-center w-full pt-1">
-        <img className="w-56" src={tico_intro} alt="TiCO Logo" />
+        <img className="w-64" src={tico_intro} alt="TiCO Logo" />
       </div>
 
-      <div className="grow flex items-center justify-start w-full max-w-sm  ">
+      <div className="grow flex items-center justify-start w-full max-w-sm  px-1">
         
         <div
           className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center relative"

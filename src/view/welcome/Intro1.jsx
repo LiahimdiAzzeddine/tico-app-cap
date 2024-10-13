@@ -1,22 +1,27 @@
 import React from "react";
-import tico_intro from "../assets/intro/tico_intro.png";
-import plusIcon from "../assets/intro/plus.png";
-import background from "../assets/intro/background.svg";
+import tico_intro from "../../assets/intro/tico_intro.png";
+import plusIcon from "../../assets/intro/plus.png";
+import background from "../../assets/intro/background.svg";
 
 function Intro1() {
   return (
-    <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full">
+    <div
+      className="flex flex-col items-center justify-between bg-white min-h-screen w-full"
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "contain",
+      }}
+    >
       {/* Logo Section */}
-      
       <div className="grow flex items-end justify-center w-full pt-1">
-        <img className="w-56" src={tico_intro} alt="TiCO Logo" />
+        <img className="w-64" src={tico_intro} alt="TiCO Logo" />
       </div>
+
       <div className="grow flex items-center justify-start w-full max-w-sm">
-        <div
-          className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center"
-          style={{ backgroundImage: `url(${background})` }}
-        >
-          <div className="flex flex-col items-center justify-center w-2/3 text-center gap-4">
+        <div className="w-full max-w-sm aspect-square flex items-start justify-center">
+          <div className="flex flex-col items-center justify-evenly max-h-[75%] w-2/3 text-center gap-4">
             <h2 className="text-2xl font-bold text-[#006aff] underline underline-offset-4 decoration-orange-400">
               Bienvenue !
             </h2>
