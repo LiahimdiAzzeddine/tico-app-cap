@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('./assets/fonts/Poppins-Black.ttf') format('truetype');
+  font-family: 'ClashDisplay';
+  src: url('./assets/fonts/ClashDisplay-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppinsbold';
-  src: url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
+  font-family: 'ClashDisplayBold';
+  src: url('./assets/fonts/ClashDisplay-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
@@ -36,7 +36,7 @@
   font-style: normal;
 }
 .titre-bold {
-  font-family: 'Poppinsbold', Arial, sans-serif;
+  font-family: 'ClashDisplayBold', Arial, sans-serif;
   font-weight: 900;
 }
 
@@ -72,3 +72,4 @@ body {
     font-size: 3.5vw; /* Ajustez la taille de police pour les écrans moyens */
   }
 }
+

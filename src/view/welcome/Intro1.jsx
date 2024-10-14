@@ -22,7 +22,7 @@ function Intro1() {
       <div className="grow flex items-center justify-start w-full max-w-sm">
         <div className="w-full max-w-sm aspect-square flex items-start justify-center">
           <div className="flex flex-col items-center justify-evenly max-h-[75%] w-2/3 text-center gap-4">
-            <h2 className="text-2xl font-bold text-[#006aff] underline underline-offset-4 decoration-orange-400">
+            <h2 className="text-2xl titre-bold text-[#006aff] underline underline-offset-4 decoration-orange-400">
               Bienvenue !
             </h2>
             <div className="text-xl sm:text-xl text-[#006aff]">

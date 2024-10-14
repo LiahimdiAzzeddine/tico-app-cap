@@ -19,7 +19,7 @@ function Intro4() {
           style={{ backgroundImage: `url(${background})` }}
         >
           <div className="flex flex-col items-center justify-center w-4/5 text-center gap-4">
-           <h2 className="text-2xl font-bold text-[#006aff] mb-2">Prêt à{" "}
+           <h2 className="text-2xl titre-bold text-[#006aff] mb-2">Prêt à{" "}
               <span className="text-2xl underline underline-offset-4 decoration-orange-400">
                 commencer
               </span>

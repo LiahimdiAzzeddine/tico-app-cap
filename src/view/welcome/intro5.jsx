@@ -19,7 +19,7 @@ function Intro5() {
         >
           {/* Texte avec flèche */}
           <div className="flex flex-col items-center absolute justify-center w-2/3 ">
-            <h2 className="text-2xl font-bold text-[#006aff] mb-2 ">
+            <h2 className="text-2xl titre-bold text-[#006aff] mb-2 ">
               On vous montre ?
             </h2>
           </div>
