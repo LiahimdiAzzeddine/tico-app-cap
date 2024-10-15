@@ -1,0 +1,51 @@
+.center-button {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .hideBg::part(background) {
+    opacity: 0;
+  }
+  
+  .scan-box {
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+    display: block;
+    left: 50%;
+    height: 45vw;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+  }
+  .scan-container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo-top {
+    position: absolute;
+    top: 20px;
+    width: 90px; /* Ajustez la taille selon vos besoins */
+  }
+  
+  .scan-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .frame-center {
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 0.4;
+  }
+/* styles.css */
+

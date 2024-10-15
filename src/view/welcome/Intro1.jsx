@@ -21,7 +21,7 @@ function Intro1() {
 
       <div className="grow flex items-center justify-start w-full max-w-sm">
         <div className="w-full max-w-sm aspect-square flex items-start justify-center">
-          <div className="flex flex-col items-center justify-evenly max-h-[75%] w-2/3 text-center gap-4">
+          <div className="flex flex-col items-center justify-evenly max-h-[75%] w-2/3 text-center gap-4 mt-[2vh]">
             <h2 className="text-2xl titre-bold text-[#006aff] underline underline-offset-4 decoration-orange-400">
               Bienvenue !
             </h2>

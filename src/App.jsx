@@ -18,11 +18,12 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
-import { IonApp, IonButton, IonContent, IonModal, setupIonicReact } from "@ionic/react";
+import { IonApp,setupIonicReact } from "@ionic/react";
 import "./theme/variables.css";
 //import { StatusBar } from '@capacitor/status-bar';
 //import { ScreenOrientation } from '@capacitor/screen-orientation';
-import Register from './view/auth/Register';
+
+import ScanPage from './view/pages/ScanPage';
 
 setupIonicReact();
 
@@ -39,7 +40,7 @@ const [myModal,setMyModal]=useState({isOpen:false})
   return (
     <>
     <IonApp>
-<WelcomeSlider/>
+<ScanPage/>
     </IonApp>
     </>
   )
