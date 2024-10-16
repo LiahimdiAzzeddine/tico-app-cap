@@ -12,8 +12,8 @@ def capacitor_pods
   pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCommunityBarcodeScanner', :path => '../../node_modules/@capacitor-community/barcode-scanner'
-  pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
   pod 'CapacitorScreenOrientation', :path => '../../node_modules/@capacitor/screen-orientation'
+  pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
 end
 
 target 'App' do

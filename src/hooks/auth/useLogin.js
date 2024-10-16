@@ -42,7 +42,7 @@ const useLogin = () => {
         })
         ) {
           showToast("Connexion réussie. Vous êtes maintenant connecté.", "success");
-          navigate("/", { replace: true });
+          navigate("/home", { replace: true });
         } else {
           showToast("Erreur de connexion. Échec de la connexion.", "danger");
         }

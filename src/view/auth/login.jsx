@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import useLogin from "../../hooks/auth/useLogin";
 import { Link } from "react-router-dom";
 import Spinner from "../composants/Spinner";
+import { eyeOffOutline, eyeOutline } from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
 
 const Login = () => {
   const { handleSubmit, loading, error } = useLogin();
   const [values, setValues] = useState({ email: "", password: "" });
   const errors = error || {}; // Utilisation de l'opérateur de chaînage optionnel
-
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full pt-[5vh]">
       <h2 className="text-center text-[#006aff] text-2xl font-bold">
@@ -48,12 +50,12 @@ const Login = () => {
           )}
         </div>
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center relative">
           <label className="text-orange-500 mb-1 text-sm text-center font-bold">
             Mon mot de passe
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} // Toggle input type based on state
             value={values.password}
             onChange={(e) => setValues({ ...values, password: e.target.value })}
             className={`w-full p-2 border-[1.5px] rounded-lg focus:outline-none ${
@@ -65,6 +67,13 @@ const Login = () => {
             aria-invalid={!!errors.password} // Accessibilité
             aria-describedby="password-error" // Accessibilité
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-9 text-gray-500 focus:outline-none"
+          >
+            <IonIcon icon={showPassword ? eyeOffOutline : eyeOutline} />
+          </button>
           {errors.password && (
             <p id="password-error" className="text-red-500 text-sm mt-1">
               {errors.password[0]}
@@ -72,12 +81,15 @@ const Login = () => {
           )}
         </div>
         <div className="flex items-center justify-between">
-              <div className="text-sm">
-                <Link to="/forget-password" className="font-medium text-orange-600 hover:text-orange-500">
-                  Mot de passe oublié ?
-                </Link>
-              </div>
-            </div>
+          <div className="text-sm">
+            <Link
+              to="/forget-password"
+              className="font-medium text-orange-600 hover:text-orange-500"
+            >
+              Mot de passe oublié ?
+            </Link>
+          </div>
+        </div>
         <div className="pt-3 flex justify-center">
           <button
             type="submit"
@@ -89,7 +101,7 @@ const Login = () => {
         </div>
       </form>
 
-      
+      {/** 
       <div className="mt-4  w-11/12 max-w-xs">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
@@ -110,7 +122,7 @@ const Login = () => {
            S'inscrire
           </button>
         </div>
-      </div>
+      </div>*/}
 
       {/* Full-screen loading overlay */}
       {loading && (

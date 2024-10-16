@@ -2,12 +2,11 @@ import {
     IonButton,
     IonContent,
     IonIcon,
-    IonPage,
     IonRow,
     IonText,
     useIonAlert,
   } from "@ionic/react";
-  import { useEffect, useState } from "react";
+  import {useState } from "react";
   import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
   import { scanOutline } from "ionicons/icons";
   import "./Scanner.css";
@@ -98,8 +97,6 @@ import {
     };
   
     return (
-     
-
           <IonContent className={hideBg ? "hideBg" : "ion-padding"}>
             {err && (
               <IonRow>
@@ -121,7 +118,6 @@ import {
               </IonButton>
             )}
           </IonContent>
-       
     );
   }
   

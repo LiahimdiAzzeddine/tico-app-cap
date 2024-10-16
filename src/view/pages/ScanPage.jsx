@@ -6,14 +6,7 @@ import BottomNavbar from '../home/BottomNavbar';
 import Scanner from '../scanner/Scanner';
 const ScanPage = () => {
   return (
-    <>
-     <Menu/>
-    <IonPage id="main-content">
-    <TopNavbar/>
     <Scanner/>
-    <BottomNavbar/>
-    </IonPage>
-    </>
   );
 };
 

@@ -1,14 +1,36 @@
 import React, { useState } from "react";
-import { IonModal, IonButton, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonIcon } from "@ionic/react";
+import { useNavigate } from "react-router-dom";
 import tico_intro from "../../assets/intro/tico_intro.png";
 import background from "../../assets/intro/background6.png";
-import Tico from "../../assets/auth/tico.png";
-import X from "../../assets/auth/XV6-33.png";
 import AccountCreationForm from "../auth/Register";
+import CustomModal from "../composants/CustomModal";
+import { setFirstVisit } from "../../hooks/useIndexedDB";
 
 const Intro6 = () => {
-  // State to manage modal visibility
-  const [showModal, setShowModal] = useState(false);
+  const [showModalInscription, setShowModalInscription] = useState(false);
+  const navigate = useNavigate();
+
+  const handleGuestClick = async () => {
+    try {
+      await setFirstVisit(true); // Set first visit status in IndexedDB
+      navigate("/scanner"); // Navigate to the home page
+    } catch (error) {
+      console.error("Error setting first visit status:", error);
+    }
+  };
+
+  const handleOpenModal = async () => {
+    try {
+      await setFirstVisit(true); // Set first visit status in IndexedDB when the modal is opened
+    } catch (error) {
+      console.error("Error setting first visit status:", error);
+    }
+    setShowModalInscription(true); // Open the modal
+  };
+
+  const handleModalClose = () => {
+    setShowModalInscription(false); // Close the modal
+  };
 
   return (
     <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full">
@@ -26,45 +48,28 @@ const Intro6 = () => {
           <div className="flex flex-col items-center justify-center w-3/5">
             <button
               className="bg-[#ff8300] hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-md mb-4 w-full transition-colors duration-300"
-              onClick={() => setShowModal(true)} // Open modal on click
+              onClick={handleOpenModal} // Open the modal and set first visit status
             >
               Je crée mon compte
             </button>
-            <button className="bg-[#ff8300] hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-md w-full transition-colors duration-300">
+            <button
+              className="bg-[#ff8300] hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-md w-full transition-colors duration-300"
+              onClick={handleGuestClick} // Handle guest access click
+            >
               J'utilise TiCO <br /> en tant qu'invité
             </button>
           </div>
         </div>
       </div>
-      
-    
-      <IonModal
-        isOpen={showModal}
-        onDidDismiss={() => setShowModal(false)}
-        style={{
-          "--background": "#ffeca7",
-          "--height": "100%",        // Occupe 100% de la hauteur
-          "--max-height": "100%",     // Maximum de la hauteur
-          "--width": "100%",         // Occupe 100% de la largeur
-          "--max-width": "100%",      // Maximum de la largeur
-          "--min-height": "100%",      // Minimum de la hauteur
-          "--min-width": "100%",       // Minimum de la largeur
-        }}
-      >
-        {/* Custom Header */}
-        <div className="flex justify-between items-center mb-6 p-4 modal-background">
-          <button className="text-[#006aff]" onClick={() => setShowModal(false)}>
-            <img src={X} alt="Close" className="w-8 h-8" />
-          </button>
-          <div className="text-orange-500 font-bold text-2xl titre-bold">
-            <img src={Tico} alt="Tico" className="h-6" />
-          </div>
-        </div>
 
-        <IonContent className="ion-padding" style={{ overflow: 'hidden', height: 'inner-scroll', "--background": "#ffeca7" }} >
-          <AccountCreationForm />
-        </IonContent>
-      </IonModal>
+      {/* Sign-Up Modal */}
+      <CustomModal
+        isOpen={showModalInscription}
+        onClose={handleModalClose} // Handle modal close logic
+      >
+        <AccountCreationForm />
+      </CustomModal>
+
       {/* Empty div for spacing */}
       <div className="grow min-h-[8vh]"></div>
     </div>

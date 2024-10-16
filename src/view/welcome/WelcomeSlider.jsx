@@ -13,7 +13,6 @@ import Intro6 from "./intro6";
 
 function WelcomeSlider() {
   return (
-    <div className="w-screen h-screen overflow-hidden">
       <Swiper
         modules={[Pagination]}
         spaceBetween={0}
@@ -45,7 +44,6 @@ function WelcomeSlider() {
         <Intro6/>
         </SwiperSlide>
       </Swiper>
-    </div>
   );
 }
 

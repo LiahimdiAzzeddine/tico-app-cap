@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { IonToast } from '@ionic/react';
 import { register as performRegister } from "../../hooks/auth/register";
 import Spinner from '../composants/Spinner';
+import { useNavigate } from "react-router-dom";
 
 const AccountCreationForm = () => {
+  const navigate = useNavigate();
+
   const [values, setValues] = useState({
     email: '',
     userName: '',
@@ -41,9 +44,9 @@ const AccountCreationForm = () => {
       setToastMessage("Enregistrement réussi");
       setToastColor("success");
       setShowToast(true);
-      // Logic to redirect the user or display a success message
+      navigate("/", { replace: true });
+
     } catch (err) {
-      console.log("🚀 ~ handleSubmit ~ err:", err);
 
       if (err && err.errors) {
         setErrors(err.errors); // Set field-specific errors from the server response
