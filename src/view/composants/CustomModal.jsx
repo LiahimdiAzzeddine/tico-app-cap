@@ -29,7 +29,7 @@ const CustomModal = ({ isOpen, onClose, children }) => {
       </div>
 
       <IonContent className="ion-padding" style={{ overflow: 'hidden', "--background": "#ffeca7" }}>
-        {children}
+      {React.cloneElement(children, { onClose })}
       </IonContent>
     </IonModal>
   );

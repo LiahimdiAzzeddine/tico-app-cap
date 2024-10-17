@@ -10,6 +10,15 @@ const Login = () => {
   const [values, setValues] = useState({ email: "", password: "" });
   const errors = error || {}; // Utilisation de l'opérateur de chaînage optionnel
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleMouseDown = () => {
+    setShowPassword(true);
+  };
+
+  const handleMouseUp = () => {
+    setShowPassword(false);
+  };
+
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full pt-[5vh]">
       <h2 className="text-center text-[#006aff] text-2xl font-bold">
@@ -69,7 +78,10 @@ const Login = () => {
           />
           <button
             type="button"
-            onClick={() => setShowPassword(!showPassword)}
+            onMouseDown={handleMouseDown} // Affiche le mot de passe
+            onMouseUp={handleMouseUp} // Masque le mot de passe
+            onTouchStart={handleMouseDown} // Support pour les appareils tactiles
+            onTouchEnd={handleMouseUp} // Support pour les appareils tactiles
             className="absolute right-3 top-9 text-gray-500 focus:outline-none"
           >
             <IonIcon icon={showPassword ? eyeOffOutline : eyeOutline} />
@@ -100,8 +112,7 @@ const Login = () => {
           </button>
         </div>
       </form>
-
-      {/** 
+{/** 
       <div className="mt-4  w-11/12 max-w-xs">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
@@ -123,7 +134,6 @@ const Login = () => {
           </button>
         </div>
       </div>*/}
-
       {/* Full-screen loading overlay */}
       {loading && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 ">

@@ -1,20 +1,21 @@
 import React from "react";
 import { IonPage } from "@ionic/react";
+import TopNavbar from "../home/TopNavbar";
 import Menu from "../home/Menu";
 import BottomNavbar from "../home/BottomNavbar";
 import { Outlet } from "react-router-dom";
 
-const HomeLyout = () => {
+function ScannerLyout() {
   return (
     <>
       <Menu/>
       <IonPage id="main-content">
-        {/** 
-      <div className="rounded-[10vw] overflow-hidden  border-gray-300 px-1 h-full">*/}
+        <TopNavbar />
         <Outlet />
         <BottomNavbar />
       </IonPage>
     </>
-  );
-};
-export default HomeLyout;
+  )
+}
+
+export default ScannerLyout

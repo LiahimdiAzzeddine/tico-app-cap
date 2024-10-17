@@ -1,6 +1,7 @@
 import React from "react";
 import { IonFooter, IonToolbar } from "@ionic/react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import { useNavigate } from "react-router-dom";
 
 // Importing icons
 import accueil from "../../assets/navbar/accueil.png";
@@ -15,13 +16,14 @@ import profil_active from "../../assets/navbar/profil_active.png";
 
 const BottomNavbar = () => {
   const isAuthenticated = useIsAuthenticated();
+  const navigate = useNavigate();
 
   return (
     <IonFooter>
       <IonToolbar className="bg-white">
         <div className="flex justify-around items-center py-4 px-1">
           {/* Bouton Accueil */}
-          <button className="flex flex-col items-center">
+          <button className="flex flex-col items-center"  onClick={() => {navigate("/home", { replace: true });}}>
             <img
               src={isAuthenticated ? accueil_active : accueil}
               alt="Accueil"
@@ -39,7 +41,7 @@ const BottomNavbar = () => {
           </button>
 
           {/* Bouton Scanner */}
-          <button className="flex flex-col items-center">
+          <button className="flex flex-col items-center"  onClick={() => {navigate("/scanner", { replace: true });}}>
             <img
               src={scanner}
               alt="Scanner"

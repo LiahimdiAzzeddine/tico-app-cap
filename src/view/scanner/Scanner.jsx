@@ -72,7 +72,7 @@ import {
       BarcodeScanner.hideBackground();
       setHideBg(true);
       // make background of WebView transparent
-  //{ targetedFormats: [SupportedFormat.CODE_128, SupportedFormat.EAN_13, SupportedFormat.EAN_8] }
+     //{ targetedFormats: [SupportedFormat.CODE_128, SupportedFormat.EAN_13, SupportedFormat.EAN_8] }
       const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
   
       // if the result has content
@@ -112,7 +112,7 @@ import {
               </div>
             )}
             {!hideBg && (
-              <IonButton className="center-button" onClick={startScan}>
+              <IonButton className="center-button bg-orange-400" onClick={startScan}>
                 <IonIcon icon={scanOutline} slot="start" />
                 Start Scan
               </IonButton>
