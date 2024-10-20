@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { IonToast } from "@ionic/react";
-import { register as performRegister } from "../../hooks/auth/register";
+import useRegister from "../../hooks/auth/useRegister";
 import Spinner from "../composants/Spinner";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 const AccountCreationForm = ({ onClose }) => {
-
   const [values, setValues] = useState({
     email: "",
     userName: "",
@@ -15,14 +13,12 @@ const AccountCreationForm = ({ onClose }) => {
     role_id: "",
   });
 
-  const [loading, setLoading] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [showToast, setShowToast] = useState(false);
-  const [toastColor, setToastColor] = useState("");
   const [errors, setErrors] = useState({}); // State for input field errors
 
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
+
+  const { register, loading } = useRegister(); // Using the new useRegister hook
 
   const handleMouseDown = () => {
     setShowPassword(true);
@@ -42,7 +38,6 @@ const AccountCreationForm = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setErrors({}); // Reset errors before submission
 
     try {
@@ -50,11 +45,10 @@ const AccountCreationForm = ({ onClose }) => {
         setErrors({
           confirm_password: ["Les mots de passe ne correspondent pas."],
         });
-
         throw new Error("Les mots de passe ne correspondent pas.");
       }
 
-      await performRegister({
+      await register({
         email: values.email,
         username: values.userName,
         password: values.password,
@@ -62,32 +56,17 @@ const AccountCreationForm = ({ onClose }) => {
         role_id: 1,
       });
 
-      setToastMessage("Enregistrement réussi");
-      setToastColor("success");
-      setShowToast(true);
       onClose();
     } catch (err) {
       if (err && err.errors) {
         setErrors(err.errors); // Set field-specific errors from the server response
-        setToastMessage(
-          "Erreur de validation. Veuillez corriger les erreurs ci-dessous."
-        );
-      } else {
-        setToastMessage(
-          err.message || "Une erreur s'est produite lors de l'enregistrement."
-        );
       }
-
-      setToastColor("danger");
-      setShowToast(true);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <div className="flex gap-4 flex-col justify-start items-center h-full pt-[5vh]">
-      <h2 className="text-center titre-bold text-[#006aff] text-2xl font-bold">
+    <div className="flex gap-4 flex-col justify-start items-center h-full ">
+      <h2 className="text-center titre-bold text-[#006aff] text-2xl titre-bold grow">
         Je crée mon{" "}
         <span className="underline underline-offset-4 decoration-orange-400">
           compte
@@ -96,7 +75,7 @@ const AccountCreationForm = ({ onClose }) => {
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 w-11/12 max-w-xs py-[2vh]"
+        className="space-y-4 w-11/12 max-w-xs grow-[3]"
       >
         <div className="flex flex-col items-center">
           <label className="text-orange-500 mb-1 text-base text-center font-bold">
@@ -219,14 +198,7 @@ const AccountCreationForm = ({ onClose }) => {
         </div>
       </form>
 
-      <IonToast
-        isOpen={showToast}
-        onDidDismiss={() => setShowToast(false)}
-        message={toastMessage}
-        duration={3000}
-        color={toastColor}
-        position="top"
-      />
+      
       {/* Full-screen loading overlay */}
       {loading && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">

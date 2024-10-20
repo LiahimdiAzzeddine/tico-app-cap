@@ -8,7 +8,7 @@ import { IonIcon } from "@ionic/react";
 const Login = () => {
   const { handleSubmit, loading, error } = useLogin();
   const [values, setValues] = useState({ email: "", password: "" });
-  const errors = error || {}; // Utilisation de l'opérateur de chaînage optionnel
+  const errors = error || {}; // Using optional chaining
   const [showPassword, setShowPassword] = useState(false);
 
   const handleMouseDown = () => {
@@ -20,8 +20,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex gap-4 flex-col justify-start items-center h-full pt-[5vh]">
-      <h2 className="text-center text-[#006aff] text-2xl font-bold">
+    <div className="flex gap-4 flex-col justify-start items-center h-full">
+      <h2 className="text-center text-[#006aff] text-2xl titre-bold grow">
         Se{" "}
         <span className="underline underline-offset-4 decoration-orange-400">
           connecter
@@ -33,7 +33,7 @@ const Login = () => {
           e.preventDefault();
           handleSubmit(values);
         }}
-        className="space-y-4 w-11/12 max-w-xs py-[2vh]"
+        className="space-y-4 w-11/12 max-w-xs  grow-[3]"
       >
         <div className="flex flex-col items-center">
           <label className="text-orange-500 mb-1 text-base text-center font-bold">
@@ -49,8 +49,8 @@ const Login = () => {
                 : "border-orange-300 focus:border-orange-500"
             }`}
             required
-            aria-invalid={!!errors.email} // Accessibilité
-            aria-describedby="email-error" // Accessibilité
+            aria-invalid={!!errors.email}
+            aria-describedby="email-error"
           />
           {errors.email && (
             <p id="email-error" className="text-red-500 text-sm mt-1">
@@ -64,7 +64,7 @@ const Login = () => {
             Mon mot de passe
           </label>
           <input
-            type={showPassword ? "text" : "password"} // Toggle input type based on state
+            type={showPassword ? "text" : "password"}
             value={values.password}
             onChange={(e) => setValues({ ...values, password: e.target.value })}
             className={`w-full p-2 border-[1.5px] rounded-lg focus:outline-none ${
@@ -73,15 +73,15 @@ const Login = () => {
                 : "border-orange-300 focus:border-orange-500"
             }`}
             required
-            aria-invalid={!!errors.password} // Accessibilité
-            aria-describedby="password-error" // Accessibilité
+            aria-invalid={!!errors.password}
+            aria-describedby="password-error"
           />
           <button
             type="button"
-            onMouseDown={handleMouseDown} // Affiche le mot de passe
-            onMouseUp={handleMouseUp} // Masque le mot de passe
-            onTouchStart={handleMouseDown} // Support pour les appareils tactiles
-            onTouchEnd={handleMouseUp} // Support pour les appareils tactiles
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onTouchStart={handleMouseDown}
+            onTouchEnd={handleMouseUp}
             className="absolute right-3 top-9 text-gray-500 focus:outline-none"
           >
             <IonIcon icon={showPassword ? eyeOffOutline : eyeOutline} />
@@ -92,6 +92,7 @@ const Login = () => {
             </p>
           )}
         </div>
+
         <div className="flex items-center justify-between">
           <div className="text-sm">
             <Link
@@ -102,6 +103,7 @@ const Login = () => {
             </Link>
           </div>
         </div>
+
         <div className="pt-3 flex justify-center">
           <button
             type="submit"
@@ -112,7 +114,7 @@ const Login = () => {
           </button>
         </div>
       </form>
-{/** 
+      {/** 
       <div className="mt-4  w-11/12 max-w-xs">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
@@ -135,6 +137,7 @@ const Login = () => {
         </div>
       </div>*/}
       {/* Full-screen loading overlay */}
+
       {loading && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 ">
           <Spinner />

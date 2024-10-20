@@ -54,12 +54,12 @@ function LoginPage() {
       </div>
 
       {/* Sign-Up Modal */}
-      <CustomModal isOpen={showModalInscription} onClose={() => setShowModalInscription(false)}>
+      <CustomModal isOpen={showModalInscription} onClose={() => setShowModalInscription(false)} image="x">
         <AccountCreationForm />
       </CustomModal>
 
       {/* Login Modal */}
-      <CustomModal isOpen={showModalLogin} onClose={() => setShowModalLogin(false)}>
+      <CustomModal isOpen={showModalLogin} onClose={() => setShowModalLogin(false)} image="x">
         <Login />
       </CustomModal>
 

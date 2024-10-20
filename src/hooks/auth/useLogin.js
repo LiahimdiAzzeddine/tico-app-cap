@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useIonToast } from "@ionic/react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import axios from "../../api/axios";
+import { useToast } from "../../context/ToastContext"; 
 
 const LOGIN_URL = "/api/auth/login";
 
@@ -12,16 +12,7 @@ const useLogin = () => {
   const errRef = useRef(null);
   const navigate = useNavigate();
   const signIn = useSignIn();
-  const [presentToast] = useIonToast();
-
-  const showToast = (message, color) => {
-    presentToast({
-      message,
-      duration: 3000,
-      color,
-      position: "top",
-    });
-  };
+  const { triggerToast } = useToast(); // Use the ToastContext for notifications
 
   const handleSubmit = async (values) => {
     const { email, password } = values;
@@ -39,28 +30,26 @@ const useLogin = () => {
             },
             refresh: res.data.access_token,
             userState: res.data.user
-        })
+          })
         ) {
-          showToast("Connexion réussie. Vous êtes maintenant connecté.", "success");
+          triggerToast("Connexion réussie. Vous êtes maintenant connecté.", "success");
           navigate("/home", { replace: true });
         } else {
-          showToast("Erreur de connexion. Échec de la connexion.", "danger");
+          triggerToast("Erreur de connexion. Échec de la connexion.", "danger");
         }
       }
     } catch (err) {
       const errorMsg = err.response?.data?.message || "Échec de la connexion";
       const errorDetails = err.response?.data?.errors || {};
-      showToast(errorMsg, "danger");
+      triggerToast(errorMsg, "danger");
       setError(errorDetails);
       errRef.current?.focus();
     } finally {
       setLoading(false);
     }
-
-};
+  };
 
   return { handleSubmit, loading, error, errRef };
-  
 };
 
 export default useLogin;

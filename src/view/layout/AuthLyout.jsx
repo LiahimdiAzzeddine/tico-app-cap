@@ -6,7 +6,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import X from "../../assets/auth/XV6-33.png";
 import Tico from "../../assets/auth/tico.png";
 
-const HomeLayout = () => {
+const AuthLayout = () => {
   const navigate = useNavigate();
 
   return (
@@ -14,7 +14,7 @@ const HomeLayout = () => {
       <Menu />
 
       <IonContent className="flex flex-col h-full">
-        <div className="flex flex-col h-full bg-[#ffeda3] rounded-b-[10vw]">
+        <div className="flex flex-col h-full bg-[#ffeda3]">
           <div className="flex justify-between items-center mb-5 mt-1 p-4 modal-background">
             <button className="text-[#006aff]" onClick={() => navigate('scanner', { replace: true })}>
               <img src={X} alt="Close" className="w-8 h-8" />
@@ -31,9 +31,8 @@ const HomeLayout = () => {
         </div>
       </IonContent>
 
-      <BottomNavbar />
     </IonPage>
   );
 };
 
-export default HomeLayout;
+export default AuthLayout;

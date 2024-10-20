@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   IonButtons,
   IonHeader,
@@ -7,11 +7,16 @@ import {
 } from "@ionic/react";
 import tico from "../../assets/navbar/tico.png";
 import info from "../../assets/navbar/info.png";
+import FAQComponent from "../settings/FAQ/FAQComponent";
+import WhiteModal from "../composants/WhiteModal";
 
 const TopNavbar = () => {
+  const [showModalFAQ, setShowModalFAQ] = useState(false);
+
   return (
-    <IonHeader>
-      <IonToolbar className="px-3">
+    <>
+    <IonHeader className="ion-no-border">
+      <IonToolbar className="px-2">
         <div className="flex justify-between items-center py-2">
           <div className="flex items-center">
             <IonButtons slot="start">
@@ -24,14 +29,18 @@ const TopNavbar = () => {
                 </button>
               </IonMenuButton>
             </IonButtons>
-            <img src={tico} alt="Tico" className="h-7" />
+            <img src={tico} alt="Tico" className="h-7 ml-1" />
           </div>
-          <button className="flex items-center justify-center w-8 h-8 rounded-full">
+          <button className="flex items-center justify-center w-8 h-8 rounded-full" onClick={()=>{setShowModalFAQ(true)}}>
             <img src={info} alt="Info" className="w-8 h-8" />
           </button>
         </div>
       </IonToolbar>
     </IonHeader>
+    <WhiteModal isOpen={showModalFAQ} onClose={() => setShowModalFAQ(false)}>
+        <FAQComponent/>
+      </WhiteModal>
+    </>
   );
 };
 

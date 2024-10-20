@@ -9,9 +9,8 @@ const HomePage = () => {
     // Vérifiez si l'utilisateur est authentifié
 
       return (
-        <IonContent>
-          <div>HomePage</div> {/* Contenu principal de la page d'accueil */}
-        </IonContent>
+          <div>HomePage</div>
+      
       );
   
   

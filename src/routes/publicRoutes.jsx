@@ -5,6 +5,7 @@ import LoginPage from "../view/pages/LoginPage";
 import FirstVisitGuard from "../guards/FirstVisitGuard";
 import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 import RequireNoAuth from "../guards/RequireNoAuth"; // Import the new RequireNoAuth component
+import Settings from "../view/settings/settings";
 
 const publicRoutes = [
   <Route key="layout" path="/">
@@ -14,7 +15,7 @@ const publicRoutes = [
         </Route>
     </Route>
     <Route path="welcome" element={<WelcomePage />} />
-   
+    <Route path="settings" element={<Settings/>} />
   </Route>,
 ];
 

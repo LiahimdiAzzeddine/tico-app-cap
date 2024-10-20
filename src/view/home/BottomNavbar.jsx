@@ -19,24 +19,24 @@ const BottomNavbar = () => {
   const navigate = useNavigate();
 
   return (
-    <IonFooter>
+    <IonFooter className="ion-no-border">
       <IonToolbar className="bg-white">
-        <div className="flex justify-around items-center py-4 px-1">
+        <div className="flex justify-around items-center py-4 px-2">
           {/* Bouton Accueil */}
           <button className="flex flex-col items-center"  onClick={() => {navigate("/home", { replace: true });}}>
             <img
               src={isAuthenticated ? accueil_active : accueil}
               alt="Accueil"
-              className="w-12 h-12 mb-1"
+              className="w-14 h-14 mb-1"
             />
           </button>
 
           {/* Bouton Favoris */}
-          <button className="flex flex-col items-center">
+          <button className="flex flex-col items-center" onClick={() => {navigate("/favoris", { replace: true });}}>
             <img
               src={isAuthenticated ? favoris_active : favoris}
               alt="Favoris"
-              className="w-12 h-12 mb-1"
+              className="w-14 h-14 mb-1"
             />
           </button>
 
@@ -45,25 +45,25 @@ const BottomNavbar = () => {
             <img
               src={scanner}
               alt="Scanner"
-              className="w-auto h-12 mb-1"
+              className="w-auto h-14 mb-1"
             />
           </button>
 
           {/* Bouton Profil */}
-          <button className="flex flex-col items-center">
+          <button className="flex flex-col items-center" onClick={() => {navigate("/profile", { replace: true });}}>
             <img
               src={isAuthenticated ? profil_active : profil}
               alt="Profil"
-              className="w-12 h-12 mb-1"
+              className="w-14 h-14 mb-1"
             />
           </button>
 
           {/* Bouton Astuces */}
-          <button className="flex flex-col items-center">
+          <button className="flex flex-col items-center" onClick={() => {navigate("/tips", { replace: true });}}>
             <img
               src={isAuthenticated ? astuces_active : astuces}
               alt="Astuces"
-              className="w-12 h-12 mb-1"
+              className="w-14 h-14 mb-1"
             />
           </button>
         </div>
