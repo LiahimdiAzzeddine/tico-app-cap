@@ -17,10 +17,10 @@ const HomeLayout = () => {
         <div className="flex flex-col h-full bg-[#ffeda3] rounded-b-[10vw]">
           <div className="flex justify-between items-center mb-5 mt-1 p-4 modal-background">
             <button className="text-[#006aff]" onClick={() => navigate('scanner', { replace: true })}>
-              <img src={X} alt="Close" className="w-8 h-8" />
+              <img src={X} alt="Close" className="w-10 h-10" />
             </button>
             <div className="text-orange-500 font-bold text-2xl titre-bold">
-              <img src={Tico} alt="Tico" className="h-6" />
+              <img src={Tico} alt="Tico" className="h-7" />
             </div>
           </div>
           

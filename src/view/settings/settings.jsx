@@ -1,4 +1,4 @@
-import { IonPage, IonContent } from "@ionic/react";
+import { IonPage, IonContent,IonButton } from "@ionic/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import X from "../../assets/auth/XV6-33.png";
@@ -71,7 +71,7 @@ function Settings() {
             <div className="flex flex-col items-center justify-center space-y-4 grow-[3]">
               {isAuthenticated && (
                 <button
-                  className="bg-orange-500 text-white py-2 px-6 rounded-xl w-3/4"
+                  className="bg-orange-500 text-white py-2 px-6 rounded-xl w-3/4 active:bg-orange-700 transition duration-75 transform active:scale-95"
                   onClick={() => {
                     setShowModalInfo(true);
                   }}
@@ -81,21 +81,23 @@ function Settings() {
               )}
               {!isAuthenticated && (
                 <button
-                  className="bg-orange-500 text-white py-2 px-6 rounded-xl w-3/4"
+                  className="bg-orange-500 text-white py-2 px-6 rounded-xl w-3/4 active:bg-orange-700 transition duration-75 transform active:scale-95"
                   onClick={() => {
                     setShowModalInscription(true);
                   }}
                 >
                   Je crée mon compte
                 </button>
+                
               )}
+              {/* 
               {isAuthenticated && (
-                <button className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4">
+                <button className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4 active:bg-blue-700 transition duration-75 transform active:scale-95">
                   Gestion des notifications
                 </button>
-              )}
+              )}*/}
               <button
-                className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4"
+                className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4 active:bg-blue-700 transition duration-75 transform active:scale-95"
                 onClick={() => {
                   setShowModalContact(true);
                 }}
@@ -103,41 +105,46 @@ function Settings() {
                 Nous contacter
               </button>
               <button
-                className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4"
+                className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4 active:bg-blue-700 transition duration-75 transform active:scale-95"
                 onClick={() => {
                   setShowModalFAQ(true);
                 }}
               >
                 FAQ
               </button>
-              <button className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4"  onClick={() => {
+              <button
+                className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4 active:bg-blue-700 transition duration-75 transform active:scale-95"
+                onClick={() => {
                   setShowModalInviteTico(true);
-                }}>
+                }}
+              >
                 Faire connaître TiCO
               </button>
-              <button className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4">
+              {/* 
+              <button className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4 hover:bg-blue-600 active:bg-blue-700 transition duration-75 transform active:scale-95">
                 Noter l'application
-              </button>
+              </button>*/}
             </div>
 
             {/* Logout Section */}
 
             <div className="grow-[1] flex flex-col items-center mt-2">
               {isAuthenticated && (
-                <button
-                  className="bg-orange-500 text-white py-2 px-6 rounded-xl w-3/6"
-                  onClick={handleLogout}
-                >
-                  Se déconnecter
-                </button>
+                
+                <IonButton
+                className="text-white font-bold transition duration-75 transform active:scale-95 normal-case ion-button"
+                onClick={handleLogout}
+              >
+                Se déconnecter
+              </IonButton>
               )}
               {!isAuthenticated && (
-                <button
-                  className="bg-orange-500 text-white py-2 px-6 rounded-xl w-3/6"
-                  onClick={() => setShowModalLogin(true)}
-                >
-                  Se connecter
-                </button>
+                <IonButton
+                className="text-white font-bold transition duration-75 transform active:scale-95 normal-case ion-button"
+                onClick={() => setShowModalLogin(true)}
+              >
+                Se connecter
+              </IonButton>
               )}
               <div className="text-center text-blue-500 mt-4">
                 <a href="#" className="underline">

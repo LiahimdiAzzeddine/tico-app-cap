@@ -3,7 +3,7 @@ import useLogin from "../../hooks/auth/useLogin";
 import { Link } from "react-router-dom";
 import Spinner from "../composants/Spinner";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
-import { IonIcon } from "@ionic/react";
+import { IonIcon, IonButton } from "@ionic/react";
 
 const Login = () => {
   const { handleSubmit, loading, error } = useLogin();
@@ -22,7 +22,7 @@ const Login = () => {
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full">
       <h2 className="text-center text-[#006aff] text-2xl titre-bold grow">
-        Se{" "}
+        Se
         <span className="underline underline-offset-4 decoration-orange-400">
           connecter
         </span>
@@ -105,13 +105,13 @@ const Login = () => {
         </div>
 
         <div className="pt-3 flex justify-center">
-          <button
+          <IonButton
             type="submit"
-            className="w-2/3 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-200 font-bold"
+            className="text-white font-bold transition duration-75 transform active:scale-95 normal-case ion-button"
             disabled={loading}
           >
             Connexion
-          </button>
+          </IonButton>
         </div>
       </form>
       {/** 

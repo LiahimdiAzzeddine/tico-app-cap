@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useRegister from "../../hooks/auth/useRegister";
 import Spinner from "../composants/Spinner";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
-import { IonIcon } from "@ionic/react";
+import { IonIcon, IonButton } from "@ionic/react";
 
 const AccountCreationForm = ({ onClose }) => {
   const [values, setValues] = useState({
@@ -188,13 +188,14 @@ const AccountCreationForm = ({ onClose }) => {
         </div>
 
         <div className="pt-3 flex justify-center">
-          <button
+        <IonButton
             type="submit"
-            className="w-1/3 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition duration-200 font-bold"
+            className="text-white font-bold transition duration-75 transform active:scale-95 normal-case ion-button"
             disabled={loading}
           >
             Valider
-          </button>
+          </IonButton>
+          
         </div>
       </form>
 

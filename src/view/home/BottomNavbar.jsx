@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IonFooter, IonToolbar } from "@ionic/react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { useNavigate } from "react-router-dom";
@@ -16,32 +16,37 @@ import profil_active from "../../assets/navbar/profil_active.png";
 
 const BottomNavbar = () => {
   const isAuthenticated = useIsAuthenticated();
+  const [authState, setAuthState] = useState(isAuthenticated);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setAuthState(isAuthenticated);
+  }, [isAuthenticated]);
 
   return (
     <IonFooter className="ion-no-border">
       <IonToolbar className="bg-white">
         <div className="flex justify-around items-center py-4 px-2">
           {/* Bouton Accueil */}
-          <button className="flex flex-col items-center"  onClick={() => {navigate("/home", { replace: true });}}>
+          <button className="flex flex-col items-center" onClick={() => navigate("/home", { replace: true })}>
             <img
-              src={isAuthenticated ? accueil_active : accueil}
+              src={authState ? accueil_active : accueil}
               alt="Accueil"
               className="w-14 h-14 mb-1"
             />
           </button>
 
           {/* Bouton Favoris */}
-          <button className="flex flex-col items-center" onClick={() => {navigate("/favoris", { replace: true });}}>
+          <button className="flex flex-col items-center" onClick={() => navigate("/favoris", { replace: true })}>
             <img
-              src={isAuthenticated ? favoris_active : favoris}
+              src={authState ? favoris_active : favoris}
               alt="Favoris"
               className="w-14 h-14 mb-1"
             />
           </button>
 
           {/* Bouton Scanner */}
-          <button className="flex flex-col items-center"  onClick={() => {navigate("/scanner", { replace: true });}}>
+          <button className="flex flex-col items-center" onClick={() => navigate("/scanner", { replace: true })}>
             <img
               src={scanner}
               alt="Scanner"
@@ -50,18 +55,18 @@ const BottomNavbar = () => {
           </button>
 
           {/* Bouton Profil */}
-          <button className="flex flex-col items-center" onClick={() => {navigate("/profile", { replace: true });}}>
+          <button className="flex flex-col items-center" onClick={() => navigate("/profile", { replace: true })}>
             <img
-              src={isAuthenticated ? profil_active : profil}
+              src={authState ? profil_active : profil}
               alt="Profil"
               className="w-14 h-14 mb-1"
             />
           </button>
 
           {/* Bouton Astuces */}
-          <button className="flex flex-col items-center" onClick={() => {navigate("/tips", { replace: true });}}>
+          <button className="flex flex-col items-center" onClick={() => navigate("/tips", { replace: true })}>
             <img
-              src={isAuthenticated ? astuces_active : astuces}
+              src={authState ? astuces_active : astuces}
               alt="Astuces"
               className="w-14 h-14 mb-1"
             />
@@ -71,5 +76,4 @@ const BottomNavbar = () => {
     </IonFooter>
   );
 };
-
 export default BottomNavbar;
