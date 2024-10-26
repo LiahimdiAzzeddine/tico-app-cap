@@ -15,6 +15,7 @@ def capacitor_pods
   pod 'CapacitorScreenOrientation', :path => '../../node_modules/@capacitor/screen-orientation'
   pod 'CapacitorShare', :path => '../../node_modules/@capacitor/share'
   pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
+  pod 'CapgoCapacitorFlash', :path => '../../node_modules/@capgo/capacitor-flash'
 end
 
 target 'App' do

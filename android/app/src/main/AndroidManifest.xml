@@ -41,7 +41,11 @@ xmlns:tools="http://schemas.android.com/tools"
 
     <!-- Permissions -->
   <uses-permission android:name="android.permission.CAMERA" />
-
+<uses-permission android:name="android.permission.FLASHLIGHT" />
   <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera.flash" />
+
+<uses-feature android:name="android.hardware.camera" />
+
 </manifest>

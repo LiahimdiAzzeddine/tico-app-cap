@@ -1,19 +1,10 @@
 import { useState, useEffect } from "react";
 import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
-import {
-  IonContent,
-  IonCard,
-  IonCardContent,
-  IonRow,
-  IonText,
-  IonButton,
-  IonAlert,
-  IonToast,
-} from "@ionic/react";
-import frame from "../../assets/frame.svg";
-import whiteLogo from "../../assets/logo-white.svg";
+import { IonContent, IonRow, IonText, IonButton } from "@ionic/react";
 import "./Scanner.css";
-import  Result  from "./Result";
+import ScanArea from "./ScanArea";
+import PermissionAlert from "./PermissionAlert";
+import ScanResultModal from "./ScanResultModal";
 
 const Main = () => {
   const [err, setErr] = useState(null);
@@ -24,74 +15,87 @@ const Main = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [showAlert, setShowAlert] = useState(null);
   const [showToast, setShowToast] = useState(false);
+  const [flashOn, setFlashOn] = useState(false);
+  const [modalisOpen, setModalisOpen] = useState(false);
 
-  // Méthode pour forcer la demande de permission avec alerte Ionic
+  const openModal = (barreCode) => {
+    setScannedResult(barreCode);
+    if(barreCode) setModalisOpen(true);
+  };
+  const closeModal = () => {
+    setScannedResult(Null);
+    setModalisOpen(false);
+  };
+
+  // Handle errors by stopping the scan and displaying messages
+  const handleError = (message) => {
+    setErr(message);
+    stopScan();
+  };
+
+  // Permission check with forced prompt
   const checkPermissionForced = async () => {
     setErr(null);
     try {
       const status = await BarcodeScanner.checkPermission({ force: true });
-
-      if (status.granted) return true;
-
-      if (status.denied) {
-        setShowAlert({
-          header: "Permission requise",
-          message:
-            "Pour utiliser la caméra, veuillez activer la permission dans les paramètres de l'application.",
-          buttons: [
-            {
-              text: "Annuler",
-              role: "cancel",
-              handler: () => setErr("Permission d'accès à la caméra refusée."),
-            },
-            {
-              text: "Ouvrir les paramètres",
-              handler: async () => {
-                await BarcodeScanner.openAppSettings();
-              },
-            },
-          ],
-        });
-      } else if (status.neverAsked) {
-        setShowAlert({
-          header: "Autorisation caméra",
-          message:
-            "Nous avons besoin de votre permission pour utiliser la caméra. Voulez-vous l'autoriser ?",
-          buttons: [
-            {
-              text: "Non",
-              role: "cancel",
-              handler: () => setErr("Permission non accordée."),
-            },
-            {
-              text: "Oui",
-              handler: () => startScan(true), // Re-lance le scan si l'utilisateur accepte
-            },
-          ],
-        });
-      } else if (status.restricted || status.unknown) {
-        setErr("L'accès à la caméra est restreint ou non disponible.");
-      }
-
-      return false;
+      return handlePermissionStatus(status);
     } catch (error) {
-      setErr(`Erreur lors de la vérification: ${error.message}`);
+      handleError(`Erreur lors de la vérification: ${error.message}`);
       return false;
     }
   };
 
-  // Méthode pour vérifier la permission pour la premier fois
+  // Normal permission check without forcing
   const checkPermissionNormal = async () => {
     setErr(null);
     try {
-      const status = await BarcodeScanner.checkPermission({ force: true });
-
-      if (status.granted) return true;
-      return false;
+      const status = await BarcodeScanner.checkPermission();
+      return handlePermissionStatus(status);
     } catch (error) {
-      setErr(`Erreur: ${error.message}`);
+      handleError(`Erreur: ${error.message}`);
       return false;
     }
+  };
+
+  // Handle permission statuses
+  const handlePermissionStatus = (status) => {
+    if (status.granted) return true;
+
+    if (status.denied) {
+      setShowAlert({
+        header: "Permission requise",
+        message:
+          "Veuillez activer la permission dans les paramètres de l'application.",
+        buttons: [
+          {
+            text: "Annuler",
+            role: "cancel",
+            handler: () => setErr("Permission refusée."),
+          },
+          {
+            text: "Ouvrir les paramètres",
+            handler: async () => await BarcodeScanner.openAppSettings(),
+          },
+        ],
+      });
+    } else if (status.neverAsked) {
+      setShowAlert({
+        header: "Autorisation caméra",
+        message: "Voulez-vous autoriser l'utilisation de la caméra?",
+        buttons: [
+          {
+            text: "Non",
+            role: "cancel",
+            handler: () => setErr("Permission non accordée."),
+          },
+          { text: "Oui", handler: () => startScan(true) },
+        ],
+      });
+    } else if (status.restricted || status.unknown) {
+      setErr("L'accès à la caméra est restreint ou non disponible.");
+    }
+
+    return false;
   };
 
   const startScan = async (initial = false) => {
@@ -112,11 +116,11 @@ const Main = () => {
         const result = await BarcodeScanner.startScan({
           targetedFormats: ["CODE_128", "EAN_13", "EAN_8"],
         });
-
         if (result.hasContent) {
-          if (result.content !== lastScannedCode) {
-            setScannedResult(result.content);
+          if (result.content !== lastScannedCode || !modalisOpen) {
+            openModal(result.content);
             setLastScannedCode(result.content);
+            setFlashOn(false);
           }
 
           if (isScanning) scan();
@@ -130,69 +134,72 @@ const Main = () => {
     }
   };
 
-
   const stopScan = () => {
     BarcodeScanner.showBackground();
     setHideBg(false);
     setIsScanning(false);
     BarcodeScanner.stopScan();
   };
-
-
+  const toggleFlash = async () => {
+    if (flashOn) {
+      await BarcodeScanner.disableTorch(); // Désactiver le flash
+      setFlashOn(false);
+    } else {
+      await BarcodeScanner.enableTorch(); // Activer le flash
+      setFlashOn(true);
+    }
+  };
   useEffect(() => {
     startScan();
+    openModal("121212")
     return () => {
       stopScan();
     };
   }, []);
 
   return (
-    <IonContent className={hideBg ? "hideBg" : "ion-padding"}>
-      {err || !hasPermission ? (
-        <IonRow>
-          <IonText color="danger">{err}</IonText>
-          <IonButton onClick={() => startScan(true)}>
-            Réinitialiser
-          </IonButton>
-        </IonRow>
-      ) : (
-        <>
-          {scannedResult && (
-            <Result
-						barcode={scannedResult}
-						resetBarcode={setScannedResult}
-					/>
-          )}
-          {hideBg && (
-            <div className="scan-container">
-              <img src={whiteLogo} alt="Logo" className="logo-top" />
-              <div className="scan-box">
-                <img src={frame} alt="Frame" className="frame-center" />
-              </div>
-            </div>
-          )}
-        </>
-      )}
+    <>
+      <IonContent className={hideBg ? "hideBg" : "ion-padding"}>
+        {err || !hasPermission ? (
+          <IonRow>
+            <IonText color="danger">{err}</IonText>
+            <IonButton onClick={() => startScan(true)}>Réinitialiser</IonButton>
+          </IonRow>
+        ) : (
+          <>
+            {/* Main Scan Area */}
+            <ScanArea
+              hideBg={hideBg}
+              toggleFlash={toggleFlash}
+              flashOn={flashOn}
+            />
+          </>
+        )}
 
-      {showAlert && (
-        <IonAlert
-          isOpen={!!showAlert}
-          header={showAlert.header}
-          message={showAlert.message}
-          buttons={showAlert.buttons}
-          onDidDismiss={() => setShowAlert(null)}
-        />
-      )}
+        {showAlert && (
+          <>
+            {/* Permission Alert */}
+            <PermissionAlert
+              showAlert={showAlert}
+              setShowAlert={setShowAlert}
+            />
+          </>
+        )}
 
-      {showToast && (
-        <IonToast
-          isOpen={showToast}
-          message={err}
-          duration={2000}
-          onDidDismiss={() => setShowToast(false)}
-        />
-      )}
-    </IonContent>
+        {showToast && (
+          <>
+            {/* Error Toast */}
+            <ErrorToast
+              showToast={showToast}
+              err={err}
+              setShowToast={setShowToast}
+            />
+          </>
+        )}
+      </IonContent>
+      {/* Scanned Result Modal */}
+      <ScanResultModal scannedResult={scannedResult} modalisOpen={modalisOpen} closeModal={closeModal} setModalisOpen={setModalisOpen} />
+    </>
   );
 };
 
