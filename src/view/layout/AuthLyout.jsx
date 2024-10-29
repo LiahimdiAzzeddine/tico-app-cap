@@ -10,6 +10,7 @@ const AuthLayout = () => {
   const navigate = useNavigate();
 
   return (
+    
     <IonPage id="main-content">
       <Menu />
 

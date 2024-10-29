@@ -29,25 +29,44 @@
   font-weight: bold;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'emiExpandedBold';
   src: url('./assets/fonts/Stapel-SemiExpandedBold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
-.titre-bold {
-  font-family: 'ClashDisplayBold', Arial, sans-serif;
-  font-weight: 900;
+
+:root {
+  --white-color: #ffffff;
+  --light-grey-color: #f7f7f7;
+  --transparent-color: #f7f7f700;
+  --mid-grey-color: #cccccc;
+  --dark-color: #444444;
+  --light-green-color: rgba(0, 204, 118, 1);
+  --mid-green-color: rgba(0, 170, 149, 1);
+  --dark-green-color: #aa8b00;
+  --gradient-orange: linear-gradient(0deg,
+      rgba(255, 131, 0) 0%,
+      rgba(253, 160, 60) 100%);
+  --yellow-color: #ffed47;
+  --red-color: #d60202;
+  --fb-blue-sapphire: #b6e1dd;
 }
-
-
+#root {
+  height: 100dvh;
+  width: 100dvw;
+  min-height: -webkit-fill-available;
+}
 
 /* Configuration de la taille de la police de base pour l'utilisation de rem */
 /* Taille de police pour les écrans plus grands (bureau) */
 html {
-  font-size: 2.5vmin;
+  font-size: 16px;
+  height: 100vdh;
+  width: 100dvw;
+  min-height: -webkit-fill-available;
 }
-
 /* Styles globaux */
 body {
   margin: 0;
@@ -55,50 +74,92 @@ body {
   font-family: 'RobotoRegular', sans-serif;
   color: #333;
   line-height: 1.5;
-  background-color: #ffffff00;
+  background-color: var(--transparent-color);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased !important;
+  height: 100dvh;
+  width: 100dvw;
+  min-height: -webkit-fill-available;
+  position: fixed;
+  -webkit-overflow-scrolling: touch;
 }
-
-
-/* Ajustements spécifiques pour les tailles d'écran mobile */
-@media (max-width: 640px) { /* Ajustez 640px en fonction de vos besoins */
-  html {
-    font-size: 4vw; /* Utilisation de vw pour un dimensionnement réactif */
+.wrapper {
+  width: 100dvw;
+  height: 100dvh;
+  overflow-y: auto;
+}
+.details {
+  max-width: 500px;
+  left: calc(50vw - 250px);
+  margin: 0 auto;
+}
+@media (max-width: 532px) {
+  .details {
+    left: 0;
   }
 }
+.titre-bold {
+  font-family: 'ClashDisplayBold', Arial, sans-serif;
+  font-weight: 900;
+}
 
-/* Exemple d'ajustement pour les écrans plus larges (tablettes et ordinateurs) */
+
+ 
+@media (max-width:532px) {
+
+  html {
+    font-size: 4dvw;
+  }
+}
+@media (max-width:321px) {
+
+  html {
+    font-size: 3.5dvw;
+  }
+}
+/*
+Exemple d'ajustement pour les écrans plus larges (tablettes et ordinateurs) 
 @media (min-width: 768px) and (max-width: 1024px) {
   html {
-    font-size: 3.5vw; /* Ajustez la taille de police pour les écrans moyens */
+    font-size: 3.5vw;
   }
 }
+*/
 ion-chip {
   --color: #0067ff;
   border-color: #0067ff;
   border: solid 1px;
   --background: #ffffff00;
 }
-ion-chip:hover{
+
+ion-chip:hover {
   --background: #0067ff;
- --color: #ffffff;
+  --color: #ffffff;
 }
 
 /* custom-styles.css */
 .ion-button {
-  --background: #f97316; /* Couleur de fond par défaut */
-  --background-hover: #ea580c; /* Couleur de fond au survol */
-  --background-activated: #c2410c; /* Couleur de fond lorsque le bouton est cliqué */
-  --background-focused: #c2410c; /* Couleur de fond lorsque le bouton est focalisé */
+  --background: #f97316;
+  /* Couleur de fond par défaut */
+  --background-hover: #ea580c;
+  /* Couleur de fond au survol */
+  --background-activated: #c2410c;
+  /* Couleur de fond lorsque le bouton est cliqué */
+  --background-focused: #c2410c;
+  /* Couleur de fond lorsque le bouton est focalisé */
 
-  --color: white; /* Couleur du texte */
+  --color: white;
+  /* Couleur du texte */
 
-  --border-radius: 0.5rem; /* Ajoute un arrondi similaire à Tailwind */
-  --border-color: transparent; /* Pas de bordure visible */
+  --border-radius: 0.5rem;
+  /* Ajoute un arrondi similaire à Tailwind */
+  --border-color: transparent;
+  /* Pas de bordure visible */
   --border-style: solid;
 
-  --box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25); /* Ajoute une ombre douce */
+  --box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+  /* Ajoute une ombre douce */
 
-  --ripple-color: rgba(255, 255, 255, 0.3); /* Couleur de l'effet ripple */
-
-
+  --ripple-color: rgba(255, 255, 255, 0.3);
+  /* Couleur de l'effet ripple */
 }

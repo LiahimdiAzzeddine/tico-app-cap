@@ -6,17 +6,21 @@ import { Outlet, useNavigate } from "react-router-dom";
 import TransparencyScale from "./TransparencyScale";
 import NameProduct from "./NameProduct";
 import ProductDetails from "./ProductDetails";
+import Sections from "./Sections";
+import TiConseil from "./TiConseil";
+import ProductDetailsAccordion from "./ProductDetailsAccordion";
+import Recettes from "./Recettes";
 
 const FicheProduit = (props) => {
   const navigate = useNavigate();
-  const [currentPosition, setCurrentPosition] = useState(3); 
+  const [currentPosition, setCurrentPosition] = useState(3);
   const resetAll = () => {
     props.resetBarcode();
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#ffffff]">
-      <div className="flex justify-between items-center modal-background pb-1">
+    <div className="flex flex-col h-full bg-[#ffffff] ">
+      <div className="flex justify-between items-center modal-background pb-1 px-4">
         <button
           className="text-[#006aff]"
           onClick={() => navigate("scanner", { replace: true })}
@@ -29,17 +33,28 @@ const FicheProduit = (props) => {
       </div>
 
       {/* Scrollable Outlet Content */}
-      <div className="flex-grow overflow-y-auto py-2">
-        <TransparencyScale
-          currentPosition={currentPosition}
-          setCurrentPosition={setCurrentPosition}
-        />
-        <NameProduct Name="Huile de pépins de raisin 75 cl" Brand="Pure nature" ></NameProduct>
-        <ProductDetails/>
+      <div className="flex-grow overflow-y-auto">
+        <div className="flex flex-col space-y-10">
+          <TransparencyScale
+            currentPosition={currentPosition}
+            setCurrentPosition={setCurrentPosition}
+          />
+          <NameProduct
+            Name="Huile de pépins de raisin 75 cl"
+            Brand="Pure nature"
+          ></NameProduct>
+          <ProductDetails />
+          <Sections />
+          <TiConseil />
+          <ProductDetailsAccordion/>
+        <Recettes/>
+          {/** 
+        
         <Header>
           <h3 className="text-xl font-bold">Code-barres détecté</h3>
           <p>{props.barcode}</p>
-        </Header>
+        </Header>*/}
+        </div>
       </div>
     </div>
   );

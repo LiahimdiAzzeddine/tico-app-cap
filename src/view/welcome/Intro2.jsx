@@ -11,7 +11,7 @@ function Intro2() {
         <img className="w-64" src={tico_intro} alt="TiCO Logo" />
       </div>
 
-      <div className="grow flex items-center justify-start w-full max-w-sm  px-1">
+      <div className="grow flex items-center justify-center w-full max-w-sm  px-1 md:px-0">
         
         <div
           className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center relative"
@@ -19,7 +19,7 @@ function Intro2() {
         >
           <img
           src={barcode}
-          className="max-h-20 sm:max-h-24 mx-auto z-10 absolute top-[-2vh] left-0 right-0"
+          className="max-h-20 mx-auto z-10 absolute top-[-1vh] left-0 right-0"
           alt="Barcode"
         />
           <div className="flex flex-col items-center justify-center w-4/5 gap-3 text-center">

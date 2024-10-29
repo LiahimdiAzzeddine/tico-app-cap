@@ -28,10 +28,10 @@ const ScanResultModal = ({ scannedResult, modalisOpen, closeModal, setModalisOpe
       handleBehavior="cycle"
       onIonModalWillPresent={handleModalWillPresent}
       onIonModalDidDismiss={handleDismiss}
-      cssClass={`full-screen-modal ${isAnimating ? "modal-vibrate" : ""}`}
+      cssClass={`full-screen-modal scan-result-modal ${isAnimating ? "modal-vibrate" : ""}`}
       onAnimationEnd={handleAnimationEnd}
     >
-      <IonContent className="ion-padding">
+      <IonContent className="ion-padding-vertical">
         <div className="ion-margin-top">
           {scannedResult && <FicheProduit barcode={scannedResult} resetBarcode={closeModal} />}
         </div>

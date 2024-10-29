@@ -21,6 +21,8 @@ function LoginPage() {
 
 
   return (
+    <div className='wrapper'>
+			<div className='details'>
     <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full">
       {/* Logo Section */}
       <div className="grow flex items-end justify-center w-full pt-1">
@@ -65,7 +67,7 @@ function LoginPage() {
 
       {/* Empty div for spacing */}
       <div className="grow min-h-[8vh]"></div>
-    </div>
+    </div></div></div>
   );
 }
 

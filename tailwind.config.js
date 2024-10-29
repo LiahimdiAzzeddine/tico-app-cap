@@ -6,6 +6,13 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        'custom-blue': '#0f548d',
+        'custom-gray':'#a4a4a4',
+        'custom-rose':'#fff1f1',
+        'custom-red':"#c32721",
+        'custom-red-clear':"#c6312b"
+      },
       screens: {
 
       },

@@ -14,19 +14,7 @@ const FbLyout = () => {
 
       <IonContent className="flex flex-col h-full">
         <div className="flex flex-col h-full bg-[#ffffff]">
-          <div className="flex justify-between items-center mb-0 mt-1 p-4 modal-background">
-            <button className="text-[#006aff]" onClick={() => navigate('scanner', { replace: true })}>
-              <img src={X} alt="Close" className="w-10 h-10" />
-            </button>
-            <div className="text-orange-500 font-bold text-2xl titre-bold">
-              <img src={Tico} alt="Tico" className="h-7" />
-            </div>
-          </div>
-          
-          {/* Scrollable Outlet Content */}
-          <div className="flex-grow overflow-y-auto p-4 pt-0">
             <Outlet />
-          </div>
         </div>
       </IonContent>
 

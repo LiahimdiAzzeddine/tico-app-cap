@@ -3,9 +3,10 @@ import WelcomeSlider from '../welcome/WelcomeSlider'
 
 function WelcomePage() {
   return (
-    <div className="w-screen h-screen overflow-hidden">
+    <div className='wrapper'>
+			<div className='details overflow-hidden'>
         <WelcomeSlider/>
-    </div>
+    </div></div>
   )
 }
 

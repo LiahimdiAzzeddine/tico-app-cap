@@ -25,7 +25,7 @@ function Intro4() {
               </span>
               {" "}?
             </h2>
-            <div className="text-xl sm:text-xl text-[#006aff] ">
+            <div className="text-xl text-[#006aff] ">
               Scannez votre premier produit, explorez nos recettes, et
               participez à rendre l'alimentation
               <span className="font-bold">plus transparente et durable !</span>
