@@ -19,6 +19,7 @@ const FicheProduit = (props) => {
   };
 
   return (
+    <div className="max-w-screen-sm m-auto">
     <div className="flex flex-col h-full bg-[#ffffff] ">
       <div className="flex justify-between items-center modal-background pb-1 px-4">
         <button
@@ -56,6 +57,7 @@ const FicheProduit = (props) => {
         </Header>*/}
         </div>
       </div>
+    </div>
     </div>
   );
 };

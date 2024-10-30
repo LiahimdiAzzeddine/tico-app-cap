@@ -23,8 +23,8 @@ function TiConseil() {
           <div className="ml-11">
             {TiConseils.map((item, index) => (
               <div key={index} className="text-[#2b4b73] w-[95%]">
-                <p className="text-md">
-                  <span className="font-bold text-lg">{item.title} :</span>
+                <p className="text-sm">
+                  <span className="font-bold text-md">{item.title} :</span>
                   {item.description}
                 </p>
               </div>

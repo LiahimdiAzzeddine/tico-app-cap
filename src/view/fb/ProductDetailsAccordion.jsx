@@ -60,14 +60,14 @@ const ProductDetailsAccordion = () => {
                     ref={setPopperElement}
                     style={{
                         ...styles.popper,
-                        zIndex: 1000,
+                        zIndex: 10,
                     }}
                     {...attributes.popper}
                 >
                     <img
                         src={BubbleImg}
                         alt="Bubble"
-                        className="w-20 h-auto"
+                        className="w-16 h-auto"
                         style={{ pointerEvents: 'none' }}
                     />
                 </div>

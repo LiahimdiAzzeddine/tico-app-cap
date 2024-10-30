@@ -1,6 +1,7 @@
 import React from "react";
 import recetteBadge from "../../assets/fb/recetteBadge.svg";
 import horloge from "../../assets/fb/horloge.svg";
+import flecheRed from "../../assets/fb/flecheRed.svg"
 function Recettes() {
   const recettes = [
     {
@@ -22,7 +23,8 @@ function Recettes() {
   ];
 
   return (
-    <div className="flex flex-col w-full space-y-4 py-10">
+    <>
+    <div className="flex flex-col w-full space-y-4 py-10 pb-5">
       {recettes.map((item, index) => (
         <div
           key={index}
@@ -69,7 +71,17 @@ function Recettes() {
           </div>
         </div>
       ))}
+      
     </div>
+    <div className="flex flex-row items-start justify-center space-x-3 ">
+        <img src={flecheRed} className="w-12"/>
+      <button className="text-gl text-white bg-custom-red rounded-md font-bold w-48 p-2">
+    Proposer une recette
+    pour ce produit
+    </button>
+    </div>
+    
+    </>
   );
 }
 

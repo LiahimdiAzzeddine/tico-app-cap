@@ -63,7 +63,7 @@
 /* Taille de police pour les écrans plus grands (bureau) */
 html {
   font-size: 16px;
-  height: 100vdh;
+  height: 100dvh;
   width: 100dvw;
   min-height: -webkit-fill-available;
 }
@@ -103,6 +103,10 @@ body {
   font-weight: 900;
 }
 
+.titre-roboto-bold {
+  font-family: 'RobotoBold', Arial, sans-serif;
+  font-weight: 900;
+}
 
  
 @media (max-width:532px) {
@@ -163,3 +167,9 @@ ion-chip:hover {
   --ripple-color: rgba(255, 255, 255, 0.3);
   /* Couleur de l'effet ripple */
 }
+
+.marker-effect {
+  background-image: linear-gradient(to bottom, transparent 40%, #6dc3bc 50%);
+  border-radius: 10px;
+}
+
