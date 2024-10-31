@@ -1,6 +1,6 @@
 import React from "react";
 import indicateur from "../../assets/fb/indicateur.svg";
-import scaleImage from "../../assets/fb/scale-image.png";
+import scaleImage from "../../assets/fb/scale-image.svg";
 import { Link } from "react-router-dom";
 
 const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
