@@ -1,109 +1,118 @@
-import React, { useState } from 'react';
-import { usePopper } from 'react-popper';
+import React, { useState, useRef  } from 'react';
+import Draggable from "react-draggable";
+
 import fleche from "../../assets/fb/flechBottom.svg";
 import BubbleImg from "../../assets/fb/BubbleImg.svg";
+import Scores from "./accordion/Scores";
+import NutritionalInfo from "./accordion/NutritionalInfo";
+import OriginsInfo from './accordion/OriginsInfo';
+import IngredientsInfo from './accordion/IngredientsInfo';
+import LabelsInfo from './accordion/LabelsInfo';
+import BrandInfo from './accordion/BrandInfo';
+import UsageInfo from './accordion/UsageInfo';
+import PackagingInfo from './accordion/PackagingInfo';
+import {ContactModal} from "./Modal"
 
+
+// Composants pour chaque contenu de panneau
 const ProductDetailsAccordion = () => {
     const [openPanel, setOpenPanel] = useState(null);
-    const [bubbleVisible, setBubbleVisible] = useState(false);
-    const [referenceElement, setReferenceElement] = useState(null);
-    const [popperElement, setPopperElement] = useState(null);
+    const [bubbleVisible] = useState(true); // Bulle toujours visible
+    const [isOpen, setIsOpen] = useState(false);
 
-    const { styles, attributes } = usePopper(referenceElement, popperElement, {
-        placement: 'right-start', // Utilise right-start pour un alignement partiel à droite
-        modifiers: [
-            {
-                name: 'offset',
-                options: {
-                    offset: [-40, -75], // Ajuste la position [x, y] pour un placement partiel
-                },
-            },
-            {
-                name: 'preventOverflow',
-                options: {
-                    boundary: 'clippingParents',
-                    altAxis: true,
-                    padding: 10, // Ajoute un padding pour éviter de coller aux bords
-                },
-            },
-            {
-                name: 'flip',
-                options: {
-                    fallbackPlacements: ['left-start'], // Bascule à gauche si pas assez d'espace à droite
-                },
-            },
-            {
-                name: 'computeStyles',
-                options: {
-                    gpuAcceleration: true, // Améliore les performances
-                },
-            },
-        ],
-    });
+    const disabledPanels = [3, 5, 6,7,8]; // Désactive les panneaux 2, 4 et 6
+    const nodeRef = useRef(null);
+    const isDraggingRef = useRef(false);
 
-    const togglePanel = (panel, event) => {
-        const isOpen = openPanel === panel;
-        setOpenPanel(isOpen ? null : panel);
-        
-        if (!isOpen) {
-            setReferenceElement(event.currentTarget);
-            setBubbleVisible(true);
-        } else {
-            setBubbleVisible(false);
-        }
+
+    const panelContents = [
+        <Scores />,
+        <NutritionalInfo />,
+        <OriginsInfo/>,
+        <IngredientsInfo />,
+        <LabelsInfo />,
+        <BrandInfo />,
+        <UsageInfo />,
+        <PackagingInfo />
+    ];
+
+    const togglePanel = (panel) => {
+        setOpenPanel(openPanel === panel ? null : panel);
     };
+ 
+    const onDrag = () => {
+        isDraggingRef.current = true;
+      };
+    
+      const onStop = () => {
+        
+        if (!isDraggingRef.current) {
+            console.log("Bubble image clicked!");
+            setIsOpen(true)
+        }
+        isDraggingRef.current = false;
+      };
 
     return (
-        <div className="border-b border-gray-200 divide-y divide-gray-200 px-4 relative">
+        <>
+        <div
+            className="border-b border-gray-200 divide-y divide-custom-green-divider relative"
+            style={{ position: 'relative' }} // Pour positionner la bulle
+        >
             {bubbleVisible && (
+                
+                <Draggable nodeRef={nodeRef} bounds="parent" onStop={onStop} onDrag={onDrag}>
                 <div
-                    ref={setPopperElement}
+                
+                ref={nodeRef}
+                    className="absolute z-50"
                     style={{
-                        ...styles.popper,
-                        zIndex: 10,
+                        top: '50%',
+                        left: '75%',
+                        transform: 'translate(-50%, -50%)',
                     }}
-                    {...attributes.popper}
                 >
-                    <img
-                        src={BubbleImg}
-                        alt="Bubble"
-                        className="w-16 h-auto"
-                        style={{ pointerEvents: 'none' }}
-                    />
+                    <img src={BubbleImg} alt="Bubble" className="w-16 h-auto" />
                 </div>
+            </Draggable>
             )}
 
-            {[...Array(9)].map((_, index) => {
+            {[...Array(8)].map((_, index) => {
                 const panel = index + 1;
-                let title;
-                switch(panel) {
-                    case 1: title = "Scores"; break;
-                    case 2: title = "Informations nutritionnelles"; break;
-                    case 3: title = "Degré de transformation"; break;
-                    case 4: title = "Origines"; break;
-                    case 5: title = "Ingrédients, additifs"; break;
-                    case 6: title = "Labels et mentions"; break;
-                    case 7: title = "La marque et le produit"; break;
-                    case 8: title = "Utilisation et conservation"; break;
-                    case 9: title = "L'emballage"; break;
-                    default: title = "";
-                }
+                const title = [
+                    "Scores",
+                    "Informations nutritionnelles",
+                    "Origines",
+                    "Ingrédients, additifs",
+                    "Labels et mentions",
+                    "La marque et le produit",
+                    "Utilisation et conservation",
+                    "L'emballage"
+                ][index];
+
+                const isDisabled = disabledPanels.includes(panel);
 
                 return (
-                    <div key={panel} className="pt-4 pb-2">
+                    <div key={panel} className="pt-3 pb-1">
                         <button
-                            onClick={(event) => togglePanel(panel, event)}
-                            className={`w-full flex justify-start items-center font-bold text-xl ${
-                                openPanel === panel ? 'text-custom-gray' : 'text-custom-blue'
-                            }`}
+                            onClick={() => !isDisabled && togglePanel(panel)}
+                            className={`px-4 w-full flex justify-start items-center font-bold text-xl ${isDisabled ? 'text-custom-gray cursor-not-allowed' : (openPanel === panel ? 'text-blue-800' : 'text-custom-blue')}`}
+                            disabled={isDisabled}
                         >
-                            {title} <img src={fleche} className="w-10 h-auto px-2" />
+                            {title} {isDisabled ? '':<img src={fleche} className="w-10 h-auto px-2" />}
                         </button>
-                        {openPanel === panel && <div className="mt-2 text-custom-gray"></div>}
+                        {openPanel === panel && !isDisabled && (
+                            <div className="mt-2 ">
+                                {panelContents[panel - 1]}
+                            </div>
+                        )}
                     </div>
                 );
             })}
         </div>
+        <ContactModal isOpen={isOpen} setIsOpen={setIsOpen}/>
+
+        </>
     );
 };
 

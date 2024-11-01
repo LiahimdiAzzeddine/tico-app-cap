@@ -26,7 +26,7 @@ function ProductDetails() {
       <div className="flex flex-col items-center justify-center w-1/2 relative">
         {/* Bubble Icon */}
         <div className="absolute top-1 left-0 z-10 transform translate-x-[15%]">
-          <img src={BubbleImg} alt="Bubble text icon" className="w-auto h-16" onClick={() => setIsOpen(true)} />
+          <img src={BubbleImg} alt="Bubble text icon" className="w-auto h-16  transform transition-transform duration-150 ease-in-out active:scale-95" onClick={() => setIsOpen(true)} />
         </div>
         {/* Product Image */}
         <div className="relative z-0">
@@ -69,7 +69,7 @@ function ProductDetails() {
               className="w-10 sm:w-16 h-auto"
             />
           </div>
-          <div className="flex flex-col w-1/2 items-center text-center" onClick={() => setIsOpenadd(true)}>
+          <div className="flex flex-col w-1/2 items-center text-center" >
             <div className="text-gl text-custom-blue font-bold">ADDITIFS</div>
             <div className="flex flex-row items-end space-x-1 sm:space-x-2 mt-1">
               <span className="text-custom-blue font-bold text-gl">+2</span>
@@ -89,7 +89,7 @@ function ProductDetails() {
 
         {/* Plus Icon */}
         <div className="w-full flex justify-end">
-          <img src={plus} alt="Plus Icon" className="w-6 sm:w-10 h-auto" />
+          <img src={plus} alt="Plus Icon" className="w-7 sm:w-10 h-auto  transform transition-transform duration-150 ease-in-out active:scale-95" onClick={() => setIsOpenadd(true)}  />
         </div>
       </div>
     </div>

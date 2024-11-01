@@ -7,7 +7,6 @@ const ScanResultModal = ({ scannedResult, modalisOpen, closeModal, setModalisOpe
   const [modalBreakpoint, setModalBreakpoint] = useState(0.3);
 
   const handleDismiss = () => {
-    console.log("Modal dismissed");
     setModalisOpen(false);
   };
 
@@ -46,7 +45,11 @@ const ScanResultModal = ({ scannedResult, modalisOpen, closeModal, setModalisOpe
       </div>
       <IonContent className="ion-padding-bottom">
         <div className="ion-margin-top">
-          {scannedResult && <FicheProduit barcode={scannedResult} resetBarcode={closeModal} />}
+        {scannedResult ? (
+            <FicheProduit barcode={scannedResult} resetBarcode={handleDismiss} />
+          ) : (
+           ''
+          )}
         </div>
       </IonContent>
     </IonModal>

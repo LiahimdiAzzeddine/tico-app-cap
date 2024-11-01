@@ -12,7 +12,10 @@ export default {
         'custom-rose':'#fff1f1',
         'custom-red':"#c32721",
         'custom-red-clear':"#c6312b",
-        'custom-green':'#42a199'
+        'custom-green':'#42a199',
+        'custom-green-clear':"#ecf8f8",
+        'custom-green-text':"#51736c",
+        "custom-green-divider":"#b9d3d0"
       },
       screens: {
 

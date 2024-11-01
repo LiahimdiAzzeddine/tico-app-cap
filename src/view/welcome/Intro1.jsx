@@ -29,7 +29,7 @@ function Intro1() {
             </div>
 
             {/* Feature List */}
-            <ul className="list-none p-0 w-full">
+            <ul className="list-none p-0 w-10/12 m-auto">
               {["simple", "transparente", "responsable 🌱"].map((item, index) => (
                 <li
                   key={index}

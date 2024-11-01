@@ -29,8 +29,7 @@ const FAQComponent = () => {
   ];
 
   return (
-    <div className="p-2">
-      
+    <div className="p-2 details">
       <div
         className="flex flex-col items-center justify-center min-h-[10vh]"
         style={{
