@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import tico_intro from '../../assets/intro/tico_intro.png';
-import background from '../../assets/intro/background6.png';
-import AccountCreationForm from '../auth/Register';
-import Login from '../auth/login';
-import CustomModal from '../composants/CustomModal';
+import React, { useState } from "react";
+import tico_intro from "../../assets/intro/tico_intro.svg";
+import background from "../../assets/intro/background6.png";
+import AccountCreationForm from "../auth/Register";
+import Login from "../auth/login";
+import CustomModal from "../composants/CustomModal";
 import { useNavigate } from "react-router-dom";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 
 function LoginPage() {
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalLogin, setShowModalLogin] = useState(false);
+  const isAuthenticated = useIsAuthenticated();
+
   const navigate = useNavigate();
 
   const handleGuestClick = () => {
@@ -19,55 +22,75 @@ function LoginPage() {
     }
   };
 
-
   return (
-    <div className='wrapper'>
-			<div className='details'>
-    <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full">
+    <div className="flex flex-col items-center justify-between h-full w-full">
       {/* Logo Section */}
-      <div className="grow flex items-end justify-center w-full pt-1">
+      <div className="grow flex items-end justify-center w-full ">
         <img className="w-64" src={tico_intro} alt="TiCO Logo" />
       </div>
 
       {/* Buttons Section with Background */}
       <div className="grow flex items-center justify-start w-full max-w-sm px-2">
         <div
-          className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center"
-          style={{ backgroundImage: `url(${background})` }}
+          className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat"
         >
-          <div className="flex flex-col items-center justify-center w-3/5">
+          <div className="flex flex-col items-center justify-center w-3/5 space-y-6">
+            {isAuthenticated && (
+              <button
+                className="bg-custom-blue  text-white font-bold py-3 px-6 rounded-md w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                onClick={() => setShowModalLogin(true)}
+              >
+                Mon compte
+              </button>
+            )}
+            {!isAuthenticated && (
+              <button
+                className="bg-custom-blue text-white font-bold py-3 px-6 rounded-md w-full transform transition-transform duration-150 ease-in-out active:scale-90 "
+                onClick={() => setShowModalLogin(true)}
+              >
+                Je me connecte
+              </button>
+            )}
+            {!isAuthenticated && (
+              <button
+                className="bg-custom-blue text-white font-bold py-3 px-6 rounded-md  w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                onClick={() => setShowModalInscription(true)}
+              >
+                Je crée mon compte
+              </button>
+            )}
+
             <button
-              className="bg-[#ff8300] hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-md w-full transition-colors duration-300 mb-4"
-              onClick={() => setShowModalLogin(true)}
-            >
-              Je me connecte
-            </button>
-            <button
-              className="bg-[#ff8300] hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-md mb-4 w-full transition-colors duration-300"
+              className="bg-custom-blue text-white font-bold py-3 px-6 rounded-md w-full transform transition-transform duration-150 ease-in-out active:scale-90"
               onClick={() => setShowModalInscription(true)}
             >
-              Je crée mon compte
-            </button>
-            <button onClick={handleGuestClick}  className="bg-[#ff8300] hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-md w-full transition-colors duration-300">
-              J'utilise TiCO <br /> en tant qu'invité
+              Historique de scan
             </button>
           </div>
         </div>
       </div>
 
       {/* Sign-Up Modal */}
-      <CustomModal isOpen={showModalInscription} onClose={() => setShowModalInscription(false)} image="x">
+      <CustomModal
+        isOpen={showModalInscription}
+        onClose={() => setShowModalInscription(false)}
+        image="x"
+      >
         <AccountCreationForm />
       </CustomModal>
 
       {/* Login Modal */}
-      <CustomModal isOpen={showModalLogin} onClose={() => setShowModalLogin(false)} image="x">
+      <CustomModal
+        isOpen={showModalLogin}
+        onClose={() => setShowModalLogin(false)}
+        image="x"
+      >
         <Login />
       </CustomModal>
 
       {/* Empty div for spacing */}
       <div className="grow min-h-[8vh]"></div>
-    </div></div></div>
+    </div>
   );
 }
 

@@ -17,7 +17,7 @@ const AuthLayout = () => {
       <IonContent className="flex flex-col h-full">
         <div className="flex flex-col h-full bg-[#ffeda3]">
           <div className="flex justify-between items-center mb-5 mt-1 p-4 modal-background">
-            <button className="text-[#006aff]" onClick={() => navigate('scanner', { replace: true })}>
+            <button className="text-custom-blue" onClick={() => navigate('scanner', { replace: true })}>
               <img src={X} alt="Close" className="w-10 h-10" />
             </button>
             <div className="text-orange-500 font-bold text-2xl titre-bold">

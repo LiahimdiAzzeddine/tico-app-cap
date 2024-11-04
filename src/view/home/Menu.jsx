@@ -12,7 +12,7 @@ import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { logOut, logIn, settings,trailSign } from "ionicons/icons"; // Importing icons for settings, logout, and login
 import tico from "../../assets/navbar/tico.png";
 import accueil from "../../assets/navbar/accueil.png";
-import accueil_active  from "../../assets/navbar/accueil_active.png";
+import accueil_active  from "../../assets/navbar/accueil_active.svg";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../context/ToastContext"; 
 
@@ -34,8 +34,8 @@ function Menu() {
 
   return (
     <IonMenu contentId="main-content">
-      <IonHeader className="bg-blue-600 text-white ion-no-border">
-        <IonToolbar className="px-4">
+      <IonHeader className="bg-blue-600 text-white ion-no-border" >
+        <IonToolbar className="px-4" style={{"--ion-toolbar-background":"#ffff"}}>
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center">
               <img src={tico} alt="Tico" className="h-8 mr-2" />

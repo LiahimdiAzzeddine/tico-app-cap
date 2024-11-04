@@ -1,11 +1,15 @@
-import React from "react";
+import React,{useState} from "react";
 import Partage from "../../assets/fb/top.svg";
 import Recettes from "../../assets/fb/recettes.svg"; // Correction de la casse
 import BubbleImg from "../../assets/fb/BubbleImg.svg";
 import { Share } from "@capacitor/share";
+import {ContactModal} from "./Modal"
+
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 function Sections() {
+  const [isOpen, setIsOpen] = useState(false);
+
   // Fonction de partage
   const handleShare = async () => {
     try {
@@ -21,6 +25,7 @@ function Sections() {
   };
 
   return (
+    <>
     <div className="w-full flex flex-col items-end justify-center pb-4">
       <div className="bg-[#b6e1dd] rounded-s-full w-[95%] px-3 py-9">
         <div className="flex flex-row">
@@ -36,13 +41,15 @@ function Sections() {
             <img src={Recettes} className="h-16" alt="Recettes" />
           </div>
           <div
-            className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95"
+            className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95" onClick={() => setIsOpen(true)}
           >
             <img src={BubbleImg} className="h-16" alt="BubbleImg" />
           </div>
         </div>
       </div>
     </div>
+    <ContactModal isOpen={isOpen} setIsOpen={setIsOpen}/>
+    </>
   );
 }
 

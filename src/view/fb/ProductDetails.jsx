@@ -81,7 +81,6 @@ function ProductDetails() {
             </div>
           </div>
         </div>
-
         {/* Planet Score */}
         <div className="w-full mb-4">
           <img src={planetScore} alt="Planet Score" className="w-full h-auto" />

@@ -1,5 +1,5 @@
 import React from "react";
-import tico_intro from "../../assets/intro/tico_intro.png";
+import tico_intro from "../../assets/intro/tico_intro.svg";
 import barcode from "../../assets/intro/barcode.svg";
 import background from "../../assets/intro/background2.png";
 
@@ -23,11 +23,11 @@ function Intro2() {
           alt="Barcode"
         />
           <div className="flex flex-col items-center justify-center w-4/5 gap-3 text-center">
-            <div className="text-xl text-[#006aff] ">
+            <div className="text-xl text-custom-blue ">
               Scannez vos produits et accédez à des informations claires et
               utiles.
             </div>
-            <div className="text-lg text-[#006aff]">
+            <div className="text-lg text-custom-blue">
               <div className="font-bold text-xl">Ensemble,</div> encourageons plus de
               transparence et des pratiques responsables. 🌍✨
             </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import tico_intro from "../../assets/intro/tico_intro.png";
+import tico_intro from "../../assets/intro/tico_intro.svg";
 import background from "../../assets/intro/background6.png";
 import AccountCreationForm from "../auth/Register";
 import CustomModal from "../composants/CustomModal";

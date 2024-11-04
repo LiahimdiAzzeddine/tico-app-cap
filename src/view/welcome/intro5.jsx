@@ -1,5 +1,5 @@
 import React from "react";
-import tico_intro from "../../assets/intro/tico_intro.png";
+import tico_intro from "../../assets/intro/tico_intro.svg";
 import fleche from "../../assets/intro/fleche.png";
 import background from "../../assets/intro/background5.png";
 
@@ -19,7 +19,7 @@ function Intro5() {
         >
           {/* Texte avec flèche */}
           <div className="flex flex-col items-center absolute justify-center w-2/3 ">
-            <h2 className="text-2xl titre-bold text-[#006aff] mb-8 ">
+            <h2 className="text-2xl titre-bold text-custom-blue mb-8 ">
               On vous montre ?
             </h2>
           </div>

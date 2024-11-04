@@ -52,6 +52,7 @@
   --yellow-color: #ffed47;
   --red-color: #d60202;
   --fb-blue-sapphire: #b6e1dd;
+  --ion-background-color: #ffffff;
 }
 #root {
   height: 100dvh;
@@ -187,4 +188,13 @@ input[type="range"]::-moz-range-thumb {
   background-color: #dc2626;
   border-radius: 50%;
   cursor: pointer;
+}
+.cadreHome {
+ 
+    background: radial-gradient(farthest-side at top right, #0000 98%, #ffffff) bottom left,
+                radial-gradient(farthest-side at top left, #0000 98%, #ffffff) bottom right,
+                #ffffff00;
+    background-size: 2rem 2rem;
+    background-repeat: no-repeat;
+    background-origin: padding-box;
 }

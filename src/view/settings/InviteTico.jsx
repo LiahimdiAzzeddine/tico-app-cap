@@ -27,17 +27,17 @@ function InviteTico() {
           <img className="w-48" src={hands} alt="TiCO Logo" />
         </div>
         <div className="flex flex-col text-center w-full px-6  absolute grow justify-around h-[35%]">
-        <h2 className="text-2xl titre-bold text-[#006aff]">
+        <h2 className="text-2xl titre-bold text-custom-blue">
               Faire connaître{" "}
               <span className="underline underline-offset-4 decoration-orange-400">
                 TiCO
               </span>
             </h2>
-            <div className="text-xl text-[#006aff]">
+            <div className="text-xl text-custom-blue">
               Vous souhaitez faire connaître{" "}
               <span className="font-bold">TiCO</span> à votre entourage ?
             </div>
-            <div className="text-xl text-[#006aff]">
+            <div className="text-xl text-custom-blue">
               N'hésitez pas à partager l'application autour de vous.
             </div>
         </div>

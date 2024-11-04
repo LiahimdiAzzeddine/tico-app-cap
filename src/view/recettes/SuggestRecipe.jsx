@@ -1,26 +1,28 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Background from "../../assets/recettes/background.svg";
-import { IonChip } from "@ionic/react";
 import useSuggestRecipe from "../../hooks/recipes/useSuggestRecipe";
+import Spinner from "../composants/Spinner";
 
-const SuggestRecipe = () => {
-  const { handleSubmit, loading, error } = useSuggestRecipe();
+const SuggestRecipe = ({onClose}) => {
+  const { handleSubmit, loading, error,success } = useSuggestRecipe();
+  useEffect(() => {
+    if (success) {
+      onClose();
+    }
+  }, [success, onClose]);
   const [values, setValues] = useState({
-    email: "",
     titre: "",
-    message: "",
     type: "",
     difficulty: "",
     filters: [],
-    prepTime: "",
-    cookTime: "",
-    restTime: "",
+    prep_time: "",
+    cook_time: "",
+    rest_time: "",
     ingredients: [],
     steps: [],
   });
 
   const [ingredientInput, setIngredientInput] = useState("");
-  const [filterInput, setFilterInput] = useState("");
   const [stepInput, setStepInput] = useState(""); // État pour l'input des étapes
 
   const handleFormSubmit = (e) => {
@@ -54,12 +56,13 @@ const SuggestRecipe = () => {
   };
 
   const addFilter = (filter) => {
-    if (!values.filters.includes(filter)) {
-      setValues((prevValues) => ({
-        ...prevValues,
-        filters: [...prevValues.filters, filter],
-      }));
-    }
+    setValues((prevValues) => {
+      // Si le filtre est déjà présent, on le retire; sinon, on l'ajoute
+      const filters = prevValues.filters.includes(filter)
+        ? prevValues.filters.filter((f) => f !== filter) // Retirer le filtre
+        : [...prevValues.filters, filter]; // Ajouter le filtre
+      return { ...prevValues, filters };
+    });
   };
 
   return (
@@ -73,7 +76,7 @@ const SuggestRecipe = () => {
           backgroundSize: "contain",
         }}
       >
-        <h2 className="text-center text-[#006aff] text-2xl titre-bold ">
+        <h2 className="text-center text-custom-blue text-2xl titre-bold ">
           Proposer une recette
         </h2>
       </div>
@@ -83,40 +86,50 @@ const SuggestRecipe = () => {
           <div className="flex flex-col gap-2">
             <label className="text-custom-red text-base">Type de plats:</label>
             <div className="space-x-2 space-y-2">
-              {["Entrée", "Plat", "Dessert", "Apéritif", "Boisson"].map((type) => (
-                <button
-                  key={type}
-                  type="button"
-                  onClick={() => setValues({ ...values, type })}
-                  className={`border-solid border-[1px] border-red-700 px-3 py-1 rounded-full ${
-                    values.type === type
-                      ? "bg-custom-red text-white border-custom-red"
-                      : "bg-white border-gray-300 text-custom-red"
-                  }`}
-                >
-                  {type}
-                </button>
-              ))}
+              {["Entrée", "Plat", "Dessert", "Apéritif", "Boisson"].map(
+                (type) => (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => setValues({ ...values, type })}
+                    className={`border-solid border-[1px] border-red-700 px-3 py-1 rounded-full ${
+                      values.type === type
+                        ? "bg-custom-red text-white border-custom-red"
+                        : "bg-white border-gray-300 text-custom-red"
+                    }`}
+                  >
+                    {type}
+                  </button>
+                )
+              )}
             </div>
+            {error?.type && (
+              <p className="text-red-500 text-sm mt-1">{error.type[0]}</p>
+            )}
           </div>
 
           {/* Temps de préparation */}
           <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base pb-2">Temps de préparation :</label>
+            <label className="text-custom-red text-base pb-2">
+              Temps de préparation :
+            </label>
             <input
               type="range"
-              name="prepTime"
+              name="prep_time"
               min="0"
               max="120"
               step="1"
-              value={values.prepTime}
+              value={values.prep_time}
               onChange={handleInputChange}
               className="appearance-none w-full h-[0.15rem] bg-gray-300 rounded-full outline-none"
-              style={{
-                backgroundColor: "rgba(220, 38, 38, 1)",
-              }}
+              style={{ backgroundColor: "rgba(220, 38, 38, 1)" }}
             />
-            <div className="text-center text-custom-red mt-2">{values.prepTime} min</div>
+            <div className="text-center text-custom-red mt-2">
+              {values.prep_time} min
+            </div>
+            {error?.prep_time && (
+              <p className="text-red-500 text-sm mt-1">{error.prep_time[0]}</p>
+            )}
           </div>
 
           {/* Difficulté */}
@@ -138,13 +151,22 @@ const SuggestRecipe = () => {
                 </button>
               ))}
             </div>
+            {error?.difficulty && (
+              <p className="text-red-500 text-sm mt-1">{error.difficulty[0]}</p>
+            )}
           </div>
 
           {/* Filtres */}
           <div className="flex flex-col gap-2">
             <label className="text-custom-red text-base">Filtres:</label>
             <div className="space-x-2 space-y-2">
-              {["Végétarien", "Végan", "Sans lactose", "Sans gluten", "Sans oeufs"].map((filter) => (
+              {[
+                "Végétarien",
+                "Végan",
+                "Sans lactose",
+                "Sans gluten",
+                "Sans oeufs",
+              ].map((filter) => (
                 <button
                   key={filter}
                   type="button"
@@ -159,32 +181,75 @@ const SuggestRecipe = () => {
                 </button>
               ))}
             </div>
+            {error?.filters && (
+              <p className="text-red-500 text-sm mt-1">{error.filters[0]}</p>
+            )}
+          </div>
+
+          {/* Titre de la recette */}
+          <div className="flex flex-col gap-3">
+            <label className="text-custom-red text-base">
+              Titre de la recette:
+            </label>
+            <input
+              type="text"
+              name="titre"
+              value={values.titre}
+              onChange={handleInputChange}
+              placeholder="Titre de la recette"
+              className={`input border-2 p-2 rounded-xl focus:outline-none ${
+                error?.titre
+                  ? "border-orange-300"
+                  : "border-red-500 focus:border-orange-500"
+              }`}
+              required
+            />
+            {error?.titre && (
+              <p className="text-red-500 text-sm mt-1">{error.titre[0]}</p>
+            )}
           </div>
 
           {/* Temps de cuisson */}
           <div className="flex flex-col gap-3">
-            <label className="text-custom-red text-base">Temps de cuisson:</label>
+            <label className="text-custom-red text-base">
+              Temps de cuisson:
+            </label>
             <input
-              type="text"
-              name="cookTime"
-              value={values.cookTime}
+              type="number"
+              name="cook_time"
+              value={values.cook_time}
               onChange={handleInputChange}
               placeholder="Temps de cuisson"
-              className="input border-2 border-red-600 p-2 rounded-xl"
+              className={`input border-2 p-2 rounded-xl focus:outline-none ${
+                error?.cook_time
+                  ? "border-orange-300"
+                  : "border-red-500 focus:border-orange-500"
+              }`}
+              required
             />
+            {error?.cook_time && (
+              <p className="text-red-500 text-sm mt-1">{error.cook_time[0]}</p>
+            )}
           </div>
 
           {/* Temps de repos */}
           <div className="flex flex-col gap-3">
             <label className="text-custom-red text-base">Temps de repos:</label>
             <input
-              type="text"
-              name="restTime"
-              value={values.restTime}
+              type="number"
+              name="rest_time"
+              value={values.rest_time}
               onChange={handleInputChange}
               placeholder="Temps de repos"
-              className="input border-2 border-red-600 p-2 rounded-xl"
+              className={`input border-2 p-2 rounded-xl focus:outline-none ${
+                error?.rest_time
+                  ? "border-orange-300"
+                  : "border-red-500 focus:border-orange-500"
+              }`}
             />
+            {error?.rest_time && (
+              <p className="text-red-500 text-sm mt-1">{error.rest_time[0]}</p>
+            )}
           </div>
 
           {/* Ingrédients */}
@@ -195,8 +260,17 @@ const SuggestRecipe = () => {
               value={ingredientInput}
               onChange={(e) => setIngredientInput(e.target.value)}
               placeholder="Ingrédient"
-              className="input border-2 border-red-600 p-2 rounded-xl mb-1 w-full"
+              className={`input border-2 p-2 rounded-xl focus:outline-none w-full ${
+                error?.ingredients
+                  ? "border-orange-300"
+                  : "border-red-500 focus:border-orange-500"
+              }`}
             />
+            {error?.ingredients && (
+              <p className="text-red-500 text-sm mt-1">
+                {error.ingredients[0]}
+              </p>
+            )}
             <button
               type="button"
               onClick={addIngredient}
@@ -205,13 +279,15 @@ const SuggestRecipe = () => {
               + ajouter un ingrédient
             </button>
             <div className="mt-3 flex flex-wrap gap-1 w-full">
-  {values.ingredients.map((ingredient, index) => (
-    <span key={index} className="bg-red-200 text-red-800 p-1 rounded-full m-1">
-      {ingredient}
-    </span>
-  ))}
-</div>
-
+              {values.ingredients.map((ingredient, index) => (
+                <span
+                  key={index}
+                  className="bg-red-200 text-red-800 py-1 px-2 rounded-full m-1"
+                >
+                  {ingredient}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* Étapes */}
@@ -222,8 +298,15 @@ const SuggestRecipe = () => {
               value={stepInput}
               onChange={(e) => setStepInput(e.target.value)}
               placeholder="Étape"
-              className="input border-2 border-red-600 p-2 rounded-xl mb-1 w-full"
+              className={`input border-2 p-2 rounded-xl focus:outline-none w-full ${
+                error?.steps
+                  ? "border-orange-300"
+                  : "border-red-500 focus:border-orange-500"
+              }`}
             />
+            {error?.steps && (
+              <p className="text-red-500 text-sm mt-1">{error.steps[0]}</p>
+            )}
             <button
               type="button"
               onClick={addStep}
@@ -231,28 +314,33 @@ const SuggestRecipe = () => {
             >
               + ajouter une étape
             </button>
-            <div className="mt-3 flex flex-wrap gap-1 w-full">
+            <div className="mt-3 flex flex-col w-full">
               {values.steps.map((step, index) => (
-                <span key={index} className="bg-red-200 text-red-800 p-1 rounded-full m-1">
+                <span
+                  key={index}
+                  className="bg-red-200 text-red-800  py-1 px-2 rounded-full m-1"
+                >
                   Étape {index + 1}: {step}
                 </span>
               ))}
             </div>
           </div>
 
-          
           <div className="flex flex-col gap-4 justify-center items-center">
-          <button type="button" className="bg-custom-red text-white border-solid border-[1px] font-bold border-red-700 py-2 px-3 rounded-lg">
-            Je visualise ma recette
-          </button>
-          <button type="submit" className="btn-submit bg-red-400 text-white border-solid border-[1px] font-bold border-red-400 px-3 py-2 rounded-lg" disabled={loading}>
-            
-            {loading ? "Envoi..." : "Envoyer ma recette"}
-
-          </button>
+            <button
+              type="submit"
+              className="btn-submit bg-red-400 text-white border-solid border-[1px] font-bold border-red-400 px-3 py-2 rounded-lg"
+              disabled={loading}
+            >
+              {loading ? "Envoi..." : "Envoyer ma recette"}
+            </button>
           </div>
-
-          {error && <p className="text-red-500">{error}</p>}
+          {/* Full-screen loading overlay */}
+          {loading && (
+            <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+              <Spinner />
+            </div>
+          )}
         </form>
       </div>
     </div>

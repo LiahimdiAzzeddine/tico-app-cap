@@ -76,7 +76,7 @@ const PersonalInfo = () => {
     <div className="flex gap-4 flex-col justify-start items-center h-full">
       {!isOnline && <OfflineBanner />}
       
-      <h2 className="text-center text-[#006aff] text-2xl titre-bold underline underline-offset-4 decoration-orange-400 grow">
+      <h2 className="text-center text-custom-blue text-2xl titre-bold underline underline-offset-4 decoration-orange-400 grow">
         Mes informations
       </h2>
 

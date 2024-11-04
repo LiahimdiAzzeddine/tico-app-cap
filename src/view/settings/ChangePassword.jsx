@@ -40,7 +40,7 @@ const ChangePassword = () => {
 
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full">
-      <h2 className="text-center text-[#006aff] text-2xl titre-bold grow">
+      <h2 className="text-center text-custom-blue text-2xl titre-bold grow">
         Mon{" "}
         <span className="underline underline-offset-4 decoration-orange-400">
           mot de passe

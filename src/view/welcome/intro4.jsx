@@ -1,5 +1,5 @@
 import React from "react";
-import tico_intro from "../../assets/intro/tico_intro.png";
+import tico_intro from "../../assets/intro/tico_intro.svg";
 import background from "../../assets/intro/background4.png";
 
 function Intro4() {
@@ -19,13 +19,13 @@ function Intro4() {
           style={{ backgroundImage: `url(${background})` }}
         >
           <div className="flex flex-col items-center justify-center w-4/5 text-center gap-4">
-           <h2 className="text-2xl titre-bold text-[#006aff] mb-2">Prêt à{" "}
+           <h2 className="text-2xl titre-bold text-custom-blue mb-2">Prêt à{" "}
               <span className="text-2xl underline underline-offset-4 decoration-orange-400">
                 commencer
               </span>
               {" "}?
             </h2>
-            <div className="text-xl text-[#006aff] ">
+            <div className="text-xl text-custom-blue ">
               Scannez votre premier produit, explorez nos recettes, et
               participez à rendre l'alimentation
               <span className="font-bold">plus transparente et durable !</span>

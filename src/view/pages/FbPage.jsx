@@ -18,7 +18,7 @@ const FbPage = () => {
       <div className="flex flex-col h-full bg-[#ffffff] ">
         <div className="flex justify-between items-center modal-background pb-1 px-4">
           <button
-            className="text-[#006aff]"
+            className="text-custom-blue"
             onClick={() => navigate("scanner", { replace: true })}
           >
             <img src={Fleche} alt="Close" className="w-10 h-10" />

@@ -1,5 +1,5 @@
 import React from "react";
-import tico_intro from "../../assets/intro/tico_intro.png";
+import tico_intro from "../../assets/intro/tico_intro.svg";
 import background from "../../assets/intro/background3.png";
 
 function Intro3() {
@@ -17,11 +17,11 @@ function Intro3() {
           style={{ backgroundImage: `url(${background})` }}
         >
           <div className="flex flex-col items-center justify-center w-4/5 text-center gap-3">
-          <div className="text-xl text-[#006aff]">
+          <div className="text-xl text-custom-blue">
               <span className="font-bold">Tico</span>, c'est aussi un allié au
               quotidien&nbsp;!
             </div>
-            <div className="text-xl text-[#006aff]">
+            <div className="text-xl text-custom-blue">
               Découvrez des astuces pour cuisiner sainement et des recettes pour{" "}
               <span className="font-bold">
                 prendre soin de vous et de la planète.🌿

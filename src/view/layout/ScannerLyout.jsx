@@ -8,7 +8,6 @@ import { Outlet } from "react-router-dom";
 function ScannerLyout() {
   return (
     <>
-    
       <Menu />
       <IonPage id="main-content">
         <TopNavbar />
@@ -22,3 +21,4 @@ function ScannerLyout() {
 }
 
 export default ScannerLyout;
+

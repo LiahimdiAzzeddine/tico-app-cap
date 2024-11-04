@@ -9,7 +9,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full pt-[5vh]">
-      <h2 className="text-center text-[#006aff] text-2xl font-bold">
+      <h2 className="text-center text-custom-blue text-2xl font-bold">
         Réinitialiser{" "}
         <span className="underline underline-offset-4 decoration-orange-400">
           le mot de passe

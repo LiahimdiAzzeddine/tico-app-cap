@@ -39,7 +39,7 @@ const FAQComponent = () => {
           backgroundSize: "contain",
         }}
       >
-        <h2 className="text-center text-[#006aff] text-2xl titre-bold ">
+        <h2 className="text-center text-custom-blue text-2xl titre-bold ">
           Foire aux
           <span className="underline underline-offset-4 decoration-orange-400"> questions</span>
         </h2>

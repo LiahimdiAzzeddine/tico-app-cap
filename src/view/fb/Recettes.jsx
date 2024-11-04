@@ -4,11 +4,18 @@ import horloge from "../../assets/fb/horloge.svg";
 import flecheRed from "../../assets/fb/flecheRed.svg";
 import SuggestRecipe from "../recettes/SuggestRecipe";
 import WhiteModal from "../composants/WhiteModal";
+import Recette from "../recettes/Recette";
 function Recettes() {
   const [showModalAddRecipe, setShowModalAddRecipe] = useState(false);
-
+  const [showModalRecipe, setShowModalRecipe] = useState(false);
+  const [selectedRecetteId, setSelectedRecetteId] = useState(null);
+  const handleRecetteClick = (id) => {
+    setSelectedRecetteId(id); // Mettez à jour l'ID de la recette sélectionnée
+    setShowModalRecipe(true); // Affichez le modal
+  };
   const recettes = [
     {
+      id:"1",
       title: "Spaghetti à la Bolognaise",
       subTitle: "Un ti'plaisir",
       preparation: 30,
@@ -17,6 +24,7 @@ function Recettes() {
         "https://img.cuisineaz.com/660x660/2016/07/29/i84653-spaghettis-bolognaise-rapides.jpg", // Remplacez par le chemin de l'image
     },
     {
+      id:"2",
       title: "Spaghetti à la Bolognaise",
       subTitle: "Un ti'plaisir",
       preparation: 30,
@@ -34,6 +42,7 @@ function Recettes() {
             key={index}
             className="relative bg-custom-rose rounded-e-full px-6 py-6 flex items-center  "
             style={{ width: "95%" }}
+            onClick={()=>{handleRecetteClick(item.id)}}
           >
             {/* Badge "Recettes" */}
             {index === 0 && (
@@ -88,9 +97,16 @@ function Recettes() {
       <WhiteModal
         isOpen={showModalAddRecipe}
         onClose={() => setShowModalAddRecipe(false)}
-        type={"r"}
+        image={"rf"}
       >
-        <SuggestRecipe />
+        <SuggestRecipe  onClose={() => setShowModalAddRecipe(false)} />
+      </WhiteModal>
+      <WhiteModal
+        isOpen={showModalRecipe}
+        onClose={() => setShowModalRecipe(false)}
+        image={"rf"}
+      >
+        <Recette recetteId={selectedRecetteId}/>
       </WhiteModal>
     </>
   );

@@ -17,12 +17,11 @@ const HomepublicRoutes = [
     <Route key="scannerlyout" path="/scanner" element={<ScannerLyout />}>
       <Route index element={<ScanPage />} />
     </Route>
-    <Route key="homeLyout" path="/" element={<HomeLyout />}>
+    <Route key="homeLyout" path="/" element={<HomeLyout/>}>
     <Route path="home" element={<HomePage />} />
     <Route path="favoris" element={<FavoritesPage />} />
     <Route path="tips" element={<TipsPage />} />
-    <Route path="profile" element={<ProfilePage />} />
-    
+    <Route path="recipes" element={<ProfilePage />} />
     </Route>
     <Route key="authlyout" path="/" element={<AuthLayout />}>
     <Route path="login" element={<Login />} />

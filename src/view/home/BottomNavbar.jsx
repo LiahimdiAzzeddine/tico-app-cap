@@ -9,10 +9,10 @@ import favoris from "../../assets/navbar/favoris.png";
 import astuces from "../../assets/navbar/astuces.png";
 import scanner from "../../assets/navbar/scanner.png";
 import profil from "../../assets/navbar/profil.png";
-import accueil_active from "../../assets/navbar/accueil_active.png";
-import favoris_active from "../../assets/navbar/favoris_active.png";
-import astuces_active from "../../assets/navbar/astuces_active.png";
-import profil_active from "../../assets/navbar/profil_active.png";
+import accueil_active from "../../assets/navbar/accueil_active.svg";
+import favoris_active from "../../assets/navbar/favoris_active.svg";
+import astuces_active from "../../assets/navbar/astuces_active.svg";
+import profil_active from "../../assets/navbar/profil_active.svg";
 
 const BottomNavbar = () => {
   const isAuthenticated = useIsAuthenticated();
@@ -24,8 +24,8 @@ const BottomNavbar = () => {
   }, [isAuthenticated]);
 
   return (
-    <IonFooter className="ion-no-border">
-      <IonToolbar className="bg-white">
+    <IonFooter className="ion-no-border"  style={{ "--ion-background-color": "#ffff"}}>
+      <IonToolbar className="bg-[#f7f7f700]" style={{"--ion-toolbar-background":"#ffff"}}>
         <div className="flex justify-around items-center py-4 px-2">
           {/* Bouton Accueil */}
           <button className="flex flex-col items-center" onClick={() => navigate("/home", { replace: true })}>
@@ -55,7 +55,7 @@ const BottomNavbar = () => {
           </button>
 
           {/* Bouton Profil */}
-          <button className="flex flex-col items-center" onClick={() => navigate("/profile", { replace: true })}>
+          <button className="flex flex-col items-center" onClick={() => navigate("/recipes", { replace: true })}>
             <img
               src={authState ? profil_active : profil}
               alt="Profil"

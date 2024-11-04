@@ -342,4 +342,5 @@
     background-size: 2rem 2rem;
     background-repeat: no-repeat;
     background-origin: padding-box;
+    z-index: 100000;
   }

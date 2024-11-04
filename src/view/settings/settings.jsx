@@ -47,7 +47,7 @@ function Settings() {
         <div className="bg-[#ffeca7]">
           <div className="flex justify-between items-center mb-5 mt-1 p-4 mx-1 modal-background ">
             <button
-              className="text-[#006aff]"
+              className="text-custom-blue"
               onClick={() => {
                 navigation("/scanner", { replace: true });
               }}
@@ -65,7 +65,7 @@ function Settings() {
         >
           {/* Menu Items */}
           <div className="flex flex-col h-full">
-            <h2 className="grow-0 text-center text-[#006aff] text-2xl titre-bold underline underline-offset-4 decoration-orange-400">
+            <h2 className="grow-0 text-center text-custom-blue text-2xl titre-bold underline underline-offset-4 decoration-orange-400">
               Mon compte
             </h2>
             <div className="flex flex-col items-center justify-center space-y-4 grow-[3]">
