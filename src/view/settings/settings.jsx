@@ -49,7 +49,7 @@ function Settings() {
             <button
               className="text-custom-blue"
               onClick={() => {
-                navigation("/scanner", { replace: true });
+                navigation("/", { replace: true });
               }}
             >
               <img src={X} alt="Close" className="w-10 h-10" />

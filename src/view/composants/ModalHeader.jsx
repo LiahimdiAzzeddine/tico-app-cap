@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types"; // Import PropTypes for type checking
-import X from "../../assets/auth/XV6-33.png";
 import Tico from "../../assets/auth/tico.png";
 import ReturnImage from "../../assets/home/return.png";
 import VX from "../../assets/home/X.svg";
@@ -11,7 +10,7 @@ function ModalHeader({ image, onClose }) {
   let SRC = ReturnImage; // Valeur par défaut pour SRC
 
   if (image === "x") {
-    SRC = X;
+    SRC = BX;
   } else if (image === "rf") {
     SRC = flecheRecette;
   } else if (image === "bf") {

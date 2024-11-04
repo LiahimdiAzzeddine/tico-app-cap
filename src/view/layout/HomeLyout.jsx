@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  IonPage,
-  IonContent,
-  IonHeader,
-  IonToolbar,
-} from "@ionic/react";
+import { IonPage, IonContent, IonHeader, IonToolbar } from "@ionic/react";
 import BottomNavbar from "../home/BottomNavbar";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -30,27 +25,29 @@ const HomeLayout = () => {
   const background = backgroundColors[location.pathname] || "#ffffff";
   const icon = closeIcon[location.pathname] || "vx";
   return (
-    <IonPage id="main-content"  style={{ backgroundColor: background }} >
+    <IonPage id="main-content" style={{ backgroundColor: background }}>
       <IonHeader
         className="ion-no-border"
-        style={{ "--ion-background-color": background}}
+        style={{ "--ion-background-color": background }}
       >
-        <IonToolbar  style={{"--ion-toolbar-background":background}}>
-          <ModalHeader image={icon} onClose={() => navigate("scanner", { replace: true })}/>
+        <IonToolbar style={{ "--ion-toolbar-background": background }}>
+          <ModalHeader
+            image={icon}
+            onClose={() => navigate("scanner", { replace: true })}
+          />
         </IonToolbar>
       </IonHeader>
-      <IonContent
-        className="flex flex-col h-screen"
-        style={{ "--ion-background-color": "#fffff" }}
-      >
-        {/* Scrollable Outlet Content
-         */}
-        {/* Contenu défilable avec un cadre spécial */}
-        <div className="cadreHome bg-custom-green-background w-full h-full overflow-y-auto">
+      <IonContent className="flex flex-col h-full">
+        <div
+          className="flex flex-col h-full rounded-b-[2rem]"
+          style={{ backgroundColor: background }}
+        >
+          {/* Scrollable Outlet Content */}
+          <div className="flex-grow overflow-y-auto p-4">
             <Outlet />
+          </div>
         </div>
       </IonContent>
-
       <BottomNavbar />
     </IonPage>
   );
