@@ -1,10 +1,13 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Background from "../../assets/recettes/background.svg";
 import useSuggestRecipe from "../../hooks/recipes/useSuggestRecipe";
 import Spinner from "../composants/Spinner";
+import RecipeModal from "../composants/RecipeModal";
 
-const SuggestRecipe = ({onClose}) => {
-  const { handleSubmit, loading, error,success } = useSuggestRecipe();
+const SuggestRecipe = ({ onClose }) => {
+  const { handleSubmit, loading, error, success } = useSuggestRecipe();
+  const [stepInput, setStepInput] = useState(""); // État pour l'input des étapes
+  const [modalOpen, setModalOpen] = useState(false);
   useEffect(() => {
     if (success) {
       onClose();
@@ -12,7 +15,7 @@ const SuggestRecipe = ({onClose}) => {
   }, [success, onClose]);
   const [values, setValues] = useState({
     titre: "",
-    type: "",
+    types: [],
     difficulty: "",
     filters: [],
     prep_time: "",
@@ -21,9 +24,11 @@ const SuggestRecipe = ({onClose}) => {
     ingredients: [],
     steps: [],
   });
-
-  const [ingredientInput, setIngredientInput] = useState("");
-  const [stepInput, setStepInput] = useState(""); // État pour l'input des étapes
+  const [ingredientInput, setIngredientInput] = useState({
+    name: "",
+    quantity: "",
+    unit: "",
+  });
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -35,13 +40,27 @@ const SuggestRecipe = ({onClose}) => {
     setValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
+  const handleIngredientChange = (e) => {
+    const { name, value } = e.target;
+    setIngredientInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const addIngredient = () => {
-    if (ingredientInput.trim()) {
+    if (
+      ingredientInput.name &&
+      ingredientInput.quantity &&
+      ingredientInput.unit
+    ) {
       setValues((prevValues) => ({
         ...prevValues,
-        ingredients: [...prevValues.ingredients, ingredientInput.trim()],
+        ingredients: [...prevValues.ingredients, ingredientInput],
       }));
-      setIngredientInput(""); // Réinitialiser l'input après l'ajout
+      setIngredientInput({ name: "", quantity: "", unit: "" }); // Reset inputs
+    } else {
+      alert("Veuillez remplir tous les champs de l'ingrédient.");
     }
   };
 
@@ -64,6 +83,18 @@ const SuggestRecipe = ({onClose}) => {
       return { ...prevValues, filters };
     });
   };
+  const handleTypeToggle = (type) => {
+    setValues((prevValues) => {
+      const types = [...prevValues.types];
+      if (types.includes(type)) {
+        // Retirer le type s'il est déjà sélectionné
+        return { ...prevValues, types: types.filter((t) => t !== type) };
+      } else {
+        // Ajouter le type s'il n'est pas déjà dans le tableau
+        return { ...prevValues, types: [...types, type] };
+      }
+    });
+  };
 
   return (
     <div className="px-2 details">
@@ -81,7 +112,29 @@ const SuggestRecipe = ({onClose}) => {
         </h2>
       </div>
       <div className="mt-6">
-        <form onSubmit={handleFormSubmit} className="space-y-8 w-11/12 ">
+        <form onSubmit={handleFormSubmit} className="space-y-8 w-full">
+          {/* Titre de la recette */}
+          <div className="flex flex-col gap-3">
+            <label className="text-custom-red text-base">
+              Titre de la recette:
+            </label>
+            <input
+              type="text"
+              name="titre"
+              value={values.titre}
+              onChange={handleInputChange}
+              placeholder="Titre de la recette"
+              className={`input border-2 p-2 rounded-xl focus:outline-none ${
+                error?.titre
+                  ? "border-orange-300"
+                  : "border-red-500 focus:border-orange-500"
+              }`}
+              required
+            />
+            {error?.titre && (
+              <p className="text-red-500 text-sm mt-1">{error.titre[0]}</p>
+            )}
+          </div>
           {/* Type de plats */}
           <div className="flex flex-col gap-2">
             <label className="text-custom-red text-base">Type de plats:</label>
@@ -91,9 +144,9 @@ const SuggestRecipe = ({onClose}) => {
                   <button
                     key={type}
                     type="button"
-                    onClick={() => setValues({ ...values, type })}
+                    onClick={() => handleTypeToggle(type)}
                     className={`border-solid border-[1px] border-red-700 px-3 py-1 rounded-full ${
-                      values.type === type
+                      values.types.includes(type)
                         ? "bg-custom-red text-white border-custom-red"
                         : "bg-white border-gray-300 text-custom-red"
                     }`}
@@ -105,30 +158,6 @@ const SuggestRecipe = ({onClose}) => {
             </div>
             {error?.type && (
               <p className="text-red-500 text-sm mt-1">{error.type[0]}</p>
-            )}
-          </div>
-
-          {/* Temps de préparation */}
-          <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base pb-2">
-              Temps de préparation :
-            </label>
-            <input
-              type="range"
-              name="prep_time"
-              min="0"
-              max="120"
-              step="1"
-              value={values.prep_time}
-              onChange={handleInputChange}
-              className="appearance-none w-full h-[0.15rem] bg-gray-300 rounded-full outline-none"
-              style={{ backgroundColor: "rgba(220, 38, 38, 1)" }}
-            />
-            <div className="text-center text-custom-red mt-2">
-              {values.prep_time} min
-            </div>
-            {error?.prep_time && (
-              <p className="text-red-500 text-sm mt-1">{error.prep_time[0]}</p>
             )}
           </div>
 
@@ -185,34 +214,35 @@ const SuggestRecipe = ({onClose}) => {
               <p className="text-red-500 text-sm mt-1">{error.filters[0]}</p>
             )}
           </div>
-
-          {/* Titre de la recette */}
+          {/* Temps de préparation */}
           <div className="flex flex-col gap-3">
             <label className="text-custom-red text-base">
-              Titre de la recette:
+              Temps de préparation (en min) :
             </label>
             <input
-              type="text"
-              name="titre"
-              value={values.titre}
+              type="number"
+              name="prep_time"
+              min="0"
+              max="120"
+              step="1"
+              value={values.prep_time}
               onChange={handleInputChange}
-              placeholder="Titre de la recette"
               className={`input border-2 p-2 rounded-xl focus:outline-none ${
-                error?.titre
+                error?.prep_time
                   ? "border-orange-300"
                   : "border-red-500 focus:border-orange-500"
               }`}
               required
             />
-            {error?.titre && (
-              <p className="text-red-500 text-sm mt-1">{error.titre[0]}</p>
+            {error?.prep_time && (
+              <p className="text-red-500 text-sm mt-1">{error.prep_time[0]}</p>
             )}
           </div>
 
           {/* Temps de cuisson */}
           <div className="flex flex-col gap-3">
             <label className="text-custom-red text-base">
-              Temps de cuisson:
+              Temps de cuisson (en min) :
             </label>
             <input
               type="number"
@@ -234,7 +264,9 @@ const SuggestRecipe = ({onClose}) => {
 
           {/* Temps de repos */}
           <div className="flex flex-col gap-3">
-            <label className="text-custom-red text-base">Temps de repos:</label>
+            <label className="text-custom-red text-base">
+              Temps de repos (en min) :
+            </label>
             <input
               type="number"
               name="rest_time"
@@ -251,21 +283,66 @@ const SuggestRecipe = ({onClose}) => {
               <p className="text-red-500 text-sm mt-1">{error.rest_time[0]}</p>
             )}
           </div>
+          <div className="flex flex-col gap-3">
+            <label className="text-custom-red text-base ">
+              Temps total (en min) :{" "}
+              {Number(values.cook_time) +
+                Number(values.prep_time) +
+                Number(values.rest_time) >
+              0 ? (
+                <span className="font-bold">
+                  {" "}
+                  {Number(values.cook_time) +
+                    Number(values.prep_time) +
+                    Number(values.rest_time)}
+                </span>
+              ) : (
+                ""
+              )}
+            </label>
+          </div>
 
           {/* Ingrédients */}
-          <div className="flex flex-col gap-3 justify-center items-center">
+          <div className="flex flex-col gap-3 justify-center items-start">
             <label className="text-custom-red text-base">Ingrédients:</label>
-            <input
-              type="text"
-              value={ingredientInput}
-              onChange={(e) => setIngredientInput(e.target.value)}
-              placeholder="Ingrédient"
-              className={`input border-2 p-2 rounded-xl focus:outline-none w-full ${
-                error?.ingredients
-                  ? "border-orange-300"
-                  : "border-red-500 focus:border-orange-500"
-              }`}
-            />
+            <div className="flex flex-row gap-2 w-full">
+              <input
+                type="number"
+                name="quantity"
+                value={ingredientInput.quantity}
+                onChange={handleIngredientChange}
+                placeholder="Quantité"
+                className={`input border-2 p-2 rounded-xl focus:outline-none w-1/4 ${
+                  error?.ingredients
+                    ? "border-orange-300"
+                    : "border-red-500 focus:border-orange-500"
+                }`}
+              />
+              <input
+                type="text"
+                name="unit"
+                value={ingredientInput.unit}
+                onChange={handleIngredientChange}
+                placeholder="Unité"
+                className={`input border-2 p-2 rounded-xl focus:outline-none w-1/4 ${
+                  error?.ingredients
+                    ? "border-orange-300"
+                    : "border-red-500 focus:border-orange-500"
+                }`}
+              />
+              <input
+                type="text"
+                name="name"
+                value={ingredientInput.name}
+                onChange={handleIngredientChange}
+                placeholder="Nom de l'ingrédient"
+                className={`input border-2 p-2 rounded-xl focus:outline-none w-2/4 ${
+                  error?.ingredients
+                    ? "border-orange-300"
+                    : "border-red-500 focus:border-orange-500"
+                }`}
+              />
+            </div>
             {error?.ingredients && (
               <p className="text-red-500 text-sm mt-1">
                 {error.ingredients[0]}
@@ -282,16 +359,15 @@ const SuggestRecipe = ({onClose}) => {
               {values.ingredients.map((ingredient, index) => (
                 <span
                   key={index}
-                  className="bg-red-200 text-red-800 py-1 px-2 rounded-full m-1"
+                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red"
                 >
-                  {ingredient}
+                  {ingredient.name} - {ingredient.quantity} {ingredient.unit}
                 </span>
               ))}
             </div>
           </div>
-
           {/* Étapes */}
-          <div className="flex flex-col gap-3 justify-center items-center">
+          <div className="flex flex-col gap-3 justify-center items-start">
             <label className="text-custom-red text-base">Étapes:</label>
             <textarea
               type="text"
@@ -314,11 +390,11 @@ const SuggestRecipe = ({onClose}) => {
             >
               + ajouter une étape
             </button>
-            <div className="mt-3 flex flex-col w-full">
+            <div className="mt-3 flex flex-wrap gap-1 w-full">
               {values.steps.map((step, index) => (
                 <span
                   key={index}
-                  className="bg-red-200 text-red-800  py-1 px-2 rounded-full m-1"
+                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red"
                 >
                   Étape {index + 1}: {step}
                 </span>
@@ -327,6 +403,13 @@ const SuggestRecipe = ({onClose}) => {
           </div>
 
           <div className="flex flex-col gap-4 justify-center items-center">
+          <button
+              type="button"
+              onClick={() => setModalOpen(true)} // Ouvrir le modal
+              className="btn bg-custom-red text-white border-solid border-[1px] font-bold border-red-400 px-3 py-2 rounded-lg"
+            >
+              Je visualise ma recette
+            </button>
             <button
               type="submit"
               className="btn-submit bg-red-400 text-white border-solid border-[1px] font-bold border-red-400 px-3 py-2 rounded-lg"
@@ -343,6 +426,8 @@ const SuggestRecipe = ({onClose}) => {
           )}
         </form>
       </div>
+      {/* Afficher le modal avec les détails de la recette */}
+      <RecipeModal isOpen={modalOpen} onClose={() => setModalOpen(false)} recipe={values} />
     </div>
   );
 };

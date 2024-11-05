@@ -98,6 +98,7 @@ function Recettes() {
         isOpen={showModalAddRecipe}
         onClose={() => setShowModalAddRecipe(false)}
         image={"rf"}
+        scroll={true}
       >
         <SuggestRecipe  onClose={() => setShowModalAddRecipe(false)} />
       </WhiteModal>

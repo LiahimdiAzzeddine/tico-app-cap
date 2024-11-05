@@ -37,13 +37,13 @@ const HomeLayout = () => {
           />
         </IonToolbar>
       </IonHeader>
-      <IonContent className="flex flex-col h-full">
+      <IonContent className="flex flex-col h-[60rem] " scroll-y="false">
         <div
           className="flex flex-col h-full rounded-b-[2rem]"
           style={{ backgroundColor: background }}
         >
-          {/* Scrollable Outlet Content */}
-          <div className="flex-grow overflow-y-auto p-4">
+          {/* Scrollable Outlet Content overflow-y-auto */}
+          <div className="flex-grow  p-4">
             <Outlet />
           </div>
         </div>

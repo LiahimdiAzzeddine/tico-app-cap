@@ -45,7 +45,7 @@ const FAQComponent = () => {
         </h2>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 h-[65vh] overflow-y-auto">
         {faqs.map((faq, index) => (
           <FAQItem key={index} question={faq.question} answer={faq.answer} />
         ))}

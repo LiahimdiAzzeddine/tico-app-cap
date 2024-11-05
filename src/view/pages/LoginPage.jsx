@@ -21,10 +21,9 @@ function LoginPage() {
 
   return (
     <>
-    
     <div className="flex flex-col items-center justify-between h-full w-full">
       {/* Logo Section */}
-      <div className="grow flex items-end justify-center w-full ">
+      <div className="grow-0 flex items-end justify-center w-full ">
         <img className="w-64" src={tico_intro} alt="TiCO Logo" />
       </div>
 
@@ -64,7 +63,6 @@ function LoginPage() {
           </div>
         </div>
       </div>
-
     </div>
     <WhiteModal
         isOpen={showModalHistory}

@@ -2,7 +2,7 @@ import React from 'react';
 import { IonModal, IonContent } from '@ionic/react';
 import ModalHeader from './ModalHeader';
 
-const WhiteModal = ({ isOpen, onClose,image, children }) => {
+const WhiteModal = ({ isOpen, onClose,image,scroll=false, children }) => {
   return (
     <IonModal
       isOpen={isOpen}
@@ -20,7 +20,7 @@ const WhiteModal = ({ isOpen, onClose,image, children }) => {
       {/* Custom Header */}
      
       <ModalHeader image={image} onClose={onClose} />
-      <IonContent className="ion-padding" style={{ overflow: 'hidden' }}>
+      <IonContent className="ion-padding" style={{ overflow: 'hidden' }} scroll-y={scroll}>
       {React.cloneElement(children, { onClose })}
       </IonContent>
     </IonModal>

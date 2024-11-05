@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types"; // Import PropTypes for type checking
 import Tico from "../../assets/auth/tico.png";
-import ReturnImage from "../../assets/home/return.png";
+import ReturnImage from "../../assets/fb/flech.svg";
 import VX from "../../assets/home/X.svg";
 import BX from "../../assets/home/bx.svg"
 import flecheRecette from "../../assets/recettes/fleche.svg";
@@ -28,10 +28,10 @@ function ModalHeader({ image, onClose }) {
         className="text-custom-blue transform transition-transform duration-150 ease-in-out active:scale-90"
         onClick={onClose}
       >
-        <img src={SRC} alt="Close" className="w-10 h-10" />
+        <img src={SRC} alt="Close" className="w-auto h-11" />
       </button>
       <div className="text-orange-500 font-bold text-2xl titre-bold transform transition-transform duration-150 ease-in-out active:scale-90">
-        <img src={Tico} alt="Tico" className="h-7" />
+        <img src={Tico} alt="Tico" className="h-8" />
       </div>
     </div>
   );

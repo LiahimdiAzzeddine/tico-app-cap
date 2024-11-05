@@ -4,12 +4,11 @@ import {
   IonHeader,
   IonToolbar,
   IonMenu,
-  IonToast,
   IonIcon,
 } from "@ionic/react";
 import useLogout from "../../hooks/auth/useLogout";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
-import { logOut, logIn, settings,trailSign } from "ionicons/icons"; // Importing icons for settings, logout, and login
+import { logOut, logIn, settings,trailSign,home } from "ionicons/icons"; // Importing icons for settings, logout, and login
 import tico from "../../assets/navbar/tico.png";
 import accueil from "../../assets/navbar/accueil.png";
 import accueil_active  from "../../assets/navbar/accueil_active.svg";
@@ -48,15 +47,15 @@ function Menu() {
         <div className="space-y-2">
           {/* Accueil Button */}
           <button
-            onClick={() => (window.location.href = "/home")}
+            onClick={() => {
+              navigate("/", { replace: true });
+            }}
             className="flex items-center w-full py-2 px-2 bg-white hover:bg-blue-100 rounded-lg shadow-md transition duration-300"
           >
-            <img
-              src={isAuthenticated ? accueil_active : accueil}
-              alt="Accueil"
-              className="w-10 h-10 mr-3"
-            />
-            <span className="text-blue-600 text-lg font-medium">Accueil</span>
+           <span className="text-orange-400 mr-3">
+              <IonIcon icon={home} className="w-10 h-10" />
+            </span>
+            <span className="text-orange-400 text-lg font-medium">Accueil</span>
           </button>
 
           

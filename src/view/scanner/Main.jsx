@@ -5,6 +5,7 @@ import "./Scanner.css";
 import ScanArea from "./ScanArea";
 import PermissionAlert from "./PermissionAlert";
 import ScanResultModal from "./ScanResultModal";
+import useFetchProduct from "../../hooks/product/useFetchProduct"
 
 const Main = () => {
   const [err, setErr] = useState(null);
@@ -17,6 +18,7 @@ const Main = () => {
   const [showToast, setShowToast] = useState(false);
   const [flashOn, setFlashOn] = useState(false);
   const [modalisOpen, setModalisOpen] = useState(false);
+  const { productData, loading, error, fetchProduct } = useFetchProduct();
 
   const openModal = (barreCode) => {
     setScannedResult(barreCode);
@@ -124,6 +126,9 @@ const Main = () => {
           }
 
           if (isScanning) scan();
+          if (result.content !== lastScannedCode || !modalisOpen) {
+          await fetchProduct(result.content);
+          }
         }
       };
 
@@ -161,7 +166,7 @@ const Main = () => {
     <>
       <IonContent className={hideBg ? "hideBg" : "ion-padding"}>
         {err || !hasPermission ? (
-          <IonRow>
+          <IonRow class="w-full h-full flex flex-col justify-center items-center">
             <IonText color="danger">{err}</IonText>
             <IonButton onClick={() => startScan(true)}>Réinitialiser</IonButton>
           </IonRow>

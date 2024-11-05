@@ -17,7 +17,8 @@ export default {
         'custom-green-background':'#c7f0d9',
         'custom-green-text':"#51736c",
         "custom-green-divider":"#b9d3d0",
-        "custom-brown":"#ffeca7"
+        "custom-brown":"#ffeca7",
+        "custom-green-text":"#4b996c",
 
       },
       screens: {

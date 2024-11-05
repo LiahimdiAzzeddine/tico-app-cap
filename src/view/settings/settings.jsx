@@ -64,7 +64,7 @@ function Settings() {
           style={{ overflow: "hidden", "--background": "#ffeca7" }}
         >
           {/* Menu Items */}
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full details">
             <h2 className="grow-0 text-center text-custom-blue text-2xl titre-bold underline underline-offset-4 decoration-orange-400">
               Mon compte
             </h2>
