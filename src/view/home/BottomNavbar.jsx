@@ -25,7 +25,7 @@ const BottomNavbar = () => {
 
   return (
     <IonFooter className="ion-no-border"  style={{ "--ion-background-color": "#ffff"}}>
-      <IonToolbar className="bg-[#f7f7f700]" style={{"--ion-toolbar-background":"#ffff"}}>
+      <IonToolbar className="bg-[#f7f7f700] ion-no-padding" style={{"--ion-toolbar-background":"#ffff"}}>
         <div className="flex justify-around items-center py-4 px-2">
           {/* Bouton Accueil */}
           <button className="flex flex-col items-center" onClick={() => navigate("/home", { replace: true })}>

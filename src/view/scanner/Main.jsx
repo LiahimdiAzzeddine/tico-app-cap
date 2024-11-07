@@ -156,7 +156,7 @@ const Main = () => {
   };
   useEffect(() => {
     startScan();
-    openModal("121212")
+    openModal("3266980784614")
     return () => {
       stopScan();
     };

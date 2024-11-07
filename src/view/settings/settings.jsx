@@ -14,6 +14,7 @@ import { useToast } from "../../context/ToastContext";
 import AccountCreationForm from "../auth/Register";
 import Login from "../auth/login";
 import InviteTico from "./InviteTico";
+import ModalHeader from "../composants/ModalHeader";
 
 function Settings() {
   const { triggerToast } = useToast();
@@ -45,19 +46,7 @@ function Settings() {
       <IonPage>
         {/* Custom Header */}
         <div className="bg-[#ffeca7]">
-          <div className="flex justify-between items-center mb-5 mt-1 p-4 mx-1 modal-background ">
-            <button
-              className="text-custom-blue"
-              onClick={() => {
-                navigation("/", { replace: true });
-              }}
-            >
-              <img src={X} alt="Close" className="w-10 h-10" />
-            </button>
-            <div className="text-orange-500 font-bold text-2xl titre-bold">
-              <img src={Tico} alt="Tico" className="h-7" />
-            </div>
-          </div>
+            <ModalHeader onClose={() => { navigation("/", { replace: true }); }} image={"bx"} />
         </div>
         <IonContent
           className="ion-padding"

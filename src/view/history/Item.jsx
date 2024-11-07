@@ -26,6 +26,7 @@ const Item = ({ product, index, length }) => {
             e.target.onerror = null; // Éviter une boucle infinie
             e.target.src = defaultImage; // Image par défaut en cas d'erreur
           }}
+          style={{margin:"auto"}}
         />
       </div>
       

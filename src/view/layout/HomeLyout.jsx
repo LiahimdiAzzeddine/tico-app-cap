@@ -30,20 +30,20 @@ const HomeLayout = () => {
         className="ion-no-border"
         style={{ "--ion-background-color": background }}
       >
-        <IonToolbar style={{ "--ion-toolbar-background": background }}>
+        <IonToolbar style={{ "--ion-toolbar-background": background,padding:0 }}>
           <ModalHeader
             image={icon}
             onClose={() => navigate("scanner", { replace: true })}
           />
         </IonToolbar>
       </IonHeader>
-      <IonContent className="flex flex-col h-[60rem] " scroll-y="false">
+      <IonContent className="flex flex-col h-[60rem] ion-no-padding" scroll-y="false">
         <div
           className="flex flex-col h-full rounded-b-[2rem]"
           style={{ backgroundColor: background }}
         >
           {/* Scrollable Outlet Content overflow-y-auto */}
-          <div className="flex-grow  p-4">
+          <div className="flex-grow">
             <Outlet />
           </div>
         </div>

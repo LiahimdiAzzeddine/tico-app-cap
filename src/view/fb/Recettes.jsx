@@ -4,7 +4,7 @@ import horloge from "../../assets/fb/horloge.svg";
 import flecheRed from "../../assets/fb/flecheRed.svg";
 import SuggestRecipe from "../recettes/SuggestRecipe";
 import WhiteModal from "../composants/WhiteModal";
-import Recette from "../recettes/Recette";
+import RecipeModal from "../composants/RecipeModal";
 function Recettes() {
   const [showModalAddRecipe, setShowModalAddRecipe] = useState(false);
   const [showModalRecipe, setShowModalRecipe] = useState(false);
@@ -102,13 +102,13 @@ function Recettes() {
       >
         <SuggestRecipe  onClose={() => setShowModalAddRecipe(false)} />
       </WhiteModal>
-      <WhiteModal
+      
+      {/* Afficher le modal avec les détails de la recette */}
+      <RecipeModal
         isOpen={showModalRecipe}
         onClose={() => setShowModalRecipe(false)}
-        image={"rf"}
-      >
-        <Recette recetteId={selectedRecetteId}/>
-      </WhiteModal>
+        recipe={selectedRecetteId}
+      />
     </>
   );
 }

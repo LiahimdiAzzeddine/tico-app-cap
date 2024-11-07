@@ -19,7 +19,7 @@ export default {
         "custom-green-divider":"#b9d3d0",
         "custom-brown":"#ffeca7",
         "custom-green-text":"#4b996c",
-
+        "custom-red-bg-clear":"#fad4ce"
       },
       screens: {
 

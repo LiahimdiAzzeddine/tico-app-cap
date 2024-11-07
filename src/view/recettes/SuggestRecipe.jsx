@@ -3,11 +3,14 @@ import Background from "../../assets/recettes/background.svg";
 import useSuggestRecipe from "../../hooks/recipes/useSuggestRecipe";
 import Spinner from "../composants/Spinner";
 import RecipeModal from "../composants/RecipeModal";
+import AlertComponent from "../composants/AlertComponent";
 
 const SuggestRecipe = ({ onClose }) => {
   const { handleSubmit, loading, error, success } = useSuggestRecipe();
   const [stepInput, setStepInput] = useState(""); // État pour l'input des étapes
   const [modalOpen, setModalOpen] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
   useEffect(() => {
     if (success) {
       onClose();
@@ -49,19 +52,25 @@ const SuggestRecipe = ({ onClose }) => {
   };
 
   const addIngredient = () => {
-    if (
-      ingredientInput.name &&
-      ingredientInput.quantity &&
-      ingredientInput.unit
-    ) {
+    if (ingredientInput.name && ingredientInput.quantity) {
       setValues((prevValues) => ({
         ...prevValues,
         ingredients: [...prevValues.ingredients, ingredientInput],
       }));
-      setIngredientInput({ name: "", quantity: "", unit: "" }); // Reset inputs
+      setIngredientInput({ name: "", quantity: "", unit: "" }); // Réinitialiser les champs d'entrée
     } else {
-      alert("Veuillez remplir tous les champs de l'ingrédient.");
+      //alert("Veuillez remplir tous les champs de l'ingrédient.");
+      setShowAlert(true);
     }
+  };
+
+  const removeIngredient = (indexToRemove) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      ingredients: prevValues.ingredients.filter(
+        (_, index) => index !== indexToRemove
+      ),
+    }));
   };
 
   const addStep = () => {
@@ -72,6 +81,12 @@ const SuggestRecipe = ({ onClose }) => {
       }));
       setStepInput(""); // Réinitialiser l'input après l'ajout
     }
+  };
+  const removeStep = (indexToRemove) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      steps: prevValues.steps.filter((_, index) => index !== indexToRemove),
+    }));
   };
 
   const addFilter = (filter) => {
@@ -359,9 +374,11 @@ const SuggestRecipe = ({ onClose }) => {
               {values.ingredients.map((ingredient, index) => (
                 <span
                   key={index}
-                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red"
+                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red cursor-pointer"
+                  onClick={() => removeIngredient(index)} // Permet la suppression au clic
                 >
-                  {ingredient.name} - {ingredient.quantity} {ingredient.unit}
+                  {ingredient.quantity}
+                  {ingredient.unit} - {ingredient.name}
                 </span>
               ))}
             </div>
@@ -395,6 +412,7 @@ const SuggestRecipe = ({ onClose }) => {
                 <span
                   key={index}
                   className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red"
+                  onClick={() => removeStep(index)}
                 >
                   Étape {index + 1}: {step}
                 </span>
@@ -403,7 +421,7 @@ const SuggestRecipe = ({ onClose }) => {
           </div>
 
           <div className="flex flex-col gap-4 justify-center items-center">
-          <button
+            <button
               type="button"
               onClick={() => setModalOpen(true)} // Ouvrir le modal
               className="btn bg-custom-red text-white border-solid border-[1px] font-bold border-red-400 px-3 py-2 rounded-lg"
@@ -412,7 +430,7 @@ const SuggestRecipe = ({ onClose }) => {
             </button>
             <button
               type="submit"
-              className="btn-submit bg-red-400 text-white border-solid border-[1px] font-bold border-red-400 px-3 py-2 rounded-lg"
+              className="btn-submit bg-[#fad4ce] text-red-700 border-solid border-[1px] font-bold border-[#fad4ce] px-3 py-2 rounded-lg"
               disabled={loading}
             >
               {loading ? "Envoi..." : "Envoyer ma recette"}
@@ -427,7 +445,19 @@ const SuggestRecipe = ({ onClose }) => {
         </form>
       </div>
       {/* Afficher le modal avec les détails de la recette */}
-      <RecipeModal isOpen={modalOpen} onClose={() => setModalOpen(false)} recipe={values} />
+      <RecipeModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        recipe={values}
+      />
+
+      {/* Utilisation de AlertComponent */}
+      <AlertComponent
+        isOpen={showAlert}
+        onClose={() => setShowAlert(false)}
+        header="Erreur"
+        message="Veuillez remplir tous les champs de l'ingrédient."
+      />
     </div>
   );
 };
