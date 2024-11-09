@@ -5,7 +5,6 @@ import "./Scanner.css";
 import ScanArea from "./ScanArea";
 import PermissionAlert from "./PermissionAlert";
 import ScanResultModal from "./ScanResultModal";
-import useFetchProduct from "../../hooks/product/useFetchProduct"
 
 const Main = () => {
   const [err, setErr] = useState(null);
@@ -18,7 +17,6 @@ const Main = () => {
   const [showToast, setShowToast] = useState(false);
   const [flashOn, setFlashOn] = useState(false);
   const [modalisOpen, setModalisOpen] = useState(false);
-  const { productData, loading, error, fetchProduct } = useFetchProduct();
 
   const openModal = (barreCode) => {
     setScannedResult(barreCode);
@@ -126,9 +124,7 @@ const Main = () => {
           }
 
           if (isScanning) scan();
-          if (result.content !== lastScannedCode || !modalisOpen) {
-          await fetchProduct(result.content);
-          }
+          
         }
       };
 
@@ -156,7 +152,7 @@ const Main = () => {
   };
   useEffect(() => {
     startScan();
-    openModal("3266980784614")
+    setModalisOpen(true);
     return () => {
       stopScan();
     };
@@ -203,7 +199,9 @@ const Main = () => {
         )}
       </IonContent>
       {/* Scanned Result Modal */}
-      <ScanResultModal scannedResult={scannedResult} modalisOpen={modalisOpen} closeModal={closeModal} setModalisOpen={setModalisOpen} />
+      {scannedResult&&(
+        <ScanResultModal scannedResult={scannedResult} modalisOpen={modalisOpen} closeModal={closeModal} setModalisOpen={setModalisOpen} />
+      )}
     </>
   );
 };

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = "http://localhost:8000";
+const apiUrl = "http://192.168.11.106:8000";
 export default axios.create({
     baseURL: apiUrl,
 });

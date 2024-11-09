@@ -7,7 +7,7 @@ const useLogout = () => {
 
     const logout = async () => {
         try {
-            const response = await axiosPrivate.post('/api/auth/logout');
+            //const response = await axiosPrivate.post('/api/auth/logout');
             signOut();
             return response.data; // Return the response data to check success
         } catch (err) {

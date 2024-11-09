@@ -19,7 +19,7 @@ const FicheProduit = (props) => {
   return (
     <div className="max-w-screen-sm m-auto">
       <div className="flex flex-col h-full bg-white">
-        <div className="flex justify-between items-center modal-background pb-1 px-4">
+        <div className="flex justify-between items-center modal-background py-3 px-4">
           <button className="text-blue-600" onClick={resetAll}>
             <img
               src={Fleche}

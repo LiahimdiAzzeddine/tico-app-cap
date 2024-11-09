@@ -2,19 +2,21 @@ import React from "react";
 import hands from "../../assets/parametres/hands.png";
 import background from "../../assets/parametres/background.png";
 import { Share } from "@capacitor/share";
+
 function InviteTico() {
-    const handleShare = async () => {
-        await Share.share({
-          title: "TiCO App",
-          text: "Découvrez l'application TiCO et partagez-la avec votre entourage !",
-          url: "https://example.com/tico", // Add your app's URL
-          dialogTitle: "Partager TiCO",
-        });
-      };
+  const handleShare = async () => {
+    await Share.share({
+      title: "TiCO App",
+      text: "Découvrez l'application TiCO et partagez-la avec votre entourage !",
+      url: "https://example.com/tico",
+      dialogTitle: "Partager TiCO",
+    });
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center bg-white h-full w-full">
-      <div
-        className="flex flex-col items-center justify-center grow-[5] w-full relative"
+    <div className="details bg-white flex flex-col items-center">
+      <div 
+        className="w-full max-w-sm  flex flex-col items-center justify-center"
         style={{
           backgroundImage: `url(${background})`,
           backgroundRepeat: "no-repeat",
@@ -22,28 +24,41 @@ function InviteTico() {
           backgroundSize: "contain",
         }}
       >
-        {/* Logo Section */}
-        <div className="flex items-start justify-center w-full grow absolute top-0">
-          <img className="w-48" src={hands} alt="TiCO Logo" />
-        </div>
-        <div className="flex flex-col text-center w-full px-6  absolute grow justify-around h-[35%]">
-        <h2 className="text-2xl titre-bold text-custom-blue">
+        {/* Content container */}
+        <div className="relative flex flex-col items-center w-full px-8 -top-20">
+          {/* Hands icon */}
+          <div className="mb-5">
+            <img 
+              src={hands} 
+              alt="TiCO Logo" 
+              className="w-44"
+            />
+          </div>
+
+          {/* Text content */}
+          <div className="text-center">
+            <h2 className="text-2xl titre-bold text-custom-blue mb-6">
               Faire connaître{" "}
               <span className="underline underline-offset-4 decoration-orange-400">
                 TiCO
               </span>
             </h2>
-            <div className="text-xl text-custom-blue">
+            
+            <p className="text-custom-blue mb-4">
               Vous souhaitez faire connaître{" "}
               <span className="font-bold">TiCO</span> à votre entourage ?
-            </div>
-            <div className="text-xl text-custom-blue">
+            </p>
+            
+            <p className="text-custom-blue">
               N'hésitez pas à partager l'application autour de vous.
-            </div>
-        </div>
-      
-      </div>
+            </p>
+          </div>
 
+        
+        </div> 
+         
+      </div>
+      {/* Share button */}
       <div className="w-full px-6 grow-[1] flex items-center justify-center">
         <button
           className="bg-[#FF8C00] hover:bg-orange-600 text-white p-2 rounded-lg transition-colors duration-300 w-1/2 lg:w-1/4 font-bold"

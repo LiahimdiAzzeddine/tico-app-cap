@@ -7,6 +7,7 @@ import AuthProvider from "react-auth-kit";
 import createStore from "react-auth-kit/createStore";
 import refresh from "./hooks/useRefreshToken.js";
 import { ToastProvider } from "./context/ToastContext.jsx";
+import { NetworkProvider } from './context/NetworkContext.jsx';
 const store = createStore({
   authName: "_auth",
   authType: "cookie",
@@ -18,6 +19,8 @@ const store = createStore({
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+        <NetworkProvider>
+
     <AuthProvider store={store}>
     <ToastProvider>
         <BrowserRouter>
@@ -27,5 +30,6 @@ createRoot(document.getElementById('root')).render(
         </BrowserRouter>
         </ToastProvider>
       </AuthProvider>
+      </NetworkProvider>
   </StrictMode>,
 )

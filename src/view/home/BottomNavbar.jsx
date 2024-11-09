@@ -13,8 +13,10 @@ import accueil_active from "../../assets/navbar/accueil_active.svg";
 import favoris_active from "../../assets/navbar/favoris_active.svg";
 import astuces_active from "../../assets/navbar/astuces_active.svg";
 import profil_active from "../../assets/navbar/profil_active.svg";
+import AlertComponent from "../composants/AlertComponent";
 
 const BottomNavbar = () => {
+  const [showAlert, setShowAlert] = useState(false);
   const isAuthenticated = useIsAuthenticated();
   const [authState, setAuthState] = useState(isAuthenticated);
   const navigate = useNavigate();
@@ -24,11 +26,13 @@ const BottomNavbar = () => {
   }, [isAuthenticated]);
 
   return (
+    <>
+    
     <IonFooter className="ion-no-border"  style={{ "--ion-background-color": "#ffff"}}>
       <IonToolbar className="bg-[#f7f7f700] ion-no-padding" style={{"--ion-toolbar-background":"#ffff"}}>
         <div className="flex justify-around items-center py-4 px-2">
           {/* Bouton Accueil */}
-          <button className="flex flex-col items-center" onClick={() => navigate("/home", { replace: true })}>
+          <button className="flex flex-col items-center" onClick={() => setShowAlert(true)}>
             <img
               src={authState ? accueil_active : accueil}
               alt="Accueil"
@@ -37,7 +41,7 @@ const BottomNavbar = () => {
           </button>
 
           {/* Bouton Favoris */}
-          <button className="flex flex-col items-center" onClick={() => navigate("/favoris", { replace: true })}>
+          <button className="flex flex-col items-center" onClick={() => setShowAlert(true)}>
             <img
               src={authState ? favoris_active : favoris}
               alt="Favoris"
@@ -55,7 +59,7 @@ const BottomNavbar = () => {
           </button>
 
           {/* Bouton Profil */}
-          <button className="flex flex-col items-center" onClick={() => navigate("/recipes", { replace: true })}>
+          <button className="flex flex-col items-center" onClick={() => setShowAlert(true)}>
             <img
               src={authState ? profil_active : profil}
               alt="Profil"
@@ -64,7 +68,7 @@ const BottomNavbar = () => {
           </button>
 
           {/* Bouton Astuces */}
-          <button className="flex flex-col items-center" onClick={() => navigate("/tips", { replace: true })}>
+          <button className="flex flex-col items-center" onClick={() => setShowAlert(true)}>
             <img
               src={authState ? astuces_active : astuces}
               alt="Astuces"
@@ -74,6 +78,16 @@ const BottomNavbar = () => {
         </div>
       </IonToolbar>
     </IonFooter>
+    {/* Utilisation de AlertComponent */}
+    <AlertComponent
+  isOpen={showAlert}
+  onClose={() => setShowAlert(false)}
+  header="Information"
+  message="Cette fonctionnalité sera disponible dans la prochaine version de l'application."
+/>
+
+    </>
   );
 };
+
 export default BottomNavbar;

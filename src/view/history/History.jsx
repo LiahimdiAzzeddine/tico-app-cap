@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from "react";
 import Background from "../../assets/history/background.svg";
 import { getAllProducts } from "../../hooks/useIndexedDB";
+
 import Item from "./Item";
+import { EmptyState } from "./ui/EmptyState";
+
 const History = () => {
-  const [products, setProducts] = useState([]); // État pour stocker les produits récupérés
-  const [loading, setLoading] = useState(true); // État pour gérer le chargement
-  // Hook useEffect pour récupérer les produits lors du chargement du composant
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const allProducts = await getAllProducts(); // Appel à la fonction pour récupérer les produits
-        setProducts(allProducts); // Met à jour l'état avec les produits récupérés
+        const allProducts = await getAllProducts();
+        setProducts(allProducts);
       } catch (error) {
         console.error("Erreur lors de la récupération des produits :", error);
       } finally {
-        setLoading(false); // Indique que le chargement est terminé
+        setLoading(false);
       }
     };
 
-    fetchProducts(); // Exécution de la fonction de récupération
-  }, []); // Le tableau vide signifie que l'effet s'exécute une seule fois au montage
+    fetchProducts();
+  }, []);
+
+ 
+  const LoadingState = () => (
+    <div className="flex items-center justify-center h-full">
+      <div className="animate-pulse flex flex-col items-center">
+        <div className="h-8 w-8 bg-gray-200 rounded-full mb-2"></div>
+        <div className="h-4 w-32 bg-gray-200 rounded"></div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="p-2 details">
@@ -32,10 +45,9 @@ const History = () => {
           backgroundSize: "contain",
         }}
       >
-        <h2 className="text-center text-custom-green-text text-2xl titre-bold ">
+        <h2 className="text-center text-custom-green-text text-2xl titre-bold">
           Mon&nbsp;
           <span className="underline underline-offset-4 decoration-orange-400">
-            {" "}
             historique
           </span>
           &nbsp;de scan
@@ -44,18 +56,18 @@ const History = () => {
 
       <div className="mt-12 h-[65vh] overflow-y-auto">
         {loading ? (
-          <p>Chargement des produits...</p>
+          <LoadingState />
         ) : products.length > 0 ? (
           products.map((product, index) => (
             <Item
               product={product}
               index={index}
               length={products.length}
-              key={index}
+              key={product.id || index}
             />
           ))
         ) : (
-          <p>Aucun produit trouvé.</p>
+          <EmptyState />
         )}
       </div>
     </div>

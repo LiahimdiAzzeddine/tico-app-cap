@@ -13,24 +13,23 @@ const useGetProduct = (ean) => {
       const response = await axios.get(`/api/fiche-produit/product/ean/${ean}`);
       console.log("Réponse des données produit :", response);
       const data = response.data;
-      if (response.data.success) {
-        const product = {
-          image: data.product.image_url || "default_image_url.jpg", // Image par défaut si non disponible
-          title: data.product.product_name || "Produit inconnu",
-          brand: data.product.brands || "Marque inconnue",
-          barcode: ean,
-        };
-        setProductData(product);
 
-        console.log("Produit ajouté avec succès");
-        setLoading(false);
+      if (response.status === 200) {
+        setProductData(data);
+        console.log("Produit ajouté avec succès :", data);
       } else {
-        setError("Produit non trouvé.");
+        setError("Erreur inattendue lors de la récupération du produit.");
         setProductData(null);
       }
     } catch (err) {
-      setError("Erreur lors de la récupération du produit.");
+      if (err.status === 404) {
+        setError("Produit non trouvé.");
+        setProductData(null);
+      }else{
+        setError("Erreur lors de la récupération du produit.");
       setProductData(null);
+      }
+      
     } finally {
       setLoading(false);
     }
