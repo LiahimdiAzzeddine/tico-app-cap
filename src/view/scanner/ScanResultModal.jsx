@@ -31,7 +31,7 @@ const ScanResultModal = ({
 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [modalBreakpoint, setModalBreakpoint] = useState(0.3);
-  const { productData, loading, error, fetchProduct } = useGetProduct(scannedResult);
+  const { productData, loading, error, fetchProduct,setProductData } = useGetProduct(scannedResult);
   const { isConnected } = useNetwork();
   const { triggerToast } = useToast();
 
@@ -39,8 +39,10 @@ const ScanResultModal = ({
   useEffect(() => {
     if (scannedResult && isConnected) {
       fetchProduct();
+    }else{
+      setProductData(null)
     }
-  }, [scannedResult, isConnected, fetchProduct]);
+  }, [scannedResult, fetchProduct]);
 
   // Effet pour ajouter le produit à l'historique dès que les données sont prêtes
   useEffect(() => {
@@ -51,7 +53,7 @@ const ScanResultModal = ({
 
   const addToHistory = async (scannedResult, productData) => {
     const product = {
-      image: productData.foodheaproduct?._photoUrl ?? "default_image_url.jpg",
+      image: productData.OFFproduct?._photoUrl ?? "default_image_url.jpg",
       title: productData.OFFproduct?._name ?? "Produit inconnu",
       brand: productData.foodheaproduct?._name ?? "Marque inconnue",
       Barrcode: scannedResult,

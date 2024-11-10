@@ -14,9 +14,19 @@ function InviteTico() {
   };
 
   return (
-    <div className="details bg-white flex flex-col items-center">
-      <div 
-        className="w-full max-w-sm  flex flex-col items-center justify-center"
+    <div className="w-full h-[80dvh]">
+      <div className="details overflow-hidden h-full">
+        <div className="bg-white flex flex-col items-center justify-center space-y-16 h-full ">
+          {/* Hands icon */}
+          <div className="mb-5 absolute top-10">
+            <img 
+              src={hands} 
+              alt="TiCO Logo" 
+              className="w-44"
+            />
+          </div>
+        <div 
+        className="w-full max-w-sm  flex flex-col items-center justify-center h-full"
         style={{
           backgroundImage: `url(${background})`,
           backgroundRepeat: "no-repeat",
@@ -24,16 +34,10 @@ function InviteTico() {
           backgroundSize: "contain",
         }}
       >
+        
         {/* Content container */}
-        <div className="relative flex flex-col items-center w-full px-8 -top-20">
-          {/* Hands icon */}
-          <div className="mb-5">
-            <img 
-              src={hands} 
-              alt="TiCO Logo" 
-              className="w-44"
-            />
-          </div>
+        <div className="flex flex-col items-center justify-center w-full px-6 ">
+          
 
           {/* Text content */}
           <div className="text-center">
@@ -58,14 +62,16 @@ function InviteTico() {
         </div> 
          
       </div>
-      {/* Share button */}
-      <div className="w-full px-6 grow-[1] flex items-center justify-center">
-        <button
-          className="bg-[#FF8C00] hover:bg-orange-600 text-white p-2 rounded-lg transition-colors duration-300 w-1/2 lg:w-1/4 font-bold"
-          onClick={handleShare}
-        >
-          Je partage
-        </button>
+          {/* Share button */}
+          <div className="w-full max-w-sm  p-2  flex items-center justify-center">
+            <button
+              className="bg-[#FF8C00] hover:bg-orange-600 text-white p-2 rounded-lg transition-colors duration-300 w-1/2 lg:w-1/4 font-bold"
+              onClick={handleShare}
+            >
+              Je partage
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

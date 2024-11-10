@@ -17,6 +17,7 @@ export const NetworkProvider = ({ children }) => {
 
     // Listen for network changes
     const handler = Network.addListener("networkStatusChange", (status) => {
+      console.log("networkStatusChange",status.connected)
       setIsConnected(status.connected);
     });
 
