@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Background from "../../assets/history/background.svg";
 import { getAllProducts } from "../../hooks/useIndexedDB";
-
+import { IonContent, IonModal } from "@ionic/react";
+import FicheProduit from "../fb/FicheProduit";
 import Item from "./Item";
 import { EmptyState } from "./ui/EmptyState";
+import ModalHeader from "../composants/ModalHeader"
 
 const History = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [isOpenFb, setIsOpenFb] = useState(false);
+  const [ean, setEan] = useState(null);
+  const OpenFb = (ean) => {
+    if (ean) {
+      setIsOpenFb(true);
+      setEan(ean);
+    }
+  };
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -24,7 +33,6 @@ const History = () => {
     fetchProducts();
   }, []);
 
- 
   const LoadingState = () => (
     <div className="flex items-center justify-center h-full">
       <div className="animate-pulse flex flex-col items-center">
@@ -35,42 +43,51 @@ const History = () => {
   );
 
   return (
-    <div className="p-2 details">
-      <div
-        className="flex flex-col items-center justify-center min-h-[10vh]"
-        style={{
-          backgroundImage: `url(${Background})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundSize: "contain",
-        }}
-      >
-        <h2 className="text-center text-custom-green-text text-2xl titre-bold">
-          Mon&nbsp;
-          <span className="underline underline-offset-4 decoration-orange-400">
-            historique
-          </span>
-          &nbsp;de scan
-        </h2>
-      </div>
+    <>
+      <div className="p-2 details">
+        <div
+          className="flex flex-col items-center justify-center min-h-[10vh]"
+          style={{
+            backgroundImage: `url(${Background})`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            backgroundSize: "contain",
+          }}
+        >
+          <h2 className="text-center text-custom-green-text text-2xl titre-bold">
+            Mon&nbsp;
+            <span className="underline underline-offset-4 decoration-orange-400">
+              historique
+            </span>
+            &nbsp;de scan
+          </h2>
+        </div>
 
-      <div className="mt-12 h-[65vh] overflow-y-auto">
-        {loading ? (
-          <LoadingState />
-        ) : products.length > 0 ? (
-          products.map((product, index) => (
-            <Item
-              product={product}
-              index={index}
-              length={products.length}
-              key={product.id || index}
-            />
-          ))
-        ) : (
-          <EmptyState />
-        )}
+        <div className="mt-12 h-[65vh] overflow-y-auto">
+          {loading ? (
+            <LoadingState />
+          ) : products.length > 0 ? (
+            products.map((product, index) => (
+              <Item
+                product={product}
+                index={index}
+                length={products.length}
+                key={index}
+                OpenFb={OpenFb}
+              />
+            ))
+          ) : (
+            <EmptyState />
+          )}
+        </div>
       </div>
-    </div>
+      <IonModal isOpen={isOpenFb}>
+      <ModalHeader image={"fb"} onClose={()=>{setIsOpenFb(false)}} />
+        <IonContent className="ion-padding-bottom">
+          <FicheProduit barcode={ean} resetBarcode={setIsOpenFb} />
+        </IonContent>
+      </IonModal>
+    </>
   );
 };
 

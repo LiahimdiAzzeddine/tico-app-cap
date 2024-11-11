@@ -5,7 +5,7 @@ import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import WhiteModal from "../composants/WhiteModal";
 import History from "../history/History";
 
-function LoginPage() {
+function IndexPage() {
   const isAuthenticated = useIsAuthenticated();
   const [showModalHistory, setShowModalHistory] = useState(false);
 
@@ -74,4 +74,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default IndexPage;

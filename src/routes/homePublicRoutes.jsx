@@ -25,6 +25,7 @@ const HomepublicRoutes = [
     </Route>
     <Route key="authlyout" path="/" element={<AuthLayout />}>
     <Route path="login" element={<Login />} />
+    <Route path="signup" element={<AccountCreationForm />} />
     </Route>
     <Route key="FbLyout" path="/" element={<FbLyout />}>
     <Route path="/fiche-produit/:barcode" element={<FbPage />} /> {/* Route pour la fiche produit */}

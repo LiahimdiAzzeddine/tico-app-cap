@@ -1,11 +1,54 @@
-import React from "react";
+import React,{useState} from "react";
 
 function NameProduct(props) {
+  const [isZoomed, setIsZoomed] = useState(false);
+ 
+  const handleZoom = () => {
+    setIsZoomed(true);
+  };
+
+  const closeZoom = () => {
+    setIsZoomed(false);
+  };
+
   return (
-    <div className="flex flex-col  py-1 text-center items-center	px-4">
-      <h3 className="text-4xl text-center titre-roboto-bold text-[#0f548d]">{props.Name}</h3>
-      <div className="text-2xl text-[#47a29a] mt-1 ">{props.Brand}</div>
+    <>
+    <div className="flex flex-row justify-center py-1 px-4 space-x-4">
+      {/* Ajout de l'image */}
+      <img
+        src={props.ImageSrc}
+        alt={`${props.Name} - ${props.Brand}`}
+        className="w-28 h-auto object-cover cursor-pointer"
+            onClick={handleZoom}
+      />
+     
+      <div className="flex flex-col space-y-2">
+      <h3 className="text-2xl titre-roboto-bold text-[#0f548d]">
+        {props.Name}
+      </h3>
+      <div className="text-xl text-[#47a29a] mt-1">{props.Brand}</div>
+      </div>
     </div>
+     {/* Modal Fullscreen View */}
+     <div className="relative">
+     {isZoomed && (
+          <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
+            {/* Close Button */}
+            <button
+              onClick={closeZoom}
+              className="absolute top-4 right-4 text-white text-2xl font-bold focus:outline-none"
+            >
+              &times;
+            </button>
+            {/* Fullscreen Image */}
+            <img
+              src={props.ImageSrc}
+              alt="Zoomed Tomato Concentrate Tube"
+              className="w-full h-auto max-h-full object-contain"
+            />
+          </div>
+        )}</div>
+    </>
   );
 }
 

@@ -9,6 +9,7 @@ import ScanResultModal from "./ScanResultModal";
 const Main = () => {
   const [err, setErr] = useState(null);
   const [hideBg, setHideBg] = useState(false);
+  //"3266980784614"
   const [scannedResult, setScannedResult] = useState("3266980784614");
   const [isScanning, setIsScanning] = useState(true);
   const [lastScannedCode, setLastScannedCode] = useState(null);

@@ -1,10 +1,8 @@
 import {IonIcon } from "@ionic/react";
 // Composant d'erreur
 export const ErrorMessage = ({ message, icon, onClose }) => (
-    <div className="flex flex-col items-center justify-center p-6 text-center">
-      <div >
+    <div className="flex flex-col items-center justify-center px-6 text-center">
         <IonIcon icon={icon} className="w-16 h-16 text-red-500" />
-      </div>
       <h2 className="text-xl font-semibold mb-1">Erreur</h2>
       <p className="text-gray-600 mb-3">{message}</p>
       <button

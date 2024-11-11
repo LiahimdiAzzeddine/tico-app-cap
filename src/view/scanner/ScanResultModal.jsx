@@ -9,11 +9,12 @@ import { alertCircle, closeCircle, searchCircle } from "ionicons/icons";
 import FicheProduit from "../fb/FicheProduit";
 import { useEffect, useState } from "react";
 import useGetProduct from "../../hooks/product/useGetProduit";
-import { addProduct } from "../../hooks/useIndexedDB"; 
+import { addProduct } from "../../hooks/useIndexedDB";
 import { useNetwork } from "../../context/NetworkContext";
 import { useToast } from "../../context/ToastContext";
 import { ErrorMessage } from "./UI/ErrorMessage";
-
+import ModalHeader from "../composants/ModalHeader";
+import { createProduct } from "../../utils/product";
 
 // Composant de chargement
 const LoadingSpinner = () => (
@@ -31,7 +32,9 @@ const ScanResultModal = ({
 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [modalBreakpoint, setModalBreakpoint] = useState(0.3);
-  const { productData, loading, error, fetchProduct,setProductData } = useGetProduct(scannedResult);
+  const { productData, loading, error, fetchProduct, setProductData } =
+    useGetProduct(scannedResult);
+  const [product,setProduct]=useState(null);
   const { isConnected } = useNetwork();
   const { triggerToast } = useToast();
 
@@ -39,26 +42,26 @@ const ScanResultModal = ({
   useEffect(() => {
     if (scannedResult && isConnected) {
       fetchProduct();
-    }else{
-      setProductData(null)
+    } else {
+      setProductData(null);
     }
   }, [scannedResult, fetchProduct]);
 
   // Effet pour ajouter le produit à l'historique dès que les données sont prêtes
   useEffect(() => {
     if (productData && !loading && !error) {
-      addToHistory(scannedResult, productData);
+      // Create the product using the imported function
+      const product = createProduct(scannedResult, productData);
+      setProduct(product)
+      addToHistory(scannedResult, product);
+    }else{
+      const product = createProduct(scannedResult, {});
+      setProduct(product)
     }
   }, [productData, scannedResult, loading, error]);
 
-  const addToHistory = async (scannedResult, productData) => {
-    const product = {
-      image: productData.OFFproduct?._photoUrl ?? "default_image_url.jpg",
-      title: productData.OFFproduct?._name ?? "Produit inconnu",
-      brand: productData.foodheaproduct?._name ?? "Marque inconnue",
-      Barrcode: scannedResult,
-    };
-
+  const addToHistory = async (scannedResult, product) => {
+    
     console.log("Produit ajouté à l'historique :", product);
     try {
       await addProduct(product);
@@ -67,7 +70,10 @@ const ScanResultModal = ({
       }
     } catch (error) {
       if (!isConnected) {
-        triggerToast("Erreur lors de l'ajout du produit à l'historique", "error");
+        triggerToast(
+          "Erreur lors de l'ajout du produit à l'historique",
+          "danger"
+        );
       }
       console.error("Erreur lors de l'ajout du produit à l'historique", error);
     }
@@ -75,26 +81,32 @@ const ScanResultModal = ({
 
   const handleDismiss = () => {
     setModalisOpen(false);
+    setProductData(null);
   };
 
   return (
     <IonModal
       isOpen={modalisOpen}
-      onClose={() => closeModal(false)}
+      onClose={handleDismiss}
       trigger="open-modal"
-      initialBreakpoint={0.3}
-      breakpoints={[0, 0.3, 1]}
+      initialBreakpoint={0.35}
+      breakpoints={[0, 0.35, 1]}
       handleBehavior="cycle"
       onIonModalWillPresent={() => setIsAnimating(true)}
       onIonModalDidDismiss={handleDismiss}
       onIonBreakpointDidChange={(e) => setModalBreakpoint(e.detail.breakpoint)}
-      className={`full-screen-modal scan-result-modal ${isAnimating ? "modal-vibrate" : ""}`}
+      className={`full-screen-modal scan-result-modal ${
+        isAnimating ? "modal-vibrate" : ""
+      }`}
       onAnimationEnd={() => setIsAnimating(false)}
       keepContentsMounted={true}
       style={{
         "--border-radius": modalBreakpoint === 1 ? "0" : "2rem 2rem 0 0",
       }}
     >
+      {/***/}
+      <ModalHeader image={"fb"} onClose={() => handleDismiss(false)} />
+
       <IonContent className="ion-padding-bottom">
         {loading ? (
           <LoadingSpinner />
@@ -113,7 +125,7 @@ const ScanResultModal = ({
             />
           )
         ) : productData ? (
-          <FicheProduit barcode={scannedResult} resetBarcode={handleDismiss} />
+          <FicheProduit productData={product} resetBarcode={handleDismiss} />
         ) : (
           <>
             {isConnected ? (
@@ -123,11 +135,20 @@ const ScanResultModal = ({
                 onClose={handleDismiss}
               />
             ) : (
-              <div className="flex flex-col items-center justify-center p-6 text-center">
-                <IonIcon icon={alertCircle} className="w-16 h-16 text-yellow-500" />
-                <h2 className="text-xl font-semibold mb-2">Hors ligne</h2>
-                <p className="text-gray-600 mb-4">Vous êtes hors ligne. Souhaitez-vous ajouter ce produit à votre historique ?</p>
-                <IonButton onClick={() => addToHistory(scannedResult, {})} color="primary">
+              <div className="flex flex-col items-center justify-center px-6 text-center">
+                <IonIcon
+                  icon={alertCircle}
+                  className="w-16 h-16 text-yellow-500"
+                />
+                <h2 className="text-xl font-semibold mb-1">Hors ligne</h2>
+                <p className="text-gray-600 mb-2">
+                  Vous êtes hors ligne. Souhaitez-vous ajouter ce produit à
+                  votre historique ?
+                </p>
+                <IonButton
+                  onClick={() => addToHistory(scannedResult, product)}
+                  color="primary"
+                >
                   Ajouter à l'historique
                 </IonButton>
               </div>

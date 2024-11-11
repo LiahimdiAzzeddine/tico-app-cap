@@ -8,10 +8,11 @@ import Sections from "./Sections";
 import TiConseil from "./TiConseil";
 import ProductDetailsAccordion from "./ProductDetailsAccordion";
 import Recettes from "./Recettes";
+import InfoSection from "./InfoSection";
 
 const FicheProduit = (props) => {
   const [currentPosition, setCurrentPosition] = useState(3);
-
+console.log("productData",props.productData)
   const resetAll = () => {
     props.resetBarcode(false);
   };
@@ -19,6 +20,7 @@ const FicheProduit = (props) => {
   return (
     <div className="max-w-screen-sm m-auto">
       <div className="flex flex-col h-full bg-white">
+        {/** 
         <div className="flex justify-between items-center modal-background py-3 px-4">
           <button className="text-blue-600" onClick={resetAll}>
             <img
@@ -34,19 +36,21 @@ const FicheProduit = (props) => {
               className="h-7 transform transition-transform duration-150 ease-in-out active:scale-95"
             />
           </div>
-        </div>
+        </div>*/}
 
         {/* Scrollable Outlet Content */}
         <div className="flex-grow overflow-y-auto">
-          <div className="flex flex-col space-y-10">
+          <div className="flex flex-col space-y-6">
             <TransparencyScale
               currentPosition={currentPosition}
               setCurrentPosition={setCurrentPosition}
             />
             <NameProduct
-              name="Huile de pépins de raisin 75 cl"
-              brand="Pure nature"
+              Name={props.productData?.name}
+              Brand="Pure nature"
+              ImageSrc={props.productData?.image}
             />
+            <InfoSection/>
             <ProductDetails />
             <Sections />
             <TiConseil />

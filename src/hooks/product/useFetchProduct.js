@@ -18,7 +18,7 @@ const useFetchProduct = () => {
           image: data.product.image_url || 'default_image_url.jpg', // Image par défaut si non disponible
           title: data.product.product_name || 'Produit inconnu',
           brand: data.product.brands || 'Marque inconnue',
-          Barrcode: barcode,
+          gtin: barcode,
         };
         setProductData(product);
         

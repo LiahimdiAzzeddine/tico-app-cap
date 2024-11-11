@@ -23,7 +23,7 @@ function ModalHeader({ image, onClose }) {
   }
 
   return (
-    <div className="flex justify-between items-center py-4 px-3  modal-background ">
+    <div className="flex justify-between items-center pt-3 pb-2 px-3  modal-background ">
       <button
         className="text-custom-blue transform transition-transform duration-150 ease-in-out active:scale-90"
         onClick={onClose}

@@ -29,7 +29,7 @@ export const openDatabase = () => {
 
       // Création de la table products
       if (!db.objectStoreNames.contains(PRODUCTS_NAME)) {
-        db.createObjectStore(PRODUCTS_NAME, { keyPath: 'Barrcode' });
+        db.createObjectStore(PRODUCTS_NAME, { keyPath: 'gtin' });
       }
     };
   });
@@ -70,12 +70,12 @@ export const addProduct = async (product) => {
 };
 
 // Récupère un produit par son Barrcode
-export const getProductByBarrcode = async (Barrcode) => {
+export const getProductByBarrcode = async (gtin) => {
   await openDatabase();
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(PRODUCTS_NAME, 'readonly');
     const store = transaction.objectStore(PRODUCTS_NAME);
-    const request = store.get(Barrcode);
+    const request = store.get(gtin);
     
     request.onsuccess = () => {
       resolve(request.result ? request.result : null);
