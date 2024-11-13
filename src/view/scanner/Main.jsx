@@ -10,7 +10,7 @@ const Main = () => {
   const [err, setErr] = useState(null);
   const [hideBg, setHideBg] = useState(false);
   //"3266980784614"
-  const [scannedResult, setScannedResult] = useState("3266980784614");
+  const [scannedResult, setScannedResult] = useState(null);
   const [isScanning, setIsScanning] = useState(true);
   const [lastScannedCode, setLastScannedCode] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
@@ -24,8 +24,9 @@ const Main = () => {
     if(barreCode) setModalisOpen(true);
   };
   const closeModal = () => {
-    setScannedResult(Null);
+    setScannedResult(null);
     setModalisOpen(false);
+    setLastScannedCode(null);
   };
 
   // Handle errors by stopping the scan and displaying messages
@@ -201,7 +202,7 @@ const Main = () => {
       </IonContent>
       {/* Scanned Result Modal */}
       {scannedResult&&(
-        <ScanResultModal scannedResult={scannedResult} modalisOpen={modalisOpen} closeModal={closeModal} setModalisOpen={setModalisOpen} />
+        <ScanResultModal scannedResult={scannedResult} modalisOpen={modalisOpen} closeModal={closeModal} />
       )}
     </>
   );

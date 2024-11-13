@@ -12,7 +12,7 @@ function NameProduct(props) {
   };
 
   return (
-    <>
+    <div>
     <div className="flex flex-row justify-center py-1 px-4 space-x-4">
       {/* Ajout de l'image */}
       <img
@@ -23,11 +23,12 @@ function NameProduct(props) {
       />
      
       <div className="flex flex-col space-y-2">
-      <h3 className="text-2xl titre-roboto-bold text-[#0f548d]">
+      <h3 className="text-xl titre-roboto-bold text-[#0f548d]">
         {props.Name}
       </h3>
-      <div className="text-xl text-[#47a29a] mt-1">{props.Brand}</div>
+      <div className="text-lg text-[#47a29a] mt-1">{props.Brand}</div>
       </div>
+      
     </div>
      {/* Modal Fullscreen View */}
      <div className="relative">
@@ -48,7 +49,7 @@ function NameProduct(props) {
             />
           </div>
         )}</div>
-    </>
+    </div>
   );
 }
 

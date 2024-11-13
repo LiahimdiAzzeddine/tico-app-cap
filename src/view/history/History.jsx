@@ -84,7 +84,7 @@ const History = () => {
       <IonModal isOpen={isOpenFb}>
       <ModalHeader image={"fb"} onClose={()=>{setIsOpenFb(false)}} />
         <IonContent className="ion-padding-bottom">
-          <FicheProduit barcode={ean} resetBarcode={setIsOpenFb} />
+          <FicheProduit productData={ean} resetBarcode={setIsOpenFb} />
         </IonContent>
       </IonModal>
     </>

@@ -29,14 +29,16 @@ import "./theme/variables.css";
 setupIonicReact();
 
 function App() {
+
+  
   useEffect(() => {
-    // Masquer la barre d'état sur iOS
+     // Masquer la barre d'état sur iOS
     /* StatusBar.setOverlays(true);
     StatusBar.setBackgroundColor({ color: '#ffffff' }); // Couleur de fond pour la barre d'état
     StatusBar.setStyle({ style: 'DARK' }); // Style sombre pour le texte de la barre d'état
     ScreenOrientation.lock({ orientation: 'portrait' });*/
+    
   }, []);
-  const [myModal, setMyModal] = useState({ isOpen: false });
   return (
     <>
       <IonApp>

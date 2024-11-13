@@ -4,7 +4,7 @@ import tico_intro from "../../assets/intro/tico_intro.svg";
 import background from "../../assets/intro/background6.png";
 import AccountCreationForm from "../auth/Register";
 import CustomModal from "../composants/CustomModal";
-import { setFirstVisit } from "../../hooks/useIndexedDB";
+import { setFirstVisit } from "../../hooks/useCapacitorStorage";
 
 const Intro6 = () => {
   const [showModalInscription, setShowModalInscription] = useState(false);

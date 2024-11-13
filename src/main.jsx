@@ -18,7 +18,7 @@ const store = createStore({
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+ 
         <NetworkProvider>
 
     <AuthProvider store={store}>
@@ -31,5 +31,5 @@ createRoot(document.getElementById('root')).render(
         </ToastProvider>
       </AuthProvider>
       </NetworkProvider>
-  </StrictMode>,
+  ,
 )

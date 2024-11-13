@@ -5,11 +5,11 @@ import {
   IonIcon,
   IonButton,
 } from "@ionic/react";
-import { alertCircle, closeCircle, searchCircle } from "ionicons/icons";
+import { alertCircle, searchCircle } from "ionicons/icons";
 import FicheProduit from "../fb/FicheProduit";
 import { useEffect, useState } from "react";
 import useGetProduct from "../../hooks/product/useGetProduit";
-import { addProduct } from "../../hooks/useIndexedDB";
+import { addProduct,addLaterProduct } from "../../hooks/useIndexedDB";
 import { useNetwork } from "../../context/NetworkContext";
 import { useToast } from "../../context/ToastContext";
 import { ErrorMessage } from "./UI/ErrorMessage";
@@ -28,60 +28,74 @@ const ScanResultModal = ({
   scannedResult,
   modalisOpen,
   closeModal,
-  setModalisOpen,
 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [modalBreakpoint, setModalBreakpoint] = useState(0.3);
-  const { productData, loading, error, fetchProduct, setProductData } =
-    useGetProduct(scannedResult);
-  const [product,setProduct]=useState(null);
+  const {
+    productData,
+    loading,
+    error,
+    fetchProduct,
+    setProductData,
+    setError,
+  } = useGetProduct(scannedResult);
+  const [product, setProduct] = useState(null);
   const { isConnected } = useNetwork();
   const { triggerToast } = useToast();
 
   // Effet pour lancer la récupération des données du produit
   useEffect(() => {
+    console.log("scannedResult",scannedResult,isConnected)
     if (scannedResult && isConnected) {
       fetchProduct();
     } else {
       setProductData(null);
     }
-  }, [scannedResult, fetchProduct]);
+  }, [scannedResult, isConnected]);
 
   // Effet pour ajouter le produit à l'historique dès que les données sont prêtes
   useEffect(() => {
     if (productData && !loading && !error) {
       // Create the product using the imported function
       const product = createProduct(scannedResult, productData);
-      setProduct(product)
+      console.log("Produit :", product);
+      setProduct(product);
       addToHistory(scannedResult, product);
-    }else{
+    } else {
       const product = createProduct(scannedResult, {});
-      setProduct(product)
+      setProduct(product);
     }
-  }, [productData, scannedResult, loading, error]);
+  }, [productData]);
 
   const addToHistory = async (scannedResult, product) => {
-    
-    console.log("Produit ajouté à l'historique :", product);
     try {
       await addProduct(product);
-      if (!isConnected) {
-        triggerToast("Produit ajouté à l'historique", "success");
-      }
     } catch (error) {
-      if (!isConnected) {
         triggerToast(
           "Erreur lors de l'ajout du produit à l'historique",
           "danger"
         );
-      }
+      console.error("Erreur lors de l'ajout du produit à l'historique", error);
+    }
+  };
+  const addToLaterProducts = async (scannedResult, product) => {
+    try {
+      await addLaterProduct(product);
+      triggerToast("Produit ajouté à l'historique", "success");
+    } catch (error) {
+        triggerToast(
+          "Erreur lors de l'ajout du produit à l'historique",
+          "danger"
+        );
+      
       console.error("Erreur lors de l'ajout du produit à l'historique", error);
     }
   };
 
   const handleDismiss = () => {
-    setModalisOpen(false);
+    closeModal();
     setProductData(null);
+    setError(null);
   };
 
   return (
@@ -142,14 +156,13 @@ const ScanResultModal = ({
                 />
                 <h2 className="text-xl font-semibold mb-1">Hors ligne</h2>
                 <p className="text-gray-600 mb-2">
-                  Vous êtes hors ligne. Souhaitez-vous ajouter ce produit à
-                  votre historique ?
+                Vous êtes hors ligne. Souhaitez-vous garder ce produit pour plus tard ?
                 </p>
                 <IonButton
-                  onClick={() => addToHistory(scannedResult, product)}
+                  onClick={() => addToLaterProducts(scannedResult, product)}
                   color="primary"
                 >
-                  Ajouter à l'historique
+                 Sauvegarder
                 </IonButton>
               </div>
             )}

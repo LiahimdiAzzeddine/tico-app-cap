@@ -20,6 +20,7 @@ const HomeLayout = () => {
   };
   const closeIcon = {
     "/": "bx",
+    "/laterProducts":"bx"
   };
 
   const background = backgroundColors[location.pathname] || "#ffffff";

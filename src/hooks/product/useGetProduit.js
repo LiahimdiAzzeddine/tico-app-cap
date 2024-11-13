@@ -35,7 +35,7 @@ const useGetProduct = (ean) => {
     }
   }, [ean]);
 
-  return { productData, loading, error, fetchProduct,setProductData };
+  return { productData, loading, error, fetchProduct,setProductData,setError };
 };
 
 export default useGetProduct;

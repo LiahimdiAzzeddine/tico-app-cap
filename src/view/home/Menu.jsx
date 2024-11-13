@@ -6,6 +6,7 @@ import {
   IonMenu,
   IonIcon,
 } from "@ionic/react";
+import { bookmarkOutline } from "ionicons/icons"; 
 import useLogout from "../../hooks/auth/useLogout";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { logOut, logIn, settings, trailSign, home } from "ionicons/icons"; // Importing icons for settings, logout, and login
@@ -60,6 +61,18 @@ function Menu() {
             </span>
             <span className="text-orange-400 text-lg font-medium">Accueil</span>
           </button>
+           {/* laterProducts  Button */}
+          <button
+            onClick={() => {
+              navigate("/laterProducts", { replace: true });
+            }}
+            className="flex items-center w-full py-2 px-2 bg-white hover:bg-blue-100 rounded-lg shadow-md transition duration-300"
+          >
+            <span className="text-custom-gray mr-3">
+              <IonIcon icon={bookmarkOutline} className="w-10 h-10" />
+            </span>
+            <span className="text-custom-gray text-lg font-medium">Produits à Consulter</span>
+          </button>
 
           {/* Paramètres Button */}
           <button
@@ -84,10 +97,10 @@ function Menu() {
               }}
               className="flex items-center w-full py-2 px-2 bg-white hover:bg-green-100 rounded-lg shadow-md transition duration-300"
             >
-              <span className="text-green-600 mr-3">
+              <span className="text-custom-red-clear mr-3">
                 <IonIcon icon={logIn} className="w-10 h-10" />
               </span>
-              <span className="text-green-600 text-lg font-medium">
+              <span className="text-custom-red-clear text-lg font-medium">
                 Se connecter
               </span>
             </button>

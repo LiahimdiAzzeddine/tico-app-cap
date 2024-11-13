@@ -1,9 +1,9 @@
 import React from "react";
 import produitFleche from "../../assets/history/productFlech.svg";
 import productBg from "../../assets/history/productBg.svg";
-
+import image64 from "../../assets/history/64.png";
 // Optionnel : Image par défaut en cas d'échec du chargement
-const defaultImage = "https://via.placeholder.com/64"; // Changez l'URL selon vos besoins
+const defaultImage = image64; // Changez l'URL selon vos besoins
 
 const Item = ({ product, index, length, OpenFb }) => {
   if (!product) {
@@ -42,7 +42,7 @@ const Item = ({ product, index, length, OpenFb }) => {
         </div>
 
         {/* Flèche */}
-        <button onClick={() => OpenFb(product.gtin)}>
+        <button onClick={() => OpenFb(product)}>
           <img src={produitFleche} alt="flèche" className="w-10 h-10 ml-auto" />
         </button>
       </div>

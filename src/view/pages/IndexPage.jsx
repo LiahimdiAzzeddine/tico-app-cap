@@ -37,23 +37,7 @@ function IndexPage() {
             >
               Mon compte
             </button>
-            {/** 
-            {!isAuthenticated && (
-              <button
-                className="bg-custom-blue text-white font-bold py-3 px-6 rounded-md w-full transform transition-transform duration-150 ease-in-out active:scale-90 "
-                onClick={() => setShowModalLogin(true)}
-              >
-                Je me connecte
-              </button>
-            )}
-            {!isAuthenticated && (
-              <button
-                className="bg-custom-blue text-white font-bold py-3 px-6 rounded-md  w-full transform transition-transform duration-150 ease-in-out active:scale-90"
-                onClick={() => setShowModalInscription(true)}
-              >
-                Je crée mon compte
-              </button>
-            )}*/}
+
             <button
               className="bg-custom-blue text-white font-bold py-3 px-6 rounded-md w-full transform transition-transform duration-150 ease-in-out active:scale-90"
               onClick={() => setShowModalHistory(true)}

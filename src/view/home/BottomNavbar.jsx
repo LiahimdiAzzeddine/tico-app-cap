@@ -8,11 +8,11 @@ import accueil from "../../assets/navbar/accueil.png";
 import favoris from "../../assets/navbar/favoris.png";
 import astuces from "../../assets/navbar/astuces.png";
 import scanner from "../../assets/navbar/scanner.png";
-import profil from "../../assets/navbar/profil.png";
+import recipes from "../../assets/navbar/profil.png";
 import accueil_active from "../../assets/navbar/accueil_active.svg";
 import favoris_active from "../../assets/navbar/favoris_active.svg";
 import astuces_active from "../../assets/navbar/astuces_active.svg";
-import profil_active from "../../assets/navbar/profil_active.svg";
+import recipes_active from "../../assets/navbar/profil_active.svg";
 import AlertComponent from "../composants/AlertComponent";
 
 const BottomNavbar = () => {
@@ -32,7 +32,7 @@ const BottomNavbar = () => {
       <IonToolbar className="bg-[#f7f7f700] ion-no-padding" style={{"--ion-toolbar-background":"#ffff"}}>
         <div className="flex justify-around items-center py-4 px-2">
           {/* Bouton Accueil */}
-          <button className="flex flex-col items-center" onClick={() => setShowAlert(true)}>
+          <button className="flex flex-col items-center" onClick={() => navigate("/", { replace: true })}>
             <img
               src={authState ? accueil_active : accueil}
               alt="Accueil"
@@ -58,11 +58,11 @@ const BottomNavbar = () => {
             />
           </button>
 
-          {/* Bouton Profil */}
-          <button className="flex flex-col items-center" onClick={() => setShowAlert(true)}>
+          {/* Bouton recipes */}
+          <button className="flex flex-col items-center"  onClick={() => navigate("/recipes", { replace: true })}>
             <img
-              src={authState ? profil_active : profil}
-              alt="Profil"
+              src={authState ? recipes_active : recipes}
+              alt="Recipes"
               className="w-14 h-14 mb-1"
             />
           </button>

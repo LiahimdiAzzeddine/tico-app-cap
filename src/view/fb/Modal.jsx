@@ -7,6 +7,10 @@ import flecheRight from "../../assets/fb/popup/flecheRight.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import Additif from "../../assets/fb/additifs.svg";
 import { Link } from "react-router-dom";
+import pastilleNote1 from "../../assets/fb/pastille-note-1.svg";
+import pastilleNote2 from "../../assets/fb/pastille-note-2.svg";
+import pastilleNote3 from "../../assets/fb/pastille-note-3.svg";
+import pastilleNote4 from "../../assets/fb/pastille-note-4.svg";
 
 const Modal = ({ isOpen, onClose, children }) => {
   return (
@@ -201,7 +205,12 @@ export const Solliciter = ({ isOpen, setIsOpen }) => {
     </Modal>
   );
 };
-export const ContactAdditif = ({ isOpen, setIsOpen }) => {
+export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
+  const [showAll, setShowAll] = useState(false);
+
+  // Limit displayed additifs based on state
+  const displayedAdditifs = showAll ? additifs : additifs.slice(0, 3);
+
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <div className="flex flex-col items-center justify-center w-full space-y-4">
@@ -222,30 +231,49 @@ export const ContactAdditif = ({ isOpen, setIsOpen }) => {
           <span className="marker-effect">Additifs</span>
         </h1>
 
-        {/* Additives List */}
+        {/* Additives List - Render dynamically based on additif data */}
         <div className="space-y-0 flex flex-col justify-center items-center">
-          <div className="flex items-center space-x-2 ">
-            <span className="bg-green-500 w-4 h-4 rounded-full"></span>
-            <span className="font-bold text-custom-blue">E301</span>
-            <span className="text-custom-blue">: Ascorbate de sodium</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="bg-yellow-500 w-4 h-4 rounded-full"></span>
-            <span className="font-bold text-custom-blue">E331</span>
-            <span className="text-custom-blue">: Citrate de sodium</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="bg-red-500 w-4 h-4 rounded-full"></span>
-            <span className="font-bold text-custom-blue">E407</span>
-            <span className="text-custom-blue">: Carraghénanes</span>
-          </div>
+          {additifs && additifs.length > 0 ? (
+            displayedAdditifs.map((item, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <img
+                  src={getPastilleImage(item.noteUFC)}
+                  alt={`Pastille for note ${item.noteUFC}`}
+                  className="w-4 h-4"
+                />
+                <span className="font-bold text-custom-blue">{item.code}</span>
+                <span className="text-custom-blue">: {item.label}</span>
+              </div>
+            ))
+          ) : (
+            <div className="text-gray-500">Aucun additif disponible.</div>
+          )}
         </div>
 
         {/* Voir Plus Link */}
-        <a href="#" className="text-custom-blue underline mt-4 italic">
-          Voir plus
-        </a>
+        {additifs && additifs.length > 3 && (
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="text-custom-blue underline mt-4 italic"
+          >
+            {showAll ? 'Voir moins' : 'Voir plus'}
+          </button>
+        )}
       </div>
     </Modal>
   );
+};
+
+
+// Utility function to determine the image based on noteUFC
+const getPastilleImage = (note) => {
+  if (note == 1) {
+    return pastilleNote1; // High severity
+  } else if (note == 2) {
+    return pastilleNote2; // Medium severity
+  } else if (note == 3) {
+    return pastilleNote3; // Low-medium severity
+  } else {
+    return pastilleNote4; // Low severity
+  }
 };
