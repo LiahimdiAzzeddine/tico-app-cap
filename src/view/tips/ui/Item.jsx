@@ -50,7 +50,7 @@ const Item = ({ tip, index, length, OpenFb }) => {
 
       {/* Séparateur */}
       {index < length - 1 && (
-        <hr className="w-full border-t border-gray-300 mt-4" />
+        <hr className="w-full border-t border-gray-300 " />
       )}
     </div>
   );

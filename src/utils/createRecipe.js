@@ -30,8 +30,8 @@ export function createRecipe(recipeData) {
       ingredients,  // Include the transformed ingredients data
       labels: recipeData.labels ?? "",
       labels_more: recipeData.labels_more ?? "",
-      regimes: recipeData.regimes ?? "",
-      type: recipeData.type ?? "",
-      difficultes: recipeData.difficultes ?? "",
+      regimes: recipeData.regimes ??  Array(),
+      type: recipeData.type ?? Array(),
+      difficulte: recipeData.difficulte ?? "",
   };
 }

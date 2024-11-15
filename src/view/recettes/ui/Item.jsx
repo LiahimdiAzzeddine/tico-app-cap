@@ -36,19 +36,20 @@ const Item = ({ recipe, index, length, OpenFb }) => {
 
         {/* Product details */}
         <div className="flex-1">
-          <div className="font-bold text-custom-red text-lg">{recipe.title}</div>
+          <div className="font-bold text-custom-red text-lg titre-bold">{recipe.title}</div>
           <div className="text-gray-500">{recipe?.subtitle?.substring(0, 30) + "..."  || 'N/A'}</div>
         </div>
 
         {/* Arrow button */}
         <button onClick={() => OpenFb(recipe)}>
-          <img src={produitFleche} alt="flèche" className="w-8 h-8 ml-4" />
+          <img src={produitFleche} alt="flèche" className="w-10 h-10 ml-4" />
         </button>
       </div>
 
       {index < length - 1 && (
-        <hr className="w-full border-t border-gray-300 mt-4" />
+        <hr className="w-full border-t border-[#fceae8] " />
       )}
+      
     </div>
   );
 };

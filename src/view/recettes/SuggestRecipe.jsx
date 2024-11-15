@@ -4,12 +4,19 @@ import useSuggestRecipe from "../../hooks/recipes/useSuggestRecipe";
 import Spinner from "../composants/Spinner";
 import RecipeModal from "../composants/RecipeModal";
 import AlertComponent from "../composants/AlertComponent";
+import {createViewRecipe} from "../../utils/createViewRecipe"
 
 const SuggestRecipe = ({ onClose }) => {
   const { handleSubmit, loading, error, success } = useSuggestRecipe();
   const [stepInput, setStepInput] = useState(""); // État pour l'input des étapes
   const [modalOpen, setModalOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [Recette, setRecette] = useState(null);
+
+  const VisualiseRecette=()=>{
+    setRecette(createViewRecipe(values));
+    setModalOpen(true)
+  }
 
   useEffect(() => {
     if (success) {
@@ -423,7 +430,7 @@ const SuggestRecipe = ({ onClose }) => {
           <div className="flex flex-col gap-4 justify-center items-center">
             <button
               type="button"
-              onClick={() => setModalOpen(true)} // Ouvrir le modal
+              onClick={() => VisualiseRecette()} // Ouvrir le modal
               className="btn bg-custom-red text-white border-solid border-[1px] font-bold border-red-400 px-3 py-2 rounded-lg"
             >
               Je visualise ma recette
@@ -445,11 +452,15 @@ const SuggestRecipe = ({ onClose }) => {
         </form>
       </div>
       {/* Afficher le modal avec les détails de la recette */}
-      <RecipeModal
+      {Recette&&(
+<RecipeModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
-        recipe={values}
+        recipe={Recette}
       />
+
+      )}
+      
 
       {/* Utilisation de AlertComponent */}
       <AlertComponent

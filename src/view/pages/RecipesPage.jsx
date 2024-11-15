@@ -44,7 +44,7 @@ function RecipesPage() {
       </div>
 
       <div className="flex flex-col h-[85%] justify-center items-center bg-[#fad4ce]">
-        <div className="flex flex-col h-5/6 w-full px-4 rounded-b-[2rem] bg-white overflow-auto">
+        <div className="flex flex-col h-5/6 w-full px-6 rounded-b-[2rem] bg-white overflow-auto">
           {loading ? (
             <LoadingState />
           ) : error ? (
@@ -55,7 +55,7 @@ function RecipesPage() {
                 key={recipe.id} // Using the ID as the key for each item
                 recipe={recipe}
                 index={index}
-                length={recipe.length}
+                length={recipes.length}
                 OpenFb={() =>
                   handleRecetteClick(recipe)
                 }
