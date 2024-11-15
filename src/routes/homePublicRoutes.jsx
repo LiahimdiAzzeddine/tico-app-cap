@@ -6,13 +6,14 @@ import HomePage from "../view/pages/HomePage";
 import ScannerLyout from "../view/layout/ScannerLyout"
 import FavoritesPage from "../view/pages/FavoritesPage";
 import TipsPage from "../view/pages/TipsPage";
-import ProfilePage from "../view/pages/ProfilePage";
+import RecipesPage from "../view/pages/RecipesPage";
 import Login from "../view/auth/login";
 import AccountCreationForm from "../view/auth/Register";
 import AuthLayout from "../view/layout/AuthLyout";
 import FbPage from "../view/pages/FbPage";
 import FbLyout from "../view/layout/FbLyout";
 import LaterProductsPage from "../view/pages/LaterProductsPage";
+import TapLayout from "../view/layout/TapLyout";
 const HomepublicRoutes = [
   <Route key="auth-outlet" >
     <Route key="scannerlyout" path="/scanner" element={<ScannerLyout />}>
@@ -21,9 +22,13 @@ const HomepublicRoutes = [
     <Route key="homeLyout" path="/" element={<HomeLyout/>}>
     <Route path="home" element={<HomePage />} />
     <Route path="favoris" element={<FavoritesPage />} />
-    <Route path="tips" element={<TipsPage />} />
-    <Route path="recipes" element={<ProfilePage />} />
+    
+    
     <Route path="laterProducts" element={<LaterProductsPage />} />
+    </Route>
+    <Route key="homeLyout" path="/" element={<TapLayout/>}>
+    <Route path="recipes" element={<RecipesPage />} />
+    <Route path="tips" element={<TipsPage />} />
     </Route>
     <Route key="authlyout" path="/" element={<AuthLayout />}>
     <Route path="login" element={<Login />} />

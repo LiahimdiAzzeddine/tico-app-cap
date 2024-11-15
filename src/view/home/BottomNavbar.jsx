@@ -68,7 +68,7 @@ const BottomNavbar = () => {
           </button>
 
           {/* Bouton Astuces */}
-          <button className="flex flex-col items-center" onClick={() => setShowAlert(true)}>
+          <button className="flex flex-col items-center" onClick={() => navigate("/tips", { replace: true })}>
             <img
               src={authState ? astuces_active : astuces}
               alt="Astuces"

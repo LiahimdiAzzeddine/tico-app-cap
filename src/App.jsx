@@ -30,7 +30,6 @@ setupIonicReact();
 
 function App() {
 
-  
   useEffect(() => {
      // Masquer la barre d'état sur iOS
     /* StatusBar.setOverlays(true);

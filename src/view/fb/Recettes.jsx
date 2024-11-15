@@ -8,9 +8,9 @@ import RecipeModal from "../composants/RecipeModal";
 function Recettes() {
   const [showModalAddRecipe, setShowModalAddRecipe] = useState(false);
   const [showModalRecipe, setShowModalRecipe] = useState(false);
-  const [selectedRecetteId, setSelectedRecetteId] = useState(null);
+  const [selectedRecette, setSelectedRecette] = useState(null);
   const handleRecetteClick = (id) => {
-    setSelectedRecetteId(id); // Mettez à jour l'ID de la recette sélectionnée
+    setSelectedRecette(id); // Mettez à jour l'ID de la recette sélectionnée
     setShowModalRecipe(true); // Affichez le modal
   };
   const recettes = [
@@ -104,11 +104,12 @@ function Recettes() {
       </WhiteModal>
       
       {/* Afficher le modal avec les détails de la recette */}
+      {selectedRecette &&(
       <RecipeModal
         isOpen={showModalRecipe}
         onClose={() => setShowModalRecipe(false)}
-        recipe={selectedRecetteId}
-      />
+        recipe={selectedRecette}
+      />)}
     </>
   );
 }

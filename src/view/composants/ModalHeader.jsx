@@ -5,7 +5,7 @@ import ReturnImage from "../../assets/fb/flech.svg";
 import VX from "../../assets/home/X.svg";
 import BX from "../../assets/home/bx.svg"
 import flecheRecette from "../../assets/recettes/fleche.svg";
-
+import OF from "../../assets/tips/OFleche.svg";
 function ModalHeader({ image, onClose }) {
   let SRC = ReturnImage; // Valeur par défaut pour SRC
 
@@ -21,7 +21,9 @@ function ModalHeader({ image, onClose }) {
    else if (image === "vx") {
     SRC = VX;
   }
-
+  else if (image === "of") {
+    SRC = OF;
+  }
   return (
     <div className="flex justify-between items-center pt-3 pb-2 px-2  modal-background ">
       <button

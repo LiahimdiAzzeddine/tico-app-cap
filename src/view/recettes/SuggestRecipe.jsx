@@ -202,7 +202,7 @@ const SuggestRecipe = ({ onClose }) => {
 
           {/* Filtres */}
           <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base">Filtres:</label>
+            <label className="text-custom-red text-base">Régimes:</label>
             <div className="space-x-2 space-y-2">
               {[
                 "Végétarien",
