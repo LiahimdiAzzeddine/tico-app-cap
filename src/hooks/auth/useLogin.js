@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom"; 
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import axios from "../../api/axios";
 import { useToast } from "../../context/ToastContext"; 
@@ -10,7 +10,7 @@ const useLogin = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const errRef = useRef(null);
-  const navigate = useNavigate();
+  const history = useHistory();
   const signIn = useSignIn();
   const { triggerToast } = useToast(); // Use the ToastContext for notifications
 
@@ -33,7 +33,7 @@ const useLogin = () => {
           })
         ) {
           triggerToast("Connexion réussie. Vous êtes maintenant connecté.", "success");
-          navigate("/scanner", { replace: true });
+          history.replace("/scanner")
         } else {
           triggerToast("Erreur de connexion. Échec de la connexion.", "danger");
         }

@@ -180,6 +180,22 @@ ion-chip:hover {
   background-image: linear-gradient(to bottom, transparent 40%, #6dc3bc 50%);
   border-radius: 10px;
 }
+.marker-effect-orange {
+  position: relative;
+  display: inline-block;
+}
+
+.marker-effect-orange::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.15em; /* Ajustez pour bien positionner le surlignage */
+  height: 30%; /* Ajustez la hauteur du surlignage */
+  width: 100%;
+  background-color: #ff9100; /* Couleur orange du surlignage */
+  z-index: -1;
+  border-radius: 0.25em; /* Arrondir les coins si nécessaire */
+}
 
 input[type="range"]::-webkit-slider-thumb {
   appearance: none;

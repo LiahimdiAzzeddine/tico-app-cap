@@ -1,9 +1,9 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route } from "react-router-dom"; // React Router v5
 import ScanPage from "../view/pages/ScanPage";
 import HomeLyout from "../view/layout/HomeLyout";
 import HomePage from "../view/pages/HomePage";
-import ScannerLyout from "../view/layout/ScannerLyout"
+import ScannerLyout from "../view/layout/ScannerLyout";
 import FavoritesPage from "../view/pages/FavoritesPage";
 import TipsPage from "../view/pages/TipsPage";
 import RecipesPage from "../view/pages/RecipesPage";
@@ -14,30 +14,46 @@ import FbPage from "../view/pages/FbPage";
 import FbLyout from "../view/layout/FbLyout";
 import LaterProductsPage from "../view/pages/LaterProductsPage";
 import TapLayout from "../view/layout/TapLyout";
+
 const HomepublicRoutes = [
-  <Route key="auth-outlet" >
-    <Route key="scannerlyout" path="/scanner" element={<ScannerLyout />}>
-      <Route index element={<ScanPage />} />
-    </Route>
-    <Route key="homeLyout" path="/" element={<HomeLyout/>}>
-    <Route path="home" element={<HomePage />} />
-    <Route path="favoris" element={<FavoritesPage />} />
-    
-    
-    <Route path="laterProducts" element={<LaterProductsPage />} />
-    </Route>
-    <Route key="homeLyout" path="/" element={<TapLayout/>}>
-    <Route path="recipes" element={<RecipesPage />} />
-    <Route path="tips" element={<TipsPage />} />
-    </Route>
-    <Route key="authlyout" path="/" element={<AuthLayout />}>
-    <Route path="login" element={<Login />} />
-    <Route path="signup" element={<AccountCreationForm />} />
-    </Route>
-    <Route key="FbLyout" path="/" element={<FbLyout />}>
-    <Route path="/fiche-produit/:barcode" element={<FbPage />} /> {/* Route pour la fiche produit */}
-    </Route>
-  </Route>,
+  // ScannerLyout avec ScanPage
+  <Route key="scanner-layout" path="/scanner" render={() => (
+    <ScannerLyout>
+      <ScanPage />
+    </ScannerLyout>
+  )} />,
+
+  // HomeLyout avec plusieurs pages
+  <Route key="home-layout" exact path="/" render={() => (
+    <HomeLyout>
+      <Route exact path="/home" component={HomePage} />
+      <Route path="/favoris" component={FavoritesPage} />
+      <Route path="/laterProducts" component={LaterProductsPage} />
+    </HomeLyout>
+  )} />,
+
+  // TapLayout pour recipes et tips pages
+  <Route key="tap-layout" exact path="/" render={() => (
+    <TapLayout>
+      <Route path="/recipes" component={RecipesPage} />
+      <Route path="/tips" component={TipsPage} />
+    </TapLayout>
+  )} />,
+
+  // AuthLayout pour login et signup
+  <Route key="auth-layout" exact path="/" render={() => (
+    <AuthLayout>
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={AccountCreationForm} />
+    </AuthLayout>
+  )} />,
+
+  // FbLyout pour FbPage
+  <Route key="fb-layout" path="/fiche-produit/:barcode" render={(props) => (
+    <FbLyout>
+      <FbPage {...props} />
+    </FbLyout>
+  )} />
 ];
 
 export default HomepublicRoutes;

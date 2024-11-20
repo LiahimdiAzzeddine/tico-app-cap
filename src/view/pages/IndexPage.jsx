@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import tico_intro from "../../assets/home/hands.svg";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom"; 
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import WhiteModal from "../composants/WhiteModal";
 import History from "../history/History";
@@ -9,11 +9,11 @@ function IndexPage() {
   const isAuthenticated = useIsAuthenticated();
   const [showModalHistory, setShowModalHistory] = useState(false);
 
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const VavSettings = () => {
     try {
-      navigate("/settings"); // Navigate to the home page
+      history.replace("/settings");
     } catch (error) {
       console.error("Error setting first visit status:", error);
     }
@@ -33,7 +33,7 @@ function IndexPage() {
           <div className="flex flex-col items-center justify-center w-3/5 space-y-6">
             <button
               className="bg-custom-blue  text-white font-bold py-3 px-6 rounded-md w-full transform transition-transform duration-150 ease-in-out active:scale-90"
-              onClick={() => VavSettings()}
+              onClick={() => history.push('/settings')}
             >
               Mon compte
             </button>

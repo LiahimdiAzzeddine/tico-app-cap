@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../scanner/UI/Header";
 import Fleche from "../../assets/fb/flech.svg";
 import Tico from "../../assets/auth/tico.png";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useHistory  } from "react-router-dom";
 import TransparencyScale from "../fb/TransparencyScale";
 import NameProduct from "../fb/NameProduct";
 import ProductDetails from "../fb/ProductDetails";
@@ -10,7 +10,7 @@ import Sections from "../fb/Sections";
 import TiConseil from "../fb/TiConseil";
 
 const FbPage = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [currentPosition, setCurrentPosition] = useState(3);
 
   return (
@@ -19,7 +19,7 @@ const FbPage = () => {
         <div className="flex justify-between items-center modal-background pb-1 px-4">
           <button
             className="text-custom-blue"
-            onClick={() => navigate("scanner", { replace: true })}
+            onClick={() =>  history.replace("scanner")}
           >
             <img src={Fleche} alt="Close" className="w-10 h-10" />
           </button>
