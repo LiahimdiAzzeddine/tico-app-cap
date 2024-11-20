@@ -14,9 +14,10 @@ import AccountCreationForm from "./composants/auth/Register";
 import HomeLayout from "./composants/layout/HomeLyout";
 import AuthLayout from "./composants/layout/AuthLyout";
 import LaterProducts from "./pages/LaterProducts";
+import TapLayout from "./composants/layout/TapLyout";
+import SimpleLyout from "./composants/layout/SimpleLyout";
 
 function App() {
-  
   useEffect(() => {
     // Masquer la barre d'état sur iOS (désactivé pour démo, décommenter si nécessaire)
     /*
@@ -25,14 +26,12 @@ function App() {
     StatusBar.setStyle({ style: 'DARK' });
     ScreenOrientation.lock({ orientation: 'portrait' });
     */
-
-    
   }, []);
-
+//animated={false}
   return (
     <IonApp>
       <IonReactRouter>
-        <IonRouterOutlet animated={false}>
+        <IonRouterOutlet >
           <Route exact path="/welcome" component={Welcome} />
           <Route path="/home" exact={true}>
             <HomeLayout>
@@ -46,7 +45,11 @@ function App() {
           <Route exact path="/favorite" component={Favorite} />
           <Route exact path="/scanner" component={Scanner} />
           <Route exact path="/settings" component={Settings} />
-          <Route exact path="/laterProducts" component={LaterProducts} />
+          <Route path="/laterProducts" exact={true}>
+            <SimpleLyout>
+              <LaterProducts />
+            </SimpleLyout>
+          </Route>
           <Route path="/login" exact={true}>
             <AuthLayout>
               <Login />

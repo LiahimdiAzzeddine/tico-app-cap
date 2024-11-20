@@ -49,7 +49,7 @@ const RecipeModal = ({ isOpen, onClose, recipe }) => {
                 <img
                   src={defaultImage}
                   alt={title}
-                  className="w-2/4 h-auto rounded-2xl border-custom-red border-2 object-cover"
+                  className="w-1/2 h-auto rounded-2xl border-custom-red border-2 object-cover"
                 />
               </div>
             </div>

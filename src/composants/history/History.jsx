@@ -54,9 +54,9 @@ const History = () => {
             backgroundSize: "contain",
           }}
         >
-          <h2 className="text-center text-custom-green-text text-2xl titre-bold">
+          <h2 className="text-center text-custom-green-text text-[1.7rem] titre-bold">
             Mon&nbsp;
-            <span className="underline underline-offset-4 decoration-orange-400">
+            <span className="marker-effect-orange z-10">
               historique
             </span>
             &nbsp;de scan

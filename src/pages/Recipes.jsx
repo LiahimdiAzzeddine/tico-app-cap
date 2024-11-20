@@ -10,6 +10,8 @@ import WhiteModal from "../composants/modales/WhiteModal";
 import SuggestRecipe from "../composants/recettes/SuggestRecipe";
 import RecipeModal from "../composants/modales/RecipeModal";
 import TapLayout from "../composants/layout/TapLyout"
+import ModalPage from "../composants/modales/ModalPage";
+import RecipeDetails from "../composants/recettes/RecipeDetails";
 function Recipes() {
   const ids = [];
   const { recipes, loading, error } = useLastRecipes(ids);
@@ -38,7 +40,7 @@ function Recipes() {
             backgroundSize: "contain",
           }}
         >
-          <h2 className="text-center text-custom-red text-2xl titre-bold">
+          <h2 className="text-center text-custom-red text-3xl titre-bold">
             Tit'recettes
           </h2>
         </div>
@@ -88,11 +90,14 @@ function Recipes() {
       
       {/* Afficher le modal avec les détails de la recette */}
       {selectedRecette&&(
-      <RecipeModal
+        <ModalPage
         isOpen={showModalRecipe}
         onClose={() => setShowModalRecipe(false)}
-        recipe={selectedRecette}
-      />)}
+       
+        >
+          <RecipeDetails  recipe={selectedRecette} />
+        </ModalPage>
+      )}
     </div>
     </TapLayout>
   );

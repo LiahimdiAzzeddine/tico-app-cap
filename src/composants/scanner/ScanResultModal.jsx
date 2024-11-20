@@ -15,14 +15,8 @@ import { useToast } from "../../context/ToastContext";
 import { ErrorMessage } from "./UI/ErrorMessage";
 import ModalHeader from "../modales/ModalHeader";
 import { createProduct } from "../../utils/product";
+import LoadingFbState from "./UI/LoadingFbState";
 
-// Composant de chargement
-const LoadingSpinner = () => (
-  <div className="flex flex-col items-center justify-center p-6">
-    <IonProgressBar type="indeterminate" className="rounded-full" />
-    <p className="text-gray-600">Recherche du produit...</p>
-  </div>
-);
 
 const ScanResultModal = ({
   scannedResult,
@@ -123,7 +117,7 @@ const ScanResultModal = ({
 
       <IonContent className="ion-padding-bottom">
         {loading ? (
-          <LoadingSpinner />
+          <LoadingFbState />
         ) : error ? (
           error === "Produit non trouvé." ? (
             <ErrorMessage

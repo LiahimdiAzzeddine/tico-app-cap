@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Background from "../assets/history/laterBackground.svg";
-import { getAllLaterProducts, deleteProductFromLater,addLaterProduct } from "../hooks/useIndexedDB";
+import {
+  getAllLaterProducts,
+  deleteProductFromLater,
+  addLaterProduct,
+} from "../hooks/useIndexedDB";
 import { IonContent, IonModal, IonPage } from "@ionic/react";
 import LaterItem from "../composants/history/LaterItem";
 import { EmptyLater } from "../composants/history/ui/EmptyLater";
@@ -18,24 +22,23 @@ const LaterProducts = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { isConnected } = useNetwork();
 
-  const { 
-    productData, 
-    loading: productLoading, 
-    error, 
-    fetchProduct, 
-    setProductData 
+  const {
+    productData,
+    loading: productLoading,
+    error,
+    fetchProduct,
+    setProductData,
   } = useGetProduct(selectedEan);
 
   // Fonction pour ouvrir le modal et charger les détails du produit
   const handleOpenFb = async (ean) => {
     if (!ean || !isConnected) return;
-    
+
     setSelectedEan(ean);
     setLoading(true);
-    
+
     try {
       await fetchProduct(ean);
-     
     } catch (error) {
       console.error("Erreur lors du chargement du produit:", error);
     } finally {
@@ -44,11 +47,11 @@ const LaterProducts = () => {
   };
 
   // Mettre à jour le produit sélectionné quand les données sont chargées
-  useEffect( () => {
+  useEffect(() => {
     if (productData) {
       const newProduct = createProduct(selectedEan, productData);
       setSelectedProduct(newProduct);
-      console.log("newProduct",newProduct);
+      console.log("newProduct", newProduct);
       addLaterProduct(newProduct); // .update the product in IndexedDB
       setIsOpenFb(true);
     }
@@ -98,7 +101,7 @@ const LaterProducts = () => {
   );
 
   return (
-    <IonPage>
+    <>
       <div className="p-2 details">
         <div
           className="flex flex-col items-center justify-center min-h-[10vh]"
@@ -109,11 +112,9 @@ const LaterProducts = () => {
             backgroundSize: "contain",
           }}
         >
-          <h2 className="text-center text-custom-gray text-2xl titre-bold">
-            <span className="underline underline-offset-4 decoration-orange-400">
-              Produits
-            </span>
-            &nbsp;à Consulter
+          <h2 className="text-center text-custom-gray text-[1.7rem] titre-bold z-10">
+              Produits à
+            &nbsp;<span className="marker-effect-orange">Consulter</span>
           </h2>
         </div>
 
@@ -136,22 +137,19 @@ const LaterProducts = () => {
           )}
         </div>
       </div>
-      
+
       <IonModal isOpen={isOpenFb}>
-        <ModalHeader 
-          image={"fb"} 
-          onClose={handleModalClose}
-        />
+        <ModalHeader image={"fb"} onClose={handleModalClose} />
         <IonContent className="ion-padding-bottom">
           {selectedProduct && (
-            <FicheProduit 
+            <FicheProduit
               productData={selectedProduct}
               resetBarcode={() => handleModalClose()}
             />
           )}
         </IonContent>
       </IonModal>
-    </IonPage>
+    </>
   );
 };
 
