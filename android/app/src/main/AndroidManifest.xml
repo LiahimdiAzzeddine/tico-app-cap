@@ -30,6 +30,8 @@ xmlns:tools="http://schemas.android.com/tools"
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
         <data android:scheme="tico" android:host="fiche-produit" />
+        <data android:scheme="votre_schema_de_deep_link" />
+
     </intent-filter>
         </activity>
 

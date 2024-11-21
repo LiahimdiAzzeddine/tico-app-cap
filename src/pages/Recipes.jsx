@@ -93,7 +93,7 @@ function Recipes() {
         <ModalPage
         isOpen={showModalRecipe}
         onClose={() => setShowModalRecipe(false)}
-       
+       image="rf"
         >
           <RecipeDetails  recipe={selectedRecette} />
         </ModalPage>

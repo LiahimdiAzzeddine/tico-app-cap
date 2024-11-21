@@ -19,20 +19,22 @@ function Home() {
         <div className="grow flex items-center justify-start w-full max-w-sm px-2">
           <div className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat">
             <div className="flex flex-col items-center justify-center w-3/4 space-y-6">
+            {/*
               <button
-                className="bg-custom-blue  text-white font-bold text-lg py-3 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-[#4b996c]  text-white font-bold text-lg py-3 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => history.push("/settings")}
               >
                 Mon compte
-              </button>
+              </button> */}
               <button
-                className="bg-custom-blue text-white font-bold  text-lg py-3 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-[#4b996c] text-white font-bold  text-lg py-3 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => setShowModalHistory(true)}
               >
                 Historique de scan
               </button>
               <button
-                className="bg-custom-blue text-white font-bold  text-lg py-3 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+              mode="md"
+                className="bg-[#4b996c] text-white font-bold  text-lg py-3 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => history.push("/laterProducts")}
               >
                 Mon produits à Consulter

@@ -1,7 +1,7 @@
 import React from "react";
 import horloge from "../../assets/fb/horloge.svg";
+import bgImage from "../../assets/recettes/bgImage.svg";
 import badgeimage from "../../assets/recettes/badge.svg";
-import recetteBg from "../../assets/recettes/recetteBg.svg";
 
 const RecipeDetails = ({ recipe }) => {
   const {
@@ -25,7 +25,7 @@ const RecipeDetails = ({ recipe }) => {
           <div
             className="w-full min-h-[30dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative"
             style={{
-              backgroundImage: `url(${recetteBg})`,
+              backgroundImage: `url(${bgImage})`,
             }}
           >
             <div className="flex flex-col justify-center items-center space-y-4">
@@ -35,7 +35,7 @@ const RecipeDetails = ({ recipe }) => {
               <img
                 src={defaultImage}
                 alt={title}
-                className="w-1/2 h-auto rounded-2xl border-custom-red border-2 object-cover"
+                className="w-1/2 h-auto rounded-2xl border-custom-red border-2 object-cover "
               />
             </div>
           </div>

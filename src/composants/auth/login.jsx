@@ -56,34 +56,37 @@ const Login = () => {
           )}
         </div>
 
-        <div className="flex flex-col items-center relative">
+        <div className="flex flex-col items-center relative w-full">
           <label className="text-orange-500 mb-1 text-base text-center font-bold">
             Mon mot de passe
           </label>
-          <input
-            type={showPassword ? "text" : "password"}
-            value={values.password}
-            onChange={(e) => setValues({ ...values, password: e.target.value })}
-            className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
-              errors.password
-                ? "border-red-500"
-                : "border-orange-300 focus:border-orange-500"
-            }`}
-            required
-            aria-invalid={!!errors.password}
-            aria-describedby="password-error"
-          />
-          <button
-            type="button"
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onTouchStart={handleMouseDown}
-            onTouchEnd={handleMouseUp}
-            className="absolute right-3 top-1/2  translate-y-1/4 text-gray-500 focus:outline-none"
-
-          >
-            <IonIcon icon={showPassword ? eyeOffOutline : eyeOutline} />
-          </button>
+          <div className="relative w-full">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={values.password}
+              onChange={(e) =>
+                setValues({ ...values, password: e.target.value })
+              }
+              className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
+                errors.password
+                  ? "border-red-500"
+                  : "border-orange-300 focus:border-orange-500"
+              }`}
+              required
+              aria-invalid={!!errors.password}
+              aria-describedby="password-error"
+            />
+            <button
+              type="button"
+              onMouseDown={handleMouseDown}
+              onMouseUp={handleMouseUp}
+              onTouchStart={handleMouseDown}
+              onTouchEnd={handleMouseUp}
+              className="absolute right-3 top-1/2  -translate-y-[35%] text-gray-500 focus:outline-none"
+            >
+              <IonIcon icon={showPassword ? eyeOffOutline : eyeOutline} />
+            </button>
+          </div>
           {errors.password && (
             <p id="password-error" className="text-red-500 text-sm mt-1">
               {errors.password[0]}
@@ -104,7 +107,7 @@ const Login = () => {
 
         <div className="pt-3 flex justify-center">
           <button
-            className="bg-orange-500 text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+            className="bg-orange-500 text-white font-bold  text-lg py-2  px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
             disabled={loading}
             type="submit"
           >

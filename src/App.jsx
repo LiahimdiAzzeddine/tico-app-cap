@@ -14,7 +14,6 @@ import AccountCreationForm from "./composants/auth/Register";
 import HomeLayout from "./composants/layout/HomeLyout";
 import AuthLayout from "./composants/layout/AuthLyout";
 import LaterProducts from "./pages/LaterProducts";
-import TapLayout from "./composants/layout/TapLyout";
 import SimpleLyout from "./composants/layout/SimpleLyout";
 
 function App() {
@@ -27,11 +26,13 @@ function App() {
     ScreenOrientation.lock({ orientation: 'portrait' });
     */
   }, []);
+  
+  
 //animated={false}
   return (
     <IonApp>
       <IonReactRouter>
-        <IonRouterOutlet >
+        <IonRouterOutlet  swipeGesture={true} animated={true} >
           <Route exact path="/welcome" component={Welcome} />
           <Route path="/home" exact={true}>
             <HomeLayout>

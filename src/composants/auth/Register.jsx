@@ -186,17 +186,16 @@ const AccountCreationForm = ({ onClose }) => {
             </p>
           )}
         </div>
-
         <div className="pt-3 flex justify-center">
-        <IonButton
-            type="submit"
-            className="text-white font-bold transition duration-75 transform active:scale-95 normal-case ion-button"
+          <button
+            className="bg-orange-500 text-white font-bold  text-lg py-2 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
             disabled={loading}
+            type="submit"
           >
-            Valider
-          </IonButton>
-          
+              Valider
+          </button>
         </div>
+        
       </form>
 
       

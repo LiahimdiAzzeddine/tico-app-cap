@@ -77,8 +77,9 @@ function Tips() {
       <ModalPage
         isOpen={showModalRecipe}
         onClose={handleModalClose}
-        bgHeader="#fad4ce"
-        bgcontent="#fdf2f0"
+        bgHeader="#ffeda3"
+        bgcontent="#ffeda3"
+        image="of"
       >
         {selectedTip && <TipDetails tip={selectedTip} />} {/* Affiche les détails */}
       </ModalPage>

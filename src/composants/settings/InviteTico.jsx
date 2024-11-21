@@ -19,7 +19,7 @@ function InviteTico() {
       <div className="details overflow-hidden h-full p-2">
         <div className="bg-white flex flex-col items-center justify-center  h-full ">
           {/* Hands icon */}
-          <div className=" absolute top-16">
+          <div className=" absolute top-12 mb-2">
             <img src={hands} alt="TiCO Logo" className="w-44" />
           </div>
           <div
