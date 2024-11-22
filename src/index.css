@@ -36,9 +36,10 @@
   font-weight: bold;
   font-style: normal;
 }
+/*
 html {
   --ion-safe-area-left: 25px;
-}
+}*/
 
 ion-modal {
   --ion-safe-area-top: 0;
@@ -129,6 +130,7 @@ body {
     font-size: 3.5dvw;
   }
 }
+
 /*
 Exemple d'ajustement pour les écrans plus larges (tablettes et ordinateurs) 
 @media (min-width: 768px) and (max-width: 1024px) {

@@ -24,7 +24,7 @@ export const openDatabase = () => {
 
       // Création de la table products
       if (!db.objectStoreNames.contains(PRODUCTS_NAME)) {
-        db.createObjectStore(PRODUCTS_NAME, { keyPath: 'id', autoIncrement: true });
+        db.createObjectStore(PRODUCTS_NAME,{ keyPath: 'gtin' });
       }
       // Création de la table pour les produits à voir ultérieurement
       if (!db.objectStoreNames.contains(LATER_PRODUCTS_NAME)) {
@@ -41,8 +41,54 @@ export const addProduct = async (product) => {
   await openDatabase();
   const transaction = db.transaction(PRODUCTS_NAME, 'readwrite');
   const store = transaction.objectStore(PRODUCTS_NAME);
-  store.put(product);
+
+  // Compter le nombre de produits stockés
+  const countRequest = store.count();
+
+  countRequest.onsuccess = () => {
+    const count = countRequest.result;
+
+    // Si le nombre de produits dépasse 100, supprimer le plus ancien
+    if (count >= 100) {
+      const firstRequest = store.openCursor();
+      firstRequest.onsuccess = (event) => {
+        const cursor = event.target.result;
+        if (cursor) {
+          store.delete(cursor.primaryKey); // Supprime le premier produit
+        }
+      };
+    }
+
+    // Ajouter le nouveau produit
+    store.put(product);
+  };
+
+  countRequest.onerror = () => {
+    console.error('Erreur lors de la vérification du nombre de produits');
+  };
 };
+
+// Supprime un produit par son GTIN
+export const deleteByGtin = async (gtin) => {
+  console.log("gtin:",gtin)
+  await openDatabase();
+  
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(PRODUCTS_NAME, 'readwrite'); // Table "products"
+    const store = transaction.objectStore(PRODUCTS_NAME);
+    const request = store.delete(gtin); // Supprime l'élément correspondant au GTIN
+
+    request.onsuccess = () => {
+      resolve(`Produit avec le GTIN ${gtin} supprimé avec succès.`);
+    };
+
+    request.onerror = (event) => {
+      reject(`Erreur lors de la suppression du produit avec le GTIN ${gtin} : ${event.target.error}`);
+    };
+  });
+};
+
+
 
 // Récupère un produit par son Barrcode
 export const getProductByBarrcode = async (gtin) => {

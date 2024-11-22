@@ -39,7 +39,6 @@ const ScanResultModal = ({
 
   // Effet pour lancer la récupération des données du produit
   useEffect(() => {
-    console.log("scannedResult",scannedResult,isConnected)
     if (scannedResult && isConnected) {
       fetchProduct();
     } else {
@@ -52,7 +51,6 @@ const ScanResultModal = ({
     if (productData && !loading && !error) {
       // Create the product using the imported function
       const product = createProduct(scannedResult, productData);
-      console.log("Produit :", product);
       setProduct(product);
       addToHistory(scannedResult, product);
     } else {

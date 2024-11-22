@@ -6,18 +6,38 @@ import FicheProduit from "../fb/FicheProduit";
 import Item from "./Item";
 import { EmptyState } from "./ui/EmptyState";
 import ModalHeader from "../modales/ModalHeader"
+import { useToast } from "../../context/ToastContext";
+import {deleteByGtin} from "../../hooks/useIndexedDB"
 
 const History = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isOpenFb, setIsOpenFb] = useState(false);
   const [ean, setEan] = useState(null);
-  const OpenFb = (ean) => {
-    if (ean) {
+  const { triggerAlert,triggerToast } = useToast();
+
+  const OpenFb = (product) => {
+    if (product) {
       setIsOpenFb(true);
-      setEan(ean);
+      setEan(product);
     }
   };
+  const handleDelete = async (gtin) => {
+    // Affichage de l'alerte de confirmation
+    const result = await triggerAlert("Êtes-vous sûr de vouloir continuer?", "Confirmation", "Oui");
+
+    // Si l'utilisateur confirme la suppression
+    if (result) {
+      // Appeler la fonction deleteByGtin pour supprimer l'élément
+      await deleteByGtin(gtin);
+      // Optionnel: Afficher un toast ou mettre à jour l'UI si nécessaire
+      triggerToast("Produit supprimé avec succès", "success");
+    } else {
+      // Si l'utilisateur annule la suppression
+      triggerToast("Suppression annulée", "error");
+    }
+  };
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -31,7 +51,7 @@ const History = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [handleDelete]);
 
   const LoadingState = () => (
     <div className="flex items-center justify-center h-full">
@@ -44,7 +64,7 @@ const History = () => {
 
   return (
     <>
-      <div className="p-2 details">
+      <div className="p-4 details">
         <div
           className="flex flex-col items-center justify-center min-h-[10vh]"
           style={{
@@ -63,7 +83,8 @@ const History = () => {
           </h2>
         </div>
 
-        <div className="mt-12 h-[65vh] overflow-y-auto">
+        <div className="mt-8 flex-grow overflow-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
+
           {loading ? (
             <LoadingState />
           ) : products.length > 0 ? (
@@ -74,6 +95,7 @@ const History = () => {
                 length={products.length}
                 key={index}
                 OpenFb={OpenFb}
+                handleDelete={handleDelete}
               />
             ))
           ) : (

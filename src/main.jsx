@@ -25,7 +25,10 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 import "./index.css";
-setupIonicReact();
+setupIonicReact({
+  animation:true,
+  mode:"md"
+});
 
 const store = createStore({
   authName: "_auth",

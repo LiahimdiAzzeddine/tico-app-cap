@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from "react";
+import { Dialog } from "@capacitor/dialog";
 import { Toast } from "@capacitor/toast";
 
 const ToastContext = createContext();
@@ -11,8 +12,6 @@ export const ToastProvider = ({ children }) => {
 
 
   const triggerToast = (message, color = "success") => {
-
-
     // Display the toast using Capacitor's Toast API
     Toast.show({
       text: message,
@@ -27,8 +26,20 @@ export const ToastProvider = ({ children }) => {
     });
   };
 
+    // Fonction pour afficher une alerte via Dialog de Capacitor
+    const triggerAlert = async (message, title = "Confirmation", buttonText = "OK") => {
+      const result = await Dialog.confirm({
+        title: title,
+        message: message,
+        okButtonTitle: "Oui",
+        cancelButtonTitle: "Non",
+      });
+  
+      return result.value; 
+    };
+
   return (
-    <ToastContext.Provider value={{ triggerToast }}>
+    <ToastContext.Provider value={{ triggerToast, triggerAlert }}>
       {children}
     </ToastContext.Provider>
   );

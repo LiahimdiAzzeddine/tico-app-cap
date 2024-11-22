@@ -2,7 +2,7 @@ import React from "react";
 import { IonModal, IonContent,IonPage } from "@ionic/react";
 import ModalHeader from "./ModalHeader";
 
-const ModalPage=({ isOpen, onClose,children,bgHeader="#fad4ce",bgcontent="#fdf2f0",image }) => {
+const ModalPage=({ isOpen, onClose,children,bgHeader="#fad4ce",bgcontent="#fdf2f0",image,scroll=true }) => {
     return (
       <IonModal
         isOpen={isOpen}
@@ -17,7 +17,7 @@ const ModalPage=({ isOpen, onClose,children,bgHeader="#fad4ce",bgcontent="#fdf2f
         <div style={{backgroundColor:bgHeader}}>
           <ModalHeader onClose={onClose} image={image} />
         </div>
-        <IonContent scrollY className="flex flex-col ion-no-padding h-full"  style={{ "--background":bgcontent }}>
+        <IonContent  scroll-y={scroll} className="flex flex-col ion-no-padding h-full"  style={{ "--background":bgcontent }}>
           {children}
           </IonContent>
         </IonPage>

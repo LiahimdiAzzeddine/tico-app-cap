@@ -15,6 +15,7 @@ import HomeLayout from "./composants/layout/HomeLyout";
 import AuthLayout from "./composants/layout/AuthLyout";
 import LaterProducts from "./pages/LaterProducts";
 import SimpleLyout from "./composants/layout/SimpleLyout";
+import RequireNoAuth from "./guards/RequireNoAuth"
 
 function App() {
   useEffect(() => {
@@ -35,9 +36,11 @@ function App() {
         <IonRouterOutlet  swipeGesture={true} animated={true} >
           <Route exact path="/welcome" component={Welcome} />
           <Route path="/home" exact={true}>
+          <RequireNoAuth>
             <HomeLayout>
               <Home />
             </HomeLayout>
+            </RequireNoAuth>
           </Route>
           <Route path="/recipes" exact={true}>
             <Recipes />

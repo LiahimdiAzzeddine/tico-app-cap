@@ -26,34 +26,31 @@ const HomeLayout = ({ children }) => {
   const icon = closeIcon[location.pathname] || "vx";
 
   return (
-      <IonPage id="main-content" style={{ backgroundColor: background }}>
-        <IonHeader
-          className="ion-no-border"
-          style={{ "--ion-background-color": background }}
+    <IonPage id="main-content" style={{ backgroundColor: background }}>
+      <IonHeader
+        className="ion-no-border"
+        style={{ "--ion-background-color": background }}
+      >
+        <IonToolbar
+          style={{ "--ion-toolbar-background": background, padding: 0 }}
         >
-          <IonToolbar
-            style={{ "--ion-toolbar-background": background, padding: 0 }}
-          >
-            <ModalHeader
-              image={icon}
-              onClose={() => history.replace("/scanner")}
-            />
-          </IonToolbar>
-        </IonHeader>
-        <IonContent
-          className="flex flex-col h-[60rem] ion-no-padding"
-          scroll-y="false"
+          <ModalHeader
+            image={icon}
+            onClose={() => history.replace("/scanner")}
+          />
+        </IonToolbar>
+      </IonHeader>
+      <IonContent scrollY className="flex flex-col ion-no-padding h-full">
+        <div
+          className="flex flex-col rounded-b-[2rem] h-full "
+          style={{ backgroundColor: background }}
         >
-          <div
-            className="flex flex-col h-full rounded-b-[2rem]"
-            style={{ backgroundColor: background }}
-          >
-            {/* Scrollable Outlet Content overflow-y-auto */}
-            <div className="flex-grow">{children}</div>
-          </div>
-        </IonContent>
-        <BottomNavbar />
-      </IonPage>
+          {/* Scrollable Outlet Content overflow-y-auto */}
+          <div className="flex-grow">{children}</div>
+        </div>
+      </IonContent>
+      <BottomNavbar />
+    </IonPage>
   );
 };
 
