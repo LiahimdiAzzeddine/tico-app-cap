@@ -15,11 +15,9 @@ import Login from "../composants/auth/login";
 import InviteTico from "../composants/settings/InviteTico";
 import ModalHeader from "../composants/modales/ModalHeader";
 import CGUConfidentialite from "../composants/settings/CGUConfidentialite";
-import useTest from "../hooks/auth/useTest";
 
 const Settings = () => {
   const { triggerToast } = useToast();
-  const { TestLogin, loading } = useTest();
   const history = useHistory();
   const [showModalFAQ, setShowModalFAQ] = useState(false);
   const [showModalContact, setShowModalContact] = useState(false);
@@ -43,9 +41,6 @@ const Settings = () => {
       );
     }
   };
-  const Login=()=>{
-    TestLogin();
-  }
 
   return (
     <>

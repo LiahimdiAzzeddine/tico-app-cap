@@ -6,6 +6,7 @@ const PermissionAlert = ({ showAlert, setShowAlert }) => {
       isOpen={!!showAlert}
       header={showAlert?.header}
       message={showAlert?.message}
+       mode={"ios"}
       buttons={showAlert?.buttons}
       onDidDismiss={() => setShowAlert(null)}
     />

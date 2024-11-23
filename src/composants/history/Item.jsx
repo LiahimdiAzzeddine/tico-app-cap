@@ -21,13 +21,24 @@ const Item = ({ product, index, length, OpenFb, handleDelete }) => {
     <IonItemSliding key={index}>
       {/* Contenu principal de l'élément */}
       <IonItem
-        style={{ display: "flex", flexDirection: "row", width: "100%","--inner-padding-end":"0","--padding-start":"0","--inner-border-width":"0 0 1.5px 0","--border-color":"#4b996c" }} // S'assure que l'élément occupe toute la largeur
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          width: "100%",
+          "--inner-padding-end": "0",
+          "--padding-start": "0",
+          "--inner-border-width": "0 0 1.5px 0",
+          "--border-color": "#4b996c",
+        }} // S'assure que l'élément occupe toute la largeur
       >
         <motion.div
           className="flex items-center py-4 w-full"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 50 }}
+          drag="x" // Enable horizontal drag
+          dragConstraints={{ left: 0, right: 0 }} // Constrain the drag movement horizontally
+          whileTap={{ scale: 0.98 }} // Slightly scale down the item when tapped
         >
           {/* Image du produit */}
           <div
@@ -74,7 +85,7 @@ const Item = ({ product, index, length, OpenFb, handleDelete }) => {
       </IonItemOptions>
 
       <IonItemOptions side="end">
-        <IonItemOption style={{"--background":"#4b996c"}}  onClick={() => OpenFb(product)}>
+        <IonItemOption style={{ "--background": "#4b996c" }} onClick={() => OpenFb(product)}>
           <IonIcon slot="icon-only" icon={eyeOutline} />
         </IonItemOption>
       </IonItemOptions>

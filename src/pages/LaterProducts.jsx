@@ -1,61 +1,81 @@
 import React, { useEffect, useState } from "react";
+import { IonContent, IonModal } from "@ionic/react";
+import { useNetwork } from "../context/NetworkContext";
 import Background from "../assets/history/laterBackground.svg";
-import {
-  getAllLaterProducts,
-  deleteProductFromLater,
-  addLaterProduct,
-} from "../hooks/useIndexedDB";
-import { IonContent, IonModal, IonPage } from "@ionic/react";
 import LaterItem from "../composants/history/LaterItem";
 import { EmptyLater } from "../composants/history/ui/EmptyLater";
 import ModalHeader from "../composants/modales/ModalHeader";
 import FicheProduit from "../composants/fb/FicheProduit";
-import useGetProduct from "../hooks/product/useGetProduit";
-import { useNetwork } from "../context/NetworkContext";
+import {
+  getAllLaterProducts,
+  deleteProductFromLater,
+  addProduct,
+} from "../hooks/useIndexedDB";
+import useGetProductLater from "../hooks/product/useGetProductLater";
 import { createProduct } from "../utils/product";
 
 const LaterProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [isOpenFb, setIsOpenFb] = useState(false);
-  const [selectedEan, setSelectedEan] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { isConnected } = useNetwork();
 
   const {
-    productData,
-    loading: productLoading,
-    error,
+    productLoading,
+    error: productError,
     fetchProduct,
-    setProductData,
-  } = useGetProduct(selectedEan);
+  } = useGetProductLater();
+
+  // État pour gérer le chargement global
+  const isLoading = loading || productLoading;
+
+  // Fonction pour gérer les erreurs
+  const handleError = (error, context) => {
+    console.error(`Erreur dans ${context}:`, error);
+    setError(error.message || "Une erreur est survenue");
+    // Vous pouvez ajouter ici votre logique de notification d'erreur
+  };
 
   // Fonction pour ouvrir le modal et charger les détails du produit
   const handleOpenFb = async (ean) => {
-    if (!ean || !isConnected) return;
+    if (!ean) {
+      handleError(new Error("Code EAN invalide"), "handleOpenFb");
+      return;
+    }
 
-    setSelectedEan(ean);
+    if (!isConnected) {
+      handleError(new Error("Pas de connexion internet"), "handleOpenFb");
+      return;
+    }
+
     setLoading(true);
+    setError(null);
 
     try {
-      await fetchProduct(ean);
+      const fetchedData = await fetchProduct(ean);
+      
+      if (!fetchedData) {
+        throw new Error("Produit non trouvé");
+      }
+
+      const newProduct = createProduct(ean, fetchedData);
+      
+      // Ajouter le produit à l'historique
+      await addProduct(newProduct);
+      setSelectedProduct(newProduct);
+      
+      // Supprimer de la liste "à consulter plus tard"
+      await handleDelete(newProduct.gtin);
+      
+      setIsOpenFb(true);
     } catch (error) {
-      console.error("Erreur lors du chargement du produit:", error);
+      handleError(error, "handleOpenFb");
     } finally {
       setLoading(false);
     }
   };
-
-  // Mettre à jour le produit sélectionné quand les données sont chargées
-  useEffect(() => {
-    if (productData) {
-      const newProduct = createProduct(selectedEan, productData);
-      setSelectedProduct(newProduct);
-      console.log("newProduct", newProduct);
-      addLaterProduct(newProduct); // .update the product in IndexedDB
-      setIsOpenFb(true);
-    }
-  }, [productData]);
 
   // Fonction pour supprimer un produit
   const handleDelete = async (ean) => {
@@ -64,39 +84,49 @@ const LaterProducts = () => {
       const updatedProducts = await getAllLaterProducts();
       setProducts(updatedProducts);
     } catch (error) {
-      console.error("Erreur lors de la suppression du produit:", error);
+      handleError(error, "handleDelete");
     }
   };
 
   // Charger la liste initiale des produits
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
         const allProducts = await getAllLaterProducts();
         setProducts(allProducts);
       } catch (error) {
-        console.error("Erreur lors de la récupération des produits:", error);
+        handleError(error, "fetchProducts");
       } finally {
         setLoading(false);
       }
     };
 
     fetchProducts();
-  }, [productData]);
+  }, []);
 
   const handleModalClose = () => {
     setIsOpenFb(false);
-    setSelectedEan(null);
     setSelectedProduct(null);
-    setProductData(null);
+    setError(null);
   };
 
+  // Composant pour afficher l'état de chargement
   const LoadingState = () => (
     <div className="flex items-center justify-center h-full">
       <div className="animate-pulse flex flex-col items-center">
         <div className="h-8 w-8 bg-gray-200 rounded-full mb-2"></div>
         <div className="h-4 w-32 bg-gray-200 rounded"></div>
       </div>
+    </div>
+  );
+
+  // Composant pour afficher les erreurs
+  const ErrorMessage = ({ message }) => (
+    <div className="flex items-center justify-center h-full text-red-500 p-4 text-center">
+      <p>{message}</p>
     </div>
   );
 
@@ -113,27 +143,34 @@ const LaterProducts = () => {
           }}
         >
           <h2 className="text-center text-custom-gray text-[1.7rem] titre-bold z-10">
-              Produits à
-            &nbsp;<span className="marker-effect-orange">Consulter</span>
+            Produits à&nbsp;
+            <span className="marker-effect-orange">Consulter</span>
           </h2>
         </div>
 
-        <div className="mt-12 h-[65vh] overflow-y-auto">
-          {loading ? (
-            <LoadingState />
-          ) : products.length > 0 ? (
-            products.map((product, index) => (
-              <LaterItem
-                product={product}
-                index={index}
-                length={products.length}
-                key={index}
-                OpenFb={handleOpenFb}
-                onDelete={handleDelete}
-              />
-            ))
-          ) : (
-            <EmptyLater />
+        <div 
+          className="mt-8 flex-grow overflow-auto" 
+          style={{ maxHeight: 'calc(100vh - 200px)' }}
+        >
+          {isLoading && <LoadingState />}
+          {error && <ErrorMessage message={error} />}
+          {!isLoading && !error && (
+            <>
+              {products.length > 0 ? (
+                products.map((product, index) => (
+                  <LaterItem
+                    product={product}
+                    index={index}
+                    length={products.length}
+                    key={product.gtin || index}
+                    OpenFb={handleOpenFb}
+                    onDelete={handleDelete}
+                  />
+                ))
+              ) : (
+                <EmptyLater />
+              )}
+            </>
           )}
         </div>
       </div>
@@ -144,7 +181,7 @@ const LaterProducts = () => {
           {selectedProduct && (
             <FicheProduit
               productData={selectedProduct}
-              resetBarcode={() => handleModalClose()}
+              resetBarcode={handleModalClose}
             />
           )}
         </IonContent>

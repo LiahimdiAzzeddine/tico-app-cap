@@ -5,16 +5,19 @@ import { IonContent, IonModal } from "@ionic/react";
 import FicheProduit from "../fb/FicheProduit";
 import Item from "./Item";
 import { EmptyState } from "./ui/EmptyState";
-import ModalHeader from "../modales/ModalHeader"
+import ModalHeader from "../modales/ModalHeader";
 import { useToast } from "../../context/ToastContext";
-import {deleteByGtin} from "../../hooks/useIndexedDB"
+import { useAlert } from "../../context/AlertProvider";
+
+import { deleteByGtin } from "../../hooks/useIndexedDB";
 
 const History = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isOpenFb, setIsOpenFb] = useState(false);
   const [ean, setEan] = useState(null);
-  const { triggerAlert,triggerToast } = useToast();
+  const { triggerToast } = useToast();
+  const { triggerAlert } = useAlert();
 
   const OpenFb = (product) => {
     if (product) {
@@ -23,21 +26,18 @@ const History = () => {
     }
   };
   const handleDelete = async (gtin) => {
-    // Affichage de l'alerte de confirmation
-    const result = await triggerAlert("Êtes-vous sûr de vouloir continuer?", "Confirmation", "Oui");
-
-    // Si l'utilisateur confirme la suppression
-    if (result) {
-      // Appeler la fonction deleteByGtin pour supprimer l'élément
-      await deleteByGtin(gtin);
-      // Optionnel: Afficher un toast ou mettre à jour l'UI si nécessaire
-      triggerToast("Produit supprimé avec succès", "success");
-    } else {
-      // Si l'utilisateur annule la suppression
-      triggerToast("Suppression annulée", "error");
-    }
+    // Appeler triggerAlert pour afficher l'alerte
+    triggerAlert(
+      "Êtes-vous sûr de vouloir continuer ?", // Message
+      "Confirmation", // Titre
+      async () => {
+        // Action à exécuter si l'utilisateur confirme
+        await deleteByGtin(gtin);
+        triggerToast("Produit supprimé avec succès", "success");
+      }
+    );
   };
-  
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -76,27 +76,105 @@ const History = () => {
         >
           <h2 className="text-center text-custom-green-text text-[1.7rem] titre-bold">
             Mon&nbsp;
-            <span className="marker-effect-orange z-10">
-              historique
-            </span>
+            <span className="marker-effect-orange z-10">historique</span>
             &nbsp;de scan
           </h2>
         </div>
-
-        <div className="mt-8 flex-grow overflow-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
-
+        {/* Message explicatif sur le glissement */}
+        <div className="mt-4 text-center text-gray-700 text-sm italic">
+          Faites glisser un élément pour accéder aux options de suppression et
+          de vue.
+        </div>
+        <div
+          className="mt-1 flex-grow overflow-auto"
+          style={{ maxHeight: "60vh" }}
+        >
           {loading ? (
             <LoadingState />
           ) : products.length > 0 ? (
             products.map((product, index) => (
-              <Item
-                product={product}
-                index={index}
-                length={products.length}
-                key={index}
-                OpenFb={OpenFb}
-                handleDelete={handleDelete}
-              />
+              <>
+                <Item
+                  product={product}
+                  index={index}
+                  length={products.length}
+                  key={index}
+                  OpenFb={OpenFb}
+                  handleDelete={handleDelete}
+                />
+                <Item
+                  product={product}
+                  index={index}
+                  length={products.length}
+                  key={index}
+                  OpenFb={OpenFb}
+                  handleDelete={handleDelete}
+                />
+                <Item
+                  product={product}
+                  index={index}
+                  length={products.length}
+                  key={index}
+                  OpenFb={OpenFb}
+                  handleDelete={handleDelete}
+                />
+                <Item
+                  product={product}
+                  index={index}
+                  length={products.length}
+                  key={index}
+                  OpenFb={OpenFb}
+                  handleDelete={handleDelete}
+                />
+                <Item
+                  product={product}
+                  index={index}
+                  length={products.length}
+                  key={index}
+                  OpenFb={OpenFb}
+                  handleDelete={handleDelete}
+                />
+                <Item
+                  product={product}
+                  index={index}
+                  length={products.length}
+                  key={index}
+                  OpenFb={OpenFb}
+                  handleDelete={handleDelete}
+                />
+                <Item
+                  product={product}
+                  index={index}
+                  length={products.length}
+                  key={index}
+                  OpenFb={OpenFb}
+                  handleDelete={handleDelete}
+                />
+                <Item
+                  product={product}
+                  index={index}
+                  length={products.length}
+                  key={index}
+                  OpenFb={OpenFb}
+                  handleDelete={handleDelete}
+                />
+                <Item
+                  product={product}
+                  index={index}
+                  length={products.length}
+                  key={index}
+                  OpenFb={OpenFb}
+                  handleDelete={handleDelete}
+                />
+                <Item
+                  product={product}
+                  index={index}
+                  length={products.length}
+                  key={index}
+                  OpenFb={OpenFb}
+                  handleDelete={handleDelete}
+                />
+              </>
             ))
           ) : (
             <EmptyState />
@@ -104,7 +182,12 @@ const History = () => {
         </div>
       </div>
       <IonModal isOpen={isOpenFb}>
-      <ModalHeader image={"fb"} onClose={()=>{setIsOpenFb(false)}} />
+        <ModalHeader
+          image={"fb"}
+          onClose={() => {
+            setIsOpenFb(false);
+          }}
+        />
         <IonContent className="ion-padding-bottom">
           <FicheProduit productData={ean} resetBarcode={setIsOpenFb} />
         </IonContent>

@@ -9,7 +9,7 @@ function SimpleLyout({ children }) {
   return (
     <IonPage id="main-content" >
        <ModalHeader image="bf"  onClose={() =>  history.goBack()}/>
-      <IonContent className="ion-padding" style={{ overflow: 'hidden' }} scroll-y="true">
+      <IonContent className="flex flex-col ion-no-padding h-full"  style={{ overflow: 'hidden' }} scroll-y="true">
       { children }
       </IonContent>
     </IonPage>

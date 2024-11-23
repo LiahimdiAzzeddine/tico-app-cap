@@ -5,11 +5,12 @@ import "./Scanner.css";
 import ScanArea from "./ScanArea";
 import PermissionAlert from "./PermissionAlert";
 import ScanResultModal from "./ScanResultModal";
+//import {useIonViewWillLeave,useIonViewWillEnter } from '@ionic/react';
 
 const Main = () => {
   const [err, setErr] = useState(null);
   const [hideBg, setHideBg] = useState(false);
-  const [scannedResult, setScannedResult] = useState("3266980784614");
+  const [scannedResult, setScannedResult] = useState(null);
   const [isScanning, setIsScanning] = useState(true);
   const [lastScannedCode, setLastScannedCode] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
@@ -66,7 +67,7 @@ const Main = () => {
       setShowAlert({
         header: "Permission requise",
         message:
-          "Veuillez activer la permission dans les paramètres de l'application.",
+          "L'accès à la caméra est nécessaire pour scanner les codes-barres. Veuillez activer la permission dans les paramètres de l'application.",
         buttons: [
           {
             text: "Annuler",
@@ -74,7 +75,7 @@ const Main = () => {
             handler: () => setErr("Permission refusée."),
           },
           {
-            text: "Ouvrir les paramètres",
+            text: "Paramètres",
             handler: async () => await BarcodeScanner.openAppSettings(),
           },
         ],
@@ -95,7 +96,6 @@ const Main = () => {
     } else if (status.restricted || status.unknown) {
       setErr("L'accès à la caméra est restreint ou non disponible.");
     }
-
     return false;
   };
 
@@ -156,10 +156,20 @@ const Main = () => {
     setModalisOpen(true);
     return () => {
       stopScan();
-      console.log("stopScan ------ ")
+      console.log("Scanner arrêté à la sortie de la page useEffect");
     };
   }, []);
 
+   /*
+   useIonViewWillLeave(() => {
+    stopScan();
+    console.log("Scanner arrêté à la sortie de la page.");
+  });
+  useIonViewWillEnter(() => {
+    startScan();
+    setModalisOpen(true);
+  });
+*/
   return (
     <>
       <IonContent className={hideBg ? "hideBg" : "ion-padding"}>

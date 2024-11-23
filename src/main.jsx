@@ -4,6 +4,7 @@ import AuthProvider from "react-auth-kit";
 import createStore from "react-auth-kit/createStore";
 import refresh from "./hooks/useRefreshToken.js";
 import { ToastProvider } from "./context/ToastContext.jsx";
+import { AlertProvider } from "./context/AlertProvider.jsx";
 import { NetworkProvider } from "./context/NetworkContext.jsx";
 import { setupIonicReact } from "@ionic/react";
 
@@ -26,8 +27,8 @@ import "./theme/variables.css";
 
 import "./index.css";
 setupIonicReact({
-  animation:true,
-  mode:"md"
+  animation: true,
+  mode: "md",
 });
 
 const store = createStore({
@@ -39,11 +40,13 @@ const store = createStore({
 });
 
 createRoot(document.getElementById("root")).render(
-  <NetworkProvider>
-    <ToastProvider>
-      <AuthProvider store={store}>
-        <App />
-      </AuthProvider>
-    </ToastProvider>
-  </NetworkProvider>
+  <AuthProvider store={store}>
+    <NetworkProvider>
+      <ToastProvider>
+        <AlertProvider>
+          <App />
+        </AlertProvider>
+      </ToastProvider>
+    </NetworkProvider>
+  </AuthProvider>
 );

@@ -2,18 +2,9 @@ import React, { useState } from "react";
 import tico_intro from "../assets/home/tico_intro.svg";
 import hands from "../assets/home/hands.svg";
 import { useHistory } from "react-router-dom";
-import WhiteModal from "../composants/modales/WhiteModal";
 import History from "../composants/history/History";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import {
-  IonItem,
-  IonItemOption,
-  IonItemOptions,
-  IonItemSliding,
-  IonLabel,
-  IonList,
-} from "@ionic/react";
 import ModalPage from "../composants/modales/ModalPage";
 
 function Home() {

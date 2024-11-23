@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState  } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -16,8 +16,15 @@ import AuthLayout from "./composants/layout/AuthLyout";
 import LaterProducts from "./pages/LaterProducts";
 import SimpleLyout from "./composants/layout/SimpleLyout";
 import RequireNoAuth from "./guards/RequireNoAuth"
+import { App as CapacitorApp } from "@capacitor/app"; // Import de Capacitor App
+import { useToast } from "./context/ToastContext";
+import { useHistory } from "react-router-dom"; // Import du hook useHistory
 
 function App() {
+  const { showToast } = useToast();
+  const [exitApp, setExitApp] = useState(false);
+  const history = useHistory();
+
   useEffect(() => {
     // Masquer la barre d'état sur iOS (désactivé pour démo, décommenter si nécessaire)
     /*
@@ -27,7 +34,25 @@ function App() {
     ScreenOrientation.lock({ orientation: 'portrait' });
     */
   }, []);
-  
+  useEffect(() => {
+    // Écouter le bouton retour physique sur mobile
+    const backButtonListener = CapacitorApp.addListener("backButton", (event) => {
+      if (history.location.pathname === "/scanner") {
+        if (exitApp) {
+          CapacitorApp.exitApp(); // Quitter l'application
+        } else {
+          setExitApp(true); // Activer l'état de sortie
+          showToast("Appuyez à nouveau pour quitter l'application", "info");
+          setTimeout(() => setExitApp(false), 2000); // Réinitialiser l'état après 2 secondes
+        }
+      } else {
+        history.push("scanner"); // Naviguer vers la page précédente
+      }
+    });
+    return () => {
+      backButtonListener.remove(); // Supprimer l'écouteur à la destruction
+    };
+  }, [exitApp, history, showToast]);
   
 //animated={false}
   return (
