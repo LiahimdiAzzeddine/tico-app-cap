@@ -3,7 +3,7 @@ import useLogin from "../../hooks/auth/useLogin";
 import { Link } from "react-router-dom";
 import Spinner from "../Spinner";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
-import { IonIcon, IonButton } from "@ionic/react";
+import { IonIcon } from "@ionic/react";
 
 const Login = () => {
   const { handleSubmit, loading, error } = useLogin();
@@ -140,7 +140,7 @@ const Login = () => {
       {/* Full-screen loading overlay */}
 
       {loading && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 ">
+        <div className="h-screen  fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 ">
           <Spinner />
         </div>
       )}

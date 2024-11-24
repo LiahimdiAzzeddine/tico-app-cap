@@ -132,7 +132,7 @@ const LaterProducts = () => {
 
   return (
     <>
-      <div className="p-2 details">
+      <div className="p-4 details flex flex-col h-full">
         <div
           className="flex flex-col items-center justify-center min-h-[10vh]"
           style={{
@@ -148,10 +148,7 @@ const LaterProducts = () => {
           </h2>
         </div>
 
-        <div 
-          className="mt-8 flex-grow overflow-auto" 
-          style={{ maxHeight: 'calc(100vh - 200px)' }}
-        >
+        <div className="mt-2 flex-grow overflow-y-auto">
           {isLoading && <LoadingState />}
           {error && <ErrorMessage message={error} />}
           {!isLoading && !error && (

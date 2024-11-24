@@ -5,7 +5,7 @@ import "./Scanner.css";
 import ScanArea from "./ScanArea";
 import PermissionAlert from "./PermissionAlert";
 import ScanResultModal from "./ScanResultModal";
-//import {useIonViewWillLeave,useIonViewWillEnter } from '@ionic/react';
+import {useIonViewWillLeave,useIonViewWillEnter } from '@ionic/react';
 
 const Main = () => {
   const [err, setErr] = useState(null);
@@ -160,7 +160,7 @@ const Main = () => {
     };
   }, []);
 
-   /*
+   /**/
    useIonViewWillLeave(() => {
     stopScan();
     console.log("Scanner arrêté à la sortie de la page.");
@@ -169,7 +169,7 @@ const Main = () => {
     startScan();
     setModalisOpen(true);
   });
-*/
+
   return (
     <>
       <IonContent className={hideBg ? "hideBg" : "ion-padding"}>

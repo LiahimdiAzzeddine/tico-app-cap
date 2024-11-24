@@ -64,7 +64,8 @@ const History = () => {
 
   return (
     <>
-      <div className="p-4 details">
+      <div className="p-4 details flex flex-col h-full">
+        {/* En-tête fixe */}
         <div
           className="flex flex-col items-center justify-center min-h-[10vh]"
           style={{
@@ -80,20 +81,19 @@ const History = () => {
             &nbsp;de scan
           </h2>
         </div>
-        {/* Message explicatif sur le glissement */}
+
+        {/* Message explicatif fixe */}
         <div className="mt-4 text-center text-gray-700 text-sm italic">
-          Faites glisser un élément pour accéder aux options de suppression et
-          de vue.
+        Glissez un produit pour afficher les options de suppression et de visualisation.
         </div>
-        <div
-          className="mt-1 flex-grow overflow-auto"
-          style={{ maxHeight: "60vh" }}
-        >
+
+        {/* Contenu scrollable */}
+        <div className="mt-2 flex-grow overflow-y-auto">
           {loading ? (
             <LoadingState />
           ) : products.length > 0 ? (
-            products.map((product, index) => (
-              <>
+            products.map((product,index) =>
+              
                 <Item
                   product={product}
                   index={index}
@@ -102,85 +102,14 @@ const History = () => {
                   OpenFb={OpenFb}
                   handleDelete={handleDelete}
                 />
-                <Item
-                  product={product}
-                  index={index}
-                  length={products.length}
-                  key={index}
-                  OpenFb={OpenFb}
-                  handleDelete={handleDelete}
-                />
-                <Item
-                  product={product}
-                  index={index}
-                  length={products.length}
-                  key={index}
-                  OpenFb={OpenFb}
-                  handleDelete={handleDelete}
-                />
-                <Item
-                  product={product}
-                  index={index}
-                  length={products.length}
-                  key={index}
-                  OpenFb={OpenFb}
-                  handleDelete={handleDelete}
-                />
-                <Item
-                  product={product}
-                  index={index}
-                  length={products.length}
-                  key={index}
-                  OpenFb={OpenFb}
-                  handleDelete={handleDelete}
-                />
-                <Item
-                  product={product}
-                  index={index}
-                  length={products.length}
-                  key={index}
-                  OpenFb={OpenFb}
-                  handleDelete={handleDelete}
-                />
-                <Item
-                  product={product}
-                  index={index}
-                  length={products.length}
-                  key={index}
-                  OpenFb={OpenFb}
-                  handleDelete={handleDelete}
-                />
-                <Item
-                  product={product}
-                  index={index}
-                  length={products.length}
-                  key={index}
-                  OpenFb={OpenFb}
-                  handleDelete={handleDelete}
-                />
-                <Item
-                  product={product}
-                  index={index}
-                  length={products.length}
-                  key={index}
-                  OpenFb={OpenFb}
-                  handleDelete={handleDelete}
-                />
-                <Item
-                  product={product}
-                  index={index}
-                  length={products.length}
-                  key={index}
-                  OpenFb={OpenFb}
-                  handleDelete={handleDelete}
-                />
-              </>
-            ))
+              
+            )
           ) : (
             <EmptyState />
           )}
         </div>
       </div>
+
       <IonModal isOpen={isOpenFb}>
         <ModalHeader
           image={"fb"}

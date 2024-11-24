@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "../api/axios";
 import { useToast } from "../context/ToastContext"; // Assure-toi du bon chemin d'import
+import { useHistory } from "react-router-dom"; 
 
 const LOGIN_URL = "/api/auth/contact";
 
@@ -8,6 +9,7 @@ const useContact = () => {
   const { triggerToast } = useToast(); // Utilise le triggerToast du contexte
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const history = useHistory();
 
   const handleSubmit = async (formValues) => {
     setLoading(true);

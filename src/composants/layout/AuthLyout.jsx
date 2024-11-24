@@ -1,10 +1,9 @@
 import React from "react";
-import { IonPage, IonContent } from "@ionic/react";
-import Menu from "../../composants/navBars/Menu";
-import BottomNavbar from "../../composants/navBars/BottomNavbar";
+import { IonPage, IonContent,IonHeader,IonToolbar } from "@ionic/react";
 import {useHistory } from "react-router-dom";
 import X from "../../assets/auth/XV6-33.png";
 import Tico from "../../assets/auth/tico.png";
+import ModalHeader from "../modales/ModalHeader";
 
 const AuthLayout = ({ children }) => {
   const history = useHistory();
@@ -12,26 +11,27 @@ const AuthLayout = ({ children }) => {
   return (
     
     <IonPage id="main-content">
-      <Menu />
-
+      <IonHeader
+        className="ion-no-border z-0"
+        style={{ "--ion-background-color": "#ffeda3" }}
+      >
+        <IonToolbar
+          style={{ "--ion-toolbar-background": "#ffeda3", padding: 0 }}
+        >
+          <ModalHeader
+            image={"bx"}
+            onClose={() => history.replace("/scanner")}
+          />
+        </IonToolbar>
+      </IonHeader>
       <IonContent className="flex flex-col h-full">
-        <div className="flex flex-col h-full bg-[#ffeda3]">
-          <div className="flex justify-between items-center mb-5 mt-1 p-4 modal-background">
-            <button className="text-custom-blue" onClick={() =>  history.replace('scanner')}>
-              <img src={X} alt="Close" className="w-10 h-10" />
-            </button>
-            <div className="text-orange-500 font-bold text-2xl titre-bold">
-              <img src={Tico} alt="Tico" className="h-7" />
-            </div>
-          </div>
-          
+        <div className="flex flex-col h-full bg-[#ffeda3]">    
           {/* Scrollable Outlet Content */}
           <div className="flex-grow overflow-y-auto p-4">
           { children }
           </div>
         </div>
       </IonContent>
-
     </IonPage>
   );
 };

@@ -102,6 +102,8 @@ body {
   left: calc(50vw - 250px);
   margin: 0 auto;
 }
+
+
 @media (max-width: 532px) {
   .details {
     left: 0;

@@ -10,8 +10,15 @@ const ModalPage=({ isOpen, onClose,children,bgHeader="#fad4ce",bgcontent="#fdf2f
         style={{
           "--background": "#fdf2f0",
           "--ion-padding": "0",
+          "--height": "100%",
+          "--max-height": "100%",
+          "--width": "100%",
+          "--max-width": "100%",
+          "--min-height": "100%",
+          "--min-width": "100%",
         }}
         className="h-screen"
+        
       >
         <IonPage id="main-content" style={{ backgroundColor:bgHeader }}>
         <div style={{backgroundColor:bgHeader}}>
