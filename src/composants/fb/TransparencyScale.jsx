@@ -11,7 +11,7 @@ const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
   };
 
   return (
-    <div className="px-4">
+    <div className="px-4 pt-3">
       <div className="w-full flex items-center justify-center relative">
         {/* Image de l'échelle de transparence */}
         <img src={scaleImage} alt="Transparency scale" className="w-full h-auto" />
@@ -38,7 +38,7 @@ const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
         </div>
       </div>
       <div className="flex flex-col items-end mt-2">
-        <Link to="#" className="text-[#6dc3bc] underline underline-offset-4 text-xs">En savoir plus sur notre échelle de transparence*</Link>
+        <Link to="#" className="text-[#6dc3bc] underline underline-offset-4 text-xs">En savoir plus sur notre échelle de transparence</Link>
       </div>
     </div>
   );

@@ -1,219 +1,239 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
-import { IonContent, IonRow, IonText, IonButton } from "@ionic/react";
+import { IonContent, IonRow, IonText, IonButton,IonIcon } from "@ionic/react";
 import "./Scanner.css";
 import ScanArea from "./ScanArea";
 import PermissionAlert from "./PermissionAlert";
 import ScanResultModal from "./ScanResultModal";
-import {useIonViewWillLeave,useIonViewWillEnter } from '@ionic/react';
+import { useIonViewWillLeave, useIonViewWillEnter } from "@ionic/react";
+import { scan } from "ionicons/icons"; 
 
 const Main = () => {
-  const [err, setErr] = useState(null);
-  const [hideBg, setHideBg] = useState(false);
-  const [scannedResult, setScannedResult] = useState(null);
-  const [isScanning, setIsScanning] = useState(true);
-  const [lastScannedCode, setLastScannedCode] = useState(null);
-  const [hasPermission, setHasPermission] = useState(null);
-  const [showAlert, setShowAlert] = useState(null);
-  const [showToast, setShowToast] = useState(false);
-  const [flashOn, setFlashOn] = useState(false);
-  const [modalisOpen, setModalisOpen] = useState(false);
+  const [appState, setAppState] = useState({
+    error: null,
+    hasPermission: null,
+    showAlert: null,
+    scannedResult: "3266980784614",
+    flashOn: false,
+    modalIsOpen: true,
+    hideBg: false,
+  });
 
-  const openModal = (barreCode) => {
-    setScannedResult(barreCode);
-    if(barreCode) setModalisOpen(true);
-  };
-  const closeModal = () => {
-    setScannedResult(null);
-    setModalisOpen(false);
-    setLastScannedCode(null);
-  };
+  const [breakpoint, setBreakpoint] = useState(0);
+  const scannerActiveRef = useRef(false);
+  const lastScannedCodeRef = useRef(null);
+  const shouldDetectRef = useRef(true);
 
-  // Handle errors by stopping the scan and displaying messages
-  const handleError = (message) => {
-    setErr(message);
-    stopScan();
-  };
+  const updateAppState = (newState) =>
+    setAppState((prevState) => ({ ...prevState, ...newState }));
 
-  // Permission check with forced prompt
-  const checkPermissionForced = async () => {
-    setErr(null);
-    try {
-      const status = await BarcodeScanner.checkPermission({ force: true });
-      return handlePermissionStatus(status);
-    } catch (error) {
-      handleError(`Erreur lors de la vérification: ${error.message}`);
-      return false;
-    }
-  };
-
-  // Normal permission check without forcing
-  const checkPermissionNormal = async () => {
-    setErr(null);
-    try {
-      const status = await BarcodeScanner.checkPermission();
-      return handlePermissionStatus(status);
-    } catch (error) {
-      handleError(`Erreur: ${error.message}`);
-      return false;
-    }
-  };
-
-  // Handle permission statuses
   const handlePermissionStatus = (status) => {
-    if (status.granted) return true;
+    if (status.granted) {
+      updateAppState({ hasPermission: true });
+      return true;
+    }
 
     if (status.denied) {
-      setShowAlert({
-        header: "Permission requise",
-        message:
-          "L'accès à la caméra est nécessaire pour scanner les codes-barres. Veuillez activer la permission dans les paramètres de l'application.",
-        buttons: [
-          {
-            text: "Annuler",
-            role: "cancel",
-            handler: () => setErr("Permission refusée."),
-          },
-          {
-            text: "Paramètres",
-            handler: async () => await BarcodeScanner.openAppSettings(),
-          },
-        ],
+      updateAppState({
+        showAlert: {
+          header: "Permission requise",
+          message:
+            "L'accès à la caméra est nécessaire pour scanner les codes-barres. Veuillez activer la permission dans les paramètres de l'application.",
+          buttons: [
+            {
+              text: "Annuler",
+              role: "cancel",
+              handler: () => updateAppState({ error: "Permission refusée." }),
+            },
+            {
+              text: "Paramètres",
+              handler: async () => await BarcodeScanner.openAppSettings(),
+            },
+          ],
+        },
       });
     } else if (status.neverAsked) {
-      setShowAlert({
-        header: "Autorisation caméra",
-        message: "Voulez-vous autoriser l'utilisation de la caméra?",
-        buttons: [
-          {
-            text: "Non",
-            role: "cancel",
-            handler: () => setErr("Permission non accordée."),
-          },
-          { text: "Oui", handler: () => startScan(true) },
-        ],
+      updateAppState({
+        showAlert: {
+          header: "Autorisation caméra",
+          message: "Voulez-vous autoriser l'utilisation de la caméra ?",
+          buttons: [
+            {
+              text: "Non",
+              role: "cancel",
+              handler: () => updateAppState({ error: "Permission non accordée." }),
+            },
+            { text: "Oui", handler: () => startScan(true) },
+          ],
+        },
       });
-    } else if (status.restricted || status.unknown) {
-      setErr("L'accès à la caméra est restreint ou non disponible.");
+    } else {
+      updateAppState({
+        error: "L'accès à la caméra est restreint ou non disponible.",
+        hasPermission: false,
+      });
     }
     return false;
   };
 
-  const startScan = async (initial = false) => {
-    const hasPermission = initial
-      ? await checkPermissionForced()
-      : await checkPermissionNormal();
+  const checkPermission = async (force = false) => {
+    updateAppState({ error: null });
+    try {
+      const status = await BarcodeScanner.checkPermission({ force });
+      return handlePermissionStatus(status);
+    } catch (error) {
+      updateAppState({
+        error: `Erreur lors de la vérification: ${error.message}`,
+        hasPermission: false,
+      });
+      return false;
+    }
+  };
 
-    setHasPermission(hasPermission);
+  const startScan = async (forcePermission = false) => {
+    if (scannerActiveRef.current) {
+      console.log("Le scanner est déjà actif.");
+      return;
+    }
 
-    if (!hasPermission) return;
+    const permissionGranted = await checkPermission(forcePermission);
+    if (!permissionGranted) return;
 
     try {
       BarcodeScanner.hideBackground();
-      setHideBg(true);
-      setIsScanning(true);
-
-      const scan = async () => {
-        const result = await BarcodeScanner.startScan({
-          targetedFormats: ["CODE_128", "EAN_13", "EAN_8"],
-        });
-        if (result.hasContent) {
-          if (result.content !== lastScannedCode || !modalisOpen) {
-            openModal(result.content);
-            setLastScannedCode(result.content);
-            setFlashOn(false);
-          }
-
-          if (isScanning) scan();
-          
-        }
-      };
-
+      updateAppState({ hideBg: true, hasPermission: true });
+      scannerActiveRef.current = true;
       scan();
     } catch (error) {
-      setErr(`Erreur de scan: ${error.message}`);
-      stopScan();
+      updateAppState({ error: `Erreur de démarrage du scan: ${error.message}` });
     }
   };
 
   const stopScan = () => {
     BarcodeScanner.showBackground();
-    setHideBg(false);
-    setIsScanning(false);
+    updateAppState({ hideBg: false });
     BarcodeScanner.stopScan();
+    scannerActiveRef.current = false;
+    shouldDetectRef.current = true; // Réinitialiser la détection pour le prochain scan
   };
-  const toggleFlash = async () => {
-    if (flashOn) {
-      await BarcodeScanner.disableTorch(); // Désactiver le flash
-      setFlashOn(false);
-    } else {
-      await BarcodeScanner.enableTorch(); // Activer le flash
-      setFlashOn(true);
+
+  const scan = async () => {
+    if (!scannerActiveRef.current) return;
+
+    try {
+      const result = await BarcodeScanner.startScan({
+        targetedFormats: ["CODE_128", "EAN_13", "EAN_8"],
+      });
+
+      if (result.hasContent && shouldDetectRef.current) {
+        if (result.content !== lastScannedCodeRef.current) {
+          lastScannedCodeRef.current = result.content;
+          openModal(result.content);
+        }
+      }
+
+      // Continuer le scan si le scanner est toujours actif
+      if (scannerActiveRef.current) {
+        scan();
+      }
+    } catch (error) {
+      updateAppState({ error: `Erreur de scan: ${error.message}` });
     }
   };
+
+  const toggleFlash = async () => {
+    if (appState.flashOn) {
+      await BarcodeScanner.disableTorch();
+    } else {
+      await BarcodeScanner.enableTorch();
+    }
+    updateAppState({ flashOn: !appState.flashOn });
+  };
+
+  const handleBreakpointChange = (value) => {
+    setBreakpoint(value);
+    
+    if (value === 1) {
+      // Arrêter complètement le scanner
+      if (scannerActiveRef.current) {
+        stopScan();
+      }
+    } else if (value === 0.35) {
+      // Scanner actif mais pas de détection
+      if (!scannerActiveRef.current) {
+        startScan();
+      }
+      shouldDetectRef.current = false;
+    } else if (value === 0) {
+      // Scanner actif avec détection
+      if (!scannerActiveRef.current) {
+        startScan();
+      }
+      shouldDetectRef.current = true;
+      lastScannedCodeRef.current = null;
+    }
+  };
+
+  const openModal = (barCode) => {
+    updateAppState({ scannedResult: barCode, modalIsOpen: true });
+    handleBreakpointChange(0.35);
+  };
+
+  const closeModal = () => {
+    updateAppState({ scannedResult: null, modalIsOpen: false });
+    lastScannedCodeRef.current = null;
+    handleBreakpointChange(0);
+  };
+
   useEffect(() => {
-    startScan();
-    setModalisOpen(true);
     return () => {
-      stopScan();
-      console.log("Scanner arrêté à la sortie de la page useEffect");
+      if (scannerActiveRef.current) stopScan();
     };
   }, []);
 
-   /**/
-   useIonViewWillLeave(() => {
+  useIonViewWillLeave(() => {
     stopScan();
-    console.log("Scanner arrêté à la sortie de la page.");
   });
+
   useIonViewWillEnter(() => {
-    startScan();
-    setModalisOpen(true);
+    if (breakpoint !== 1) {
+      startScan();
+    }
   });
 
   return (
     <>
-      <IonContent className={hideBg ? "hideBg" : "ion-padding"}>
-        {err || !hasPermission ? (
-          <IonRow class="w-full h-full flex flex-col justify-center items-center">
-            <IonText color="danger">{err}</IonText>
-            <IonButton onClick={() => startScan(true)}>Réinitialiser</IonButton>
+      <IonContent className={appState.hideBg ? "hideBg" : ""}>
+        {!appState.hasPermission ? (
+          <IonRow class="w-full h-full flex flex-col text-center justify-center items-center">
+            <IonText color="danger" className="mb-1">{appState.error}</IonText>
+            <IonButton onClick={() => startScan(true)}>Autoriser la caméra</IonButton>
           </IonRow>
         ) : (
-          <>
-            {/* Main Scan Area */}
-            <ScanArea
-              hideBg={hideBg}
-              toggleFlash={toggleFlash}
-              flashOn={flashOn}
-            />
-          </>
+          <ScanArea
+            hideBg={appState.hideBg}
+            toggleFlash={toggleFlash}
+            flashOn={appState.flashOn}
+          />
         )}
 
-        {showAlert && (
-          <>
-            {/* Permission Alert */}
-            <PermissionAlert
-              showAlert={showAlert}
-              setShowAlert={setShowAlert}
-            />
-          </>
-        )}
-
-        {showToast && (
-          <>
-            {/* Error Toast */}
-            <ErrorToast
-              showToast={showToast}
-              err={err}
-              setShowToast={setShowToast}
-            />
-          </>
+        {appState.showAlert && (
+          <PermissionAlert
+            showAlert={appState.showAlert}
+            setShowAlert={(showAlert) => updateAppState({ showAlert })}
+          />
         )}
       </IonContent>
-      {/* Scanned Result Modal */}
-      {scannedResult&&(
-        <ScanResultModal scannedResult={scannedResult} modalisOpen={modalisOpen} closeModal={closeModal} />
+
+      {appState.scannedResult && (
+        <ScanResultModal
+          scannedResult={appState.scannedResult}
+          modalisOpen={appState.modalIsOpen}
+          closeModal={closeModal}
+          setBreakpoint={handleBreakpointChange}
+        />
       )}
+      
     </>
   );
 };

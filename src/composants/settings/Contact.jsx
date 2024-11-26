@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Spinner from "../../composants/Spinner";
 import useContact from "../../hooks/useContact";
 
-const Contact = () => {
-  const { handleSubmit, loading, error } = useContact();
+const Contact = ({setShowModalContact}) => {
+  const { handleSubmit, loading, error,sended } = useContact();
   const [values, setValues] = useState({ email: "", titre: "", message: "" });
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     handleSubmit(values);
   };
+  useEffect(()=>{
+    if(sended){
+      setShowModalContact(false)
+    }
 
+  },[sended])
+
+  
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full">
       <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full">

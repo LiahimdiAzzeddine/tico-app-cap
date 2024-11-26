@@ -11,13 +11,14 @@ const HomeLayout = ({ children }) => {
   // Définir les couleurs de fond en fonction de la route actuelle
   const backgroundColors = {
     "/": "#c7f0d9",
-    "/favoris": "#f0d9c7",
+    "/helptico": "#e1f5f5",
     "/tips": "#d9c7f0",
     "/recipes": "#fff",
     "/home": "#c7f0d9",
   };
   const closeIcon = {
     "/home": "vx",
+    "/helptico": "bx",
     "/laterProducts": "bx",
     "/recipes": "rf",
   };
@@ -40,16 +41,22 @@ const HomeLayout = ({ children }) => {
           />
         </IonToolbar>
       </IonHeader>
-      <IonContent scrollY className="flex flex-col ion-no-padding h-full">
-        <div
-          className="flex flex-col rounded-b-[2rem] h-full "
-          style={{ backgroundColor: background }}
-        >
-          {/* Scrollable Outlet Content overflow-y-auto */}
-          <div className="flex-grow">{children}</div>
+      <IonContent className="ion-no-padding">
+        <div className="flex flex-col h-full">
+          {/* Section avec bordure arrondie qui s'étend jusqu'à la navbar */}
+          <div
+            className="flex flex-col rounded-b-[2rem] flex-1 overflow-hidden"
+            style={{ backgroundColor: background }}
+          >
+            {/* Contenu défilable */}
+            <div className="flex-1 overflow-y-auto">{children}</div>
+          </div>
+
+          {/* Navigation fixe en bas */}
+
+          <BottomNavbar />
         </div>
       </IonContent>
-      <BottomNavbar />
     </IonPage>
   );
 };

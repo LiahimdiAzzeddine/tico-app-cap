@@ -52,7 +52,11 @@ const InfoSection = ({ product }) => {
 
   return (
     <>
-      <div className="w-full px-2 py-4 mx-auto">
+    
+      <div className="w-full px-2 py-4 mx-auto bg-custom-green-clear">
+      <div className="text-center text-blue-700 text-lg font-medium mb-4">
+        LA SYNTHÈSE SUR LE PRODUIT
+      </div>
         <div className="grid grid-cols-2 divide-p divide-custom-green-divider">
           {/* Nutrition Section */}
           <div className="pb-3 pr-2 border-b border-custom-green-divider flex flex-col justify-around">

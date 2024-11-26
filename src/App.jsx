@@ -4,6 +4,7 @@ import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home";
 import Favorite from "./pages/Favorite";
+import HelpTiCO from "./pages/HelpTiCO";
 import Scanner from "./pages/Scanner";
 import Recipes from "./pages/Recipes";
 import Tips from "./pages/Tips";
@@ -66,6 +67,11 @@ function App() {
               <Home />
             </HomeLayout>
             </RequireNoAuth>
+          </Route>
+          <Route path="/helptico" exact={true}>
+            <HomeLayout>
+              <HelpTiCO />
+            </HomeLayout>
           </Route>
           <Route path="/recipes" exact={true}>
             <Recipes />

@@ -1,7 +1,6 @@
 import {
   IonModal,
   IonContent,
-  IonProgressBar,
   IonIcon,
   IonButton,
 } from "@ionic/react";
@@ -22,6 +21,7 @@ const ScanResultModal = ({
   scannedResult,
   modalisOpen,
   closeModal,
+  setBreakpoint,
 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [modalBreakpoint, setModalBreakpoint] = useState(0.3);
@@ -36,6 +36,15 @@ const ScanResultModal = ({
   const [product, setProduct] = useState(null);
   const { isConnected } = useNetwork();
   const { triggerToast } = useToast();
+
+  const DetectBreakpoint = (point) => {
+  console.log("Breakpoint détecté :", point);
+  setModalBreakpoint(point);
+  setBreakpoint(point);
+  
+};
+
+  
 
   // Effet pour lancer la récupération des données du produit
   useEffect(() => {
@@ -85,8 +94,8 @@ const ScanResultModal = ({
   };
 
   const handleDismiss = () => {
-    closeModal();
     setProductData(null);
+    closeModal();
     setError(null);
   };
 
@@ -100,7 +109,7 @@ const ScanResultModal = ({
       handleBehavior="cycle"
       onIonModalWillPresent={() => setIsAnimating(true)}
       onIonModalDidDismiss={handleDismiss}
-      onIonBreakpointDidChange={(e) => setModalBreakpoint(e.detail.breakpoint)}
+      onIonBreakpointDidChange={(e) => DetectBreakpoint(e.detail.breakpoint)}
       className={`full-screen-modal scan-result-modal ${
         isAnimating ? "modal-vibrate" : ""
       }`}
@@ -111,7 +120,7 @@ const ScanResultModal = ({
       }}
     >
       {/***/}
-      <ModalHeader image={"fb"} onClose={() => handleDismiss(false)} />
+      <ModalHeader image={"fb"} heart={true} onClose={() => handleDismiss(false)} />
 
       <IonContent className="ion-padding-bottom">
         {loading ? (

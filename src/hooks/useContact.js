@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "../api/axios";
 import { useToast } from "../context/ToastContext"; // Assure-toi du bon chemin d'import
-import { useHistory } from "react-router-dom"; 
 
 const LOGIN_URL = "/api/auth/contact";
 
@@ -9,7 +8,7 @@ const useContact = () => {
   const { triggerToast } = useToast(); // Utilise le triggerToast du contexte
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const history = useHistory();
+  const [sended, setSended] = useState(null);
 
   const handleSubmit = async (formValues) => {
     setLoading(true);
@@ -18,6 +17,7 @@ const useContact = () => {
     try {
       const response = await axios.post(LOGIN_URL, formValues);
       triggerToast("Message envoyé avec succès !", "success"); // Affiche un toast de succès
+      setSended(true);
     } catch (err) {
       const errors = err.response?.data?.errors || {};
       setError(errors);
@@ -31,6 +31,7 @@ const useContact = () => {
     handleSubmit,
     loading,
     error,
+    sended,
   };
 };
 

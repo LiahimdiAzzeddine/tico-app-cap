@@ -170,7 +170,7 @@ const Settings = () => {
         isOpen={showModalContact}
         onClose={() => setShowModalContact(false)}
       >
-        <Contact />
+        <Contact setShowModalContact={setShowModalContact} />
       </CustomModal>
       <CustomModal
         isOpen={showModalInfo}

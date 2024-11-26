@@ -18,7 +18,8 @@ export function createProduct(scannedResult, productData) {
     nutriscore: productData.foodheaproduct?._nutriscore ?? "inconnue",
     nova: productData.foodheaproduct?._nova ?? "inconnue",
     gtin: scannedResult,
-    additifs, // Include the transformed additifs data
+    additifs,
+    transparent:'---',
   };
 }
 

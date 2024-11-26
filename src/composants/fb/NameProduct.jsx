@@ -22,11 +22,12 @@ function NameProduct(props) {
             onClick={handleZoom}
       />
      
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col justify-around space-y-1">
       <h3 className="text-xl titre-roboto-bold text-[#0f548d]">
         {props.Name}
       </h3>
-      <div className="text-lg text-[#47a29a] mt-1">{props.Brand}</div>
+      <div className="text-lg text-[#42a29a]">{props.Brand}</div>
+      <div className="text-lg text-[#42a29a] font-bold italic ">Produit {props.Transparent}% transparent !</div>
       </div>
       
     </div>

@@ -83,12 +83,13 @@ const BottomNavbar = () => {
           {/* Bouton Favoris */}
           <button
             className="flex flex-col items-center hover:opacity-80 transition-opacity duration-200"
-            onClick={() =>
+            /*onClick={() =>
               triggerAlert(
                 "Cette fonctionnalité sera disponible dans la prochaine version de l'application.",
                 "Fonctionnalité à venir"
               )
-            }
+            }*/
+              onClick={() => handleButtonClick("/helptico", false)}
             aria-label="Favoris"
           >
             <img

@@ -14,7 +14,6 @@ const TopNavbar = () => {
   const handleLogoClick = () => {
     triggerHapticFeedback();
     history.push("/settings");
-    
   };
 
   const handleInfoClick = () => {
@@ -25,7 +24,6 @@ const TopNavbar = () => {
   const triggerHapticFeedback = async () => {
     if (Capacitor.isNativePlatform()) {
       try {
-        
         await Haptics.impact({ style: ImpactStyle.Light });
         console.log("Haptic feedback triggered successfully.");
       } catch (error) {
