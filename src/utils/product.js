@@ -9,7 +9,6 @@ export function createProduct(scannedResult, productData) {
     noteUFC: additif._noteufc,
     url: additif._url,
   })) ?? [];
-
   return {
     image: productData.OFFproduct?._photoUrl ?? "default_image_url.jpg",
     name: productData.foodheaproduct?._name ?? "Produit inconnu",
@@ -20,6 +19,8 @@ export function createProduct(scannedResult, productData) {
     gtin: scannedResult,
     additifs,
     transparent:'---',
+    consumptionAdvice:productData.foodheaproduct?._pnnstext ?? "inconnue",
+    planetScore:productData?.foodheaproduct?._planetscore[0]._url ?? "default_image_url.jpg",
   };
 }
 

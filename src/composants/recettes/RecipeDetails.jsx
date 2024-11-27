@@ -1,31 +1,64 @@
 import React from "react";
 import horloge from "../../assets/fb/horloge.svg";
-import bgImage from "../../assets/recettes/bgImage.svg";
+import recetteBg from "../../assets/recettes/recetteBg.svg";
+
 import badgeimage from "../../assets/recettes/badge.svg";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import defaultImageRecette from "../../assets/recettes/defaultImageRecette.png";
 
-const RecipeDetails = ({ recipe }) => {
-  const {
-    title = "Untitled",
-    timecook: preparation = 0,
-    timebake: cuisson = 0,
-    image = "",
-    difficulte,
-    regimes,
-    ingredients = [],
-    recette: steps = [],
-  } = recipe;
+import { Navigation } from "swiper/modules";
 
-  const defaultImage =
-    "https://dummyimage.com/300x300/cccccc/ffffff.png&text=Recette";
+// Fonction pour regrouper les étapes par lots de 3
+const groupSteps = (steps, groupSize) => {
+  if (!Array.isArray(steps)) return [];
+  const grouped = [];
+  for (let i = 0; i < steps.length; i += groupSize) {
+    grouped.push(steps.slice(i, i + groupSize));
+  }
+  return grouped;
+};
 
+const RecipeDetails = ({ recipe = {}, custom = true }) => {
+  let title, subtitle, preparation, cuisson, image, difficulte, regimes, ingredients, steps;
+
+  if (custom) {
+    // Assigner les valeurs lorsque 'custom' est true
+    ({
+      title = "Recette sans titre",
+      timecook: preparation = 0,
+      timebake: cuisson = 0,
+      image = defaultImageRecette,
+      difficulte,
+      regimes = [],
+      ingredients = [],
+      recette: steps = [],
+    } = recipe);
+  } else {
+    // Assigner les valeurs lorsque 'custom' est false
+    ({
+      title = "Untitled",
+      subtitle = "",
+      timecook: preparation = 0,
+      timebake: cuisson = 0,
+      image = "",
+      difficulte,
+      regimes,
+      ingredients = [],
+      recette: steps = [],
+    } = recipe);
+  }
+  
+  const defaultImage = defaultImageRecette;
   return (
     <>
       <div className="bg-white rounded-b-[2rem] pb-14">
-        <div className="bg-custom-red-bg-clear px-6 pb-4 rounded-b-[2rem] space-y-6">
+        <div className="bg-custom-red-bg-clear px-6 pb-4  rounded-b-[2rem]  space-y-6">
           <div
             className="w-full min-h-[30dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative"
             style={{
-              backgroundImage: `url(${bgImage})`,
+              backgroundImage: `url(${recetteBg})`,
             }}
           >
             <div className="flex flex-col justify-center items-center space-y-4">
@@ -35,7 +68,7 @@ const RecipeDetails = ({ recipe }) => {
               <img
                 src={defaultImage}
                 alt={title}
-                className="w-1/2 h-auto rounded-2xl border-custom-red border-2 object-cover "
+                className="w-1/2 h-auto rounded-2xl border-custom-red border-2 object-cover"
               />
             </div>
           </div>
@@ -46,6 +79,7 @@ const RecipeDetails = ({ recipe }) => {
                   {difficulte}
                 </span>
               )}
+
               {regimes &&
                 regimes.map((filter, index) => (
                   <span
@@ -65,44 +99,63 @@ const RecipeDetails = ({ recipe }) => {
             </div>
           </div>
         </div>
-        {ingredients.length > 0 && (
+        {ingredients && (
           <div className="px-6 mt-6">
             <h2 className="text-custom-red text-2xl font-bold mb-3 titre-bold">
               Ingrédients
             </h2>
             <ul className="list-inside list-none ">
-              {ingredients.map((ingredient, index) => (
-                <li key={index} className="text-custom-red">
-                  {ingredient.qt ? `${ingredient.qt} ` : ""}
-                  {ingredient.unit ? `${ingredient.unit} ` : ""}
-                  {ingredient.name}
-                </li>
-              ))}
+              {ingredients &&
+                ingredients.map((ingredient, index) => (
+                  <li key={index} className="text-custom-red">
+                    {ingredient.qt ? `${ingredient.qt} ` : ""}
+                    {ingredient.unit ? `${ingredient.unit} ` : ""}
+                    {ingredient.name}
+                  </li>
+                ))}
             </ul>
+          </div>
+        )}
+        {ingredients && (
+          <div className="px-6 mt-6">
+            <hr className="w-full border-t border-[#fceae8]" />
           </div>
         )}
         {steps.length > 0 && (
           <div className="px-6 mt-6">
-            <hr className="w-full border-t border-[#fceae8]" />
             <h2 className="text-custom-red text-2xl font-bold mb-3 titre-bold">
               Recette
             </h2>
-            <ol className="list-decimal list-inside text-custom-red space-y-2">
-              {steps.map((step, index) => (
-                <li key={index}>{step.description}</li>
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={0}
+              slidesPerView={1}
+              navigation
+              pagination={false}
+              aria-label="Étapes de la recette"
+            >
+              {groupSteps(steps, 3).map((stepGroup, index) => (
+                <SwiperSlide key={index}>
+                  <div className="h-full flex flex-col items-start justify-start">
+                    {stepGroup.map((step, stepIndex) => (
+                      <div key={stepIndex} className="mb-3 ">
+                        <p className="text-custom-red">
+                          {"• "}
+                          {step.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </SwiperSlide>
               ))}
-            </ol>
+            </Swiper>
           </div>
         )}
         <div className="w-20 h-auto absolute right-6 ">
-          <img src={badgeimage} alt="badge" />
+          <img src={badgeimage} />
         </div>
       </div>
-      <div className="h-[20vh] w-full flex flex-col justify-center items-center">
-        <h1 className="text-custom-red font-bold text-3xl">
-          Produits proposés
-        </h1>
-      </div>
+      <div className="h-[10vh] w-full flex flex-col justify-center items-center"></div>
     </>
   );
 };

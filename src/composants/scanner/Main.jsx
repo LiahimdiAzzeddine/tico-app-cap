@@ -13,9 +13,9 @@ const Main = () => {
     error: null,
     hasPermission: null,
     showAlert: null,
-    scannedResult: "3266980784614",
+    scannedResult: null,
     flashOn: false,
-    modalIsOpen: true,
+    modalIsOpen: false,
     hideBg: false,
   });
 

@@ -38,7 +38,7 @@ function ModalHeader({ image, onClose, heart = false }) {
         </div>
         {heart&&(
         <div className="text-orange-500 font-bold text-2xl titre-bold transform transition-transform duration-150 ease-in-out active:scale-90">
-          <img src={heardImg} alt="Tico" className="h-11 w-auto" />
+          <img src={heardImg} alt="Tico" className="h-10 w-10" />
         </div>)}
       </div>
     </div>

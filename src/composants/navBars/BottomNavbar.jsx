@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IonFooter, IonToolbar } from "@ionic/react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { useHistory } from "react-router-dom";
-import { Haptics, ImpactStyle } from "@capacitor/haptics"; // Import Capacitor Haptics
-import { useAlert } from "../../context/AlertProvider"; // Import de l'AlertProvider
+import { Haptics, ImpactStyle } from "@capacitor/haptics"; 
+import { useAlert } from "../../context/AlertProvider"; 
 import accueil from "../../assets/navbar/accueil.png";
 import favoris from "../../assets/navbar/favoris.png";
 import astuces from "../../assets/navbar/astuces.png";

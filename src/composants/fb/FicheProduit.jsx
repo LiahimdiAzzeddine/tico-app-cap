@@ -9,7 +9,7 @@ import Recettes from "./Recettes";
 import InfoSection from "./InfoSection";
 
 const FicheProduit = (props) => {
-  const [currentPosition, setCurrentPosition] = useState(4);
+  const [currentPosition, setCurrentPosition] = useState(3);
 console.log("props.productData",props.productData)
   const resetAll = () => {
     props.resetBarcode(false);
@@ -37,8 +37,7 @@ console.log("props.productData",props.productData)
             />
             {/** 
             <ProductDetails />*/}
-            <Sections />
-            <TiConseil />
+  
             <ProductDetailsAccordion />
             <Recettes />
           </div>

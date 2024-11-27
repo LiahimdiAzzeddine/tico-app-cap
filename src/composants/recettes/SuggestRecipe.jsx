@@ -4,7 +4,8 @@ import useSuggestRecipe from "../../hooks/recipes/useSuggestRecipe";
 import Spinner from "../Spinner";
 import RecipeModal from "../modales/RecipeModal";
 import AlertComponent from "../AlertComponent";
-import {createViewRecipe} from "../../utils/createViewRecipe"
+import { createViewRecipe } from "../../utils/createViewRecipe";
+import { useAlert } from "../../context/AlertProvider";
 
 const SuggestRecipe = ({ onClose }) => {
   const { handleSubmit, loading, error, success } = useSuggestRecipe();
@@ -12,11 +13,12 @@ const SuggestRecipe = ({ onClose }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [Recette, setRecette] = useState(null);
+  const { triggerAlert } = useAlert();
 
-  const VisualiseRecette=()=>{
+  const VisualiseRecette = () => {
     setRecette(createViewRecipe(values));
-    setModalOpen(true)
-  }
+    setModalOpen(true);
+  };
 
   useEffect(() => {
     if (success) {
@@ -72,12 +74,14 @@ const SuggestRecipe = ({ onClose }) => {
   };
 
   const removeIngredient = (indexToRemove) => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      ingredients: prevValues.ingredients.filter(
-        (_, index) => index !== indexToRemove
-      ),
-    }));
+    triggerAlert("Voulez-vous enlever l'ingrédient ?", "Attention", () => {
+      setValues((prevValues) => ({
+        ...prevValues,
+        ingredients: prevValues.ingredients.filter(
+          (_, index) => index !== indexToRemove
+        ),
+      }));
+    });
   };
 
   const addStep = () => {
@@ -90,10 +94,12 @@ const SuggestRecipe = ({ onClose }) => {
     }
   };
   const removeStep = (indexToRemove) => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      steps: prevValues.steps.filter((_, index) => index !== indexToRemove),
-    }));
+    triggerAlert("Voulez-vous supprimer cette étape ?", "Attention", () => {
+      setValues((prevValues) => ({
+        ...prevValues,
+        steps: prevValues.steps.filter((_, index) => index !== indexToRemove),
+      }));
+    });
   };
 
   const addFilter = (filter) => {
@@ -313,7 +319,6 @@ const SuggestRecipe = ({ onClose }) => {
                 Number(values.rest_time) >
               0 ? (
                 <span className="font-bold">
-                  {" "}
                   {Number(values.cook_time) +
                     Number(values.prep_time) +
                     Number(values.rest_time)}
@@ -381,11 +386,18 @@ const SuggestRecipe = ({ onClose }) => {
               {values.ingredients.map((ingredient, index) => (
                 <span
                   key={index}
-                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red cursor-pointer"
-                  onClick={() => removeIngredient(index)} // Permet la suppression au clic
+                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red flex items-center gap-2"
                 >
                   {ingredient.quantity}
                   {ingredient.unit} - {ingredient.name}
+                  <button
+                    type="button"
+                    className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-sm"
+                    onClick={() => removeIngredient(index)}
+                    aria-label={`Supprimer ${ingredient.name}`}
+                  >
+                    &times;
+                  </button>
                 </span>
               ))}
             </div>
@@ -418,10 +430,17 @@ const SuggestRecipe = ({ onClose }) => {
               {values.steps.map((step, index) => (
                 <span
                   key={index}
-                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red"
-                  onClick={() => removeStep(index)}
+                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red flex items-center gap-2"
                 >
                   Étape {index + 1}: {step}
+                  <button
+                    type="button"
+                    className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-sm"
+                    onClick={() => removeStep(index)}
+                    aria-label={`Supprimer l'étape ${index + 1}`}
+                  >
+                    &times;
+                  </button>
                 </span>
               ))}
             </div>
@@ -452,15 +471,13 @@ const SuggestRecipe = ({ onClose }) => {
         </form>
       </div>
       {/* Afficher le modal avec les détails de la recette */}
-      {Recette&&(
-<RecipeModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        recipe={Recette}
-      />
-
+      {Recette && (
+        <RecipeModal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          recipe={Recette}
+        />
       )}
-      
 
       {/* Utilisation de AlertComponent */}
       <AlertComponent

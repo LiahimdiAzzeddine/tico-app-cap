@@ -184,7 +184,7 @@ ion-chip:hover {
   background-image: linear-gradient(to bottom, transparent 40%, #6dc3bc 50%);
   border-radius: 10px;
 }
-.marker-effect-orange {
+.marker-effect-orange,.marker-effect-cyan  {
   position: relative;
   display: inline-block;
 }
@@ -197,6 +197,17 @@ ion-chip:hover {
   height: 30%; /* Ajustez la hauteur du surlignage */
   width: 100%;
   background-color: #ff9100; /* Couleur orange du surlignage */
+  z-index: -1;
+  border-radius: 0.25em; /* Arrondir les coins si nécessaire */
+}
+.marker-effect-cyan::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.15em; /* Ajustez pour bien positionner le surlignage */
+  height: 40%; /* Ajustez la hauteur du surlignage */
+  width: 100%;
+  background-color: #a9d7d4; /* Couleur orange du surlignage */
   z-index: -1;
   border-radius: 0.25em; /* Arrondir les coins si nécessaire */
 }
@@ -224,4 +235,10 @@ input[type="range"]::-moz-range-thumb {
     background-size: 2rem 2rem;
     background-repeat: no-repeat;
     background-origin: padding-box;
+}
+.step-description::before {
+  content: "•";  /* Utilisation d'un point */
+  color: #f00;    /* Vous pouvez changer la couleur selon vos besoins */
+  font-size: 1.5rem;  /* Ajustez la taille du point */
+  margin-right: 8px;   /* Espace entre le point et le texte */
 }

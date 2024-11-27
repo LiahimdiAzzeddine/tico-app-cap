@@ -6,6 +6,8 @@ import LaterItem from "../composants/history/LaterItem";
 import { EmptyLater } from "../composants/history/ui/EmptyLater";
 import ModalHeader from "../composants/modales/ModalHeader";
 import FicheProduit from "../composants/fb/FicheProduit";
+import { useAlert } from "../context/AlertProvider"; 
+
 import {
   getAllLaterProducts,
   deleteProductFromLater,
@@ -21,6 +23,7 @@ const LaterProducts = () => {
   const [isOpenFb, setIsOpenFb] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { isConnected } = useNetwork();
+  const { triggerAlert } = useAlert();
 
   const {
     productLoading,
@@ -41,11 +44,19 @@ const LaterProducts = () => {
   // Fonction pour ouvrir le modal et charger les détails du produit
   const handleOpenFb = async (ean) => {
     if (!ean) {
+      triggerAlert(
+        "Code EAN invalide",
+        "Erreur"
+      );
       handleError(new Error("Code EAN invalide"), "handleOpenFb");
       return;
     }
 
     if (!isConnected) {
+      triggerAlert(
+        "Pas de connexion internet",
+        "Erreur"
+      );
       handleError(new Error("Pas de connexion internet"), "handleOpenFb");
       return;
     }
