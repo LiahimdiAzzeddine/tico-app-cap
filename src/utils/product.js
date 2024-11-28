@@ -1,3 +1,4 @@
+import {createRecipe} from "./createRecipe"
 export function createProduct(scannedResult, productData) {
   // Extracting and transforming the additifs data
   const additifs = productData.foodheaproduct?._additifs?.map(additif => ({
@@ -9,6 +10,9 @@ export function createProduct(scannedResult, productData) {
     noteUFC: additif._noteufc,
     url: additif._url,
   })) ?? [];
+   // Extracting and transforming the recettes data
+   const recipes = productData.foodheaproduct?._recettes?.map(recipe => createRecipe(recipe)) ?? [];
+
   return {
     image: productData.OFFproduct?._photoUrl ?? "default_image_url.jpg",
     name: productData.foodheaproduct?._name ?? "Produit inconnu",
@@ -19,9 +23,9 @@ export function createProduct(scannedResult, productData) {
     gtin: scannedResult,
     additifs,
     transparent:'---',
-    consumptionAdvice:productData.foodheaproduct?._pnnstext ?? "inconnue",
+    adviceconso:productData.foodheaproduct?._adviceconso ?? "inconnue",
     planetScore:productData?.foodheaproduct?._planetscore[0]._url ?? "default_image_url.jpg",
+    nutriscore_comment:productData.foodheaproduct?._nutriscore_comment ?? "inconnue",
+    recipes:recipes,
   };
 }
-
-  

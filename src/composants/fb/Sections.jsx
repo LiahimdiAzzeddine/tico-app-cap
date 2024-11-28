@@ -26,8 +26,8 @@ function Sections() {
 
   return (
     <>
-      <div className="w-full flex flex-col items-center justify-center pt-10">
-        <div className="bg-[#b6e1dd] rounded-full w-[95%] px-4 py-4">
+      <div className="w-full flex flex-col items-center justify-center pt-6 px-4">
+        <div className="bg-[#b6e1dd] rounded-full w-full px-4 py-4">
           <div className="flex flex-row">
             <button
               onClick={handleShare}

@@ -27,8 +27,8 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
     // Assigner les valeurs lorsque 'custom' est true
     ({
       title = "Recette sans titre",
-      timecook: preparation = 0,
-      timebake: cuisson = 0,
+      timecook: preparation = "0 min",
+      timebake: cuisson ="0 min",
       image = defaultImageRecette,
       difficulte,
       regimes = [],
@@ -38,11 +38,11 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
   } else {
     // Assigner les valeurs lorsque 'custom' est false
     ({
-      title = "Untitled",
+      title = "Recette sans titre",
       subtitle = "",
-      timecook: preparation = 0,
-      timebake: cuisson = 0,
-      image = "",
+      timecook: preparation = "0 min",
+      timebake: cuisson = "0 min",
+      image = defaultImageRecette,
       difficulte,
       regimes,
       ingredients = [],
@@ -93,8 +93,8 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
             <div className="flex items-center justify-start text-sm text-custom-red mt-4">
               <img src={horloge} className="w-8 h-8 mr-2" alt="clock icon" />
               <div className="text-start">
-                <div>{preparation} min de préparation</div>
-                <div>{cuisson} min de cuisson</div>
+                <div>{preparation} de préparation</div>
+                <div>{cuisson} de cuisson</div>
               </div>
             </div>
           </div>
@@ -128,15 +128,15 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
             </h2>
             <Swiper
               modules={[Navigation]}
-              spaceBetween={0}
-              slidesPerView={1}
+              spaceBetween={10}
+              slidesPerView={1.1}
               navigation
               pagination={false}
               aria-label="Étapes de la recette"
             >
               {groupSteps(steps, 3).map((stepGroup, index) => (
                 <SwiperSlide key={index}>
-                  <div className="h-full flex flex-col items-start justify-start">
+                  <div className="h-full flex flex-col items-start justify-start ">
                     {stepGroup.map((step, stepIndex) => (
                       <div key={stepIndex} className="mb-3 ">
                         <p className="text-custom-red">

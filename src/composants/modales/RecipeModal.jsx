@@ -7,7 +7,6 @@ import "swiper/css/navigation";
 import RecipeDetails from "../recettes/RecipeDetails";
 
 const RecipeModal = ({ isOpen, onClose, recipe }) => {
-
   return (
     <IonModal
       isOpen={isOpen}

@@ -1,19 +1,8 @@
 import React, { useState } from "react";
-import titreBg from "../../assets/fb/titreBg.svg";
-import pictoNutrition from "../../assets/fb/pictoNutrition.png";
-import pictoAdditifs from "../../assets/fb/additifs.svg";
-import pictoTransformation from "../../assets/fb/pictoTransformation.png";
-import pictoenvirronnement from "../../assets/fb/pictoenvirronnement.png";
-import pictoRemuneration from "../../assets/fb/pictorémunération.png";
 import illustrationOrigines from "../../assets/fb/BubbleImg.svg";
 
 import { chevronForwardOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import pastilleNote1 from "../../assets/fb/pastille-note-1.svg";
-import pastilleNote2 from "../../assets/fb/pastille-note-2.svg";
-import pastilleNote3 from "../../assets/fb/pastille-note-3.svg";
-import pastilleNote4 from "../../assets/fb/pastille-note-4.svg";
-import FlecheContact from "../../assets/fb/FlecheContact.svg";
 import { ContactModal, ContactAdditif } from "./Modal";
 import { IonContent, IonModal } from "@ionic/react";
 import NutritionContent from "./NutritionContent";
@@ -30,18 +19,7 @@ const InfoSection = ({ product }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenadd, setIsOpenadd] = useState(false);
   const [isOpenNutrition, setIsOpenNutrition] = useState(false);
-  const [showFullText, setShowFullText] = useState(false);
-console.log("product",product)
-  const toggleText = () => {
-    setShowFullText(!showFullText);
-  };
 
-  // Sépare le texte en lignes en utilisant \r\n comme délimiteur
-  const lines = product?.consumptionAdvice
-    ? product.consumptionAdvice
-        .split("\r\n")
-        .filter((line) => line.trim() !== "")
-    : [];
 
   // Mapping nutriscore to images
   const nutriscoreImages = {
@@ -51,18 +29,11 @@ console.log("product",product)
     D: Nutri_score_D,
     E: Nutri_score_E,
   };
-  // Mapping nova to images
-  const novaImages = {
-    1: pastilleNote1,
-    2: pastilleNote2,
-    3: pastilleNote3,
-    4: pastilleNote4,
-  };
+
 
   // Select the image based on product.nutriscore or provide a default
   const selectedNutriscoreImage =
     nutriscoreImages[product?.nutriscore] || Nutri_score_E;
-  const selectedNovaImage = novaImages[product?.nova] || pastilleNote4;
 
   return (
     <div className="pt-2">
@@ -75,18 +46,18 @@ console.log("product",product)
         </div>
         <div className="grid grid-cols-2 divide-p divide-custom-green-divider">
           {/* Nutrition Section */}
-          <div className="pb-3 pr-1 border-b border-custom-green-divider flex flex-col justify-start">
+          <div className="pb-2 pr-2 border-b border-custom-green-divider flex flex-col justify-start">
             <div className="text-sm font-bold text-custom-blue z-10 w-full">
               <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis">
                 Informations nutritionnelles
               </span>
             </div>
-            <div className="flex flex-row items-center justify-around py-2 space-x-1 ">
+            <div className="flex flex-row items-center justify-around py-2 space-x-4 ">
               {product?.nutriscore ? (
-                <img src={selectedNutriscoreImage} className="w-28 h-auto" />
+                <img src={selectedNutriscoreImage} className="w-24 h-auto" />
               ) : (
-                <div className="text-gray-500 flex items-center justify-center text-[0.60rem]">
-                  Données non communiquées par le fabricant
+                <div className="text-gray-500 flex items-center justify-center text-xs">
+                  Données non communiquées
                   <br />
                   <a
                     href="mailto:contact@example.com"
@@ -105,52 +76,18 @@ console.log("product",product)
               </div>
             </div>
             <div className="text-xs text-[#42a29a]">
-              {lines.length > 0 && (
-                <div>
-                  {!showFullText ? (
-                    <>
-                      {/* Affiche les deux premières lignes */}
-                      <div>
-                        {lines.slice(0, 1).map((line, index) => (
-                          <p key={index}>{line}</p>
-                        ))}
-                      </div>
-                      <button
-                        onClick={toggleText}
-                        className="text-blue-500 underline"
-                      >
-                        Lire la suite
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      {/* Affiche tout le contenu */}
-                      <div>
-                        {lines.map((line, index) => (
-                          <p key={index}>{line}</p>
-                        ))}
-                      </div>
-                      <button
-                        onClick={toggleText}
-                        className="text-blue-500 underline"
-                      >
-                        Réduire
-                      </button>
-                    </>
-                  )}
-                </div>
-              )}
+              {product?.nutriscore_comment}
             </div>
           </div>
 
           {/* Additifs Section */}
-          <div className="pl-3 pb-3 border-l border-b border-custom-green-divider flex flex-col justify-start">
+          <div className="px-2 pb-3 border-l border-b border-custom-green-divider flex flex-col justify-start">
             <div className="text-sm font-bold text-custom-blue z-10">
               <span className="marker-effect-cyan font-bold">
                 Naturalité des ingrédients
               </span>
             </div>
-            <div className="flex flex-row items-center justify-around py-2 space-x-1 ">
+            <div className="flex flex-row items-center justify-between py-2 space-x-1 ">
               <div className="text-custom-blue flex items-center justify-center text-xs font-bold">
                 Contient{" "}
                 {product?.additifs?.length
@@ -166,9 +103,23 @@ console.log("product",product)
                 />
               </div>
             </div>
-            <div className="text-xs text-[#42a29a]">
-            inconnue
-            </div>
+            {product?.commentaire ? (
+              <div className="text-xs text-[#42a29a]"></div>
+            ) : (
+              <div className="text-xs flex flex-row space-x-2">
+                <div className="text-custom-gray">
+                  Encouragez la marque à atteindre 100% de transparence
+                </div>
+                <div>
+                  <img
+                    className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
+                    src={illustrationOrigines}
+                    alt="Illustration des origines du produit"
+                    onClick={() => setIsOpen(true)}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Impact environnemental, */}
@@ -180,46 +131,74 @@ console.log("product",product)
                   Impact environnemental
                 </span>
               </div>
-              
-              <div className="flex flex-row items-center justify-around py-2 space-x-1">
-              {product?.planetScore ? (
-                <img src={product?.planetScore} className="w-36 h-auto" />
-              ) : (
-                <div className="text-gray-500 flex items-center justify-center text-[0.60rem]">
-                  Données non communiquées par le fabricant
-                  <br />
-                  <a
-                    href="mailto:contact@example.com"
-                    className="text-custom-blue underline"
-                  >
-                    Contacter le fabricant
-                  </a>
-                </div>
-              )}
-                <div>
-                  <IonIcon
-                    className="text-2xl text-custom-blue"
-                    icon={chevronForwardOutline}
-                  />
-                </div>
+              <div className="flex flex-row items-center justify-around py-2 space-x-4">
+                {product?.commentaire ? (
+                  <>
+                    {product?.planetScore ? (
+                      <img src={product?.planetScore} className="w-36 h-auto" />
+                    ) : (
+                      <div className="text-gray-500 flex items-center justify-center text-[0.60rem]">
+                        Données non communiquées par le fabricant
+                        <br />
+                        <a
+                          href="mailto:contact@example.com"
+                          className="text-custom-blue underline"
+                        >
+                          Contacter le fabricant
+                        </a>
+                      </div>
+                    )}
+                    <div>
+                      <IonIcon
+                        className="text-2xl text-custom-blue"
+                        icon={chevronForwardOutline}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-xs flex flex-row space-x-2">
+                    <div className="text-custom-gray">
+                      Encouragez la marque à atteindre 100% de transparence
+                    </div>
+                    <div>
+                      <img
+                        className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
+                        src={illustrationOrigines}
+                        alt="Illustration des origines du produit"
+                        onClick={() => setIsOpen(true)}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="text-xs text-[#42a29a]">
-            inconnue
-            </div>
             </div>
           </div>
 
           {/* Origines Section (Full Height) */}
-          <div className="py-2 pl-2 border-l border-custom-green-divider">
+          <div className="py-2 px-2 border-l border-custom-green-divider">
             <div className="text-sm font-bold text-custom-blue z-10 w-full">
               <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis z-50">
                 Origines
               </span>
             </div>
             <div className="flex flex-row items-center justify-start py-2 space-x-1">
-            <div className="text-xs text-[#42a29a]">
-            inconnue
-            </div>
+              {product?.commentaire ? (
+                <div className="text-xs text-[#42a29a]"></div>
+              ) : (
+                <div className="text-xs flex flex-row space-x-2">
+                  <div className="text-custom-gray">
+                    Encouragez la marque à atteindre 100% de transparence
+                  </div>
+                  <div>
+                    <img
+                      className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
+                      src={illustrationOrigines}
+                      alt="Illustration des origines du produit"
+                      onClick={() => setIsOpen(true)}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -229,7 +208,7 @@ console.log("product",product)
           setIsOpen={setIsOpenadd}
           additifs={product?.additifs}
         />
-        <Sections/>
+        <Sections />
       </div>
       <IonModal isOpen={isOpenNutrition}>
         <div className="flex justify-start space-x-3 items-center pt-3 pb-2 px-3  modal-background ">

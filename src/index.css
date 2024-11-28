@@ -242,3 +242,28 @@ input[type="range"]::-moz-range-thumb {
   font-size: 1.5rem;  /* Ajustez la taille du point */
   margin-right: 8px;   /* Espace entre le point et le texte */
 }
+
+
+
+
+.swiper-slide {
+  min-height: 200px;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  opacity: 0.2; /* Réduit l'opacité */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  opacity: 0.5; /* Augmente l'opacité au survol */
+}
+
+.swiper-button-next {
+  right: -1px; /* Position à l'extrémité de la carte */
+}
+
+.swiper-button-prev {
+  left: -1px; /* Position à l'extrémité de la carte */
+}
+
