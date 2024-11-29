@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import Draggable from "react-draggable";
+import { motion } from "framer-motion"; // Importation de Framer Motion
 
 import fleche from "../../assets/fb/flechBottom.svg";
 import BubbleImg from "../../assets/fb/BubbleImg.svg";
@@ -13,7 +14,7 @@ import PackagingInfo from "./accordion/PackagingInfo";
 import { ContactModal } from "./Modal";
 
 // Composants pour chaque contenu de panneau
-const ProductDetailsAccordion = () => {
+const ProductDetailsAccordion = ({product}) => {
   const [openPanel, setOpenPanel] = useState(null);
   const [bubbleVisible] = useState(true); // Bulle toujours visible
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,6 @@ const ProductDetailsAccordion = () => {
   const nodeRef = useRef(null);
   const isDraggingRef = useRef(false);
 
- 
   const togglePanel = (panel) => {
     setOpenPanel(openPanel === panel ? null : panel);
   };
@@ -37,8 +37,9 @@ const ProductDetailsAccordion = () => {
     }
     isDraggingRef.current = false;
   };
- const panelContents = [
-    <NutritionalInfo togglePanel={togglePanel} />,
+
+  const panelContents = [
+    <NutritionalInfo togglePanel={togglePanel} product={product}/>,
     <IngredientsInfo />,
     <OriginsInfo />,
     <LabelsInfo />,
@@ -47,10 +48,21 @@ const ProductDetailsAccordion = () => {
     <PackagingInfo />,
   ];
 
+  // Calcul de la position de la bulle en fonction de l'état des panneaux
+  const getBubblePosition = () => {
+    if (openPanel === null) {
+      // Si aucun panneau n'est ouvert, la bulle est au centre
+      return { top: "50%", left: "75%" };
+    }
+
+    // Si un panneau est ouvert, on peut ajuster la position de la bulle (par exemple, la mettre plus bas ou à droite)
+    return { top: "25%", left: "75%" }; // Position modifiée pour donner une distance avec le panneau
+  };
+
   return (
     <>
       <div
-        className=" relative py-6"
+        className="relative py-6"
         style={{ position: "relative" }} // Pour positionner la bulle
       >
         {bubbleVisible && (
@@ -64,9 +76,8 @@ const ProductDetailsAccordion = () => {
               ref={nodeRef}
               className="absolute z-50"
               style={{
-                top: "50%",
-                left: "75%",
                 transform: "translate(-50%, -50%)",
+                ...getBubblePosition(), // Applique la position calculée pour la bulle
               }}
             >
               <img src={BubbleImg} alt="Bubble" className="w-16 h-auto" />
@@ -108,8 +119,17 @@ const ProductDetailsAccordion = () => {
                   <img src={fleche} className="w-10 h-auto px-2" />
                 )}
               </button>
+              {/* Animation Framer Motion pour l'ouverture et la fermeture */}
               {openPanel === panel && !isDisabled && (
-                <div className="mt-2 ">{panelContents[panel - 1]}</div>
+                <motion.div
+                  className="mt-2"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {panelContents[panel - 1]}
+                </motion.div>
               )}
             </div>
           );

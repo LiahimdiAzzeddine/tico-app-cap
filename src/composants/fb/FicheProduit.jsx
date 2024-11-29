@@ -35,7 +35,7 @@ console.log("props.productData",props.productData)
             <InfoSection
             product={props.productData}
             />
-            <ProductDetailsAccordion />
+            <ProductDetailsAccordion product={props.productData} />
             <Recettes recettes={props.productData.recipes} />
           </div>
         </div>

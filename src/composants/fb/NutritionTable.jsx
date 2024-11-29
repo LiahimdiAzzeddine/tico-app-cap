@@ -1,147 +1,142 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const NutritionTable = () => {
-  const [unit, setUnit] = useState('100g');
+const NutritionTable = ({ product }) => {
+  const [unit, setUnit] = useState("100g");
 
-  // Exemple de données nutritionnelles
-  const nutritionData = {
-    '100g': {
-      energy: { kcal: 135, kj: 555 },
-      fats: 555,
-      saturatedFats: 555,
-      monounsaturatedFats: 555,
-      omega3to6: '1/4'
-    },
-    'portion': {
-      energy: { kcal: 270, kj: 1110 },
-      fats: 1110,
-      saturatedFats: 1110,
-      monounsaturatedFats: 1110,
-      omega3to6: '1/4'
-    }
+  const organizeHierarchicalData = (lines) => {
+    const hierarchy = [];
+    const itemMap = new Map();
+
+    lines.forEach(line => {
+      itemMap.set(line.id, {
+        ...line,
+        children: [],
+        value: {
+          qt: line.quantity,
+          unit: line.unit,
+          vnr: line.vnr
+        }
+      });
+    });
+
+    lines.forEach(line => {
+      const item = itemMap.get(line.id);
+      if (line.parent && itemMap.has(line.parent)) {
+        const parent = itemMap.get(line.parent);
+        parent.children.push(item);
+      } else {
+        hierarchy.push(item);
+      }
+    });
+
+    return hierarchy;
   };
 
-  const handleSwitch = (value) => {
-    setUnit(value);
+  const calculatePortionValue = (value, portion) => {
+    return (value / 100) * parseFloat(portion);
   };
+
+  const NutritionRow = ({ item, level = 0, portion, parentId = '' }) => {
+    const value = unit === "portion" && portion 
+      ? calculatePortionValue(item.value.qt, portion)
+      : item.value.qt;
+
+    const rowKey = `${parentId}-${item.id}`;
+
+    return (
+      <>
+        <tr key={rowKey} >
+          <td style={{ paddingLeft: `${level * 1.5}rem`,color: `${item.parent==0?'#047857':''}` }} className="py-1">
+            {item.name}
+          </td>
+          <td className="text-right py-1">
+            {value?.toFixed(2)} {item.value.unit}
+          </td>
+          <td className="text-right text-gray-500 py-1">
+            {item.value.vnr || "-"} %
+          </td>
+        </tr>
+        {item.children?.map((child, index) => (
+          <NutritionRow 
+            key={`${rowKey}-${child.id}-${index}`}
+            item={child} 
+            level={level + 1} 
+            portion={portion}
+            parentId={item.id}
+          />
+        ))}
+        
+      </>
+    );
+  };
+
+  const hierarchicalData = organizeHierarchicalData(product?.lines || []);
+
+  console.log('Hierarchical Data:', hierarchicalData); // Debug log
 
   return (
     <div className="max-w-md p-2">
-      <div className="flex items-center gap-4 mb-4">
-        {/* Switch buttons */}
-        <div className="flex items-center">
-          <span
-            className={`cursor-pointer px-3 py-1 rounded-full font-semibold ${
-              unit === '100g' ? 'bg-emerald-700 text-white' : 'bg-gray-200 text-gray-600'
-            }`}
-            onClick={() => handleSwitch('100g')}
+      <div className="flex items-center justify-center gap-6 p-4">
+        <button
+          onClick={() => setUnit("100g")}
+          className={`font-medium py-1 rounded transition-colors ${
+            unit === "100g"
+              ? "text-emerald-700"
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+        >
+          Par 100g
+        </button>
+
+        <div className="relative">
+          <button
+            onClick={() => setUnit(unit === "100g" ? "portion" : "100g")}
+            className="w-14 h-7 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2"
+            role="switch"
+            aria-checked={unit === "portion"}
           >
-            Par 100g
-          </span>
-          <span
-            className={`cursor-pointer px-3 py-1 rounded-full font-semibold ${
-              unit === 'portion' ? 'bg-emerald-700 text-white' : 'bg-gray-200 text-gray-600'
-            }`}
-            onClick={() => handleSwitch('portion')}
-          >
-            Par portion
-          </span>
+            <span
+              className={`absolute top-1 left-1 w-5 h-5 bg-emerald-600 rounded-full transition-transform duration-200 ease-in-out ${
+                unit === "portion" ? "translate-x-7" : ""
+              }`}
+            />
+          </button>
         </div>
+
+        <button
+          onClick={() => setUnit("portion")}
+          className={`font-medium py-1 rounded transition-colors ${
+            unit === "portion"
+              ? "text-emerald-700"
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+        >
+          Par portion
+        </button>
       </div>
 
-      {/* Tableau des données nutritionnelles */}
       <table className="w-full text-sm text-gray-700">
+        <thead>
+          <tr>
+            <th className="text-left font-medium text-emerald-700 pt-2">
+              Général
+            </th>
+            <th className="text-right text-emerald-700 pt-2 font-bold">
+              {unit === "100g" ? "Pour 100g" : "Par portion"}
+            </th>
+            <th className="text-right text-emerald-700 pt-2 font-bold">
+              % VNR
+            </th>
+          </tr>
+        </thead>
         <tbody>
-          <tr>
-            <td colSpan="1" className="font-medium text-emerald-700 pt-2">Général</td>
-            <td colSpan="1" className="text-right text-emerald-700 pt-2 font-bold">Pour 100g</td>
-            <td colSpan="1" className="text-right text-emerald-700 pt-2 font-bold">% VNR</td>
-          </tr>
-          <tr>
-            <td>Énergie</td>
-            <td className="text-right">{nutritionData[unit].energy.kcal} kcal</td>
-            <td className="text-right text-gray-500">6 %</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td className="text-right text-gray-500">{nutritionData[unit].energy.kj} kJ</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td className="font-medium pt-4">Graisses</td>
-            <td className="text-right">{nutritionData[unit].fats} g</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td className="pl-4 text-gray-600">Dont AGS</td>
-            <td className="text-right">{nutritionData[unit].saturatedFats} g</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td className="pl-4 text-gray-600">Dont AGMI</td>
-            <td className="text-right">{nutritionData[unit].monounsaturatedFats} g</td>
-            <td></td>
-          </tr>
-          
-          <tr>
-            <td className="pl-4 text-gray-600">Dont Oméga 9</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr className="text-gray-600">
-            <td className="pl-8">Dont Oméga 3 - ALA</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr className="text-gray-600">
-            <td className="pl-8">Dont Oméga 3 - EPA</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr className="text-gray-600">
-            <td className="pl-8">Dont Oméga 3 - DHA</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr className="text-gray-600">
-            <td className="pl-8">Dont Oméga 6 - AL</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr className="text-gray-600">
-            <td className="pl-4">Rapport Oméga 3/6</td>
-            <td className="text-right">{nutritionData[unit].omega3to6}</td>
-            <td></td>
-          </tr>
-
-          {['Glucides', 'Dont sucres', 'Fibres', 'Protéines', 'Sel'].map(item => (
-            <tr key={item}>
-              <td className="font-medium pt-4">{item}</td>
-              <td></td>
-              <td></td>
-            </tr>
+          {hierarchicalData.map((item, index) => (
+            <NutritionRow 
+              key={`root-${item.id}-${index}`}
+              item={item} 
+              portion={product?.portion}
+            />
           ))}
-
-          <tr>
-            <td colSpan="3" className="font-medium text-emerald-700 pt-4">Vitamines</td>
-          </tr>
-          {['Vitamine D', 'Vitamine K'].map(vitamin => (
-            <tr key={vitamin}>
-              <td className="pl-4">{vitamin}</td>
-              <td></td>
-              <td></td>
-            </tr>
-          ))}
-
-          <tr>
-            <td colSpan="3" className="font-medium text-emerald-700 pt-4">Minéraux</td>
-          </tr>
-          <tr>
-            <td className="pl-4">Calcium</td>
-            <td></td>
-            <td></td>
-          </tr>
         </tbody>
       </table>
     </div>
