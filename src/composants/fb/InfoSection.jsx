@@ -54,7 +54,7 @@ const InfoSection = ({ product }) => {
             </div>
             <div className="flex flex-row items-center justify-around py-2 space-x-4 ">
               {product?.nutriscore ? (
-                <img src={selectedNutriscoreImage} className="w-24 h-auto" />
+                <img src={selectedNutriscoreImage} className="w-28 h-auto" />
               ) : (
                 <div className="text-gray-500 flex items-center justify-center text-xs">
                   Données non communiquées
@@ -78,6 +78,21 @@ const InfoSection = ({ product }) => {
             <div className="text-xs text-[#42a29a]">
               {product?.nutriscore_comment}
             </div>
+            {!(product?.nutriscore_comment && product?.nutriscore)  && (
+                <div className="text-xs flex flex-row space-x-2 mt-3">
+                  <div className="text-custom-gray">
+                    Encouragez la marque à atteindre 100% de transparence
+                  </div>
+                  <div>
+                    <img
+                      className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
+                      src={illustrationOrigines}
+                      alt="Illustration des origines du produit"
+                      onClick={() => setIsOpen(true)}
+                    />
+                  </div>
+                </div>
+              )}
           </div>
 
           {/* Additifs Section */}

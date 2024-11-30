@@ -7,19 +7,19 @@ const NutritionTable = ({ product }) => {
     const hierarchy = [];
     const itemMap = new Map();
 
-    lines.forEach(line => {
+    lines.forEach((line) => {
       itemMap.set(line.id, {
         ...line,
         children: [],
         value: {
           qt: line.quantity,
           unit: line.unit,
-          vnr: line.vnr
-        }
+          vnr: line.vnr,
+        },
       });
     });
 
-    lines.forEach(line => {
+    lines.forEach((line) => {
       const item = itemMap.get(line.id);
       if (line.parent && itemMap.has(line.parent)) {
         const parent = itemMap.get(line.parent);
@@ -36,17 +36,24 @@ const NutritionTable = ({ product }) => {
     return (value / 100) * parseFloat(portion);
   };
 
-  const NutritionRow = ({ item, level = 0, portion, parentId = '' }) => {
-    const value = unit === "portion" && portion 
-      ? calculatePortionValue(item.value.qt, portion)
-      : item.value.qt;
+  const NutritionRow = ({ item, level = 0, portion, parentId = "" }) => {
+    const value =
+      unit === "portion" && portion
+        ? calculatePortionValue(item.value.qt, portion)
+        : item.value.qt;
 
     const rowKey = `${parentId}-${item.id}`;
 
     return (
       <>
-        <tr key={rowKey} >
-          <td style={{ paddingLeft: `${level * 1.5}rem`,color: `${item.parent==0?'#047857':''}` }} className="py-1">
+        <tr key={rowKey}>
+          <td
+            style={{
+              paddingLeft: `${level * 1.5}rem`,
+              color: `${item.parent == 0 ? "#047857" : ""}`,
+            }}
+            className="py-1"
+          >
             {item.name}
           </td>
           <td className="text-right py-1">
@@ -57,25 +64,24 @@ const NutritionTable = ({ product }) => {
           </td>
         </tr>
         {item.children?.map((child, index) => (
-          <NutritionRow 
+          <NutritionRow
             key={`${rowKey}-${child.id}-${index}`}
-            item={child} 
-            level={level + 1} 
+            item={child}
+            level={level + 1}
             portion={portion}
             parentId={item.id}
           />
         ))}
-        
       </>
     );
   };
 
   const hierarchicalData = organizeHierarchicalData(product?.lines || []);
 
-  console.log('Hierarchical Data:', hierarchicalData); // Debug log
+  console.log("Hierarchical Data:", hierarchicalData); // Debug log
 
   return (
-    <div className="max-w-md p-2">
+    <div className="p-2">
       <div className="flex items-center justify-center gap-6 p-4">
         <button
           onClick={() => setUnit("100g")}
@@ -131,9 +137,9 @@ const NutritionTable = ({ product }) => {
         </thead>
         <tbody>
           {hierarchicalData.map((item, index) => (
-            <NutritionRow 
+            <NutritionRow
               key={`root-${item.id}-${index}`}
-              item={item} 
+              item={item}
               portion={product?.portion}
             />
           ))}

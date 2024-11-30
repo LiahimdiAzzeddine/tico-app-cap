@@ -16,10 +16,10 @@ import { ContactModal } from "./Modal";
 // Composants pour chaque contenu de panneau
 const ProductDetailsAccordion = ({product}) => {
   const [openPanel, setOpenPanel] = useState(null);
-  const [bubbleVisible] = useState(true); // Bulle toujours visible
+  const [bubbleVisible] = useState(false); // Bulle toujours visible
   const [isOpen, setIsOpen] = useState(false);
 
-  const disabledPanels = []; // Désactive les panneaux 2, 4 et 6
+  const disabledPanels = [4,5,6,7]; // Désactive les panneaux 2, 4 et 6
   const nodeRef = useRef(null);
   const isDraggingRef = useRef(false);
 
@@ -40,8 +40,8 @@ const ProductDetailsAccordion = ({product}) => {
 
   const panelContents = [
     <NutritionalInfo togglePanel={togglePanel} product={product}/>,
-    <IngredientsInfo />,
-    <OriginsInfo />,
+    <IngredientsInfo togglePanel={togglePanel} ingredients={product?.ingredients} allergenesArray={product?.allergens} additifsArray={product?.additifs} />,
+    <OriginsInfo togglePanel={togglePanel} origin={product.origin} />,
     <LabelsInfo />,
     <BrandInfo />,
     <UsageInfo />,

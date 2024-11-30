@@ -1,28 +1,73 @@
-import React from 'react'
+import React from "react";
 import FICHETOP from "../../../assets/fb/FICHETOP.svg";
+import Allergenes from "./Allergenes";
+import Additifs from "./Additifs";
 
-function IngredientsInfo() {
+function IngredientsInfo({ togglePanel, ingredients,allergenesArray,additifsArray }) {
+  // Fonction pour formater les sous-produits
+  const formatSubIngredients = (subIngredients) => {
+    return subIngredients
+      .map((sub) => {
+        let subText = `${sub.label}`;
+        if (sub.quantity) {
+          subText += ` ${sub.quantity}%`;
+        }
+        if (sub.details) {
+          subText += ` : ${sub.details}`;
+        }
+        if (sub.children && sub.children.length > 0) {
+          subText += ` [${formatSubIngredients(sub.children)}]`;
+        }
+        return subText;
+      })
+      .join(", ");
+  };
+
   return (
-    <div className="bg-custom-green-clear rounded-e-[2.5rem] left-0 w-[95%] min-h-72 z-0">
-    <h1 className="text-2xl text-custom-blue font-bold py-3 px-2">
-      <span className="marker-effect">titre</span>
-    </h1>
-    <div className="px-4 py-1 flex flex-col gap-1">
-      <div className="indent-8 text-sm text-custom-green-text">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus esse
-        deserunt eius. Sint dignissimos voluptatem perferendis cum totam!
-        Maiores hic natus quaerat iure quibusdam atque tempora accusantium in
-        non. Molestias!
+    <div className="bg-custom-green-clear rounded-e-[3rem] left-0 w-[95%] min-h-72 z-0 relative pb-4">
+      <div className="px-4 py-6">
+        <h1 className="text-xl text-custom-blue font-bold pt-3">
+          <span className="marker-effect-cyan">Ingrédients</span>
+        </h1>
+
+        <div className="mt-4">
+          {ingredients && ingredients.length > 0 ? (
+            ingredients.map((ingredient, index) => (
+              <div key={index} className="mb-4">
+                {/* Titre pour les ingrédients principaux */}
+                <h2 className="text-lg text-custom-blue font-semibold">
+                  {ingredient.label}
+                  {ingredient.quantity && ` ${ingredient.quantity}`} :
+                </h2>
+                {/* Détails des ingrédients */}
+                <p className="text-custom-blue">
+                  {ingredient.details}
+                  {ingredient.children && ingredient.children.length > 0 && (
+                    <span> [{formatSubIngredients(ingredient.children)}]</span>
+                  )}
+                </p>
+              </div>
+            ))
+          ) : (
+            <p className="text-custom-blue">Aucun ingrédient disponible.</p>
+          )}
+        </div>
+        {allergenesArray&&(
+        <Allergenes allergenes={allergenesArray}/>  
+        )}
+        {additifsArray&&(
+          <Additifs additifs={additifsArray}/>
+        )}
+
       </div>
-      <div className="indent-8 text-sm text-custom-green-text">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum
-        dolores est eos distinctio, quo dicta fugit inventore nihil placeat
-        non similique accusantium ipsam veniam laborum quis mollitia quisquam
-        culpa. Vel!
-      </div>
+      <img
+        src={FICHETOP}
+        className="w-12 absolute bottom-0 right-0 cursor-pointer"
+        onClick={() => togglePanel(2)}
+        alt="Toggle Panel"
+      />
     </div>
-  </div>
-  )
+  );
 }
 
-export default IngredientsInfo
+export default IngredientsInfo;
