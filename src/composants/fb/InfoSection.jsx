@@ -3,9 +3,8 @@ import illustrationOrigines from "../../assets/fb/BubbleImg.svg";
 
 import { chevronForwardOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { ContactModal, ContactAdditif } from "./Modal";
+import { ContactModal, ContactAdditif, NutrriInfo } from "./Modal";
 import { IonContent, IonModal } from "@ionic/react";
-import NutritionContent from "./NutritionContent";
 import ReturnImage from "../../assets/fb/flech.svg";
 
 import Nutri_score_A from "../../assets/fb/score/Nutri_score_A.png";
@@ -15,7 +14,7 @@ import Nutri_score_D from "../../assets/fb/score/Nutri-score-D.png";
 import Nutri_score_E from "../../assets/fb/score/Nutri-score-E.png";
 import Sections from "./Sections";
 
-const InfoSection = ({ product }) => {
+const InfoSection = ({ product,togglePanel,scrollToTarget }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenadd, setIsOpenadd] = useState(false);
   const [isOpenNutrition, setIsOpenNutrition] = useState(false);
@@ -78,7 +77,7 @@ const InfoSection = ({ product }) => {
             <div className="text-xs text-[#42a29a]">
               {product?.nutriscore_comment}
             </div>
-            {!(product?.nutriscore_comment && product?.nutriscore)  && (
+            {(!product?.nutriscore_comment || !product?.nutriscore)  && (
                 <div className="text-xs flex flex-row space-x-2 mt-3">
                   <div className="text-custom-gray">
                     Encouragez la marque à atteindre 100% de transparence
@@ -118,7 +117,7 @@ const InfoSection = ({ product }) => {
                 />
               </div>
             </div>
-            {product?.commentaire ? (
+            {(product?.commentaire) ? (
               <div className="text-xs text-[#42a29a]"></div>
             ) : (
               <div className="text-xs flex flex-row space-x-2">
@@ -217,28 +216,16 @@ const InfoSection = ({ product }) => {
             </div>
           </div>
         </div>
-        <ContactModal isOpen={isOpen} setIsOpen={setIsOpen} />
+        <ContactModal isOpen={isOpen} setIsOpen={setIsOpen} gtin={product?.gtin} />
         <ContactAdditif
           isOpen={isOpenadd}
           setIsOpen={setIsOpenadd}
           additifs={product?.additifs}
         />
+        <NutrriInfo isOpen={isOpenNutrition} setIsOpen={setIsOpenNutrition} nutriscore={product?.nutriscore} nutriscore_comment={product?.nutriscore_comment} togglePanel={togglePanel} scrollToTarget={scrollToTarget} />
         <Sections />
       </div>
-      <IonModal isOpen={isOpenNutrition}>
-        <div className="flex justify-start space-x-3 items-center pt-3 pb-2 px-3  modal-background ">
-          <button
-            className="text-custom-blue transform transition-transform duration-150 ease-in-out active:scale-90"
-            onClick={() => setIsOpenNutrition(false)}
-          >
-            <img src={ReturnImage} alt="Close" className="w-auto h-11" />
-          </button>
-          <h1 className="text-2xl">{product?.name}</h1>
-        </div>
-        <IonContent className="ion-padding-bottom">
-          <NutritionContent nutriscore={product?.nutriscore} />
-        </IonContent>
-      </IonModal>
+    
     </div>
   );
 };

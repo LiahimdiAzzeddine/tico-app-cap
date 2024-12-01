@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import TransparencyScale from "./TransparencyScale";
 import NameProduct from "./NameProduct";
 import ProductDetails from "./ProductDetails";
@@ -10,11 +10,16 @@ import InfoSection from "./InfoSection";
 
 const FicheProduit = (props) => {
   const [currentPosition, setCurrentPosition] = useState(3);
-console.log("props.productData",props.productData)
-  const resetAll = () => {
-    props.resetBarcode(false);
+  const [openPanel, setOpenPanel] = useState(null);
+  const targetRefNutriInfo = useRef(null);
+
+  const scrollToTarget = () => {
+    targetRefNutriInfo.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+ const togglePanel = (panel) => {
+    setOpenPanel(openPanel === panel ? null : panel);
+  };
   return (
     <div className="max-w-screen-sm m-auto">
       <div className="flex flex-col h-full bg-white">
@@ -34,8 +39,10 @@ console.log("props.productData",props.productData)
             />
             <InfoSection
             product={props.productData}
+            togglePanel={togglePanel}
+            scrollToTarget={scrollToTarget}
             />
-            <ProductDetailsAccordion product={props.productData} />
+            <ProductDetailsAccordion product={props.productData} togglePanel={togglePanel} openPanel={openPanel} targetRefNutriInfo={targetRefNutriInfo}/>
             <Recettes recettes={props.productData.recipes} />
           </div>
         </div>

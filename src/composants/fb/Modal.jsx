@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { useAlert } from "../../context/AlertProvider";
+import { useHistory } from "react-router-dom";
+import  useProductIssues  from "../../hooks/contact/useProductIssues"; // Assure-toi du bon chemin
+
 import background from "../../assets/fb/popup/background.svg";
 import closeImg from "../../assets/fb/popup/close.svg";
 import ContactImg from "../../assets/fb/BubbleImg.svg";
@@ -11,62 +17,72 @@ import pastilleNote1 from "../../assets/fb/pastille-note-1.svg";
 import pastilleNote2 from "../../assets/fb/pastille-note-2.svg";
 import pastilleNote3 from "../../assets/fb/pastille-note-3.svg";
 import pastilleNote4 from "../../assets/fb/pastille-note-4.svg";
+import Nutri_score_A from "../../assets/fb/score/Nutri_score_A.png";
+import Nutri_score_B from "../../assets/fb/score/Nutri-score-B.png";
+import Nutri_score_C from "../../assets/fb/score/Nutri-score-C.png";
+import Nutri_score_D from "../../assets/fb/score/Nutri-score-D.png";
+import Nutri_score_E from "../../assets/fb/score/Nutri-score-E.png";
+
+import { IonModal } from "@ionic/react";
 
 const Modal = ({ isOpen, onClose, children }) => {
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          {/* Overlay */}
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-            onClick={onClose}
-          />
+    <IonModal
+      isOpen={isOpen}
+      onDidDismiss={onClose}
+      cssClass="custom-ion-modal"
+    >
+      <motion.div
+        className="relative w-full max-w-lg h-auto z-50 m-1 mx-auto"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.5 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        <div
+          className="w-full h-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center"
+          style={{
+            backgroundImage: `url(${background})`,
+          }}
+        >
+          {/* Bouton de fermeture */}
+          <button onClick={onClose} className="absolute left-8 top-0 p-2 z-50">
+            <img src={closeImg} className="w-12 h-auto" alt="Close" />
+          </button>
 
-          {/* Modal container with SVG background and animation */}
-          <motion.div
-            className="relative w-full max-w-lg h-auto z-50 m-1"
-            initial={{ opacity: 0, scale: 0.5 }} // Départ de l'animation
-            animate={{ opacity: 1, scale: 1 }} // Animation d'ouverture
-            exit={{ opacity: 0, scale: 0.5 }} // Animation de fermeture
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <div
-              className="w-full h-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center"
-              style={{
-                backgroundImage: `url(${background})`,
-              }}
-            >
-              {/* Close button */}
-              <button
-                onClick={onClose}
-                className="absolute left-8 top-0 p-2 z-50"
-              >
-                <img src={closeImg} className="w-12 h-auto" />
-              </button>
-
-              {/* Content */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center px-12 py-8 bottom-8 bg-opacity-90">
-                {children}
-              </div>
-            </div>
-          </motion.div>
+          {/* Contenu du modal */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-12 pt-6 bottom-7 bg-opacity-90">
+            {children}
+          </div>
         </div>
-      )}
-    </AnimatePresence>
+      </motion.div>
+    </IonModal>
   );
 };
 
 export default Modal;
 
 // contact Modal
-export const ContactModal = ({ isOpen, setIsOpen }) => {
+export const ContactModal = ({ isOpen, setIsOpen,gtin }) => {
   const [isOpenTiCO, setIsOpenTiCO] = useState(false);
   const [isOpenSolliciter, setIsOpenSolliciter] = useState(false);
+  const isAuthenticated = useIsAuthenticated();
+  const authUser = useAuthUser();
+  const { triggerAlert } = useAlert();
+  const history = useHistory();
+
 
   const OpenContactTiCO = () => {
-    setIsOpen(false);
+    if(!isAuthenticated){
+      triggerAlert("Voulez-vous enlever l'ingrédient ?", "Attention", () => {
+        history.replace("login")
+    });
+    }else{
+      setIsOpen(false);
     setIsOpenTiCO(true);
+    }
+    
+    
   };
   const OpenContactSolliciter = () => {
     setIsOpen(false);
@@ -75,66 +91,80 @@ export const ContactModal = ({ isOpen, setIsOpen }) => {
   return (
     <>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="flex flex-col items-center justify-center w-full space-y-4">
-          {/* Bubble Icon */}
-          <img
-            src={ContactImg}
-            alt="Bubble text icon"
-            className="w-20 h-auto "
-          />
-
-          {/* Title */}
-          <h1 className="text-2xl text-custom-blue font-bold">
-            <span className="marker-effect">Contact</span>
-          </h1>
-
-          {/* Options */}
-          <div
-            className="text-xl text-custom-blue flex items-start"
-            onClick={OpenContactTiCO}
-          >
-            <img src={flecheLeft} className="w-5 mr-2" />
-            <span>
-              Contacter <span className="font-bold">TiCO</span>
-            </span>
+        <div className="flex flex-col w-full h-full items-center justify-center max-sm:">
+          {/* Fixed Header with Buttons */}
+          <div className="sticky top-0">
+            {/* Bubble Icon */}
+            <img
+              src={ContactImg}
+              alt="Bubble text icon"
+              className="w-20 h-auto "
+            />
           </div>
+          {/* Scrollable Content Area */}
+          <div className="flex-1 overflow-y-auto p-6  flex flex-col items-center justify-start md:justify-center w-full space-y-6">
+            {/* Title */}
+            <h1 className="text-2xl text-custom-blue font-bold">
+              <span className="marker-effect-cyan z-10">Contact</span>
+            </h1>
 
+            {/* Options */}
+            <div
+              className="text-xl text-custom-blue flex items-start"
+              onClick={OpenContactTiCO}
+            >
+              <img src={flecheLeft} className="w-5 mr-2" />
+              <span>
+                Contacter <span className="font-bold">TiCO</span>
+              </span>
+            </div>
+            {/** 
           <div className="text-xl text-custom-blue flex items-start">
             <span>Contacter SAV</span>
             <img src={flecheRight} className="w-5 ml-2" />
           </div>
-
-          <div className="text-xl text-custom-blue flex items-start" onClick={OpenContactSolliciter}>
-            <img src={flecheLeft} className="w-5 mr-2" />
-            <span>Solliciter le fabricant pour plus de transparence</span>
+          */}
+            <div
+              className="text-xl text-custom-blue flex items-start"
+              onClick={OpenContactSolliciter}
+            >
+              <img src={flecheLeft} className="w-5 mr-2" />
+              <span>Solliciter le fabricant pour plus de transparence</span>
+            </div>
           </div>
         </div>
       </Modal>
-      <ContactTiCO isOpen={isOpenTiCO} setIsOpen={setIsOpenTiCO} />
+      <ContactTiCO isOpen={isOpenTiCO} setIsOpen={setIsOpenTiCO} authUser={authUser} gtin={gtin} />
       <Solliciter isOpen={isOpenSolliciter} setIsOpen={setIsOpenSolliciter} />
-
     </>
   );
 };
 
-export const ContactTiCO = ({ isOpen, setIsOpen }) => {
-  const [messageSent, setMessageSent] = useState(false); // État pour gérer l'affichage du message
-  const [loading, setLoading] = useState(false); // État pour gérer le chargement
+export const ContactTiCO = ({ isOpen, setIsOpen, authUser,gtin }) => {
+  const [message, setMessage] = useState(""); // État pour le message saisi
+  const { handleSubmit, loading, error, sended } = useProductIssues(); // Hook pour gérer l'API
 
-  const handleSend = () => {
-    setLoading(true); // Démarre le chargement
-    // Simule une requête API avec setTimeout (remplace-le par ta logique d'envoi)
-    setTimeout(() => {
-      setLoading(false); // Arrête le chargement
-      setMessageSent(true); // Met à jour l'état pour afficher le message de confirmation
-    }, 2000); // Simule un délai de 2 secondes
+  const handleSend = async () => {
+    if (!message.trim()) {
+      alert("Veuillez écrire un message avant d'envoyer.");
+      return;
+    }
+
+    const formValues = {
+      user_id: authUser.id, // Utilise les données de l'utilisateur authentifié
+      message,
+      gtin:gtin,
+    };
+
+    await handleSubmit(formValues); // Envoie le message via l'API
   };
 
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      <div className="flex flex-col items-center justify-center w-full space-y-2">
+      <div className="flex flex-col items-center justify-center w-full space-y-3">
         {/* Bubble Icon */}
         <img src={ContactImg} alt="Bubble text icon" className="w-20 h-auto " />
+
         {loading ? (
           // Affiche le spinner pendant le chargement
           <div className="flex flex-col items-center justify-center">
@@ -143,14 +173,14 @@ export const ContactTiCO = ({ isOpen, setIsOpen }) => {
               Envoi en cours...
             </div>
           </div>
-        ) : messageSent ? (
+        ) : sended ? (
           // Affiche le message de confirmation si le message a été envoyé
           <div className="text-xl text-custom-blue font-bold text-center">
             Merci, votre signalement a bien été pris en compte !
           </div>
         ) : (
           <>
-            {/* Title */}
+            {/* Titre */}
             <h1 className="text-2xl text-custom-blue flex items-start">
               <img src={flecheLeft} className="w-5 mr-2" />
               <span>
@@ -161,13 +191,21 @@ export const ContactTiCO = ({ isOpen, setIsOpen }) => {
               Un problème sur la fiche produit&nbsp;? Dites-nous en plus&nbsp;:
             </div>
             <textarea
-              className="w-full min-h-20 min-w-60 rounded-xl resize-none p-1 border-[1px] border-custom-green"
+              className="w-full min-h-20 min-w-60 rounded-xl resize-none p-2 border-[1px] border-custom-green"
               placeholder="Votre message..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)} // Met à jour le message saisi
             />
-            <div className="flex flex-col justify-center items-center space-y-3 ">
+            {error && (
+              <div className="text-red-500 text-xs p-0">
+                Erreur : {JSON.stringify(error)}
+              </div>
+            )}
+            <div className="flex flex-col justify-center items-center space-y-3">
               <button
-                className="bg-custom-green px-4 py-1 text-xl text-white rounded hover:bg-teal-700"
+                className="bg-custom-green px-4 py-2 text-xl text-white rounded hover:bg-teal-700"
                 onClick={handleSend} // Appelle handleSend au clic
+                disabled={loading}
               >
                 Envoyer
               </button>
@@ -184,86 +222,212 @@ export const Solliciter = ({ isOpen, setIsOpen }) => {
       <div className="flex flex-col items-center justify-center w-full space-y-4">
         {/* Bubble Icon */}
         <img src={ContactImg} alt="Bubble text icon" className="w-20 h-auto " />
-            {/* Title */}
-            <h1 className="text-xl text-custom-blue flex items-start">
-              <img src={flecheLeft} className="w-5 mr-2" />
-              <span>
-              Solliciter le fabricant
-              pour plus de transparence
-              </span>
-            </h1>
-            <button className="bg-custom-blue text-white px-2 py-1 rounded-xl text-lg">
-            <span className="font-bold text-xl">Oui,</span> je souhaite plus<br></br>
-            d'informations sur ce produit
-            </button>
-            <div className="text-custom-gray text-center w-full">
-            Finalement j'ai tout ce qu'il me faut <br></br>
-            <Link to={"#"} className="underline underline-offset-2" >Annuler ma demande</Link>
-            </div>
-           
+        {/* Title */}
+        <h1 className="text-xl text-custom-blue flex items-start">
+          <img src={flecheLeft} className="w-5 mr-2" />
+          <span>Solliciter le fabricant pour plus de transparence</span>
+        </h1>
+        <button className="bg-custom-blue text-white px-2 py-1 rounded-xl text-lg">
+          <span className="font-bold text-xl">Oui,</span> je souhaite plus
+          <br></br>
+          d'informations sur ce produit
+        </button>
+        <div className="text-custom-gray text-center w-full">
+          Finalement j'ai tout ce qu'il me faut <br></br>
+          <Link to={"#"} className="underline underline-offset-2">
+            Annuler ma demande
+          </Link>
+        </div>
       </div>
     </Modal>
   );
 };
 export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
   const [showAll, setShowAll] = useState(false);
+  const [showInfo, setShowInfo] = useState("additifs");
 
-  // Limit displayed additifs based on state
   const displayedAdditifs = showAll ? additifs : additifs.slice(0, 3);
 
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      <div className="flex flex-col items-center justify-center w-full space-y-4">
-        {/* Bubble Icon */}
-        <div className="flex flex-col w-1/2 items-center text-center opacity-40">
-          <div className="flex flex-row items-end space-x-1 sm:space-x-2 mt-1">
-            <span className="text-custom-blue font-bold text-2xl">+2</span>
-            <img
-              src={Additif}
-              alt="Additives"
-              className="w-11 sm:w-12 h-auto"
-            />
+      <div className="flex flex-col w-full h-full items-center justify-center">
+        {/* Fixed Header with Buttons */}
+        <div className="sticky top-0">
+          <div className="flex flex-col gap-1 max-w-xs mx-auto">
+            <button
+              style={{ border: "2px solid #0f548d" }}
+              className={`flex-1 p-1 rounded-lg  ${
+                showInfo === "transformation"
+                  ? "bg-custom-blue font-bold text-white"
+                  : "text-custom-blue"
+              }`}
+              onClick={() => setShowInfo("transformation")}
+            >
+              Transformation
+            </button>
+
+            <button
+              style={{ border: "2px solid #0f548d" }}
+              className={`flex-1 p-1 rounded-lg  ${
+                showInfo === "additifs"
+                  ? "bg-custom-blue text-white font-bold"
+                  : "text-custom-blue"
+              }`}
+              onClick={() => setShowInfo("additifs")}
+            >
+              Additifs
+            </button>
           </div>
         </div>
 
-        {/* Title */}
-        <h1 className="text-2xl text-custom-blue font-bold">
-          <span className="marker-effect">Additifs</span>
-        </h1>
-
-        {/* Additives List - Render dynamically based on additif data */}
-        <div className="space-y-0 flex flex-col justify-center items-center">
-          {additifs && additifs.length > 0 ? (
-            displayedAdditifs.map((item, index) => (
-              <div key={index} className="flex items-center space-x-2">
-                <img
-                  src={getPastilleImage(item.noteUFC)}
-                  alt={`Pastille for note ${item.noteUFC}`}
-                  className="w-4 h-4"
-                />
-                <span className="font-bold text-custom-blue">{item.code}</span>
-                <span className="text-custom-blue">: {item.label}</span>
+        {/* Scrollable Content Area */}
+        <div className="flex-1 overflow-y-auto px-4">
+          <div className="max-w-md mx-auto">
+            {/* Content Section */}
+            {showInfo === "transformation" ? (
+              <div className="space-y-2 pt-4">
+                <div className="text-custom-blue text-center">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  consequuntur nostrum blanditiis dicta laboriosam.
+                </div>
+                <div className="text-custom-blue text-center">
+                  Lorem ipsum dolor sit amet consectetur adipisicing
+                  elit.mollitia incidunt sit consequuntur nostrum blanditiis
+                  dicta.
+                </div>
               </div>
-            ))
-          ) : (
-            <div className="text-gray-500">Aucun additif disponible.</div>
-          )}
+            ) : (
+              <div className="flex flex-col items-center justify-center py-3">
+                <div className="space-y-4">
+                  <div className="flex items-end space-x-2">
+                    <span className="text-custom-blue font-bold text-2xl">
+                      +2
+                    </span>
+                    <img
+                      src={Additif}
+                      alt="Additives"
+                      className="w-11 sm:w-12 h-auto"
+                    />
+                  </div>
+                </div>
+                <h1 className="text-xl text-custom-blue font-bold text-center py-2">
+                  <span className="marker-effect-cyan z-10">Additifs</span>
+                </h1>
+
+                <div className="space-y-2">
+                  {additifs && additifs.length > 0 ? (
+                    displayedAdditifs.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-center space-x-2"
+                      >
+                        <img
+                          src={getPastilleImage(item.noteUFC)}
+                          alt={`Pastille for note ${item.noteUFC}`}
+                          className="w-4 h-4"
+                        />
+                        <span className="font-bold text-custom-blue">
+                          {item.code}
+                        </span>
+                        <span className="text-custom-blue">: {item.label}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-gray-500 text-center">
+                      Aucun additif disponible.
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Voir Plus Link */}
-        {additifs && additifs.length > 3 && (
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className="text-custom-blue underline mt-4 italic"
-          >
-            {showAll ? 'Voir moins' : 'Voir plus'}
+        {/* Fixed Footer */}
+        <div>
+          <button className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none">
+            En savoir plus
           </button>
-        )}
+        </div>
       </div>
     </Modal>
   );
 };
 
+export const NutrriInfo = ({
+  isOpen,
+  setIsOpen,
+  nutriscore,
+  nutriscore_comment,
+  togglePanel,
+  scrollToTarget,
+}) => {
+  const nutriscoreImages = {
+    A: Nutri_score_A,
+    B: Nutri_score_B,
+    C: Nutri_score_C,
+    D: Nutri_score_D,
+    E: Nutri_score_E,
+  };
+  const nutriscorePhrase = {
+    A: "Bravo ! Ce produit est excellent sur le plan nutritionnel.",
+    B: "Ce produit est bon sur le plan nutritionnel, une bonne option pour une alimentation équilibrée.",
+    C: "Ce produit a une qualité nutritionnelle moyenne, consommez-le avec modération.",
+    D: "Attention ! Ce produit contient des nutriments à limiter, mais peut s’intégrer dans une alimentation variée.",
+    E: "Ce produit est à consommer occasionnellement en raison de sa faible qualité nutritionnelle.",
+  };
+  const selectedNutriscorePhrase =
+    nutriscorePhrase[nutriscore] ||
+    "Ce produit est à consommer avec précaution.";
+  const selectedNutriscoreImage = nutriscoreImages[nutriscore] || Nutri_score_B;
+
+  const MoreInfo = () => {
+    setIsOpen(false);
+    togglePanel(1);
+    scrollToTarget();
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <div className="flex flex-col w-full h-full items-center justify-center">
+        {/* Fixed Header with Buttons */}
+        <div className="sticky top-0">
+          {/* Title */}
+          <h1 className="text-xl text-custom-blue flex items-start py-2">
+            <span className="font-bold">Nutrition</span>
+          </h1>
+        </div>
+        {/* Scrollable Content Area */}
+        <div className="flex-1 overflow-y-auto px-4">
+          <div className="max-w-md mx-auto">
+            <div className="py-2 flex justify-center">
+              <img
+                className="w-2/4"
+                src={selectedNutriscoreImage}
+                alt="Nutri-Score"
+              />
+            </div>
+            <div className=" text-custom-blue text-center pb-2">
+              {selectedNutriscorePhrase}
+            </div>
+            <div className=" text-custom-blue text-center">
+              {nutriscore_comment}
+            </div>
+          </div>
+        </div>
+        {/* Fixed Footer */}
+        <div>
+          <button
+            className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none"
+            onClick={MoreInfo}
+          >
+            En savoir plus
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
+};
 
 // Utility function to determine the image based on noteUFC
 const getPastilleImage = (note) => {

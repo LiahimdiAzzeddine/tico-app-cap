@@ -14,8 +14,8 @@ import PackagingInfo from "./accordion/PackagingInfo";
 import { ContactModal } from "./Modal";
 
 // Composants pour chaque contenu de panneau
-const ProductDetailsAccordion = ({product}) => {
-  const [openPanel, setOpenPanel] = useState(null);
+const 
+ProductDetailsAccordion = ({product,togglePanel,openPanel,targetRefNutriInfo}) => {
   const [bubbleVisible] = useState(false); // Bulle toujours visible
   const [isOpen, setIsOpen] = useState(false);
 
@@ -23,9 +23,7 @@ const ProductDetailsAccordion = ({product}) => {
   const nodeRef = useRef(null);
   const isDraggingRef = useRef(false);
 
-  const togglePanel = (panel) => {
-    setOpenPanel(openPanel === panel ? null : panel);
-  };
+  
 
   const onDrag = () => {
     isDraggingRef.current = true;
@@ -87,6 +85,7 @@ const ProductDetailsAccordion = ({product}) => {
 
         {[...Array(7)].map((_, index) => {
           const panel = index + 1;
+          const panelref = index + 1+"section";
           const title = [
             "Informations nutritionnelles",
             "Ingrédients, additifs",
@@ -100,7 +99,8 @@ const ProductDetailsAccordion = ({product}) => {
           const isDisabled = disabledPanels.includes(panel);
 
           return (
-            <div key={panel} className="pt-3 pb-2 border-b">
+            <div key={panel} className="pt-3 pb-2 border-b" 
+            ref={panel === 1 ? targetRefNutriInfo : null} >
               <button
                 onClick={() => !isDisabled && togglePanel(panel)}
                 className={`px-2 w-full flex justify-start items-center font-bold text-xl ${

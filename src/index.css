@@ -267,3 +267,26 @@ input[type="range"]::-moz-range-thumb {
   left: -1px; /* Position à l'extrémité de la carte */
 }
 
+/* css pour les petits pop-up de fb */
+.custom-ion-modal {
+  --background: transparent; /* Fond transparent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --height: 100%;
+    --width: 100%;
+}
+
+.custom-ion-modal .modal-wrapper {
+  background: transparent; /* Supprimer le fond du conteneur */
+  box-shadow: none; /* Supprimer l'ombre */
+}
+
+.custom-ion-modal .overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour l'overlay */
+}
+.custom-ion-modal .ion-page {
+  justify-content: center !important;
+}
+
+/**/

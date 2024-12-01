@@ -77,9 +77,6 @@ const NutritionTable = ({ product }) => {
   };
 
   const hierarchicalData = organizeHierarchicalData(product?.lines || []);
-
-  console.log("Hierarchical Data:", hierarchicalData); // Debug log
-
   return (
     <div className="p-2">
       <div className="flex items-center justify-center gap-6 p-4">
