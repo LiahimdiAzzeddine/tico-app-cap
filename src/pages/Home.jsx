@@ -23,8 +23,8 @@ function Home() {
           style={{ backgroundImage: `url(${tico_intro})` }}
         >
           {isAuthenticated && (
-            <span className="absolute text-2xl  top-[26%] text-center text-custom-blue titre-bold">
-              Bonjour {name}!
+            <span className="absolute text-2xl top-[26%] text-center text-custom-green-text titre-bold">
+              Bonjour {name} !
             </span>
           )}
           <img
@@ -50,7 +50,7 @@ function Home() {
                 className="bg-[#4b996c] text-white font-bold  text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => history.push("/laterProducts")}
               >
-                Mon produits à Consulter
+                Mes produits à consulter
               </button>
             </div>
           </div>

@@ -7,7 +7,7 @@ import WhiteModal from "../modales/WhiteModal";
 import RecipeModal from "../modales/RecipeModal";
 import defaultImageRecette from "../../assets/recettes/defaultImageRecette.png";
 
-function Recettes({ recettes }) {
+function Recettes({ recettes,targetRefRecettes }) {
   const [showModalAddRecipe, setShowModalAddRecipe] = useState(false);
   const [showModalRecipe, setShowModalRecipe] = useState(false);
   const [selectedRecette, setSelectedRecette] = useState(null);
@@ -19,7 +19,7 @@ function Recettes({ recettes }) {
 
   return (
     <>
-      <div className="flex flex-col w-full space-y-4 py-10 pb-5">
+      <div className="flex flex-col w-full space-y-4 py-10 pb-5" ref={targetRefRecettes}>
         {recettes.map((item, index) => (
           <div
             key={item.id}

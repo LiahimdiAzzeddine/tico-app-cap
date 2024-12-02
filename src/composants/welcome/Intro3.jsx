@@ -18,7 +18,7 @@ function Intro3() {
         >
           <div className="flex flex-col items-center justify-center w-4/5 text-center gap-3">
           <div className="text-xl text-custom-blue">
-              <span className="font-bold">Tico</span>, c'est aussi un allié au
+              <span className="font-bold">TiCO</span>, c'est aussi un allié au
               quotidien&nbsp;!
             </div>
             <div className="text-xl text-custom-blue">

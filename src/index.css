@@ -36,6 +36,13 @@
   font-weight: bold;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('./assets/fonts/Archivo-Regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 /*
 html {
   --ion-safe-area-left: 25px;
@@ -80,7 +87,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'RobotoRegular', sans-serif;
+  font-family: 'Archivo';
   color: #333;
   line-height: 1.5;
   background-color: var(--transparent-color);
@@ -289,4 +296,14 @@ input[type="range"]::-moz-range-thumb {
   justify-content: center !important;
 }
 
-/**/
+/*
+.swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+  position: relative;
+    top: 100%;
+    z-index: 50;
+padding-top: 1rem;
+}
+.swiper-pagination-bullet{
+  background: #c32721;
+}
+*/

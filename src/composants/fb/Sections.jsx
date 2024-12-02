@@ -7,7 +7,7 @@ import { ContactModal } from "./Modal";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-function Sections() {
+function Sections({scrollToTarget, targetRefRecettes,gtin}) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Fonction de partage
@@ -23,6 +23,9 @@ function Sections() {
       console.error("Erreur lors du partage:", error);
     }
   };
+  const scrollRecettes=()=>{
+    scrollToTarget(targetRefRecettes)
+  }
 
   return (
     <>
@@ -35,7 +38,7 @@ function Sections() {
             >
               <img src={Partage} className="h-14" alt="Partage" />
             </button>
-            <div className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95">
+            <div onClick={()=>scrollRecettes()} className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95">
               <img src={Recettes} className="h-14" alt="Recettes" />
             </div>
             <div
@@ -47,7 +50,7 @@ function Sections() {
           </div>
         </div>
       </div>
-      <ContactModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <ContactModal isOpen={isOpen} setIsOpen={setIsOpen} gtin={gtin} />
     </>
   );
 }

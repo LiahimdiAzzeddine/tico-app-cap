@@ -18,7 +18,7 @@ export const AlertProvider = ({ children }) => {
   });
 
   // Fonction pour afficher une alerte avec IonAlert
-  const triggerAlert = (message, title = "Confirmation", onConfirm = null, mode = "ios") => {
+  const triggerAlert = (message, title = "Confirmation", onConfirm = null, mode = "ios",confirmation="Oui") => {
     setAlertConfig({
       isOpen: true,
       header: title,
@@ -33,7 +33,7 @@ export const AlertProvider = ({ children }) => {
           },
         },
         {
-          text: "Oui",
+          text: confirmation,
           handler: () => {
             if (onConfirm) onConfirm();
             setAlertConfig((prev) => ({ ...prev, isOpen: false }));

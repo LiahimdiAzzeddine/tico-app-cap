@@ -27,7 +27,7 @@ function Intro2() {
               Scannez vos produits et accédez à des informations claires et
               utiles.
             </div>
-            <div className="text-lg text-custom-blue">
+            <div className="text-xl text-custom-blue">
               <div className="font-bold text-xl">Ensemble,</div> encourageons plus de
               transparence et des pratiques responsables. 🌍✨
             </div>

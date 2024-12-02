@@ -16,10 +16,10 @@ import { ContactModal } from "./Modal";
 // Composants pour chaque contenu de panneau
 const 
 ProductDetailsAccordion = ({product,togglePanel,openPanel,targetRefNutriInfo}) => {
-  const [bubbleVisible] = useState(false); // Bulle toujours visible
+  const [bubbleVisible] = useState(true); // Bulle toujours visible
   const [isOpen, setIsOpen] = useState(false);
 
-  const disabledPanels = [4,5,6,7]; // Désactive les panneaux 2, 4 et 6
+  const disabledPanels = [3,4,5,6,7,8]; // Désactive les panneaux 2, 4 et 6
   const nodeRef = useRef(null);
   const isDraggingRef = useRef(false);
 
@@ -39,6 +39,7 @@ ProductDetailsAccordion = ({product,togglePanel,openPanel,targetRefNutriInfo}) =
   const panelContents = [
     <NutritionalInfo togglePanel={togglePanel} product={product}/>,
     <IngredientsInfo togglePanel={togglePanel} ingredients={product?.ingredients} allergenesArray={product?.allergens} additifsArray={product?.additifs} />,
+    <></>,
     <OriginsInfo togglePanel={togglePanel} origin={product.origin} />,
     <LabelsInfo />,
     <BrandInfo />,
@@ -83,12 +84,13 @@ ProductDetailsAccordion = ({product,togglePanel,openPanel,targetRefNutriInfo}) =
           </Draggable>
         )}
 
-        {[...Array(7)].map((_, index) => {
+        {[...Array(8)].map((_, index) => {
           const panel = index + 1;
           const panelref = index + 1+"section";
           const title = [
             "Informations nutritionnelles",
             "Ingrédients, additifs",
+            "Naturalité des ingrédients",
             "Origines",
             "Labels et mentions",
             "le produit, La marque",
@@ -107,7 +109,7 @@ ProductDetailsAccordion = ({product,togglePanel,openPanel,targetRefNutriInfo}) =
                   isDisabled
                     ? "text-custom-gray cursor-not-allowed"
                     : openPanel === panel
-                    ? "text-blue-800"
+                    ? "text-custom-blue"
                     : "text-custom-blue"
                 }`}
                 disabled={isDisabled}

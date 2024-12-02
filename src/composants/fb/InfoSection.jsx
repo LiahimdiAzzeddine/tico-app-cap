@@ -14,7 +14,7 @@ import Nutri_score_D from "../../assets/fb/score/Nutri-score-D.png";
 import Nutri_score_E from "../../assets/fb/score/Nutri-score-E.png";
 import Sections from "./Sections";
 
-const InfoSection = ({ product,togglePanel,scrollToTarget }) => {
+const InfoSection = ({ product,togglePanel,scrollToTarget,targetRefNutriInfo,targetRefRecettes }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenadd, setIsOpenadd] = useState(false);
   const [isOpenNutrition, setIsOpenNutrition] = useState(false);
@@ -38,8 +38,8 @@ const InfoSection = ({ product,togglePanel,scrollToTarget }) => {
     <div className="pt-2">
       <div className="relative w-full px-2 pt-12 pb-6 mx-auto bg-custom-green-clear">
         {/* Title positioned between the white background and blue container */}
-        <div className="absolute -top-4 left-0 right-0 flex justify-center">
-          <span className="bg-[#a9d7d4] px-4 py-2 rounded-full text-custom-blue font-bold text-base">
+        <div className="absolute -top-4 left-0 right-0 flex justify-start">
+          <span className="bg-[#a9d7d4] px-4 py-2 rounded-e-full text-custom-blue font-bold text-base">
             LA SYNTHÈSE SUR LE PRODUIT
           </span>
         </div>
@@ -80,7 +80,7 @@ const InfoSection = ({ product,togglePanel,scrollToTarget }) => {
             {(!product?.nutriscore_comment || !product?.nutriscore)  && (
                 <div className="text-xs flex flex-row space-x-2 mt-3">
                   <div className="text-custom-gray">
-                    Encouragez la marque à atteindre 100% de transparence
+                    Encourager la marque à atteindre 100% de transparence
                   </div>
                   <div>
                     <img
@@ -122,7 +122,7 @@ const InfoSection = ({ product,togglePanel,scrollToTarget }) => {
             ) : (
               <div className="text-xs flex flex-row space-x-2">
                 <div className="text-custom-gray">
-                  Encouragez la marque à atteindre 100% de transparence
+                  Encourager la marque à atteindre 100% de transparence
                 </div>
                 <div>
                   <img
@@ -172,7 +172,7 @@ const InfoSection = ({ product,togglePanel,scrollToTarget }) => {
                 ) : (
                   <div className="text-xs flex flex-row space-x-2">
                     <div className="text-custom-gray">
-                      Encouragez la marque à atteindre 100% de transparence
+                      Encourager la marque à atteindre 100% de transparence
                     </div>
                     <div>
                       <img
@@ -201,7 +201,7 @@ const InfoSection = ({ product,togglePanel,scrollToTarget }) => {
               ) : (
                 <div className="text-xs flex flex-row space-x-2">
                   <div className="text-custom-gray">
-                    Encouragez la marque à atteindre 100% de transparence
+                    Encourager la marque à atteindre 100% de transparence
                   </div>
                   <div>
                     <img
@@ -222,8 +222,8 @@ const InfoSection = ({ product,togglePanel,scrollToTarget }) => {
           setIsOpen={setIsOpenadd}
           additifs={product?.additifs}
         />
-        <NutrriInfo isOpen={isOpenNutrition} setIsOpen={setIsOpenNutrition} nutriscore={product?.nutriscore} nutriscore_comment={product?.nutriscore_comment} togglePanel={togglePanel} scrollToTarget={scrollToTarget} />
-        <Sections />
+        <NutrriInfo isOpen={isOpenNutrition} setIsOpen={setIsOpenNutrition} nutriscore={product?.nutriscore} nutriscore_comment={product?.nutriscore_comment} togglePanel={togglePanel} scrollToTarget={scrollToTarget} targetRefNutriInfo={targetRefNutriInfo} />
+        <Sections scrollToTarget={scrollToTarget} targetRefRecettes={targetRefRecettes} gtin={product?.gtin} />
       </div>
     
     </div>

@@ -12,9 +12,9 @@ const FicheProduit = (props) => {
   const [currentPosition, setCurrentPosition] = useState(3);
   const [openPanel, setOpenPanel] = useState(null);
   const targetRefNutriInfo = useRef(null);
-
-  const scrollToTarget = () => {
-    targetRefNutriInfo.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const targetRefRecettes = useRef(null);
+  const scrollToTarget = (ref) => {
+    ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
  const togglePanel = (panel) => {
@@ -36,14 +36,18 @@ const FicheProduit = (props) => {
               Brand={props.productData?.trademark}
               Transparent={props.productData?.transparent}
               ImageSrc={props.productData?.image}
+              
+              
             />
             <InfoSection
             product={props.productData}
             togglePanel={togglePanel}
             scrollToTarget={scrollToTarget}
+            targetRefNutriInfo={targetRefNutriInfo}
+            targetRefRecettes={targetRefRecettes}
             />
             <ProductDetailsAccordion product={props.productData} togglePanel={togglePanel} openPanel={openPanel} targetRefNutriInfo={targetRefNutriInfo}/>
-            <Recettes recettes={props.productData.recipes} />
+            <Recettes recettes={props.productData.recipes} targetRefRecettes={targetRefRecettes} />
           </div>
         </div>
       </div>

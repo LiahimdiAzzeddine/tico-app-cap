@@ -36,7 +36,8 @@ function Scores({ nutriscore }) {
           alt={`Nutri-Score ${nutriscore}`}
           className="w-40 h-auto m-auto p-2"
         />
-        <div className="indent-8 text-sm text-custom-green-text">
+       
+          <div className="indent-8 text-sm text-custom-green-text">
           Le Nutri-Score est une note qui vous permet d’avoir une information
           sur la qualité nutritionnelle d’un coup d’œil. Il vous permet de
           comparer les produits d’une même catégorie. Le Nutri-Score est à
@@ -45,7 +46,9 @@ function Scores({ nutriscore }) {
         </div>
         <div className="indent-8 text-sm text-custom-green-text">
           {selectedNutriscorePhrase}
-        </div>
+        </div> 
+       
+       
       </div>
     </>
   );

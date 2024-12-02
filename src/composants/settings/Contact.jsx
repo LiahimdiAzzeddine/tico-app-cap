@@ -21,7 +21,7 @@ const Contact = ({setShowModalContact}) => {
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full">
       <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full">
-        Nous &nbsp;<span className="marker-effect-orange">contacter</span>
+        Nous &nbsp;contacter
       </h2>
 
       <form onSubmit={handleFormSubmit} className="space-y-4 w-11/12 max-w-xs h-5/6">
@@ -83,7 +83,7 @@ const Contact = ({setShowModalContact}) => {
             className="bg-orange-500 text-white font-bold  text-lg py-2  px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
             disabled={loading}
           >
-            Contacter
+            Envoyer
           </button>
         </div>
       </form>

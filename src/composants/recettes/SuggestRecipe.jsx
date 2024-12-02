@@ -135,7 +135,7 @@ const SuggestRecipe = ({ onClose }) => {
           backgroundSize: "contain",
         }}
       >
-        <h2 className="text-center text-custom-blue text-2xl titre-bold ">
+        <h2 className="text-center text-custom-red text-2xl titre-bold ">
           Proposer une recette
         </h2>
       </div>
@@ -447,6 +447,7 @@ const SuggestRecipe = ({ onClose }) => {
           </div>
 
           <div className="flex flex-col gap-4 justify-center items-center">
+            <div className="text-custom-red">Pas d’inquiétude on se charge du shooting photo !</div>
             <button
               type="button"
               onClick={() => VisualiseRecette()} // Ouvrir le modal

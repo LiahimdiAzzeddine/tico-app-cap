@@ -79,7 +79,7 @@ const Item = ({ product, index, length, OpenFb, handleDelete }) => {
 
       {/* Options de balayage */}
       <IonItemOptions side="start">
-        <IonItemOption color="danger" onClick={() => handleDelete(product.gtin)}>
+        <IonItemOption style={{ "--background": "#c42923" }} onClick={() => handleDelete(product.gtin)}>
           <IonIcon slot="icon-only" icon={trashBinOutline} />
         </IonItemOption>
       </IonItemOptions>

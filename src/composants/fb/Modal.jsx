@@ -3,8 +3,8 @@ import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useAlert } from "../../context/AlertProvider";
 import { useHistory } from "react-router-dom";
-import  useProductIssues  from "../../hooks/contact/useProductIssues"; // Assure-toi du bon chemin
-
+import useProductIssues from "../../hooks/contact/useProductIssues";
+import useTransparencyRequests from "../../hooks/contact/useTransparencyRequests";
 import background from "../../assets/fb/popup/background.svg";
 import closeImg from "../../assets/fb/popup/close.svg";
 import ContactImg from "../../assets/fb/BubbleImg.svg";
@@ -63,7 +63,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 export default Modal;
 
 // contact Modal
-export const ContactModal = ({ isOpen, setIsOpen,gtin }) => {
+export const ContactModal = ({ isOpen, setIsOpen, gtin }) => {
   const [isOpenTiCO, setIsOpenTiCO] = useState(false);
   const [isOpenSolliciter, setIsOpenSolliciter] = useState(false);
   const isAuthenticated = useIsAuthenticated();
@@ -71,22 +71,37 @@ export const ContactModal = ({ isOpen, setIsOpen,gtin }) => {
   const { triggerAlert } = useAlert();
   const history = useHistory();
 
-
   const OpenContactTiCO = () => {
-    if(!isAuthenticated){
-      triggerAlert("Voulez-vous enlever l'ingrédient ?", "Attention", () => {
-        history.replace("login")
-    });
-    }else{
+    if (!isAuthenticated) {
+      triggerAlert(
+        "pour contacter Tico, il faut être connecté",
+        "Attention",
+        () => {
+          history.replace("login");
+        },
+        "ios",
+        "Se connecter"
+      );
+    } else {
       setIsOpen(false);
-    setIsOpenTiCO(true);
+      setIsOpenTiCO(true);
     }
-    
-    
   };
   const OpenContactSolliciter = () => {
-    setIsOpen(false);
-    setIsOpenSolliciter(true);
+    if (!isAuthenticated) {
+      triggerAlert(
+        "Connecte-toi pour encourager la marque",
+        "Attention",
+        () => {
+          history.replace("login");
+        },
+        "ios",
+        "Se connecter"
+      );
+    } else {
+      setIsOpen(false);
+      setIsOpenSolliciter(true);
+    }
   };
   return (
     <>
@@ -129,18 +144,28 @@ export const ContactModal = ({ isOpen, setIsOpen,gtin }) => {
               onClick={OpenContactSolliciter}
             >
               <img src={flecheLeft} className="w-5 mr-2" />
-              <span>Solliciter le fabricant pour plus de transparence</span>
+              <span>Encourager la marque pour faire la transparence</span>
             </div>
           </div>
         </div>
       </Modal>
-      <ContactTiCO isOpen={isOpenTiCO} setIsOpen={setIsOpenTiCO} authUser={authUser} gtin={gtin} />
-      <Solliciter isOpen={isOpenSolliciter} setIsOpen={setIsOpenSolliciter} />
+      <ContactTiCO
+        isOpen={isOpenTiCO}
+        setIsOpen={setIsOpenTiCO}
+        authUser={authUser}
+        gtin={gtin}
+      />
+      <Solliciter
+        isOpen={isOpenSolliciter}
+        setIsOpen={setIsOpenSolliciter}
+        authUser={authUser}
+        gtin={gtin}
+      />
     </>
   );
 };
 
-export const ContactTiCO = ({ isOpen, setIsOpen, authUser,gtin }) => {
+export const ContactTiCO = ({ isOpen, setIsOpen, authUser, gtin }) => {
   const [message, setMessage] = useState(""); // État pour le message saisi
   const { handleSubmit, loading, error, sended } = useProductIssues(); // Hook pour gérer l'API
 
@@ -153,7 +178,7 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser,gtin }) => {
     const formValues = {
       user_id: authUser.id, // Utilise les données de l'utilisateur authentifié
       message,
-      gtin:gtin,
+      gtin: gtin,
     };
 
     await handleSubmit(formValues); // Envoie le message via l'API
@@ -216,7 +241,17 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser,gtin }) => {
     </Modal>
   );
 };
-export const Solliciter = ({ isOpen, setIsOpen }) => {
+export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin }) => {
+  const { handleSubmit, loading, error, sended } = useTransparencyRequests();
+  const [formValues, setFormValues] = useState({
+    user_id: authUser?.id || "",
+    gtin: gtin || "",
+  });
+
+  const handleRequest = () => {
+    handleSubmit(formValues);
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <div className="flex flex-col items-center justify-center w-full space-y-4">
@@ -225,23 +260,50 @@ export const Solliciter = ({ isOpen, setIsOpen }) => {
         {/* Title */}
         <h1 className="text-xl text-custom-blue flex items-start">
           <img src={flecheLeft} className="w-5 mr-2" />
-          <span>Solliciter le fabricant pour plus de transparence</span>
+          <span>Encourager la marque pour faire la transparence</span>
         </h1>
-        <button className="bg-custom-blue text-white px-2 py-1 rounded-xl text-lg">
-          <span className="font-bold text-xl">Oui,</span> je souhaite plus
-          <br></br>
-          d'informations sur ce produit
-        </button>
+
+        {/* Bouton pour envoyer la demande */}
+        {!sended ? (
+          <button
+            onClick={handleRequest}
+            className="bg-custom-blue text-white px-2 py-1 rounded-xl text-lg"
+            disabled={loading}
+          >
+            {loading ? (
+              <span>Envoi en cours...</span>
+            ) : (
+              <>
+                <span className="font-bold text-xl">Oui,</span> je souhaite plus
+                <br />
+                d'informations sur ce produit
+              </>
+            )}
+          </button>
+        ) : (
+          <p className="text-green-500 font-bold text-sm">
+            Votre demande a été envoyée avec succès&ensp;!
+          </p>
+        )}
+
+        {/* Message d'erreur */}
+        {error && <p className="text-red-500">{error}</p>}
+
+        {/* Lien pour annuler */}
         <div className="text-custom-gray text-center w-full">
-          Finalement j'ai tout ce qu'il me faut <br></br>
-          <Link to={"#"} className="underline underline-offset-2">
+          Finalement j'ai tout ce qu'il me faut <br />
+          <button
+            onClick={() => setIsOpen(false)}
+            className="underline underline-offset-2"
+          >
             Annuler ma demande
-          </Link>
+          </button>
         </div>
       </div>
     </Modal>
   );
 };
+
 export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
   const [showAll, setShowAll] = useState(false);
   const [showInfo, setShowInfo] = useState("additifs");
@@ -361,6 +423,7 @@ export const NutrriInfo = ({
   nutriscore_comment,
   togglePanel,
   scrollToTarget,
+  targetRefNutriInfo,
 }) => {
   const nutriscoreImages = {
     A: Nutri_score_A,
@@ -384,7 +447,7 @@ export const NutrriInfo = ({
   const MoreInfo = () => {
     setIsOpen(false);
     togglePanel(1);
-    scrollToTarget();
+    scrollToTarget(targetRefNutriInfo);
   };
 
   return (
@@ -409,6 +472,7 @@ export const NutrriInfo = ({
             </div>
             <div className=" text-custom-blue text-center pb-2">
               {selectedNutriscorePhrase}
+          
             </div>
             <div className=" text-custom-blue text-center">
               {nutriscore_comment}

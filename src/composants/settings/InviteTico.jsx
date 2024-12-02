@@ -36,8 +36,7 @@ function InviteTico() {
               {/* Text content */}
               <div className="text-center">
                 <h2 className="text-2xl  text-custom-blue mb-6">
-                  <span className="titre-bold">Faire connaître</span>{" "}
-                  <span className="font-bold">TiCO</span>
+                  <span className="titre-bold">Faire connaître TiCO</span>
                 </h2>
 
                 <p className="text-custom-blue mb-4 text-lg">

@@ -16,7 +16,7 @@ function IngredientsInfo({ togglePanel, ingredients,allergenesArray,additifsArra
           subText += ` : ${sub.details}`;
         }
         if (sub.children && sub.children.length > 0) {
-          subText += ` [${formatSubIngredients(sub.children)}]`;
+          subText += ` (${formatSubIngredients(sub.children)})`;
         }
         return subText;
       })
@@ -37,13 +37,13 @@ function IngredientsInfo({ togglePanel, ingredients,allergenesArray,additifsArra
                 {/* Titre pour les ingrédients principaux */}
                 <h2 className="text-lg text-custom-blue font-semibold">
                   {ingredient.label}
-                  {ingredient.quantity && ` ${ingredient.quantity}`} :
+                  {ingredient.quantity && ` ${ingredient.quantity}`}{ingredient.children.length > 0?":":""}
                 </h2>
                 {/* Détails des ingrédients */}
                 <p className="text-custom-blue">
                   {ingredient.details}
                   {ingredient.children && ingredient.children.length > 0 && (
-                    <span> [{formatSubIngredients(ingredient.children)}]</span>
+                    <span> {formatSubIngredients(ingredient.children)}</span>
                   )}
                 </p>
               </div>

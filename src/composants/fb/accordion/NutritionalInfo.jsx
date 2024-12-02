@@ -12,7 +12,7 @@ function NutritionalInfo({ togglePanel, product }) {
         </div>
         <div className="text-base font-bold text-center p-2 text-[#2c6c67]">
           {product.portion}
-          {product.unit} {product.portioneq}
+          {product.unit}  ou  {product.portioneq}
         </div>
         <h1 className="text-xl text-custom-blue font-bold pt-3 px-2">
           <span className="marker-effect-cyan">Profil nutritionnel</span>

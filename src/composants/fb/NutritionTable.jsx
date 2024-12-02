@@ -41,9 +41,9 @@ const NutritionTable = ({ product }) => {
       unit === "portion" && portion
         ? calculatePortionValue(item.value.qt, portion)
         : item.value.qt;
-
+  
     const rowKey = `${parentId}-${item.id}`;
-
+  
     return (
       <>
         <tr key={rowKey}>
@@ -56,14 +56,16 @@ const NutritionTable = ({ product }) => {
           >
             {item.name}
           </td>
-          <td className="text-right py-1">
+          <td className="text-right py-1 min-w-20">
             {value?.toFixed(2)} {item.value.unit}
           </td>
-          <td className="text-right text-gray-500 py-1">
-            {item.value.vnr || "-"} %
+          <td className="text-right text-gray-500 py-1 min-w-16">
+            {item.value.vnr || ""} 
           </td>
         </tr>
-        {item.children?.map((child, index) => (
+        {item?.value?.qt &&(
+          <>
+          {item.children?.map((child, index) => (
           <NutritionRow
             key={`${rowKey}-${child.id}-${index}`}
             item={child}
@@ -72,9 +74,27 @@ const NutritionTable = ({ product }) => {
             parentId={item.id}
           />
         ))}
+        </>
+        )}
+        
+        {/* Ajouter le séparateur vert si item.parent == 0 */}
+        {item.parent == 0 && (
+          <tr>
+            <td colSpan="3">
+              <div
+                style={{
+                  height: "2px",
+                  backgroundColor: "#047857",
+                  margin: "8px 0",
+                }}
+              />
+            </td>
+          </tr>
+        )}
       </>
     );
   };
+  
 
   const hierarchicalData = organizeHierarchicalData(product?.lines || []);
   return (
@@ -94,7 +114,7 @@ const NutritionTable = ({ product }) => {
         <div className="relative">
           <button
             onClick={() => setUnit(unit === "100g" ? "portion" : "100g")}
-            className="w-14 h-7 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2"
+            className="w-14 h-7 bg-white rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2"
             role="switch"
             aria-checked={unit === "portion"}
           >
@@ -121,13 +141,13 @@ const NutritionTable = ({ product }) => {
       <table className="w-full text-sm text-gray-700">
         <thead>
           <tr>
-            <th className="text-left font-medium text-emerald-700 pt-2">
+            <th className="text-left font-medium text-emerald-700 pt-2 min-w-20">
               Général
             </th>
             <th className="text-right text-emerald-700 pt-2 font-bold">
               {unit === "100g" ? "Pour 100g" : "Par portion"}
             </th>
-            <th className="text-right text-emerald-700 pt-2 font-bold">
+            <th className="text-right text-emerald-700 pt-2 font-bold min-w-16"  >
               % VNR
             </th>
           </tr>

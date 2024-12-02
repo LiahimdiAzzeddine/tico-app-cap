@@ -28,7 +28,7 @@ function Intro4() {
             <div className="text-xl text-custom-blue ">
               Scannez votre premier produit, explorez nos recettes, et
               participez à rendre l'alimentation
-              <span className="font-bold">plus transparente et durable !</span>
+              <span className="font-bold"> plus transparente et durable !</span>
             </div>
           </div>
         </div>

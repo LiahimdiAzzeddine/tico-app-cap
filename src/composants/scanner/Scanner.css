@@ -338,7 +338,7 @@
 
   .cadre {
     border: 0.5rem solid #ffffff;
-    background: radial-gradient(farthest-side at bottom right, #0000 98%, #ffffff) top left, radial-gradient(farthest-side at top right, #0000 98%, #ffffff) bottom left, radial-gradient(farthest-side at bottom left, #0000 98%, #ffffff) top right, radial-gradient(farthest-side at top left, #0000 98%, #ffffff) bottom right, #ffffff00;
+    background: radial-gradient(farthest-side at bottom right, #0000 98%, #ffffff) top left, radial-gradient(farthest-side at top right, #0000 98%, #ffffff) bottom left, radial-gradient(farthest-side at bottom left, #0000 98%, #ffffff) top right, radial-gradient(farthest-side at top left, #0000 98%, #ffffff) bottom right, #0000;
     background-size: 2rem 2rem;
     background-repeat: no-repeat;
     background-origin: padding-box;

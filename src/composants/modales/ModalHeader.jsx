@@ -8,7 +8,7 @@ import flecheRecette from "../../assets/recettes/fleche.svg";
 import OF from "../../assets/tips/OFleche.svg";
 import heardImg from "../../assets/fb/coeur.svg";
 
-function ModalHeader({ image, onClose, heart = false }) {
+function ModalHeader({ image, onClose }) {
   let SRC = ReturnImage; // Valeur par défaut pour SRC
 
   if (image === "x") {
@@ -36,10 +36,6 @@ function ModalHeader({ image, onClose, heart = false }) {
         <div className="text-orange-500 font-bold text-2xl titre-bold transform transition-transform duration-150 ease-in-out active:scale-90">
           <img src={Tico} alt="Tico" className="h-8" />
         </div>
-        {heart&&(
-        <div className="text-orange-500 font-bold text-2xl titre-bold transform transition-transform duration-150 ease-in-out active:scale-90">
-          <img src={heardImg} alt="Tico" className="h-10 w-10" />
-        </div>)}
       </div>
     </div>
   );

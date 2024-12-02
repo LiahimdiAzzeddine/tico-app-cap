@@ -5,10 +5,11 @@ import recetteBg from "../../assets/recettes/recetteBg.svg";
 import badgeimage from "../../assets/recettes/badge.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
+import "swiper/css/pagination";
 import defaultImageRecette from "../../assets/recettes/defaultImageRecette.png";
 
-import { Navigation } from "swiper/modules";
+//import { Navigation } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 
 // Fonction pour regrouper les étapes par lots de 3
 const groupSteps = (steps, groupSize) => {
@@ -127,18 +128,17 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               Recette
             </h2>
             <Swiper
-              modules={[Navigation]}
+              modules={[Pagination]}
               spaceBetween={10}
-              slidesPerView={1.1}
-              navigation
-              pagination={false}
+              slidesPerView={1}
               aria-label="Étapes de la recette"
+              pagination={{ clickable: true }}
             >
               {groupSteps(steps, 3).map((stepGroup, index) => (
                 <SwiperSlide key={index}>
                   <div className="h-full flex flex-col items-start justify-start ">
                     {stepGroup.map((step, stepIndex) => (
-                      <div key={stepIndex} className="mb-3 ">
+                      <div key={stepIndex} className="mb-2 ">
                         <p className="text-custom-red">
                           {"• "}
                           {step.description}

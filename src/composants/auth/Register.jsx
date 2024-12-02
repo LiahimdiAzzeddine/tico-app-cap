@@ -65,18 +65,12 @@ const AccountCreationForm = ({ onClose }) => {
   };
 
   return (
-    <div className="flex gap-4 flex-col justify-start items-center h-full ">
-      <h2 className="text-center titre-bold text-custom-blue text-2xl titre-bold grow">
-        Je crée mon{" "}
-        <span className="underline underline-offset-4 decoration-orange-400">
-          compte
-        </span>
-      </h2>
+    <div className="flex gap-4 flex-col justify-start items-center h-full">
+      <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full">
+        Je crée mon compte</h2>
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4 w-11/12 max-w-xs grow-[3]"
-      >
+        <form onSubmit={handleSubmit} className="space-y-4 w-11/12 max-w-xs h-5/6">
+      
         <div className="flex flex-col items-center">
           <label className="text-orange-500 mb-1 text-base text-center font-bold">
             Mon adresse mail

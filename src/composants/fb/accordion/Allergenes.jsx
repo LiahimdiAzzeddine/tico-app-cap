@@ -1,33 +1,32 @@
 import React from 'react';
 import Arachides from '../../../assets/fb/Allergenes/Arachides.svg';
 import Celeri from '../../../assets/fb/Allergenes/Céleri.svg';
-import Crustace from '../../../assets/fb/Allergenes/Crustacé.svg';
+import Mollusques from '../../../assets/fb/Allergenes/Mollusques.svg';
 import Crustaces from '../../../assets/fb/Allergenes/Crustacés.svg';
 import FruitsCoque from '../../../assets/fb/Allergenes/Fruits à coque.svg';
 import Gluten from '../../../assets/fb/Allergenes/Gluten.svg';
 import Lait from '../../../assets/fb/Allergenes/Lait.svg';
-import Lupins from '../../../assets/fb/Allergenes/Lupins.svg';
+import Lupin from '../../../assets/fb/Allergenes/Lupin.svg';
 import Moutarde from '../../../assets/fb/Allergenes/Moutarde.svg';
-import Oeufs from '../../../assets/fb/Allergenes/Oeufs.svg';
+import Oeuf from '../../../assets/fb/Allergenes/Oeuf.svg';
 import Poisson from '../../../assets/fb/Allergenes/Poisson.svg';
 import Sesame from '../../../assets/fb/Allergenes/Sésame.svg';
 import Soja from '../../../assets/fb/Allergenes/Soja.svg';
 import Sulfites from '../../../assets/fb/Allergenes/Sulfites.svg';
 
 const Allergenes = ({ allergenes = [] }) => {
-  console.log("🚀 ~ Allergenes ~ allergenes:", allergenes)
   // Mapping allergens to images
   const allergenesImg = {
     Arachides: Arachides,
     Celeri: Celeri,
-    Crustace: Crustace,
+    Mollusques: Mollusques,
     Crustaces: Crustaces,
     FruitsCoque: FruitsCoque,
     Gluten: Gluten,
     Lait: Lait,
-    Lupins: Lupins,
+    Lupin: Lupin,
     Moutarde: Moutarde,
-    Oeufs: Oeufs,
+    Oeuf: Oeuf,
     Poisson: Poisson,
     Sesame: Sesame,
     Soja: Soja,

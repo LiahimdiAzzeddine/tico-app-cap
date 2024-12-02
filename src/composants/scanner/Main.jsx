@@ -13,9 +13,9 @@ const Main = () => {
     error: null,
     hasPermission: null,
     showAlert: null,
-    scannedResult: "3266980784614",
+    scannedResult: null,
     flashOn: false,
-    modalIsOpen: true,
+    modalIsOpen: false,
     hideBg: false,
   });
 
@@ -207,7 +207,7 @@ const Main = () => {
         {!appState.hasPermission ? (
           <IonRow class="w-full h-full flex flex-col text-center justify-center items-center">
             <IonText color="danger" className="mb-1">{appState.error}</IonText>
-            <IonButton onClick={() => startScan(true)}>Autoriser la caméra</IonButton>
+            <IonButton style={{"--background":"#0f548d"}} onClick={() => startScan(true)}>Autoriser la caméra</IonButton>
           </IonRow>
         ) : (
           <ScanArea

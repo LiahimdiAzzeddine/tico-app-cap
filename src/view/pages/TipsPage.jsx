@@ -34,7 +34,7 @@ function TipsPage() {
           }}
         >
           <h2 className="text-center text-custom-text-orange text-2xl titre-bold">
-            Tit'conseils
+            Ti'conseils
           </h2>
         </div>
       </div>

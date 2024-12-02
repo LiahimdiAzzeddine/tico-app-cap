@@ -93,7 +93,7 @@ const BottomNavbar = () => {
             aria-label="Favoris"
           >
             <img
-              src={authState ? favoris_active : favoris}
+              src={favoris_active}
               alt="Favoris"
               className="w-14 h-14 mb-1"
             />

@@ -76,9 +76,7 @@ const History = () => {
           }}
         >
           <h2 className="text-center text-custom-green-text text-[1.7rem] titre-bold">
-            Mon&nbsp;
-            <span className="marker-effect-orange z-10">historique</span>
-            &nbsp;de scan
+            Mon&nbsp;historique&nbsp;de scan
           </h2>
         </div>
 

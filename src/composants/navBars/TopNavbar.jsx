@@ -49,9 +49,9 @@ const TopNavbar = () => {
               aria-label="Go to home"
             >
               <div className="flex flex-col items-start justify-center space-y-1 p-1">
-                <span className="block w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span className="block w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span className="block w-2 h-2 bg-blue-500 rounded-full"></span>
+                <span className="block w-2 h-2 bg-custom-blue rounded-full"></span>
+                <span className="block w-2 h-2 bg-custom-blue rounded-full"></span>
+                <span className="block w-2 h-2 bg-custom-blue rounded-full"></span>
               </div>
               <img src={tico} alt="Tico" className="h-8 ml-2" />
             </button>

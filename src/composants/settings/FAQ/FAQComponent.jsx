@@ -22,8 +22,7 @@ const FAQComponent = () => {
           }}
         >
           <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full z-10">
-            Foire aux&nbsp;
-            <span className="marker-effect-orange">questions</span>
+            Foire aux&nbsp;questions
           </h2>
         </div>
       </div>

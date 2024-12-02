@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { IonContent, IonModal } from "@ionic/react";
 import { useNetwork } from "../context/NetworkContext";
-import Background from "../assets/history/laterBackground.svg";
+import Background from "../assets/history/background.svg";
+
 import LaterItem from "../composants/history/LaterItem";
 import { EmptyLater } from "../composants/history/ui/EmptyLater";
 import ModalHeader from "../composants/modales/ModalHeader";
@@ -153,9 +154,8 @@ const LaterProducts = () => {
             backgroundSize: "contain",
           }}
         >
-          <h2 className="text-center text-custom-gray text-[1.7rem] titre-bold z-10">
-            Produits à&nbsp;
-            <span className="marker-effect-orange">Consulter</span>
+          <h2 className="text-center text-custom-green-text text-[1.7rem] titre-bold z-10">
+            Produits à&nbsp;consulter
           </h2>
         </div>
 

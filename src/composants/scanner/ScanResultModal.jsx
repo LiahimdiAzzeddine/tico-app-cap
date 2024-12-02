@@ -120,7 +120,7 @@ const ScanResultModal = ({
       }}
     >
       {/***/}
-      <ModalHeader image={"fb"} heart={true} onClose={() => handleDismiss(false)} />
+      <ModalHeader image={"fb"} onClose={() => handleDismiss(false)} />
 
       <IonContent className="ion-padding-bottom">
         {loading ? (
@@ -161,7 +161,7 @@ const ScanResultModal = ({
                 </p>
                 <IonButton
                   onClick={() => addToLaterProducts(scannedResult, product)}
-                  color="primary"
+                  style={{"--background":"#0f548d"}}
                 >
                  Sauvegarder
                 </IonButton>
