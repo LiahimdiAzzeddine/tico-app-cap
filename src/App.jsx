@@ -20,22 +20,18 @@ import RequireNoAuth from "./guards/RequireNoAuth"
 import { App as CapacitorApp } from "@capacitor/app"; // Import de Capacitor App
 import { useToast } from "./context/ToastContext";
 import { useHistory } from "react-router-dom"; // Import du hook useHistory
-import { StatusBar } from "@capacitor/status-bar"; // Import de Capacitor pour StatusBar
-import { ScreenOrientation } from "@capacitor/screen-orientation"; // Import de Capacitor pour ScreenOrientation
+import { StatusBar } from '@capacitor/status-bar';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
 function App() {
   const { showToast } = useToast();
   const [exitApp, setExitApp] = useState(false);
   const history = useHistory();
   useEffect(() => {
-    // Configurer la barre d'état et l'orientation de l'écran
-    try {
-      StatusBar.setOverlaysWebView({ overlay: true }); // Configure la superposition de la barre d'état
-      StatusBar.setBackgroundColor({ color: "#ffffff" }); // Définir la couleur de fond
-      StatusBar.setStyle({ style: "DARK" }); // Style de la barre d'état
-      ScreenOrientation.lock({ orientation: "portrait" }); // Verrouiller l'orientation en portrait
-    } catch (error) {
-      console.error("Erreur de configuration de StatusBar ou ScreenOrientation:", error);
-    }
+    // Masquer la barre d'état sur iOS
+    StatusBar.setOverlays(true);
+    StatusBar.setBackgroundColor({ color: '#ffffff' }); // Couleur de fond pour la barre d'état
+    StatusBar.setStyle({ style: 'DARK' }); // Style sombre pour le texte de la barre d'état
+    ScreenOrientation.lock();
   }, []);
   useEffect(() => {
     // Écouter le bouton retour physique sur mobile
