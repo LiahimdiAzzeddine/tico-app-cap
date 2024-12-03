@@ -51,9 +51,10 @@
 	</array>
 	
 	<key>UIStatusBarHidden</key>
-<false/>
-<key>UIViewControllerBasedStatusBarAppearance</key>
 <true/>
+
+<key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
 
 </dict>
 </plist>
