@@ -33,7 +33,7 @@ function App() {
     StatusBar.setStyle({ style: 'DARK' }); // Style sombre pour le texte de la barre d'état
     ScreenOrientation.lock({ orientation: 'portrait' });
   }, []);
-
+  
   useEffect(() => {
     // Écouter le bouton retour physique sur mobile
     const backButtonListener = CapacitorApp.addListener("backButton", (event) => {
