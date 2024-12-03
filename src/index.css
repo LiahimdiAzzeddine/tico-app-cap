@@ -42,10 +42,10 @@
   font-style: italic;
 }
 
-/*
+/**/
 html {
   --ion-safe-area-left: 25px;
-}*/
+}
 
 ion-modal {
   --ion-safe-area-top: 0;
