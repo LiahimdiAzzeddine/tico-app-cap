@@ -51,7 +51,7 @@ const Additifs = ({ additifs }) => {
                 </div>
                 <div className="text-custom-blue text-sm">
                   {item?.fonction1 && item?.fonction2
-                    ? `${item.fonction1} | ${SelectedNoteUFC(item.noteUFC)}`
+                    ? `${item.fonction1},${item.fonction2} | ${SelectedNoteUFC(item.noteUFC)}`
                     : item?.fonction1 || SelectedNoteUFC(item.noteUFC)}
                 </div>
               </div>

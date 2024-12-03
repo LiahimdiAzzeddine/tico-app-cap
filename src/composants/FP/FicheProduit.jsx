@@ -36,8 +36,6 @@ const FicheProduit = (props) => {
               Brand={props.productData?.trademark}
               Transparent={props.productData?.transparent}
               ImageSrc={props.productData?.image}
-              
-              
             />
             <InfoSection
             product={props.productData}

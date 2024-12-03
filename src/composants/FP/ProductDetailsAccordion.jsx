@@ -16,7 +16,7 @@ import { ContactModal } from "./Modal";
 // Composants pour chaque contenu de panneau
 const 
 ProductDetailsAccordion = ({product,togglePanel,openPanel,targetRefNutriInfo}) => {
-  const [bubbleVisible] = useState(true); // Bulle toujours visible
+  const [bubbleVisible] = useState(false); // Bulle toujours visible
   const [isOpen, setIsOpen] = useState(false);
 
   const disabledPanels = [3,4,5,6,7,8]; // Désactive les panneaux 2, 4 et 6

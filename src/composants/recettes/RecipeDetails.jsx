@@ -22,14 +22,22 @@ const groupSteps = (steps, groupSize) => {
 };
 
 const RecipeDetails = ({ recipe = {}, custom = true }) => {
-  let title, subtitle, preparation, cuisson, image, difficulte, regimes, ingredients, steps;
+  let title,
+    subtitle,
+    preparation,
+    cuisson,
+    image,
+    difficulte,
+    regimes,
+    ingredients,
+    steps;
 
   if (custom) {
     // Assigner les valeurs lorsque 'custom' est true
     ({
       title = "Recette sans titre",
       timecook: preparation = "0 min",
-      timebake: cuisson ="0 min",
+      timebake: cuisson = "0 min",
       image = defaultImageRecette,
       difficulte,
       regimes = [],
@@ -50,7 +58,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
       recette: steps = [],
     } = recipe);
   }
-  
+
   const defaultImage = defaultImageRecette;
   return (
     <>
@@ -133,12 +141,13 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               slidesPerView={1}
               aria-label="Étapes de la recette"
               pagination={{ clickable: true }}
+              className="recipe-slider"
             >
               {groupSteps(steps, 3).map((stepGroup, index) => (
                 <SwiperSlide key={index}>
-                  <div className="h-full flex flex-col items-start justify-start ">
+                  <div className="h-full flex flex-col items-start justify-start mb-6">
                     {stepGroup.map((step, stepIndex) => (
-                      <div key={stepIndex} className="mb-2 ">
+                      <div key={stepIndex} className="mb-2">
                         <p className="text-custom-red">
                           {"• "}
                           {step.description}

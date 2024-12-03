@@ -1,13 +1,18 @@
-.swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
-min-height: 8vh;
+/* Styles uniquement pour WelcomeSlider */
+.welcome-slider .swiper-horizontal > .swiper-pagination-bullets, 
+.welcome-slider .swiper-pagination-bullets.swiper-pagination-horizontal {
+  min-height: 8vh;
 }
-.swiper-pagination-bullet-active {
+
+.welcome-slider .swiper-pagination-bullet-active {
   background: #ff8300;
 }
-.swiper-pagination-bullet {
+
+.welcome-slider .swiper-pagination-bullet {
   background: #ffc17f;
 }
-.swiper-pagination-bullet {
+
+.welcome-slider .swiper-pagination-bullet {
   width: var(--swiper-pagination-bullet-width, var(--swiper-pagination-bullet-size, 12px));
   height: var(--swiper-pagination-bullet-height, var(--swiper-pagination-bullet-size, 12px));
   background: #ffc17f;

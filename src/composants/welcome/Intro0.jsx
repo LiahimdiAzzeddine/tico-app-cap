@@ -1,9 +1,8 @@
 import React from "react";
 import tico_intro from "../../assets/intro/tico_intro.svg";
-import plusIcon from "../../assets/intro/plus.png";
 import background from "../../assets/intro/background.svg";
 
-function Intro1() {
+function Intro0() {
   return (
     <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full">
       {/* Logo Section */}
@@ -19,29 +18,13 @@ function Intro1() {
             backgroundImage: `url(${background})`,
           }}
         >
-          <div className="flex flex-col items-center justify-evenly gap-3 text-center">
-           
+          <div className="flex flex-col items-center justify-evenly w-4/5 gap-3 text-center space-y-6">
+            <h2 className="text-2xl titre-bold text-custom-blue underline underline-offset-4 decoration-orange-400">
+              Bienvenue !
+            </h2>
+            
             <div className="text-xl text-custom-blue">
-            Quand l’information est
-            </div>
-
-            {/* Feature List */}
-            <ul className="list-none p-0 w-10/12 m-auto">
-              {["claire", "complète", "accessible"].map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-center justify-start text-xl text-custom-blue my-1"
-                >
-                  <img src={plusIcon} alt="Check Icon" className="mr-2 w-7 h-7" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="text-xl text-custom-blue">
-            alors <span className="font-bold">le choix est libre.</span>
-            </div>
-            <div className="text-xl text-custom-blue">
-C’est ça la transparence.
+            <span className="font-bold">TiCO</span> est l’application <span className="font-bold">qui évalue la transparence</span> des produits alimentaires.
             </div>
           </div>
         </div>
@@ -53,4 +36,4 @@ C’est ça la transparence.
   );
 }
 
-export default Intro1;
+export default Intro0;

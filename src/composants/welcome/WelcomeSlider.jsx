@@ -10,6 +10,7 @@ import Intro3 from "./Intro3";
 import Intro4 from "./intro4";
 import Intro5 from "./intro5";
 import Intro6 from "./intro6";
+import Intro0 from "./Intro0";
 
 function WelcomeSlider() {
   return (
@@ -18,8 +19,11 @@ function WelcomeSlider() {
         spaceBetween={0}
         slidesPerView={1}
         pagination={{ clickable: true }}
-        className="h-full w-full"
+        className="h-full w-full welcome-slider" 
       >
+        <SwiperSlide>
+          <Intro0/>
+        </SwiperSlide>
         <SwiperSlide>
           <Intro1/>
         </SwiperSlide>
@@ -27,11 +31,11 @@ function WelcomeSlider() {
         <SwiperSlide>
         <Intro2/>
         </SwiperSlide>
-
+{/*
         <SwiperSlide>
         <Intro3/>
         </SwiperSlide>
-
+ */}
         <SwiperSlide>
         <Intro4/>
         </SwiperSlide>

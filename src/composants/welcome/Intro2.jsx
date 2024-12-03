@@ -1,7 +1,7 @@
 import React from "react";
 import tico_intro from "../../assets/intro/tico_intro.svg";
 import barcode from "../../assets/intro/barcode.svg";
-import background from "../../assets/intro/background2.png";
+import background from "../../assets/intro/background2.svg";
 
 function Intro2() {
   return (
@@ -11,25 +11,20 @@ function Intro2() {
         <img className="w-64" src={tico_intro} alt="TiCO Logo" />
       </div>
 
-      <div className="grow flex items-center justify-center w-full max-w-sm  px-1 md:px-0">
-        
+      <div className="grow flex items-center justify-center w-full max-w-sm px-2">
         <div
-          className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center relative"
+          className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center relative "
           style={{ backgroundImage: `url(${background})` }}
         >
           <img
-          src={barcode}
-          className="max-h-20 mx-auto z-10 absolute top-[-1vh] left-0 right-0"
-          alt="Barcode"
-        />
+            src={barcode}
+            className="max-h-20 mx-auto z-10 absolute top-[-1vh] left-0 right-0"
+            alt="Barcode"
+          />
           <div className="flex flex-col items-center justify-center w-4/5 gap-3 text-center">
             <div className="text-xl text-custom-blue ">
-              Scannez vos produits et accédez à des informations claires et
-              utiles.
-            </div>
-            <div className="text-xl text-custom-blue">
-              <div className="font-bold text-xl">Ensemble,</div> encourageons plus de
-              transparence et des pratiques responsables. 🌍✨
+              Encourager les pratiques plus responsables d’un{" "}
+              <span className="font-bold">simple scan.</span>
             </div>
           </div>
         </div>

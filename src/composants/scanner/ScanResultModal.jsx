@@ -5,7 +5,7 @@ import {
   IonButton,
 } from "@ionic/react";
 import { alertCircle, searchCircle } from "ionicons/icons";
-import FicheProduit from "../fb/FicheProduit";
+import FicheProduit from "../FP/FicheProduit";
 import { useEffect, useState } from "react";
 import useGetProduct from "../../hooks/product/useGetProduit";
 import { addProduct,addLaterProduct } from "../../hooks/useIndexedDB";

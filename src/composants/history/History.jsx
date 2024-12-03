@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Background from "../../assets/history/background.svg";
 import { getAllProducts } from "../../hooks/useIndexedDB";
 import { IonContent, IonModal } from "@ionic/react";
-import FicheProduit from "../fb/FicheProduit";
+import FicheProduit from "../FP/FicheProduit";
 import Item from "./Item";
 import { EmptyState } from "./ui/EmptyState";
 import ModalHeader from "../modales/ModalHeader";

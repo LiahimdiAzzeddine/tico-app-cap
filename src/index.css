@@ -17,32 +17,31 @@
 }
 
 @font-face {
-  font-family: 'RobotoRegular';
-  src: url('./assets/fonts/Roboto-Regular.ttf') format('truetype');
+  font-family: 'Archivo';
+  src: url('./assets/fonts/Archivo-Regular.otf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
-  font-family: 'RobotoBold';
-  src: url('./assets/fonts/Roboto-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'emiExpandedBold';
-  src: url('./assets/fonts/Stapel-SemiExpandedBold.ttf') format('truetype');
+  font-family: 'Archivo';
+  src: url('./assets/fonts/Archivo-Bold.otf') format('opentype');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Archivo';
-  src: url('./assets/fonts/Archivo-Regular.otf') format('truetype');
+  src: url('./assets/fonts/Archivo-Italic.otf') format('opentype');
   font-weight: normal;
-  font-style: normal;
+  font-style: italic;
 }
+@font-face {
+  font-family: 'Archivo';
+  src: url('./assets/fonts/Archivo-BoldItalic.otf') format('opentype');
+  font-weight: bold;
+  font-style: italic;
+}
+
 /*
 html {
   --ion-safe-area-left: 25px;
@@ -122,7 +121,7 @@ body {
 }
 
 .titre-roboto-bold {
-  font-family: 'RobotoBold', Arial, sans-serif;
+  font-family: 'Archivo', Arial, sans-serif;
   font-weight: 900;
 }
 
@@ -307,3 +306,28 @@ padding-top: 1rem;
   background: #c32721;
 }
 */
+/* Styles pour le slider de recette */
+.recipe-slider .swiper-pagination-bullet {
+  background: #ff0000; /* Couleur rouge */
+}
+
+.recipe-slider .swiper-pagination-bullet-active {
+  background: #d00000; /* Rouge plus foncé pour l'actif */
+}
+
+.recipe-slider .swiper-pagination {
+  bottom: 10px; /* Position en bas du slider */
+}
+
+.recipe-slider .swiper-pagination-bullets {
+  display: flex;
+  justify-content: center; /* Centrer les points */
+  align-items: center;
+  gap: 8px; /* Espacement entre les points */
+}
+
+.recipe-slider .swiper-pagination-bullet {
+  width: 12px; /* Taille des points */
+  height: 12px;
+  border-radius: 50%;
+}

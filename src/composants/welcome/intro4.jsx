@@ -19,16 +19,12 @@ function Intro4() {
           style={{ backgroundImage: `url(${background})` }}
         >
           <div className="flex flex-col items-center justify-center w-4/5 text-center gap-4">
-           <h2 className="text-2xl titre-bold text-custom-blue mb-2">Prêt à{" "}
-              <span className="text-2xl underline underline-offset-4 decoration-orange-400">
-                commencer
-              </span>
-              {" "}?
-            </h2>
+        
             <div className="text-xl text-custom-blue ">
-              Scannez votre premier produit, explorez nos recettes, et
-              participez à rendre l'alimentation
-              <span className="font-bold"> plus transparente et durable !</span>
+            Bien plus qu’une application, <span className="font-bold">un allié au quotidien !</span>
+            </div>
+            <div className="text-xl text-custom-blue ">
+            Recettes faciles<br></br> Astuces utiles 
             </div>
           </div>
         </div>

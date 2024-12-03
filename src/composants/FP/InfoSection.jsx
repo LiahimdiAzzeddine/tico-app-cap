@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import illustrationOrigines from "../../assets/fb/BubbleImg.svg";
-
 import { chevronForwardOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { ContactModal, ContactAdditif, NutrriInfo } from "./Modal";
-import { IonContent, IonModal } from "@ionic/react";
-import ReturnImage from "../../assets/fb/flech.svg";
-
+import { ContactModal, ContactAdditif, NutrriInfo, Solliciter } from "./Modal";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import Nutri_score_A from "../../assets/fb/score/Nutri_score_A.png";
 import Nutri_score_B from "../../assets/fb/score/Nutri-score-B.png";
 import Nutri_score_C from "../../assets/fb/score/Nutri-score-C.png";
 import Nutri_score_D from "../../assets/fb/score/Nutri-score-D.png";
 import Nutri_score_E from "../../assets/fb/score/Nutri-score-E.png";
 import Sections from "./Sections";
+import { useHistory } from "react-router-dom";
+import { useAlert } from "../../context/AlertProvider";
 
 const InfoSection = ({ product,togglePanel,scrollToTarget,targetRefNutriInfo,targetRefRecettes }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenadd, setIsOpenadd] = useState(false);
   const [isOpenNutrition, setIsOpenNutrition] = useState(false);
-
-
+  const isAuthenticated = useIsAuthenticated();
+  const authUser = useAuthUser();
+  const history = useHistory();
+  const { triggerAlert } = useAlert();
   // Mapping nutriscore to images
   const nutriscoreImages = {
     A: Nutri_score_A,
@@ -27,6 +29,21 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,targetRefNutriInfo,tar
     C: Nutri_score_C,
     D: Nutri_score_D,
     E: Nutri_score_E,
+  };
+  const OpenContactSolliciter = () => {
+    if (!isAuthenticated) {
+      triggerAlert(
+        "Connecte-toi pour encourager la marque",
+        "Attention",
+        () => {
+          history.replace("login");
+        },
+        "ios",
+        "Se connecter"
+      );
+    } else {
+      setIsOpen(true)
+    }
   };
 
 
@@ -87,7 +104,7 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,targetRefNutriInfo,tar
                       className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
                       src={illustrationOrigines}
                       alt="Illustration des origines du produit"
-                      onClick={() => setIsOpen(true)}
+                      onClick={() => OpenContactSolliciter()}
                     />
                   </div>
                 </div>
@@ -129,7 +146,7 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,targetRefNutriInfo,tar
                     className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
                     src={illustrationOrigines}
                     alt="Illustration des origines du produit"
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => OpenContactSolliciter()}
                   />
                 </div>
               </div>
@@ -179,7 +196,7 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,targetRefNutriInfo,tar
                         className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
                         src={illustrationOrigines}
                         alt="Illustration des origines du produit"
-                        onClick={() => setIsOpen(true)}
+                        onClick={() => OpenContactSolliciter()}
                       />
                     </div>
                   </div>
@@ -208,7 +225,7 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,targetRefNutriInfo,tar
                       className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
                       src={illustrationOrigines}
                       alt="Illustration des origines du produit"
-                      onClick={() => setIsOpen(true)}
+                      onClick={() => OpenContactSolliciter()}
                     />
                   </div>
                 </div>
@@ -216,7 +233,11 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,targetRefNutriInfo,tar
             </div>
           </div>
         </div>
-        <ContactModal isOpen={isOpen} setIsOpen={setIsOpen} gtin={product?.gtin} />
+        <Solliciter
+        isOpen={isOpen} setIsOpen={setIsOpen} gtin={product?.gtin}
+        authUser={authUser}
+       
+      />
         <ContactAdditif
           isOpen={isOpenadd}
           setIsOpen={setIsOpenadd}

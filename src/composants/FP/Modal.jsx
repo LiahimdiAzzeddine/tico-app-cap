@@ -9,10 +9,8 @@ import background from "../../assets/fb/popup/background.svg";
 import closeImg from "../../assets/fb/popup/close.svg";
 import ContactImg from "../../assets/fb/BubbleImg.svg";
 import flecheLeft from "../../assets/fb/popup/flecheleft.svg";
-import flecheRight from "../../assets/fb/popup/flecheRight.svg";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Additif from "../../assets/fb/additifs.svg";
-import { Link } from "react-router-dom";
 import pastilleNote1 from "../../assets/fb/pastille-note-1.svg";
 import pastilleNote2 from "../../assets/fb/pastille-note-2.svg";
 import pastilleNote3 from "../../assets/fb/pastille-note-3.svg";
@@ -314,23 +312,23 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <div className="flex flex-col w-full h-full items-center justify-center">
         {/* Fixed Header with Buttons */}
-        <div className="sticky top-0">
-          <div className="flex flex-col gap-1 max-w-xs mx-auto">
+        <div className="sticky">
+          <div className="flex flex-row gap-1 max-w-xs mx-auto pt-2">
             <button
               style={{ border: "2px solid #0f548d" }}
-              className={`flex-1 p-1 rounded-lg  ${
+              className={`flex-1 p-1 rounded-xl  ${
                 showInfo === "transformation"
                   ? "bg-custom-blue font-bold text-white"
                   : "text-custom-blue"
               }`}
               onClick={() => setShowInfo("transformation")}
             >
-              Transformation
+              Naturalité
             </button>
 
             <button
               style={{ border: "2px solid #0f548d" }}
-              className={`flex-1 p-1 rounded-lg  ${
+              className={`flex-1 p-1 rounded-xl  ${
                 showInfo === "additifs"
                   ? "bg-custom-blue text-white font-bold"
                   : "text-custom-blue"
@@ -456,27 +454,22 @@ export const NutrriInfo = ({
         {/* Fixed Header with Buttons */}
         <div className="sticky top-0">
           {/* Title */}
-          <h1 className="text-xl text-custom-blue flex items-start py-2">
+          <h1 className="text-xl text-custom-blue flex flex-col items-center justify-center py-1">
             <span className="font-bold">Nutrition</span>
           </h1>
-        </div>
-        {/* Scrollable Content Area */}
-        <div className="flex-1 overflow-y-auto px-4">
-          <div className="max-w-md mx-auto">
-            <div className="py-2 flex justify-center">
+          <div className="py-2 flex justify-center">
               <img
-                className="w-2/4"
+                className="w-1/3"
                 src={selectedNutriscoreImage}
                 alt="Nutri-Score"
               />
             </div>
-            <div className=" text-custom-blue text-center pb-2">
-              {selectedNutriscorePhrase}
-          
-            </div>
+        </div>
+        {/* Scrollable Content Area */}
+        <div className="flex-1 overflow-y-aut">
+          <div className="max-w-md mx-auto">
             <div className=" text-custom-blue text-center">
-              {nutriscore_comment}
-            </div>
+            Les produits classés E sont ceux qui contiennent le plus d’éléments à limiter (graisses saturées, sucres, sel). Ils sont à consommer avec parcimonie. Toutefois, certains produits peuvent être classés E tout en étant intéressants nutritionnellement, comme certaines huiles. L’important, c’est de les intégrer à petite dose dans votre alimentation globale.            </div>
           </div>
         </div>
         {/* Fixed Footer */}

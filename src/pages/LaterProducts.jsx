@@ -6,7 +6,7 @@ import Background from "../assets/history/background.svg";
 import LaterItem from "../composants/history/LaterItem";
 import { EmptyLater } from "../composants/history/ui/EmptyLater";
 import ModalHeader from "../composants/modales/ModalHeader";
-import FicheProduit from "../composants/fb/FicheProduit";
+import FicheProduit from "../composants/FP/FicheProduit";
 import { useAlert } from "../context/AlertProvider"; 
 
 import {

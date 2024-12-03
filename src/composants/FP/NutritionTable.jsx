@@ -57,7 +57,7 @@ const NutritionTable = ({ product }) => {
             {item.name}
           </td>
           <td className="text-right py-1 min-w-20">
-            {value?.toFixed(2)} {item.value.unit}
+            {value} {item.value.unit}
           </td>
           <td className="text-right text-gray-500 py-1 min-w-16">
             {item.value.vnr || ""} 
