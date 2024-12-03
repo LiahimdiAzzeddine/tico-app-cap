@@ -27,11 +27,22 @@ function App() {
   const [exitApp, setExitApp] = useState(false);
   const history = useHistory();
   useEffect(() => {
-    // Masquer la barre d'état sur iOS
-    //StatusBar.setOverlays(true);
-    StatusBar.setBackgroundColor({ color: '#ffffff' }); // Couleur de fond pour la barre d'état
-    StatusBar.setStyle({ style: 'DARK' }); // Style sombre pour le texte de la barre d'état
-    ScreenOrientation.lock({ orientation: 'portrait' });
+    const configureStatusBar = async () => {
+      try {
+        // Assurez-vous que la barre d'état est visible
+        await StatusBar.setOverlaysWebView({ overlay: false });
+        
+        // Définir la couleur de fond pour Android (iOS utilise la couleur par défaut de l'application)
+        await StatusBar.setBackgroundColor({ color: "#ffffff" });
+
+        // Style de la barre d'état (clair ou sombre)
+        await StatusBar.setStyle({ style: "DARK" });
+      } catch (error) {
+        console.error("Erreur lors de la configuration de la barre d'état :", error);
+      }
+    };
+
+    configureStatusBar();
   }, []);
   
   useEffect(() => {
