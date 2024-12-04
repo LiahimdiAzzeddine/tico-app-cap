@@ -28,11 +28,10 @@ function App() {
   const history = useHistory();
   useEffect(() => {
     // Masquer la barre d'état sur iOS
-    StatusBar.setOverlays({ overlay: true });
-    StatusBar.setOverlaysWebView({ overlay: true });
+    /*StatusBar.setOverlaysWebView({ overlay: true });
     StatusBar.setBackgroundColor({ color: '#ffffff' }); // Couleur de fond pour la barre d'état
     StatusBar.setStyle({ style: 'DARK' }); // Style sombre pour le texte de la barre d'état
-    ScreenOrientation.lock({ orientation: 'portrait' });
+    ScreenOrientation.lock({ orientation: 'portrait' });*/
   }, []);
   
   useEffect(() => {

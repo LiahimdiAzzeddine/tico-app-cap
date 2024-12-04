@@ -38,7 +38,7 @@ const FAQItem = ({ question, answer,index, length }) => {
         </div>
         {isOpen && (
           <div 
-            className="my-2 p-4 rounded-e-full bg-[#fff5d3] border-y border-r border-yellow-200 " 
+            className="my-2 p-4 rounded-e-[5rem] w-[99%] bg-[#fff5d3] border-y border-r border-yellow-200 " 
           
           >
             <div className="text-[#1a5b90] w-11/12 text-sm">
