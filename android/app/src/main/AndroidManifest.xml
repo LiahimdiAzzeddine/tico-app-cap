@@ -20,7 +20,6 @@ xmlns:tools="http://schemas.android.com/tools"
             android:theme="@style/AppTheme.NoActionBarLaunch"
             android:launchMode="singleTask"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -29,9 +28,9 @@ xmlns:tools="http://schemas.android.com/tools"
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="tico" android:host="fiche-produit" />
-        <data android:scheme="votre_schema_de_deep_link" />
-
+          <data
+            android:scheme="tico"
+            android:host="com.tico.app" />
     </intent-filter>
         </activity>
 

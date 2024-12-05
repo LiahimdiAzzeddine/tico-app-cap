@@ -6,9 +6,11 @@
   <string>To be able to scan barcodes</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>CFBundleURLSchemes</key>
+	 <key>CFBundleURLName</key>
+        <string>com.tico.app</string>
+        <key>CFBundleURLSchemes</key>
         <array>
-            <string>tico</string> <!-- Changez "myapp" pour votre schéma -->
+            <string>tico</string>
         </array>
 	<key>CFBundleDisplayName</key>
         <string>tico-app</string>

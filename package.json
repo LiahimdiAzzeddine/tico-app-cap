@@ -28,6 +28,8 @@
     "@capgo/capacitor-flash": "^6.0.3",
     "@ionic/react": "^8.3.2",
     "@ionic/react-router": "^8.4.0",
+    "@stripe/react-stripe-js": "^3.0.0",
+    "@stripe/stripe-js": "^5.2.0",
     "@zxing/library": "^0.21.3",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",

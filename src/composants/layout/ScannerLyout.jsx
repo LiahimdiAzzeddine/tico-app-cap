@@ -7,7 +7,7 @@ function ScannerLyout({ children }) {
   return (
       <IonPage id="main-content">
         <TopNavbar />
-        <div className="cadre w-screen h-screen">
+        <div className="cadre w-screen h-full">
         { children }
         </div>
         <BottomNavbar />

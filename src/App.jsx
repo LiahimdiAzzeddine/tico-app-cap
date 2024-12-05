@@ -1,7 +1,6 @@
-import React, { useEffect,useState  } from "react";
+import React, { useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
+import {IonRouterOutlet } from "@ionic/react";
 import Home from "./pages/Home";
 import Favorite from "./pages/Favorite";
 import HelpTiCO from "./pages/HelpTiCO";
@@ -16,88 +15,92 @@ import HomeLayout from "./composants/layout/HomeLyout";
 import AuthLayout from "./composants/layout/AuthLyout";
 import LaterProducts from "./pages/LaterProducts";
 import SimpleLyout from "./composants/layout/SimpleLyout";
-import RequireNoAuth from "./guards/RequireNoAuth"
-import { App as CapacitorApp } from "@capacitor/app"; // Import de Capacitor App
-import { useToast } from "./context/ToastContext";
-import { useHistory } from "react-router-dom"; // Import du hook useHistory
-import { StatusBar } from '@capacitor/status-bar';
-import { ScreenOrientation } from '@capacitor/screen-orientation';
-function App() {
-  const { showToast } = useToast();
-  const [exitApp, setExitApp] = useState(false);
+import RequireNoAuth from "./guards/RequireNoAuth";
+import { App as CapacitorApp } from "@capacitor/app"; 
+import { useHistory } from "react-router-dom"; 
+import { ScreenOrientation } from "@capacitor/screen-orientation";
+import { useAlert } from "./context/AlertProvider";
+
+function App() { 
   const history = useHistory();
+  const { triggerAlert } = useAlert();
+
   useEffect(() => {
-    // Masquer la barre d'état sur iOS
-    /*StatusBar.setOverlaysWebView({ overlay: true });
-    StatusBar.setBackgroundColor({ color: '#ffffff' }); // Couleur de fond pour la barre d'état
-    StatusBar.setStyle({ style: 'DARK' }); // Style sombre pour le texte de la barre d'état
-    ScreenOrientation.lock({ orientation: 'portrait' });*/
-  }, []);
-  
-  useEffect(() => {
-    // Écouter le bouton retour physique sur mobile
-    const backButtonListener = CapacitorApp.addListener("backButton", (event) => {
-      if (history.location.pathname === "/scanner") {
-        if (exitApp) {
-          CapacitorApp.exitApp(); // Quitter l'application
-        } else {
-          setExitApp(true); // Activer l'état de sortie
-          showToast("Appuyez à nouveau pour quitter l'application", "info");
-          setTimeout(() => setExitApp(false), 2000); // Réinitialiser l'état après 2 secondes
+    const appUrlListener = CapacitorApp.addListener("appUrlOpen", (data) => {
+      console.log("App opened with URL:", data.url);
+
+      if (data.url) {
+        // Extraire la partie de l'URL après `tico://com.tico.app/`
+        const path = data.url.split("tico://com.tico.app/")[1];
+
+        if (path) {
+          const route = `/${path}`;
+          console.log("Redirecting to route:", route);
+
+          // Si la route est "login", afficher une alerte et rediriger
+          if (path === "login") {
+            triggerAlert(
+              "Félicitations, vous avez validé votre inscription !",
+              "Validation",
+              () => {
+                history.replace("/login"); // Redirection vers la route "login"
+              },
+              "ios",
+              "Se connecter"
+            );
+          }
         }
-      } else {
-        history.push("scanner"); // Naviguer vers la page précédente
       }
     });
+
+    // Verrouiller l'orientation en mode portrait
+    ScreenOrientation.lock({ orientation: "portrait" });
+
+    // Nettoyage à la destruction du composant
     return () => {
-      backButtonListener.remove(); // Supprimer l'écouteur à la destruction
+      appUrlListener.remove(); // Supprimer le listener pour éviter les fuites de mémoire
     };
-  }, [exitApp, history, showToast]);
+  }, []);
   
-//animated={false}
   return (
-    <IonApp>
-      <IonReactRouter>
-        <IonRouterOutlet  swipeGesture={true} animated={true} >
-          <Route exact path="/welcome" component={Welcome} />
-          <Route path="/home" exact={true}>
-          <RequireNoAuth>
-            <HomeLayout>
-              <Home />
-            </HomeLayout>
-            </RequireNoAuth>
-          </Route>
-          <Route path="/helptico" exact={true}>
-            <HomeLayout>
-              <HelpTiCO />
-            </HomeLayout>
-          </Route>
-          <Route path="/recipes" exact={true}>
-            <Recipes />
-          </Route>
-          <Route exact path="/tips" component={Tips} />
-          <Route exact path="/favorite" component={Favorite} />
-          <Route exact path="/scanner" component={Scanner} />
-          <Route exact path="/settings" component={Settings} />
-          <Route path="/laterProducts" exact={true}>
-            <SimpleLyout>
-              <LaterProducts />
-            </SimpleLyout>
-          </Route>
-          <Route path="/login" exact={true}>
-            <AuthLayout>
-              <Login />
-            </AuthLayout>
-          </Route>
-          <Route path="/signup" exact={true}>
-            <AuthLayout>
-              <AccountCreationForm />
-            </AuthLayout>
-          </Route>
-          <Redirect exact from="/" to="/scanner" />
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </IonApp>
+    <IonRouterOutlet swipeGesture={true} animated={true}>
+      <Route exact path="/welcome" component={Welcome} />
+      <Route path="/home" exact={true}>
+        <RequireNoAuth>
+          <HomeLayout>
+            <Home />
+          </HomeLayout>
+        </RequireNoAuth>
+      </Route>
+      <Route path="/helptico" exact={true}>
+        <HomeLayout>
+          <HelpTiCO />
+        </HomeLayout>
+      </Route>
+      <Route path="/recipes" exact={true}>
+        <Recipes />
+      </Route>
+      <Route exact path="/tips" component={Tips} />
+      <Route exact path="/favorite" component={Favorite} />
+      <Route exact path="/scanner" component={Scanner} />
+      <Route exact path="/settings" component={Settings} />
+      <Route path="/laterProducts" exact={true}>
+        <SimpleLyout>
+          <LaterProducts />
+        </SimpleLyout>
+      </Route>
+      <Route path="/login" exact={true}>
+        <AuthLayout>
+          <Login createCompte={true} />
+        </AuthLayout>
+      </Route>
+      <Route path="/signup" exact={true}>
+        <AuthLayout>
+          <AccountCreationForm />
+        </AuthLayout>
+      </Route>
+      <Redirect exact from="/" to="/scanner" />
+    </IonRouterOutlet>
   );
 }
 
