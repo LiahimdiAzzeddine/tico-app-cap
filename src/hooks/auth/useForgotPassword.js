@@ -6,21 +6,23 @@ const useForgotPassword = () => {
   const [error, setError] = useState(null);
   const privateClient = useAxiosPrivate();
 
-
   const handleForgotPassword = async (userData) => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await privateClient.post('/api/auth/forgot-password', userData);
+      const response = await privateClient.post("/api/auth/forgot-password", userData);
       if (response.data.success) {
+        return { success: true };
       } else {
-        
         setError(response.data.message);
+        return { success: false };
       }
     } catch (err) {
-        console.log(err.response.data.errors)
-      setError(err.response ? err.response.data.errors : { general: 'Une erreur est survenue.' });
+      setError(
+        err.response?.data?.errors || "Une erreur est survenue. Veuillez réessayer."
+      );
+      return { success: false };
     } finally {
       setLoading(false);
     }

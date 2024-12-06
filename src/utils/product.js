@@ -106,8 +106,9 @@ export function createProduct(scannedResult, productData) {
     transparent: "---",
     adviceconso: productData.foodheaproduct?._adviceconso ?? "inconnue",
     planetScore:
-      productData?.foodheaproduct?._planetscore[0]._url ??
+      productData?.foodheaproduct?._planetscore?.[0]?._url ??
       "default_image_url.jpg",
+      
     nutriscore_comment:
       productData.foodheaproduct?._nutriscore_comment ?? "inconnue",
     recipes: recipes,

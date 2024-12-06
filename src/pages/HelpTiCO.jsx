@@ -13,7 +13,7 @@ const HelpTiCO = () => {
 
   const handleDonate = async () => {
     const stripe = await stripePromise;
-    const response = await axios.post("http://192.168.1.5:8000/api/create-checkout-session", { amount });
+    const response = await axios.post("http://192.168.11.105:8000/api/create-checkout-session", { amount });
     const sessionId = response.data.id;
 
     await stripe.redirectToCheckout({ sessionId });
