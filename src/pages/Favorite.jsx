@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 
 const Favorite = () => (
   <IonPage>
-    <IonHeader>
+    <IonHeader className="ion-no-border z-0">
       <IonToolbar>
         <IonTitle>Favorite</IonTitle>
       </IonToolbar>

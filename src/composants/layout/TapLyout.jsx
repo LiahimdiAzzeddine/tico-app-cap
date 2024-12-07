@@ -23,7 +23,7 @@ const TapLayout = ({ children }) => {
   return (
     <IonPage id="main-content" style={{ backgroundColor: background }}>
       <IonHeader
-        className="ion-no-border"
+         className="ion-no-border z-0"
         style={{ "--ion-background-color": background }}
       >
         <IonToolbar style={{ "--ion-toolbar-background": background,padding:0 }}>

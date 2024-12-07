@@ -239,11 +239,12 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser, gtin }) => {
     </Modal>
   );
 };
-export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin }) => {
+export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin,productName }) => {
   const { handleSubmit, loading, error, sended } = useTransparencyRequests();
   const [formValues, setFormValues] = useState({
     user_id: authUser?.id || "",
     gtin: gtin || "",
+    productName:productName || "",
   });
 
   const handleRequest = () => {

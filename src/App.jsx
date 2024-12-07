@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, Route } from "react-router-dom";
 import {IonRouterOutlet } from "@ionic/react";
 import Home from "./pages/Home";
@@ -20,25 +20,33 @@ import { App as CapacitorApp } from "@capacitor/app";
 import { useHistory } from "react-router-dom"; 
 import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { useAlert } from "./context/AlertProvider";
+import ChangePassword from "./composants/settings/ChangePassword";
 
 function App() { 
   const history = useHistory();
   const { triggerAlert } = useAlert();
-
   useEffect(() => {
     const appUrlListener = CapacitorApp.addListener("appUrlOpen", (data) => {
       console.log("App opened with URL:", data.url);
-
+  
       if (data.url) {
         // Extraire la partie de l'URL après `tico://com.tico.app/`
         const path = data.url.split("tico://com.tico.app/")[1];
-
+  
         if (path) {
-          const route = `/${path}`;
+          const [route, queryString] = path.split("?"); // Sépare la route et les paramètres de la requête
           console.log("Redirecting to route:", route);
-
-          // Si la route est "login", afficher une alerte et rediriger
-          if (path === "login") {
+  
+          // Analyser les paramètres de la chaîne de requête
+          const params = new URLSearchParams(queryString);
+          const email = params.get("email");
+          const token = params.get("token");
+  
+          console.log("Extracted email:", email);
+          console.log("Extracted token:", token);
+  
+          // Gérer différentes routes
+          if (route === "login") {
             triggerAlert(
               "Félicitations, vous avez validé votre inscription !",
               "Validation",
@@ -48,6 +56,14 @@ function App() {
               "ios",
               "Se connecter"
             );
+          } else if (route === "password_resets/email") {
+            // Traiter la réinitialisation du mot de passe avec email et token
+            if (email && token) {
+              console.log("Handling password reset with email and token");
+              history.replace(`/change_password?email=${email}&token=${token}`);
+            } else {
+              console.error("Missing email or token in the URL.");
+            }
           }
         }
       }
@@ -92,6 +108,11 @@ function App() {
       <Route path="/login" exact={true}>
         <AuthLayout>
           <Login createCompte={true} />
+        </AuthLayout>
+      </Route>
+      <Route path="/change_password" exact={true}>
+        <AuthLayout>
+          <ChangePassword/>
         </AuthLayout>
       </Route>
       <Route path="/signup" exact={true}>

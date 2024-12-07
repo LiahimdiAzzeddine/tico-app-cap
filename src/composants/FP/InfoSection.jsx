@@ -234,7 +234,9 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,targetRefNutriInfo,tar
           </div>
         </div>
         <Solliciter
-        isOpen={isOpen} setIsOpen={setIsOpen} gtin={product?.gtin}
+        isOpen={isOpen} setIsOpen={setIsOpen} 
+        gtin={product?.gtin}
+        productName={product?.name}
         authUser={authUser}
        
       />

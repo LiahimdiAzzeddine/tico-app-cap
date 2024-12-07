@@ -34,7 +34,7 @@ function Menu() {
 
   return (
     <IonMenu contentId="main-content">
-      <IonHeader className="bg-blue-600 text-white ion-no-border">
+      <IonHeader className="bg-blue-600 text-white ion-no-border z-0">
         <IonToolbar
           className="px-4"
           style={{ "--ion-toolbar-background": "#ffff" }}

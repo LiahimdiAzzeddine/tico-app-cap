@@ -36,7 +36,7 @@ const TopNavbar = () => {
 
   return (
     <>
-      <IonHeader className="ion-no-border">
+      <IonHeader  className="ion-no-border z-0">
         <IonToolbar
           className="px-2"
           style={{ "--ion-toolbar-background": "#ffff" }}

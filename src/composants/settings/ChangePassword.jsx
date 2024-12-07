@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Spinner from "../Spinner";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
@@ -6,6 +7,10 @@ import { useToast } from "../../context/ToastContext";
 import useChangePassword from "../../hooks/auth/useChangePassword";
 
 const ChangePassword = () => {
+  const location = useLocation();
+  const [email, setEmail] = useState(null);
+  const [token, setToken] = useState("");
+
   const { triggerToast } = useToast();
   const { changePassword, loading, error } = useChangePassword(); // Use the hook
   const [values, setValues] = useState({
@@ -19,6 +24,17 @@ const ChangePassword = () => {
     confirm: false,
   });
 
+  useEffect(() => {
+    // Extraire les paramètres de l'URL
+    const params = new URLSearchParams(location.search);
+    const emailParam = params.get("email");
+    const tokenParam = params.get("token");
+    if (emailParam && tokenParam) {
+      setEmail(emailParam);
+      setToken(tokenParam);
+    }
+  }, [location]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -28,7 +44,12 @@ const ChangePassword = () => {
     }
 
     // Call changePassword from the hook
-    await changePassword(values.oldPassword, values.newPassword, values.confirmPassword);
+    await changePassword(
+      values.oldPassword,
+      values.newPassword,
+      values.confirmPassword,
+      email
+    );
   };
 
   const togglePasswordVisibility = (field, value) => {
@@ -41,74 +62,83 @@ const ChangePassword = () => {
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full">
       <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full">
-        Mon &nbsp;<span className="marker-effect-orange">
-          mot de passe
-        </span>
+        Mon &nbsp;<span className="marker-effect-orange">mot de passe</span>
       </h2>
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4 w-11/12 max-w-xs 5/6"
-      >
+      <form onSubmit={handleSubmit} className="space-y-4 w-11/12 max-w-xs 5/6">
         {/* Ancien mot de passe */}
-        <div className="flex flex-col items-center relative">
-          <label className="text-orange-500 mb-1 text-base text-center font-bold">
-            Ancien mot de passe
-          </label>
-          <input
-            type={showPasswords.old ? "text" : "password"}
-            value={values.oldPassword}
-            onChange={(e) =>
-              setValues({ ...values, oldPassword: e.target.value })
-            }
-            className="w-full p-2 border-[1.5px] rounded-xl focus:outline-none border-orange-300 focus:border-orange-500"
-            required
-          />
-          <button
-            type="button"
-            onMouseDown={() => togglePasswordVisibility("old", true)}
-            onMouseUp={() => togglePasswordVisibility("old", false)}
-            onTouchStart={() => togglePasswordVisibility("old", true)}
-            onTouchEnd={() => togglePasswordVisibility("old", false)}
-            className="absolute right-3 top-1/2  translate-y-1/4 text-gray-500 focus:outline-none"
+        {!email && (
+          <div className="flex flex-col items-center relative w-full">
+            <label className="text-orange-500 mb-1 text-base text-center font-bold">
+              Ancien mot de passe
+            </label>
+            <div className="relative w-full">
+              <input
+                type={showPasswords.old ? "text" : "password"}
+                value={values.oldPassword}
+                onChange={(e) =>
+                  setValues({ ...values, oldPassword: e.target.value })
+                }
+                className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
+                  error?.current_password
+                    ? "border-red-500"
+                    : "border-orange-300 focus:border-orange-500"
+                }`}
+                aria-invalid={!!error?.current_password}
+                required
+              />
+              <button
+                type="button"
+                onMouseDown={() => togglePasswordVisibility("old", true)}
+                onMouseUp={() => togglePasswordVisibility("old", false)}
+                onTouchStart={() => togglePasswordVisibility("old", true)}
+                onTouchEnd={() => togglePasswordVisibility("old", false)}
+                className="absolute right-3 top-1/2  translate-y-1/4 text-gray-500 focus:outline-none"
+              >
+                <IonIcon
+                  icon={showPasswords.old ? eyeOffOutline : eyeOutline}
+                />
+              </button>
+            </div>
+            {error?.current_password && (
+              <p id="password-error" className="text-red-500 text-sm mt-1">
+                {error.current_password[0]}
+              </p>
+            )}
+          </div>
+        )}
 
-          >
-            <IonIcon icon={showPasswords.old ? eyeOffOutline : eyeOutline} />
-          </button>
-          
-          {error?.current_password && (
-            <p id="password-error" className="text-red-500 text-sm mt-1">
-              {error.current_password[0]}
-            </p>
-          )}
-        </div>
-        
- 
         {/* Nouveau mot de passe */}
-        <div className="flex flex-col items-center relative">
+        <div className="flex flex-col items-center relative w-full">
           <label className="text-orange-500 mb-1 text-base text-center font-bold">
             Nouveau mot de passe
           </label>
-          <input
-            type={showPasswords.new ? "text" : "password"}
-            value={values.newPassword}
-            onChange={(e) =>
-              setValues({ ...values, newPassword: e.target.value })
-            }
-            className="w-full p-2 border-[1.5px] rounded-xl focus:outline-none border-orange-300 focus:border-orange-500"
-            required
-          />
-          <button
-            type="button"
-            onMouseDown={() => togglePasswordVisibility("new", true)}
-            onMouseUp={() => togglePasswordVisibility("new", false)}
-            onTouchStart={() => togglePasswordVisibility("new", true)}
-            onTouchEnd={() => togglePasswordVisibility("new", false)}
-            className="absolute right-3 top-1/2  translate-y-1/4 text-gray-500 focus:outline-none"
-
-          >
-            <IonIcon icon={showPasswords.new ? eyeOffOutline : eyeOutline} />
-          </button>
+          <div className="relative w-full">
+            <input
+              type={showPasswords.new ? "text" : "password"}
+              value={values.newPassword}
+              onChange={(e) =>
+                setValues({ ...values, newPassword: e.target.value })
+              }
+              className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
+                error?.new_password
+                  ? "border-red-500"
+                  : "border-orange-300 focus:border-orange-500"
+              }`}
+              aria-invalid={!!error?.new_password}
+              required
+            />
+            <button
+              type="button"
+              onMouseDown={() => togglePasswordVisibility("new", true)}
+              onMouseUp={() => togglePasswordVisibility("new", false)}
+              onTouchStart={() => togglePasswordVisibility("new", true)}
+              onTouchEnd={() => togglePasswordVisibility("new", false)}
+              className="absolute right-3 top-1/2  -translate-y-[35%] text-gray-500 focus:outline-none"
+            >
+              <IonIcon icon={showPasswords.new ? eyeOffOutline : eyeOutline} />
+            </button>
+          </div>
           {error?.new_password && (
             <p id="password-error" className="text-red-500 text-sm mt-1">
               {error.new_password[0]}
@@ -117,7 +147,7 @@ const ChangePassword = () => {
         </div>
 
         {/* Confirmation mot de passe */}
-        <div className="flex flex-col items-center relative">
+        <div className="flex flex-col items-center relative w-full">
           <label className="text-orange-500 mb-1 text-base text-center font-bold">
             Confirmer
           </label>
@@ -148,12 +178,10 @@ const ChangePassword = () => {
           <button
             type="submit"
             className="bg-orange-500 text-white font-bold  text-lg py-2  px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
-
             disabled={loading}
           >
             {loading ? "Chargement..." : "Modifier le mot de passe"}
           </button>
-          
         </div>
       </form>
 
