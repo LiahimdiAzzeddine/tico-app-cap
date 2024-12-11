@@ -38,7 +38,7 @@ const Modal = ({ isOpen, onClose, children }) => {
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <div
-          className="w-full h-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center"
+          className="w-full h-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center z-30"
           style={{ backgroundImage: `url(${background})` }}
         >
           {/* Bouton de fermeture */}
