@@ -39,9 +39,7 @@ const Modal = ({ isOpen, onClose, children }) => {
       >
         <div
           className="w-full h-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center"
-          style={{
-            backgroundImage: `url(${background})`,
-          }}
+          style={{ backgroundImage: `url(${background})` }}
         >
           {/* Bouton de fermeture */}
           <button onClick={onClose} className="absolute left-8 top-0 p-2 z-50">
@@ -248,7 +246,6 @@ export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin, productName }) =
     gtin: gtin || "",
     productName: productName,
   });
-    console.log("🚀 ~ Solliciter ~ productName:", productName)
 
   const handleRequest = () => {
     handleSubmit({

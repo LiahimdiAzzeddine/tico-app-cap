@@ -13,7 +13,6 @@ const useTransparencyRequests = () => {
   const handleSubmit = async (formValues) => {
     setLoading(true);
     setError(null); // Réinitialise l'erreur avant de soumettre
-    console.log("🚀 ~ Solliciter ~ productName:", formValues.productName)
 
     try {
       // Appel API

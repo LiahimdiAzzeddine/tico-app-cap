@@ -1,61 +1,62 @@
 import { createRecipe } from "./createRecipe";
 function getValidValue(...values) {
   for (let value of values) {
-      if (value && value !== "") {
-          return value;
-      }
+    if (value && value !== "") {
+      return value;
+    }
   }
   return null; // Valeur par défaut si aucune des valeurs n'est valide
 }
 
 export function createProduct(scannedResult, productData) {
-  console.log("🚀 ~ createProduct ~ productData:", productData?.foodheaproduct)
+  console.log("🚀 ~ createProduct ~ productData:", productData?.foodheaproduct);
   // Extraction et transformation des additifs
-  const additifs = (productData.foodheaproduct?._additifs?.length > 0 
-    ? productData.foodheaproduct._additifs 
-    : productData.OFFproduct?._additifs?.length > 0 
-        ? productData.OFFproduct._additifs 
-        : []
-)?.map((additif) => ({
-    code: additif._code,
-    label: additif._label,
-    label2: additif._label2,
-    fonction1: additif._fonction1,
-    fonction2: additif._fonction2,
-    noteUFC: additif._noteufc,
-    url: additif._url,
-})) ?? [];
+  const additifs =
+    (productData.foodheaproduct?._additifs?.length > 0
+      ? productData.foodheaproduct._additifs
+      : productData.OFFproduct?._additifs?.length > 0
+      ? productData.OFFproduct._additifs
+      : []
+    )?.map((additif) => ({
+      code: additif._code,
+      label: additif._label,
+      label2: additif._label2,
+      fonction1: additif._fonction1,
+      fonction2: additif._fonction2,
+      noteUFC: additif._noteufc,
+      url: additif._url,
+    })) ?? [];
 
   // Extraction et transformation des recettes
-  const recipes = (productData.foodheaproduct?._recettes?.length > 0 
-    ? productData.foodheaproduct._recettes 
-    : productData.OFFproduct?._recettes?.length > 0 
-        ? productData.OFFproduct._recettes 
-        : []
-)?.map((recipe) => createRecipe(recipe)) ?? [];
-
+  const recipes =
+    (productData.foodheaproduct?._recettes?.length > 0
+      ? productData.foodheaproduct._recettes
+      : productData.OFFproduct?._recettes?.length > 0
+      ? productData.OFFproduct._recettes
+      : []
+    )?.map((recipe) => createRecipe(recipe)) ?? [];
 
   // Extraction et transformation des lignes
-  
-  const lines =(productData.foodheaproduct?._lines
-    ? Object.entries(productData.foodheaproduct._lines) 
-    : productData.OFFproduct?._lines
-        ? Object.entries(productData.OFFproduct._lines)
-        : []
-)?.map(([key, line]) => ({
-        id: line._idnut,
-        idNut: line._idnut,
-        parent: line._parent,
-        name: line._name,
-        quantity: line._qt,
-        unit: line._unit,
-        order: line._order,
-        vnr: line._vnr,
-        symbol: line._symbole,
-        nutType: line._nuttype,
-      }))
-    ;
-    console.log("🚀 ~ createProduct ~ lines:",lines)
+
+  const lines = (
+    productData.foodheaproduct?._lines
+      ? Object.entries(productData.foodheaproduct._lines)
+      : productData.OFFproduct?._lines
+      ? Object.entries(productData.OFFproduct._lines)
+      : []
+  )?.map(([key, line]) => ({
+    id: line._idnut,
+    idNut: line._idnut,
+    parent: line._parent,
+    name: line._name,
+    quantity: line._qt,
+    unit: line._unit,
+    order: line._order,
+    vnr: line._vnr,
+    symbol: line._symbole,
+    nutType: line._nuttype,
+  }));
+  console.log("🚀 ~ createProduct ~ lines:", lines);
   // Fonction de transformation des ingrédients
   const transformIngredient = (ingredient) => {
     return {
@@ -80,12 +81,13 @@ export function createProduct(scannedResult, productData) {
   };
 
   // Extraction et transformation des ingrédients
-  const ingredients = (productData.foodheaproduct?._ingredients?.length > 0 
-    ? productData.foodheaproduct._ingredients 
-    : productData.OFFproduct?._ingredients?.length > 0 
-        ? productData.OFFproduct._ingredients 
-        : []
-)?.map(transformIngredient) ?? [];
+  const ingredients =
+    (productData.foodheaproduct?._ingredients?.length > 0
+      ? productData.foodheaproduct._ingredients
+      : productData.OFFproduct?._ingredients?.length > 0
+      ? productData.OFFproduct._ingredients
+      : []
+    )?.map(transformIngredient) ?? [];
 
   // Récupération des allergènes (sans doublon)
   const allAllergens = ingredients.reduce((acc, ingredient) => {
@@ -108,44 +110,101 @@ export function createProduct(scannedResult, productData) {
   let originJson = [];
   if (productData.foodheaproduct?._origin) {
     const originString = productData.foodheaproduct._origin;
-    const originArray = originString.split("\r\n");  // Split based on the new lines
+    const originArray = originString.split("\r\n"); // Split based on the new lines
 
-    originJson = originArray.map(item => {
-      const parts = item.split(" - ");  // Split each ingredient-origin pair by " - "
+    originJson = originArray.map((item) => {
+      const parts = item.split(" - "); // Split each ingredient-origin pair by " - "
       return {
         ingredient: parts[0]?.trim() ?? "",
-        origin: parts[1]?.trim() ?? ""
+        origin: parts[1]?.trim() ?? "",
       };
     });
   }
 
   // Retour de l'objet produit avec les allergènes
   return {
-    image: getValidValue(productData.foodheaproduct?._photoUrl, productData.OFFproduct?._photoUrl, "/src/assets/history/64.png"),
-    name: getValidValue(productData.foodheaproduct?._name, productData.OFFproduct?._name,""),
-    generic_name: getValidValue(productData.foodheaproduct?._generic_name, productData.OFFproduct?._generic_name, "Nom inconnu"),
-    transparency_scale:0,
-    trademark: getValidValue(productData.foodheaproduct?._trademark_txt , productData.OFFproduct?._trademark_txt , "Marque inconnue"),
-    nutriscore: getValidValue(productData.foodheaproduct?._nutriscore, productData.OFFproduct?._nutriscore, "inconnue"),
-    nova: getValidValue(productData.foodheaproduct?._nova, productData.OFFproduct?._nova, "inconnue"),
+    image: getValidValue(
+      productData.foodheaproduct?._photoUrl,
+      productData.OFFproduct?._photoUrl,
+      "public/assets/history/64.png"
+    ),
+    name: getValidValue(
+      productData.foodheaproduct?._name,
+      productData.OFFproduct?._name,
+      ""
+    ),
+    generic_name: getValidValue(
+      productData.foodheaproduct?._generic_name,
+      productData.OFFproduct?._generic_name,
+      "Nom inconnu"
+    ),
+    transparency_scale: 0,
+    trademark: getValidValue(
+      productData.foodheaproduct?._trademark_txt,
+      productData.OFFproduct?._trademark_txt,
+      "Marque inconnue"
+    ),
+    nutriscore: getValidValue(
+      productData.foodheaproduct?._nutriscore,
+      productData.OFFproduct?._nutriscore,
+      "inconnue"
+    ),
+    nova: getValidValue(
+      productData.foodheaproduct?._nova,
+      productData.OFFproduct?._nova,
+      "inconnue"
+    ),
     gtin: scannedResult,
     additifs,
-    adviceconso: getValidValue(productData.foodheaproduct?._adviceconso, productData.OFFproduct?._adviceconso, "inconnue"),
-    planetScore: getValidValue(productData.foodheaproduct?._planetscore?.[0]?._url, productData.OFFproduct?._planetscore?.[0]?._url, "/src/assets/history/64.png"),
-    nutriscore_comment: getValidValue(productData.foodheaproduct?._nutriscore_comment, productData.OFFproduct?._nutriscore_comment, "inconnue"),
+    adviceconso: getValidValue(
+      productData.foodheaproduct?._adviceconso,
+      productData.OFFproduct?._adviceconso,
+      "inconnue"
+    ),
+    planetScore: getValidValue(
+      productData.foodheaproduct?._planetscore?.[0]?._url,
+      productData.OFFproduct?._planetscore?.[0]?._url,
+      "public/assets/history/64.png"
+    ),
+    nutriscore_comment: getValidValue(
+      productData.foodheaproduct?._nutriscore_comment,
+      productData.OFFproduct?._nutriscore_comment,
+      "inconnue"
+    ),
     recipes: recipes,
-    portion: getValidValue(productData.foodheaproduct?._portion, productData.OFFproduct?._portion, " "),
-    portioneq: getValidValue(productData.foodheaproduct?._portioneq, productData.OFFproduct?._portioneq, " "),
-    useportion: getValidValue(productData.foodheaproduct?._useportion, productData.OFFproduct?._useportion, " "),
-    unit: getValidValue(productData.foodheaproduct?._unit, productData.OFFproduct?._unit, " "),
+    portion: getValidValue(
+      productData.foodheaproduct?._portion,
+      productData.OFFproduct?._portion,
+      " "
+    ),
+    portioneq: getValidValue(
+      productData.foodheaproduct?._portioneq,
+      productData.OFFproduct?._portioneq,
+      " "
+    ),
+    useportion: getValidValue(
+      productData.foodheaproduct?._useportion,
+      productData.OFFproduct?._useportion,
+      " "
+    ),
+    unit: getValidValue(
+      productData.foodheaproduct?._unit,
+      productData.OFFproduct?._unit,
+      " "
+    ),
     lines,
     ingredients,
-    allergens: uniqueAllergens, 
-    origin: originJson, 
-    emballage: getValidValue(productData.foodheaproduct?._emballage, productData.OFFproduct?._emballage, " "),
-    transformation: getValidValue(productData.foodheaproduct?._transformation, productData.OFFproduct?._transformation, " "),
+    allergens: uniqueAllergens,
+    origin: originJson,
+    emballage: getValidValue(
+      productData.foodheaproduct?._emballage,
+      productData.OFFproduct?._emballage,
+      " "
+    ),
+    transformation: getValidValue(
+      productData.foodheaproduct?._transformation,
+      productData.OFFproduct?._transformation,
+      " "
+    ),
   };
-
-
-
 }
