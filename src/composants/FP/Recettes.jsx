@@ -41,8 +41,9 @@ function Recettes({ recettes,targetRefRecettes }) {
 
   return (
     <>
-      <div className="flex flex-col w-full space-y-4 py-10 pb-5" ref={targetRefRecettes}>
-        {recettes.map((item, index) => (
+      {recettes.map((item, index) => (
+      <div className="flex flex-col w-full space-y-4 py-10 pb-5" >
+        
           <div
             key={item.id}
             className="relative bg-custom-rose rounded-e-full px-6 py-6 flex items-center"
@@ -87,13 +88,14 @@ function Recettes({ recettes,targetRefRecettes }) {
               </div>
             </div>
           </div>
-        ))}
+       
       </div>
-      <div className="flex flex-row items-center justify-center space-x-3">
+     ))}
+      <div className="flex flex-row items-center justify-center space-x-3 pb-8" ref={targetRefRecettes}>
         <img src={flecheRed} alt="Fleche" className="w-12" />
         <button
           onClick={() => handleAddrecipe()}
-          className="text-gl text-white bg-custom-red rounded-md font-bold w-48 p-2 mb-6"
+          className="text-gl text-white bg-custom-red rounded-md font-bold w-48 p-2 "
         >
           Proposer une recette pour ce produit
         </button>

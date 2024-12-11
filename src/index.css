@@ -347,3 +347,13 @@ padding-top: 1rem;
   height: 12px;
   border-radius: 50%;
 }
+
+.custom-modal-background {
+  background-image: url('/src/assets/fb/popup/background.svg') !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-position: center !important;
+}
+#main-content{
+  padding-top: "env(safe-area-inset-top)" !important;
+}

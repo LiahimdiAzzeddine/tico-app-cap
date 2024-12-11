@@ -24,7 +24,7 @@ function NutritionalInfo({ togglePanel, product,scrollToTarget,targetRefNutriInf
           {/* Affichage conditionnel pour les valeurs manquantes */}
           {portion && unit && portioneq ? (
             <>
-              {portion} {portion?unit:""} {portioneq? "ou"+portioneq:""}
+              {portion} {portion?unit:""} {portioneq? "ou "+portioneq:""}
             </>
           ) : (
             "Données sur la portion non disponibles"

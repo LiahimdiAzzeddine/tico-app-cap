@@ -126,7 +126,7 @@ export function createProduct(scannedResult, productData) {
     image: getValidValue(
       productData.foodheaproduct?._photoUrl,
       productData.OFFproduct?._photoUrl,
-      "public/assets/history/64.png"
+      null
     ),
     name: getValidValue(
       productData.foodheaproduct?._name,

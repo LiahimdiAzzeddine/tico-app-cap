@@ -7,8 +7,8 @@ function SimpleLyout({ children,bgHeader="",bgcontent="",image="bf",Close }) {
     const history = useHistory();
 
   return (
-    <IonPage id="main-content" style={{ backgroundColor:bgHeader }}>
-      <div style={{backgroundColor:bgHeader}}>
+    <IonPage id="main-content" style={{ backgroundColor:bgHeader,paddingTop:"env(safe-area-inset-top)" }}>
+      <div style={{backgroundColor:bgHeader,paddingTop: "env(safe-area-inset-top)"}}>
        <ModalHeader image={image}  onClose={() =>  Close()}/>
        </div>
       <IonContent className="flex flex-col ion-no-padding h-full"  style={{ overflow: 'hidden' , "--background":bgcontent }} scroll-y="true">

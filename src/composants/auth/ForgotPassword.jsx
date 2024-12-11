@@ -1,11 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import useForgotPassword from "../../hooks/auth/useForgotPassword";
 import Spinner from "../Spinner";
+import { useAlert } from "../../context/AlertProvider";
 
 const ForgotPassword = () => {
   const { handleForgotPassword, loading, error } = useForgotPassword();
   const [successMessage, setSuccessMessage] = useState(null);
-  const errRef = useRef(null);
+  const { triggerAlert } = useAlert();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -14,29 +15,38 @@ const ForgotPassword = () => {
     const result = await handleForgotPassword({ email });
     if (result.success) {
       setSuccessMessage("Un email de réinitialisation a été envoyé.");
+      triggerAlert(
+        "Un email de réinitialisation a été envoyé.",
+        "Succès",
+        null,
+        "ios",
+        "ok"
+      );
     } else {
       setSuccessMessage(null);
+      triggerAlert(error || "Une erreur est survenue.", "Erreur", null, "ios","ok");
     }
   };
 
   return (
-    <div className="flex gap-4 flex-col justify-start items-center h-full">
+    <div className="flex flex-col gap-4 justify-start items-center h-full">
       <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full">
-        Réinitialiser<br /> le mot de passe
+        Réinitialiser
+        <br /> le mot de passe
       </h2>
-
-      {successMessage && (
-        <div className="mb-4 text-green-500 text-sm">{successMessage}</div>
-      )}
 
       <form onSubmit={onSubmit} className="space-y-4 w-11/12 max-w-xs h-5/6">
         <div className="flex flex-col items-center">
-          <label className="text-orange-500 mb-1 text-base text-center font-bold">
+          <label
+            htmlFor="email"
+            className="text-orange-500 mb-1 text-base text-center font-bold"
+          >
             Mon adresse mail
           </label>
           <input
             type="email"
             name="email"
+            id="email"
             required
             className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
               error
@@ -45,12 +55,15 @@ const ForgotPassword = () => {
             }`}
             placeholder="Entrez votre email"
             aria-invalid={!!error}
-            aria-describedby="email-error"
+            aria-describedby={error ? "email-error" : undefined}
           />
           {error && (
-            <p id="email-error" className="text-red-500 text-sm mt-1">
+            <span
+              id="email-error"
+              className="text-red-500 text-sm mt-1 text-center"
+            >
               {error}
-            </p>
+            </span>
           )}
         </div>
 

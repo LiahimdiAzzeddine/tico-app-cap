@@ -27,10 +27,10 @@ const HomeLayout = ({ children }) => {
   const icon = closeIcon[location.pathname] || "vx";
 
   return (
-    <IonPage id="main-content" style={{ backgroundColor: background }}>
+    <IonPage id="main-content" style={{ backgroundColor: background,paddingTop:"env(safe-area-inset-top)" }}>
       <IonHeader
          className="ion-no-border z-0"
-        style={{ "--ion-background-color": background }}
+        style={{ "--ion-background-color": background,paddingTop: "env(safe-area-inset-top)" }}
       >
         <IonToolbar
           style={{ "--ion-toolbar-background": background, padding: 0 }}

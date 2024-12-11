@@ -20,7 +20,6 @@ import Nutri_score_B from "../../assets/fb/score/Nutri-score-B.png";
 import Nutri_score_C from "../../assets/fb/score/Nutri-score-C.png";
 import Nutri_score_D from "../../assets/fb/score/Nutri-score-D.png";
 import Nutri_score_E from "../../assets/fb/score/Nutri-score-E.png";
-import background from "../../assets/fb/popup/background.svg";
 import { IonModal } from "@ionic/react";
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -38,8 +37,7 @@ const Modal = ({ isOpen, onClose, children }) => {
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <div
-          className="w-full h-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center z-30"
-          style={{ backgroundImage: `url(${background})` }}
+          className="w-full h-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center z-30 custom-modal-background"
         >
           {/* Bouton de fermeture */}
           <button onClick={onClose} className="absolute left-8 top-0 p-2 z-50">
@@ -416,9 +414,10 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
 
         {/* Fixed Footer */}
         <div>
+          {additifs.length>0?(
           <button className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none ArchivoItalique"  onClick={MoreInfo}>
             En savoir plus
-          </button>
+          </button>):("")}
         </div>
       </div>
     </Modal>

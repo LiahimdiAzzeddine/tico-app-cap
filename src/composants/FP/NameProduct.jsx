@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-
+import productDeffaultImg from "../../assets/history/64.png";
 function NameProduct(props) {
   const [isZoomed, setIsZoomed] = useState(false);
  
@@ -16,7 +16,7 @@ function NameProduct(props) {
     <div className="flex flex-row justify-center py-1 px-4 space-x-4">
       {/* Ajout de l'image */}
       <img
-        src={props.ImageSrc}
+        src={props.ImageSrc?props.ImageSrc:productDeffaultImg}
         alt={`${props.Name} - ${props.Brand}`}
         className="w-28 h-auto object-cover cursor-pointer"
             onClick={handleZoom}
