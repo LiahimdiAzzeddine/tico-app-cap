@@ -106,7 +106,10 @@ const NutritionTable = ({ product }) => {
 
   return (
     <div className="p-2">
+      {hierarchicalData?(
+        <>
       <div className="flex items-center justify-center gap-6 p-4">
+        
         <button
           onClick={() => setUnit("100g")}
           className={`font-medium Archivo py-1 rounded transition-colors ${
@@ -165,6 +168,7 @@ const NutritionTable = ({ product }) => {
           ))}
         </tbody>
       </table>
+      </>):('N/A')}
     </div>
   );
 };

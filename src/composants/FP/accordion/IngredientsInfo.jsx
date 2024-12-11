@@ -63,7 +63,7 @@ function IngredientsInfo({
   
 
   return (
-    <div className="bg-custom-green-clear rounded-e-[3rem] left-0 w-[95%] min-h-72 z-0 relative pb-4">
+    <div className="bg-custom-green-clear rounded-e-[3rem] left-0 w-[95%] min-h-40 z-0 relative pb-4">
       <div className="px-4 py-6">
         <h1 className="text-xl text-custom-blue font-bold pt-3">
           <span className="marker-effect-cyan ArchivoBold">Ingrédients</span>

@@ -11,29 +11,38 @@ function getValidValue(...values) {
 export function createProduct(scannedResult, productData) {
   console.log("🚀 ~ createProduct ~ productData:", productData?.foodheaproduct)
   // Extraction et transformation des additifs
-  const additifs = (productData.foodheaproduct?._additifs?.length 
+  const additifs = (productData.foodheaproduct?._additifs?.length > 0 
     ? productData.foodheaproduct._additifs 
-    : productData.OFFproduct?._additifs)?.map((additif) => ({
-      code: additif._code,
-      label: additif._label,
-      label2: additif._label2,
-      fonction1: additif._fonction1,
-      fonction2: additif._fonction2,
-      noteUFC: additif._noteufc,
-      url: additif._url,
-    })) ?? [];
+    : productData.OFFproduct?._additifs?.length > 0 
+        ? productData.OFFproduct._additifs 
+        : []
+)?.map((additif) => ({
+    code: additif._code,
+    label: additif._label,
+    label2: additif._label2,
+    fonction1: additif._fonction1,
+    fonction2: additif._fonction2,
+    noteUFC: additif._noteufc,
+    url: additif._url,
+})) ?? [];
 
   // Extraction et transformation des recettes
-  const recipes = (productData.foodheaproduct?._recettes?.length 
+  const recipes = (productData.foodheaproduct?._recettes?.length > 0 
     ? productData.foodheaproduct._recettes 
-    : productData.OFFproduct?._recettes)?.map((recipe) => 
-      createRecipe(recipe)
-    ) ?? [];
+    : productData.OFFproduct?._recettes?.length > 0 
+        ? productData.OFFproduct._recettes 
+        : []
+)?.map((recipe) => createRecipe(recipe)) ?? [];
 
 
   // Extraction et transformation des lignes
-  const lines = productData.foodheaproduct?._lines
-    ? Object.entries(productData.foodheaproduct._lines).map(([key, line]) => ({
+  
+  const lines =(productData.foodheaproduct?._lines
+    ? Object.entries(productData.foodheaproduct._lines) 
+    : productData.OFFproduct?._lines
+        ? Object.entries(productData.OFFproduct._lines)
+        : []
+)?.map(([key, line]) => ({
         id: line._idnut,
         idNut: line._idnut,
         parent: line._parent,
@@ -45,8 +54,8 @@ export function createProduct(scannedResult, productData) {
         symbol: line._symbole,
         nutType: line._nuttype,
       }))
-    : [];
-
+    ;
+    console.log("🚀 ~ createProduct ~ lines:",lines)
   // Fonction de transformation des ingrédients
   const transformIngredient = (ingredient) => {
     return {
@@ -71,8 +80,12 @@ export function createProduct(scannedResult, productData) {
   };
 
   // Extraction et transformation des ingrédients
-  const ingredients =
-    productData.foodheaproduct?._ingredients?.map(transformIngredient) ?? [];
+  const ingredients = (productData.foodheaproduct?._ingredients?.length > 0 
+    ? productData.foodheaproduct._ingredients 
+    : productData.OFFproduct?._ingredients?.length > 0 
+        ? productData.OFFproduct._ingredients 
+        : []
+)?.map(transformIngredient) ?? [];
 
   // Récupération des allergènes (sans doublon)
   const allAllergens = ingredients.reduce((acc, ingredient) => {

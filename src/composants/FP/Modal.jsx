@@ -5,7 +5,7 @@ import { useAlert } from "../../context/AlertProvider";
 import { useHistory } from "react-router-dom";
 import useProductIssues from "../../hooks/contact/useProductIssues";
 import useTransparencyRequests from "../../hooks/contact/useTransparencyRequests";
-import background from "../../assets/fb/popup/background.svg";
+
 import closeImg from "../../assets/fb/popup/close.svg";
 import ContactImg from "../../assets/fb/BubbleImg.svg";
 import flecheLeft from "../../assets/fb/popup/flecheleft.svg";
@@ -20,7 +20,7 @@ import Nutri_score_B from "../../assets/fb/score/Nutri-score-B.png";
 import Nutri_score_C from "../../assets/fb/score/Nutri-score-C.png";
 import Nutri_score_D from "../../assets/fb/score/Nutri-score-D.png";
 import Nutri_score_E from "../../assets/fb/score/Nutri-score-E.png";
-
+import background from "../../assets/fb/popup/background.svg";
 import { IonModal } from "@ionic/react";
 
 const Modal = ({ isOpen, onClose, children }) => {

@@ -24,7 +24,7 @@ function NutritionalInfo({ togglePanel, product,scrollToTarget,targetRefNutriInf
           {/* Affichage conditionnel pour les valeurs manquantes */}
           {portion && unit && portioneq ? (
             <>
-              {portion} {unit} ou {portioneq}
+              {portion} {portion?unit:""} {portioneq? "ou"+portioneq:""}
             </>
           ) : (
             "Données sur la portion non disponibles"
@@ -34,10 +34,10 @@ function NutritionalInfo({ togglePanel, product,scrollToTarget,targetRefNutriInf
           <span className="marker-effect-cyan ArchivoBold">Profil nutritionnel</span>
         </h1>
 
-        {product ? (
+        {(portion) ? (
           <NutritionTable product={product} />
         ) : (
-          <div className="text-center text-red-500">Aucune donnée nutritionnelle disponible</div>
+          <div className="text-center text-red-500 pt-3">Aucune donnée nutritionnelle disponible</div>
         )}
 
         {nutriscore ? (
