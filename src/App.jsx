@@ -35,7 +35,7 @@ function App() {
         const slug = data.url.split('.app').pop();
         console.log("🚀 ~ appUrlListener ~ slug:", slug)
         // Extraire la partie de l'URL après `tico://com.tico.app/`
-        const path = data.url.split("tico://com.tico.app/")[1];
+        const path = data.url.split("tico://com.tico.foodhea.tico/")[1];
         if (path) {
           const [route, queryString] = path.split("?"); // Separe la route et les parametres de la requête
           // Gerer differentes routes

@@ -30,7 +30,7 @@ xmlns:tools="http://schemas.android.com/tools"
         <category android:name="android.intent.category.BROWSABLE" />
           <data
             android:scheme="tico"
-            android:host="com.tico.app" />
+            android:host="com.tico.foodhea.tico" />
     </intent-filter>
         </activity>
 
