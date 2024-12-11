@@ -30,33 +30,31 @@ function App() {
   const { triggerAlert } = useAlert();
   useEffect(() => {
     const appUrlListener = CapacitorApp.addListener("appUrlOpen", (data) => {
-
-      if (data.url) {
-        const slug = data.url.split('.app').pop();
-        console.log("🚀 ~ appUrlListener ~ slug:", slug)
-        // Extraire la partie de l'URL après `tico://com.tico.app/`
-        const path = data.url.split("tico://com.tico.foodhea.tico/")[1];
-        if (path) {
-          const [route, queryString] = path.split("?"); // Separe la route et les parametres de la requête
-          // Gerer differentes routes
-          if (route === "login") {
+      if (data?.url) {
+        console.log("URL reçue :", data.url);
+  
+        // Extraire le slug depuis l'URL (partie après ".app")
+        const slug = data.url.split(".tico").pop();
+        console.log("Slug détecté :", slug);
+  
+        if (slug) {
+          // Gestion des différentes routes à partir du slug
+          if (slug === "/login") {
             triggerAlert(
               "Félicitations, vous avez validé votre inscription !",
               "Validation",
               () => {
-                history.replace("/login"); // Redirection vers la route "login"
+                history.replace("/login"); // Rediriger vers la route "login"
               },
               "ios",
               "Se connecter"
             );
-          } else{
-            // Traiter la reinitialisation du mot de passe avec email et token
-            if (slug) {
-              history.replace(slug);
-            } else {
-              console.error("Missing slug.");
-            }
+          } else {
+            // Rediriger vers d'autres routes
+            history.replace(slug);
           }
+        } else {
+          console.error("Erreur : slug manquant.");
         }
       }
     });
