@@ -24,7 +24,6 @@ const useFetchProduct = () => {
         
         // Ajout du produit à la base de données
         await addProduct(product);
-        console.log("Produit ajouté avec succès");
       } else {
         setError("Produit non trouvé.");
         setProductData(null);

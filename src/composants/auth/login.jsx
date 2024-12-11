@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import useLogin from "../../hooks/auth/useLogin";
-import { Link } from "react-router-dom";
 import Spinner from "../Spinner";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
@@ -101,14 +100,14 @@ const Login = ({createCompte=false}) => {
 
           <div className="flex items-center justify-between">
             <div className="text-sm flex flex-col">
-              <Link
+              <div
                 onClick={() => {
                   setShowModalForgetPassword(true);
                 }}
                 className="font-medium text-orange-600 hover:text-orange-500"
               >
                 Mot de passe oublié ?
-              </Link>
+              </div>
             </div>
           </div>
 

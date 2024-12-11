@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 
 const NutritionTable = ({ product }) => {
   const [unit, setUnit] = useState("100g");
@@ -41,50 +41,57 @@ const NutritionTable = ({ product }) => {
       unit === "portion" && portion
         ? calculatePortionValue(item.value.qt, portion)
         : item.value.qt;
-  
+
+    const formattedValue = value % 1 === 0 ? value : value.toFixed(1);
     const rowKey = `${parentId}-${item.id}`;
-  
+
     return (
       <>
         <tr key={rowKey}>
           <td
             style={{
               paddingLeft: `${level * 1.5}rem`,
-              color: `${item.parent == 0 ? "#047857" : ""}`,
+              color: `${item.parent === 0 ? "#047857" : ""}`,
             }}
-            className="py-1"
+            className="py-1 Archivo"
           >
             {item.name}
           </td>
-          <td className="text-right py-1 min-w-20">
-            {value} {item.value.unit}
+          <td className="text-right py-1 Archivo min-w-20">
+            {value !== null && value !== undefined && value !== 0 ? (
+              <>
+                {formattedValue} {item.value.unit}
+              </>
+            ) : (
+              ""
+            )}
           </td>
-          <td className="text-right text-gray-500 py-1 min-w-16">
-            {item.value.vnr || ""} 
+          <td className="text-right text-gray-500 py-1 Archivo min-w-16">
+            {item.value.vnr !== null && item.value.vnr !== undefined ? (
+              <>
+                {item.value.vnr} %
+              </>
+            ) : (
+              "N/A"
+            )}
           </td>
         </tr>
-        {item?.value?.qt &&(
-          <>
-          {item.children?.map((child, index) => (
+        {item.children?.map((child) => (
           <NutritionRow
-            key={`${rowKey}-${child.id}-${index}`}
+            key={`${rowKey}-${child.id}`}
             item={child}
             level={level + 1}
             portion={portion}
             parentId={item.id}
           />
         ))}
-        </>
-        )}
-        
-        {/* Ajouter le séparateur vert si item.parent == 0 */}
-        {item.parent == 0 && (
+        {item.parent === 0 && (
           <tr>
             <td colSpan="3">
               <div
                 style={{
-                  height: "2px",
-                  backgroundColor: "#047857",
+                  height: "1px",
+                  backgroundColor: "#a8dbd7",
                   margin: "8px 0",
                 }}
               />
@@ -94,18 +101,16 @@ const NutritionTable = ({ product }) => {
       </>
     );
   };
-  
 
-  const hierarchicalData = organizeHierarchicalData(product?.lines || []);
+  const hierarchicalData = useMemo(() => organizeHierarchicalData(product?.lines || []), [product?.lines]);
+
   return (
     <div className="p-2">
       <div className="flex items-center justify-center gap-6 p-4">
         <button
           onClick={() => setUnit("100g")}
-          className={`font-medium py-1 rounded transition-colors ${
-            unit === "100g"
-              ? "text-emerald-700"
-              : "text-gray-500 hover:text-gray-700"
+          className={`font-medium Archivo py-1 rounded transition-colors ${
+            unit === "100g" ? "text-emerald-700" : "text-gray-500 hover:text-gray-700"
           }`}
         >
           Par 100g
@@ -114,7 +119,7 @@ const NutritionTable = ({ product }) => {
         <div className="relative">
           <button
             onClick={() => setUnit(unit === "100g" ? "portion" : "100g")}
-            className="w-14 h-7 bg-white rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2"
+            className="w-14 h-7 Archivo bg-white rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2"
             role="switch"
             aria-checked={unit === "portion"}
           >
@@ -128,10 +133,8 @@ const NutritionTable = ({ product }) => {
 
         <button
           onClick={() => setUnit("portion")}
-          className={`font-medium py-1 rounded transition-colors ${
-            unit === "portion"
-              ? "text-emerald-700"
-              : "text-gray-500 hover:text-gray-700"
+          className={`font-medium py-1 rounded transition-colors Archivo ${
+            unit === "portion" ? "text-emerald-700" : "text-gray-500 hover:text-gray-700"
           }`}
         >
           Par portion
@@ -141,21 +144,21 @@ const NutritionTable = ({ product }) => {
       <table className="w-full text-sm text-gray-700">
         <thead>
           <tr>
-            <th className="text-left font-medium text-emerald-700 pt-2 min-w-20">
+            <th className="text-left font-medium text-emerald-700 pt-2 min-w-20 ArchivoBold">
               Général
             </th>
-            <th className="text-right text-emerald-700 pt-2 font-bold">
+            <th className="text-right text-emerald-700 pt-2 font-bold ArchivoBold">
               {unit === "100g" ? "Pour 100g" : "Par portion"}
             </th>
-            <th className="text-right text-emerald-700 pt-2 font-bold min-w-16"  >
+            <th className="text-right text-emerald-700 pt-2 font-bold min-w-16 ArchivoBold">
               % VNR
             </th>
           </tr>
         </thead>
         <tbody>
-          {hierarchicalData.map((item, index) => (
+          {hierarchicalData.map((item) => (
             <NutritionRow
-              key={`root-${item.id}-${index}`}
+              key={`root-${item.id}`}
               item={item}
               portion={product?.portion}
             />

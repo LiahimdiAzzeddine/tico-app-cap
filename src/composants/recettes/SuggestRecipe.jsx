@@ -25,6 +25,7 @@ const SuggestRecipe = ({ onClose }) => {
       onClose();
     }
   }, [success, onClose]);
+
   const [values, setValues] = useState({
     titre: "",
     types: [],
@@ -124,6 +125,14 @@ const SuggestRecipe = ({ onClose }) => {
     });
   };
 
+  // Fonction utilitaire pour convertir les minutes en heures et minutes
+function formatTime(totalMinutes) {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return hours > 0 
+    ? `${hours}h ${minutes > 0 ? `${minutes}min` : ""}` 
+    : `${minutes}min`;
+}
   return (
     <div className="px-2 details">
       <div
@@ -312,22 +321,24 @@ const SuggestRecipe = ({ onClose }) => {
             )}
           </div>
           <div className="flex flex-col gap-3">
-            <label className="text-custom-red text-base ">
-              Temps total (en min) :{" "}
-              {Number(values.cook_time) +
-                Number(values.prep_time) +
-                Number(values.rest_time) >
-              0 ? (
-                <span className="font-bold">
-                  {Number(values.cook_time) +
-                    Number(values.prep_time) +
-                    Number(values.rest_time)}
-                </span>
-              ) : (
-                ""
-              )}
-            </label>
-          </div>
+  <label className="text-custom-red text-base">
+    Temps total :{" "}
+    {Number(values.cook_time) +
+      Number(values.prep_time) +
+      Number(values.rest_time) >
+    0 ? (
+      <span className="font-bold">
+        {formatTime(
+          Number(values.cook_time) +
+          Number(values.prep_time) +
+          Number(values.rest_time)
+        )}
+      </span>
+    ) : (
+      ""
+    )}
+  </label>
+</div>
 
           {/* Ingrédients */}
           <div className="flex flex-col gap-3 justify-center items-start">
@@ -447,7 +458,9 @@ const SuggestRecipe = ({ onClose }) => {
           </div>
 
           <div className="flex flex-col gap-4 justify-center items-center">
-            <div className="text-custom-red">Pas d’inquiétude on se charge du shooting photo !</div>
+            <div className="text-custom-red">
+              Pas d’inquiétude on se charge du shooting photo&nbsp;!
+            </div>
             <button
               type="button"
               onClick={() => VisualiseRecette()} // Ouvrir le modal
@@ -463,12 +476,7 @@ const SuggestRecipe = ({ onClose }) => {
               {loading ? "Envoi..." : "Envoyer ma recette"}
             </button>
           </div>
-          {/* Full-screen loading overlay */}
-          {loading && (
-            <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-              <Spinner />
-            </div>
-          )}
+          
         </form>
       </div>
       {/* Afficher le modal avec les détails de la recette */}
@@ -487,6 +495,12 @@ const SuggestRecipe = ({ onClose }) => {
         header="Erreur"
         message="Veuillez remplir tous les champs de l'ingrédient."
       />
+      {/* Full-screen loading overlay */}
+      {loading && (
+            <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+              <Spinner />
+            </div>
+          )}
     </div>
   );
 };

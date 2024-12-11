@@ -38,10 +38,8 @@ const ScanResultModal = ({
   const { triggerToast } = useToast();
 
   const DetectBreakpoint = (point) => {
-  console.log("Breakpoint détecté :", point);
   setModalBreakpoint(point);
   setBreakpoint(point);
-  
 };
 
   

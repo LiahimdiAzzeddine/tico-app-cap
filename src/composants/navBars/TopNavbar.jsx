@@ -25,7 +25,6 @@ const TopNavbar = () => {
     if (Capacitor.isNativePlatform()) {
       try {
         await Haptics.impact({ style: ImpactStyle.Light });
-        console.log("Haptic feedback triggered successfully.");
       } catch (error) {
         console.error("Haptics not supported on this device", error);
       }

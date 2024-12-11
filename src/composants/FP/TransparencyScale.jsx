@@ -41,7 +41,6 @@ const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
             <div
               key={index}
               className="flex-1 cursor-pointer relative"
-              onClick={() => handlePositionChange(index)}
             >
               {currentPosition === index && (
                 <img
@@ -58,7 +57,7 @@ const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
       <div className="flex flex-col items-end mt-2">
         <Link 
           to="#" 
-          className="text-[#6dc3bc] underline underline-offset-4 text-xs"
+          className="text-[#6dc3bc] underline underline-offset-4 text-xs ArchivoItalique"
         >
           En savoir plus sur notre échelle de transparence
         </Link>

@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 const useChangePassword = () => {
   const privateClient = useAxiosPrivate();
   const [loading, setLoading] = useState(false);
+  const [onClose, setOnClose] = useState(false);
   const [error, setError] = useState(null);
   const { triggerToast } = useToast();
   const history = useHistory();
@@ -32,6 +33,8 @@ const useChangePassword = () => {
         new_password_confirmation: newPasswordConfirmation,
       });
       triggerToast(response.data.message || "Mot de passe changé avec succès.", "success");
+      //history.replace("/settings"); 
+      setOnClose(true);
       }
       
       
@@ -45,7 +48,7 @@ const useChangePassword = () => {
     }
   };
 
-  return { changePassword, loading, error };
+  return { changePassword, loading, error, onClose };
 };
 
 export default useChangePassword;

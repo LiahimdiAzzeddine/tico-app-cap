@@ -1,9 +1,11 @@
 import { useState } from "react";
-import axios from "../../api/axios";
+import useAxiosPrivate from "../useAxiosPrivate";
 import { useToast } from "../../context/ToastContext";
 
 const recipe_URL = "/api/recipe/store";
 const useSuggestRecipe = () => {
+  const privateClient = useAxiosPrivate();
+
   const { triggerToast } = useToast(); // Utilisation du contexte de notification
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,7 +18,7 @@ const useSuggestRecipe = () => {
 
     try {
       // Envoi des données de la recette via un appel POST à l'API
-      const response = await axios.post(recipe_URL, formValues);
+      const response = await privateClient.post(recipe_URL, formValues);
 
       // Affiche un toast de succès avec un message approprié
       triggerToast("Recette envoyée avec succès !", "success");

@@ -23,11 +23,11 @@ function NameProduct(props) {
       />
      
       <div className="flex flex-col justify-around space-y-1">
-      <h3 className="text-xl titre-roboto-bold text-[#0f548d]">
+      <h3 className="text-xl titre-roboto-bold text-[#0f548d] Archivo">
         {props.Name}
       </h3>
-      <div className="text-lg text-[#42a29a]">{props.Brand}</div>
-      <div className="text-lg text-[#42a29a] font-bold italic ">Produit {props.Transparent}% transparent !</div>
+      <div className="text-sm text-[#42a29a]">{props.Brand}</div>
+      <div className="text-sm text-[#42a29a] font-bold ArchivoBoldItalique">Produit {(Number(props.Transparent)+1)*10}% transparent !</div>
       </div>
       
     </div>

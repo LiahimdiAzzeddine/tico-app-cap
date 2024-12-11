@@ -77,7 +77,7 @@ const PersonalInfo = () => {
       {!isOnline && <OfflineBanner />}
       
       <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full ">
-        Mes &nbsp;<span className="marker-effect-orange">informations</span>
+        Mes informations
       </h2>
 
       <div className="space-y-4 w-11/12 max-w-xs h-5/6">
@@ -110,7 +110,7 @@ const PersonalInfo = () => {
       </div>
     </div>
     <CustomModal isOpen={showModalPass} onClose={() => setShowModalPass(false)}>
-        <ChangePassword />
+        <ChangePassword Close={setShowModalPass} />
       </CustomModal>
     </>
   );

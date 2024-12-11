@@ -61,7 +61,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 export default Modal;
 
 // contact Modal
-export const ContactModal = ({ isOpen, setIsOpen, gtin }) => {
+export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
   const [isOpenTiCO, setIsOpenTiCO] = useState(false);
   const [isOpenSolliciter, setIsOpenSolliciter] = useState(false);
   const isAuthenticated = useIsAuthenticated();
@@ -75,7 +75,7 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin }) => {
         "pour contacter Tico, il faut être connecté",
         "Attention",
         () => {
-          history.replace("login");
+          history.replace("/login");
         },
         "ios",
         "Se connecter"
@@ -91,7 +91,7 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin }) => {
         "Connecte-toi pour encourager la marque",
         "Attention",
         () => {
-          history.replace("login");
+          history.replace("/login");
         },
         "ios",
         "Se connecter"
@@ -158,6 +158,7 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin }) => {
         setIsOpen={setIsOpenSolliciter}
         authUser={authUser}
         gtin={gtin}
+        productName={productName}
       />
     </>
   );
@@ -239,23 +240,29 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser, gtin }) => {
     </Modal>
   );
 };
-export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin,productName }) => {
+export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin, productName }) => {
+  
   const { handleSubmit, loading, error, sended } = useTransparencyRequests();
   const [formValues, setFormValues] = useState({
     user_id: authUser?.id || "",
     gtin: gtin || "",
-    productName:productName || "",
+    productName: productName,
   });
+    console.log("🚀 ~ Solliciter ~ productName:", productName)
 
   const handleRequest = () => {
-    handleSubmit(formValues);
+    handleSubmit({
+      user_id: authUser?.id || "",
+      gtin: gtin || "",
+      productName: productName,
+    });
   };
 
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <div className="flex flex-col items-center justify-center w-full space-y-4">
         {/* Bubble Icon */}
-        <img src={ContactImg} alt="Bubble text icon" className="w-20 h-auto " />
+        <img src={ContactImg} alt="Bubble text icon" className="w-20 h-auto" />
         {/* Title */}
         <h1 className="text-xl text-custom-blue flex items-start">
           <img src={flecheLeft} className="w-5 mr-2" />
@@ -281,7 +288,7 @@ export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin,productName }) =>
           </button>
         ) : (
           <p className="text-green-500 font-bold text-sm">
-            Votre demande a été envoyée avec succès&ensp;!
+            Votre demande a été envoyée avec succès!
           </p>
         )}
 
@@ -303,11 +310,16 @@ export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin,productName }) =>
   );
 };
 
-export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
+export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,togglePanel,scrollToTarget }) => {
   const [showAll, setShowAll] = useState(false);
   const [showInfo, setShowInfo] = useState("additifs");
 
   const displayedAdditifs = showAll ? additifs : additifs.slice(0, 3);
+  const MoreInfo = async () => {
+    setIsOpen(false);
+    await togglePanel(2);
+    scrollToTarget(targetRefAdditifs,"additifs");
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -317,21 +329,22 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
           <div className="flex flex-row gap-1 max-w-xs mx-auto pt-2">
             <button
               style={{ border: "2px solid #0f548d" }}
-              className={`flex-1 p-1 rounded-xl  ${
+              className={`flex-1 p-1 rounded-xl Archivo opacity-50 cursor-not-allowed  ${
                 showInfo === "transformation"
                   ? "bg-custom-blue font-bold text-white"
                   : "text-custom-blue"
               }`}
-              onClick={() => setShowInfo("transformation")}
+              onClick={() => console.log(/*setShowInfo("transformation")*/)}
             >
               Naturalité
             </button>
 
             <button
+
               style={{ border: "2px solid #0f548d" }}
-              className={`flex-1 p-1 rounded-xl  ${
+              className={`flex-1 p-1 rounded-xl Archivo  ${
                 showInfo === "additifs"
-                  ? "bg-custom-blue text-white font-bold"
+                  ? "bg-custom-blue text-white ArchivoBold"
                   : "text-custom-blue"
               }`}
               onClick={() => setShowInfo("additifs")}
@@ -347,11 +360,11 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
             {/* Content Section */}
             {showInfo === "transformation" ? (
               <div className="space-y-2 pt-4">
-                <div className="text-custom-blue text-center">
+                <div className="text-custom-blue text-center Archivo">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   consequuntur nostrum blanditiis dicta laboriosam.
                 </div>
-                <div className="text-custom-blue text-center">
+                <div className="text-custom-blue text-center Archivo">
                   Lorem ipsum dolor sit amet consectetur adipisicing
                   elit.mollitia incidunt sit consequuntur nostrum blanditiis
                   dicta.
@@ -362,7 +375,7 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
                 <div className="space-y-4">
                   <div className="flex items-end space-x-2">
                     <span className="text-custom-blue font-bold text-2xl">
-                      +2
+                      +{additifs.length}
                     </span>
                     <img
                       src={Additif}
@@ -372,7 +385,7 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
                   </div>
                 </div>
                 <h1 className="text-xl text-custom-blue font-bold text-center py-2">
-                  <span className="marker-effect-cyan z-10">Additifs</span>
+                  <span className="marker-effect-cyan z-10 Archivo">Additifs</span>
                 </h1>
 
                 <div className="space-y-2">
@@ -387,14 +400,14 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
                           alt={`Pastille for note ${item.noteUFC}`}
                           className="w-4 h-4"
                         />
-                        <span className="font-bold text-custom-blue">
+                        <span className="font-bold text-custom-blue ArchivoBold">
                           {item.code}
                         </span>
-                        <span className="text-custom-blue">: {item.label}</span>
+                        <span className="text-custom-blue Archivo">: {item.label}</span>
                       </div>
                     ))
                   ) : (
-                    <div className="text-gray-500 text-center">
+                    <div className="text-gray-500 text-center Archivo">
                       Aucun additif disponible.
                     </div>
                   )}
@@ -406,7 +419,7 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs }) => {
 
         {/* Fixed Footer */}
         <div>
-          <button className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none">
+          <button className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none ArchivoItalique"  onClick={MoreInfo}>
             En savoir plus
           </button>
         </div>
@@ -432,12 +445,13 @@ export const NutrriInfo = ({
     E: Nutri_score_E,
   };
   const nutriscorePhrase = {
-    A: "Bravo ! Ce produit est excellent sur le plan nutritionnel.",
-    B: "Ce produit est bon sur le plan nutritionnel, une bonne option pour une alimentation équilibrée.",
-    C: "Ce produit a une qualité nutritionnelle moyenne, consommez-le avec modération.",
-    D: "Attention ! Ce produit contient des nutriments à limiter, mais peut s’intégrer dans une alimentation variée.",
-    E: "Ce produit est à consommer occasionnellement en raison de sa faible qualité nutritionnelle.",
+    A: "Les produits notés&nbsp;A sont généralement riches en nutriments bénéfiques (fibres, protéines, vitamines) et faibles en éléments à limiter comme les graisses saturées, les sucres ou le sel. Ce sont des aliments à privilégier dans le cadre d’une alimentation équilibrée.",
+    B: "Les produits classés&nbsp;B restent de bons choix pour votre alimentation. Ils contiennent un bon mix de nutriments, avec parfois un peu plus de graisses, sucres ou sel que les produits notés&nbsp;A et un peu moins que les produits notés&nbsp;C.",
+    C: "Un produit avec un Nutri-Score&nbsp;C peut contenir plus de graisses, de sucre ou de sel. Mais attention, ça ne veut pas dire qu’il faut l’éviter&nbsp;! Certains aliments comme les huiles végétales, riches en bonnes graisses, peuvent avoir un C tout en étant bons pour la santé. Tout est une question d’équilibre&nbsp;!",
+    D: "Un produit noté&nbsp;D contient généralement des nutriments à limiter (graisses saturées, sucres ou sel). Mais certains, comme les fromages, apportent aussi des nutriments intéressants comme le calcium. Ils peuvent faire partie d’une alimentation variée si on les consomme avec modération.",
+    E: "Les produits classés&nbsp;E sont ceux qui contiennent le plus d’éléments à limiter (graisses saturées, sucres, sel). Ils sont à consommer avec parcimonie. Toutefois, certains produits peuvent être classés&nbsp;E tout en étant intéressants nutritionnellement, comme certaines huiles. L’important, c’est de les intégrer à petite dose dans votre alimentation globale.",
   };
+  
   const selectedNutriscorePhrase =
     nutriscorePhrase[nutriscore] ||
     "Ce produit est à consommer avec précaution.";
@@ -456,7 +470,7 @@ export const NutrriInfo = ({
         <div className="sticky top-0">
           {/* Title */}
           <h1 className="text-xl text-custom-blue flex flex-col items-center justify-center py-1">
-            <span className="font-bold">Nutrition</span>
+            <span className="font-bold ArchivoBold">Nutrition</span>
           </h1>
           <div className="py-2 flex justify-center">
               <img
@@ -469,14 +483,15 @@ export const NutrriInfo = ({
         {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-aut">
           <div className="max-w-md mx-auto">
-            <div className=" text-custom-blue text-center">
-            Les produits classés E sont ceux qui contiennent le plus d’éléments à limiter (graisses saturées, sucres, sel). Ils sont à consommer avec parcimonie. Toutefois, certains produits peuvent être classés E tout en étant intéressants nutritionnellement, comme certaines huiles. L’important, c’est de les intégrer à petite dose dans votre alimentation globale.            </div>
+            <div className=" text-custom-blue text-center Archivo">
+            <span dangerouslySetInnerHTML={{ __html: selectedNutriscorePhrase }} />
+            </div>
           </div>
         </div>
         {/* Fixed Footer */}
         <div>
           <button
-            className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none"
+            className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none ArchivoItalique"
             onClick={MoreInfo}
           >
             En savoir plus

@@ -7,7 +7,7 @@ import { ContactModal } from "./Modal";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-function Sections({scrollToTarget, targetRefRecettes,gtin}) {
+function Sections({scrollToTarget, targetRefRecettes,gtin,productName}) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Fonction de partage
@@ -16,7 +16,7 @@ function Sections({scrollToTarget, targetRefRecettes,gtin}) {
       await Share.share({
         title: "Découvrez cette fiche produit",
         text: "Découvrez les informations nutritionnelles et d'autres détails sur ce produit.", // Ajout d'un texte de description
-        url: backendUrl + "/fiche-produit/154861", // Assurez-vous que cette URL est accessible
+        url: backendUrl + "/fp/"+gtin, // Assurez-vous que cette URL est accessible
         dialogTitle: "Fiche produit",
       });
     } catch (error) {
@@ -50,7 +50,7 @@ function Sections({scrollToTarget, targetRefRecettes,gtin}) {
           </div>
         </div>
       </div>
-      <ContactModal isOpen={isOpen} setIsOpen={setIsOpen} gtin={gtin} />
+      <ContactModal isOpen={isOpen} setIsOpen={setIsOpen} gtin={gtin} productName={productName} />
     </>
   );
 }

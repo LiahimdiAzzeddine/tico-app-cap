@@ -102,8 +102,13 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
             <div className="flex items-center justify-start text-sm text-custom-red mt-4">
               <img src={horloge} className="w-8 h-8 mr-2" alt="clock icon" />
               <div className="text-start">
-                <div>{preparation} de préparation</div>
-                <div>{cuisson} de cuisson</div>
+                {preparation&&(
+                  <div>{preparation} de préparation</div>
+                )}
+                {cuisson&&(
+                 <div>{cuisson} de cuisson</div>
+                )}
+                
               </div>
             </div>
           </div>

@@ -6,16 +6,38 @@ import SuggestRecipe from "../recettes/SuggestRecipe";
 import WhiteModal from "../modales/WhiteModal";
 import RecipeModal from "../modales/RecipeModal";
 import defaultImageRecette from "../../assets/recettes/defaultImageRecette.png";
+import { useAlert } from "../../context/AlertProvider";
+import { useHistory } from "react-router-dom";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 
 function Recettes({ recettes,targetRefRecettes }) {
   const [showModalAddRecipe, setShowModalAddRecipe] = useState(false);
   const [showModalRecipe, setShowModalRecipe] = useState(false);
   const [selectedRecette, setSelectedRecette] = useState(null);
-
+  const isAuthenticated = useIsAuthenticated();
+  const { triggerAlert } = useAlert();
+  const history = useHistory();
+  
   const handleRecetteClick = (recette) => {
     setSelectedRecette(recette);
     setShowModalRecipe(true);
   };
+  const handleAddrecipe=()=>{
+    if (!isAuthenticated) {
+      triggerAlert(
+        "pour Proposer une recette pour ce produit, il faut être connecté",
+        "Attention",
+        () => {
+          history.replace("/login");
+        },
+        "ios",
+        "Se connecter"
+      );
+    } else {
+      setShowModalAddRecipe(true);
+    }
+    
+  }
 
   return (
     <>
@@ -70,7 +92,7 @@ function Recettes({ recettes,targetRefRecettes }) {
       <div className="flex flex-row items-center justify-center space-x-3">
         <img src={flecheRed} alt="Fleche" className="w-12" />
         <button
-          onClick={() => setShowModalAddRecipe(true)}
+          onClick={() => handleAddrecipe()}
           className="text-gl text-white bg-custom-red rounded-md font-bold w-48 p-2"
         >
           Proposer une recette pour ce produit

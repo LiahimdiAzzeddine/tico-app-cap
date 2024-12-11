@@ -12,18 +12,18 @@ const useTransparencyRequests = () => {
 
   const handleSubmit = async (formValues) => {
     setLoading(true);
-    setError(null);
+    setError(null); // Réinitialise l'erreur avant de soumettre
+    console.log("🚀 ~ Solliciter ~ productName:", formValues.productName)
 
     try {
       // Appel API
       const response = await axios.post(TRANSPARENCY_REQUESTS_URL, formValues);
-
       // Succès : Ajoute des détails si nécessaire
       triggerToast("Demande envoyée avec succès !", "success");
-      setSended(response?.data || true); // Stocke la réponse ou un état
+      setSended(true); // Marque la demande comme envoyée
     } catch (err) {
-      const errors = err.response?.data?.errors || "Erreur inconnue.";
-      setError(errors);
+      const errors = "Erreur inconnue.";
+      setError(errors); // Met à jour l'état des erreurs
       triggerToast("Erreur lors de l'envoi de la demande.", "danger");
     } finally {
       setLoading(false);

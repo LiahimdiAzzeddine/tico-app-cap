@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import FICHETOP from "../../../assets/fb/FICHETOP.svg";
 
 function OriginsInfo({ togglePanel, origin }) {
-  console.log("🚀 ~ OriginsInfo ~ origin:", origin)
   const [showInfo, setShowInfo] = useState(false);
 
   return (

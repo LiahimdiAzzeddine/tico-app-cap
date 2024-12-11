@@ -6,13 +6,13 @@ import { IonIcon } from "@ionic/react";
 import { useToast } from "../../context/ToastContext";
 import useChangePassword from "../../hooks/auth/useChangePassword";
 
-const ChangePassword = () => {
+const ChangePassword = ({Close=null}) => {
   const location = useLocation();
   const [email, setEmail] = useState(null);
   const [token, setToken] = useState("");
 
   const { triggerToast } = useToast();
-  const { changePassword, loading, error } = useChangePassword(); // Use the hook
+  const { changePassword, loading, error,onClose } = useChangePassword(); // Use the hook
   const [values, setValues] = useState({
     oldPassword: "",
     newPassword: "",
@@ -50,6 +50,9 @@ const ChangePassword = () => {
       values.confirmPassword,
       email
     );
+    if(onClose){
+      Close(false);
+    }
   };
 
   const togglePasswordVisibility = (field, value) => {
@@ -62,7 +65,7 @@ const ChangePassword = () => {
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full">
       <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full">
-        Mon &nbsp;<span className="marker-effect-orange">mot de passe</span>
+        Changer mon mot de passe
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4 w-11/12 max-w-xs 5/6">
@@ -93,7 +96,7 @@ const ChangePassword = () => {
                 onMouseUp={() => togglePasswordVisibility("old", false)}
                 onTouchStart={() => togglePasswordVisibility("old", true)}
                 onTouchEnd={() => togglePasswordVisibility("old", false)}
-                className="absolute right-3 top-1/2  translate-y-1/4 text-gray-500 focus:outline-none"
+                className="absolute right-3 top-1/2  -translate-y-[35%] text-gray-500 focus:outline-none"
               >
                 <IonIcon
                   icon={showPasswords.old ? eyeOffOutline : eyeOutline}

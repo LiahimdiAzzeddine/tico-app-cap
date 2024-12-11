@@ -42,6 +42,22 @@
   font-style: italic;
 }
 
+
+.Archivo{
+  font-family: 'Archivo';
+}
+.ArchivoBold{
+  font-family: 'Archivo';
+  font-weight: bold;
+}
+.ArchivoBoldItalique{
+  font-weight: bold;
+  font-style: italic;
+}
+.ArchivoItalique{
+  font-weight: normal;
+  font-style: italic;
+}
 /*
 html {
   --ion-safe-area-left: 25px;

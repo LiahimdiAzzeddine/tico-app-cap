@@ -1,8 +1,19 @@
 import { createRecipe } from "./createRecipe";
+function getValidValue(...values) {
+  for (let value of values) {
+      if (value && value !== "") {
+          return value;
+      }
+  }
+  return null; // Valeur par défaut si aucune des valeurs n'est valide
+}
+
 export function createProduct(scannedResult, productData) {
+  console.log("🚀 ~ createProduct ~ productData:", productData?.foodheaproduct)
   // Extraction et transformation des additifs
-  const additifs =
-    productData.foodheaproduct?._additifs?.map((additif) => ({
+  const additifs = (productData.foodheaproduct?._additifs?.length 
+    ? productData.foodheaproduct._additifs 
+    : productData.OFFproduct?._additifs)?.map((additif) => ({
       code: additif._code,
       label: additif._label,
       label2: additif._label2,
@@ -13,10 +24,12 @@ export function createProduct(scannedResult, productData) {
     })) ?? [];
 
   // Extraction et transformation des recettes
-  const recipes =
-    productData.foodheaproduct?._recettes?.map((recipe) =>
+  const recipes = (productData.foodheaproduct?._recettes?.length 
+    ? productData.foodheaproduct._recettes 
+    : productData.OFFproduct?._recettes)?.map((recipe) => 
       createRecipe(recipe)
     ) ?? [];
+
 
   // Extraction et transformation des lignes
   const lines = productData.foodheaproduct?._lines
@@ -95,32 +108,31 @@ export function createProduct(scannedResult, productData) {
 
   // Retour de l'objet produit avec les allergènes
   return {
-    image: productData.OFFproduct?._photoUrl ?? "default_image_url.jpg",
-    name: productData.foodheaproduct?._name ?? "Produit inconnu",
-    generic_name:productData.foodheaproduct?._generic_name ?? "Produit inconnu",
-    trademark: productData.OFFproduct?._trademark ?? "Marque inconnue",
-    nutriscore: productData.foodheaproduct?._nutriscore ?? "inconnue",
-    nova: productData.foodheaproduct?._nova ?? "inconnue",
+    image: getValidValue(productData.foodheaproduct?._photoUrl, productData.OFFproduct?._photoUrl, "/src/assets/history/64.png"),
+    name: getValidValue(productData.foodheaproduct?._name, productData.OFFproduct?._name,""),
+    generic_name: getValidValue(productData.foodheaproduct?._generic_name, productData.OFFproduct?._generic_name, "Nom inconnu"),
+    transparency_scale:0,
+    trademark: getValidValue(productData.foodheaproduct?._trademark_txt , productData.OFFproduct?._trademark_txt , "Marque inconnue"),
+    nutriscore: getValidValue(productData.foodheaproduct?._nutriscore, productData.OFFproduct?._nutriscore, "inconnue"),
+    nova: getValidValue(productData.foodheaproduct?._nova, productData.OFFproduct?._nova, "inconnue"),
     gtin: scannedResult,
     additifs,
-    transparent: "---",
-    adviceconso: productData.foodheaproduct?._adviceconso ?? "inconnue",
-    planetScore:
-      productData?.foodheaproduct?._planetscore?.[0]?._url ??
-      "default_image_url.jpg",
-      
-    nutriscore_comment:
-      productData.foodheaproduct?._nutriscore_comment ?? "inconnue",
+    adviceconso: getValidValue(productData.foodheaproduct?._adviceconso, productData.OFFproduct?._adviceconso, "inconnue"),
+    planetScore: getValidValue(productData.foodheaproduct?._planetscore?.[0]?._url, productData.OFFproduct?._planetscore?.[0]?._url, "/src/assets/history/64.png"),
+    nutriscore_comment: getValidValue(productData.foodheaproduct?._nutriscore_comment, productData.OFFproduct?._nutriscore_comment, "inconnue"),
     recipes: recipes,
-    portion: productData.foodheaproduct?._portion ?? " ",
-    portioneq: productData.foodheaproduct?._portioneq ?? " ",
-    useportion: productData.foodheaproduct?._useportion ?? " ",
-    unit: productData.foodheaproduct?._unit ?? " ",
+    portion: getValidValue(productData.foodheaproduct?._portion, productData.OFFproduct?._portion, " "),
+    portioneq: getValidValue(productData.foodheaproduct?._portioneq, productData.OFFproduct?._portioneq, " "),
+    useportion: getValidValue(productData.foodheaproduct?._useportion, productData.OFFproduct?._useportion, " "),
+    unit: getValidValue(productData.foodheaproduct?._unit, productData.OFFproduct?._unit, " "),
     lines,
     ingredients,
     allergens: uniqueAllergens, 
     origin: originJson, 
-    emballage:productData.foodheaproduct?._emballage ?? " ",
-    transformation:productData.foodheaproduct?._transformation ?? " ",
+    emballage: getValidValue(productData.foodheaproduct?._emballage, productData.OFFproduct?._emballage, " "),
+    transformation: getValidValue(productData.foodheaproduct?._transformation, productData.OFFproduct?._transformation, " "),
   };
+
+
+
 }

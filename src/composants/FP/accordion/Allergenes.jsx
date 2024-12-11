@@ -30,27 +30,39 @@ const Allergenes = ({ allergenes = [] }) => {
     Poisson: Poisson,
     Sesame: Sesame,
     Soja: Soja,
-    Sulfites: Sulfites
+    Sulfites: Sulfites,
   };
 
   return (
     <>
       <h1 className="text-xl text-custom-blue font-bold pt-3">
-        <span className="marker-effect-cyan">Allergènes</span>
+        <span className="marker-effect-cyan ArchivoBold">Allergènes</span>
       </h1>
       <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {allergenes.map((allergene, index) => (
-          <div key={index} className="flex flex-col items-center justify-end">
-            {allergenesImg[allergene] && (
-              <img
-                src={allergenesImg[allergene]}
-                alt={`Allergène ${allergene}`}
-                className="w-8 h-8"
-              />
-            )}
-            <span className="text-sm text-gray-600 mt-1">{allergene}</span>
+        {allergenes.length > 0 ? (
+          allergenes.map((allergene, index) => (
+            <div key={index} className="flex flex-col items-center justify-end">
+              {allergenesImg[allergene] ? (
+                <img
+                  src={allergenesImg[allergene]}
+                  alt={`Allergène ${allergene}`}
+                  className="w-10 h-10"
+                />
+              ) : (
+                <div className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full">
+                  <span className="text-xs text-gray-500">N/A</span>
+                </div>
+              )}
+              <span className="text-sm text-gray-600 mt-1 ArchivoBold">
+                {allergene || "Inconnu"}
+              </span>
+            </div>
+          ))
+        ) : (
+          <div className="text-gray-500 ArchivoBold">
+            Aucun allergène disponible.
           </div>
-        ))}
+        )}
       </div>
     </>
   );

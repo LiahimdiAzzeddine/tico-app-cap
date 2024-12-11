@@ -5,10 +5,20 @@ import hands from "../assets/help/helpHands.svg";
 import { logoEuro } from "ionicons/icons";
 import Spinner from "../composants/Spinner";
 import useStripe from "../hooks/useStripe"; 
+import { Share } from "@capacitor/share";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 const HelpTiCO = () => {
   const [amount, setAmount] = useState();
   const { handleDonate, loading } = useStripe();
+  const handleShare = async () => {
+    await Share.share({
+      title: "TiCO App",
+      text: "Découvrez l'application TiCO et partagez-la avec votre entourage !",
+      url: apiUrl + "/partager_tico",
+      dialogTitle: "Partager TiCO",
+    });
+  };
 
   return (
     <>
@@ -34,6 +44,7 @@ const HelpTiCO = () => {
             </p>
             <div className="flex flex-col items-center justify-center w-2/4">
               <button
+              onClick={handleShare}
                 className="bg-custom-blue text-white font-bold text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
               >
                 Partager TiCO
