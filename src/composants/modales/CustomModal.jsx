@@ -15,6 +15,7 @@ const CustomModal = ({ isOpen, onClose, children,image }) => {
         "--max-width": "100%",
         "--min-height": "100%",
         "--min-width": "100%",
+        paddingTop:"env(safe-area-inset-top)",
       }}
     >
       {/* Custom Header */}

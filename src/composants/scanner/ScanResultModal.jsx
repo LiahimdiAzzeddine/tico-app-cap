@@ -115,6 +115,7 @@ const ScanResultModal = ({
       keepContentsMounted={true}
       style={{
         "--border-radius": modalBreakpoint === 1 ? "0" : "2rem 2rem 0 0",
+        paddingTop:"env(safe-area-inset-top)",
       }}
     >
       {/***/}

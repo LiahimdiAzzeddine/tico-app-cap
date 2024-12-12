@@ -24,6 +24,8 @@ import ChangePassword from "./composants/settings/ChangePassword";
 import Recette from "./pages/recette";
 import Tip from "./pages/Tip";
 import Fp from "./pages/fp";
+import { StatusBar } from "@capacitor/status-bar";
+
 
 function App() {
   const history = useHistory();
@@ -61,7 +63,7 @@ function App() {
 
     // Verrouiller l'orientation en mode portrait
     ScreenOrientation.lock({ orientation: "portrait" });
-
+   
     // Nettoyage à la destruction du composant
     return () => {
       appUrlListener.remove(); // Supprimer le listener pour éviter les fuites de mémoire

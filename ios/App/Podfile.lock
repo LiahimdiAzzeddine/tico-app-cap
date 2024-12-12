@@ -1,28 +1,28 @@
 PODS:
   - Capacitor (5.7.8):
     - CapacitorCordova
-  - CapacitorApp (6.0.1):
+  - CapacitorApp (6.0.2):
     - Capacitor
   - CapacitorCommunityBarcodeScanner (4.0.1):
     - Capacitor
   - CapacitorCordova (5.7.8)
   - CapacitorDialog (6.0.2):
     - Capacitor
-  - CapacitorHaptics (6.0.1):
+  - CapacitorHaptics (6.0.2):
     - Capacitor
-  - CapacitorNetwork (6.0.2):
+  - CapacitorNetwork (6.0.3):
     - Capacitor
-  - CapacitorScreenOrientation (6.0.2):
+  - CapacitorScreenOrientation (6.0.3):
     - Capacitor
-  - CapacitorShare (6.0.2):
+  - CapacitorShare (6.0.3):
     - Capacitor
   - CapacitorStatusBar (6.0.2):
     - Capacitor
   - CapacitorStorage (1.2.5):
     - Capacitor
-  - CapacitorToast (6.0.2):
+  - CapacitorToast (6.0.3):
     - Capacitor
-  - CapgoCapacitorFlash (6.0.3):
+  - CapgoCapacitorFlash (6.0.7):
     - Capacitor
 
 DEPENDENCIES:
@@ -70,19 +70,19 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Capacitor: 747aadb4fa786f460d8cd9d0557cb81440a13747
-  CapacitorApp: 0bc633b4eae40a1f32cd2834788fad3bc42da6a1
+  CapacitorApp: 2a8c3a0b0814322e5e6e15fe595f02c3808f0f8b
   CapacitorCommunityBarcodeScanner: 7feb206489c8555a8ca0c74c57ddf49ead774eb8
   CapacitorCordova: 31ab98dca2ddcee051027a1afe7e8c85c82f7297
   CapacitorDialog: e966e2261e1c74a8a502e610dd66b4f97ec6fcca
-  CapacitorHaptics: fe689ade56ef20ec9b041a753c6da70c5d8ec9a9
-  CapacitorNetwork: 8796cf1f1104a00b289957b6150b7c60e1c2a8d3
-  CapacitorScreenOrientation: 6039dc2ea4a8596b79316709d5727e8bb7e32845
-  CapacitorShare: 591ae4693d85686ceb590db8e8b44aa014ec6490
+  CapacitorHaptics: b53409aaca1203f79c6d0eb3ed5de40556339518
+  CapacitorNetwork: da96b5fff8d05b67f4658503aabb22f65bda2c0f
+  CapacitorScreenOrientation: 3bb823f5d265190301cdc5d58a568a287d98972a
+  CapacitorShare: 7af6ca761ce62030e8e9fbd2eb82416f5ceced38
   CapacitorStatusBar: 3b9ac7d0684770522c532d1158a1434512ab1477
   CapacitorStorage: 63255170c2f7e9f7363b3e5e015584e6d18f2969
-  CapacitorToast: cfd82cd5afdc3f027ad4a8859f909ae4a327f3c3
-  CapgoCapacitorFlash: add9502d704e3f7a412807f0b9ab8da05c4192b6
+  CapacitorToast: 048d8cbefa6651509ed29c3e7262e9e64abe251d
+  CapgoCapacitorFlash: 95210589a71f3ced3094193faab31288cbe29734
 
 PODFILE CHECKSUM: fcbd19e275e200c85da6590acfd64dab6eed5035
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.16.2

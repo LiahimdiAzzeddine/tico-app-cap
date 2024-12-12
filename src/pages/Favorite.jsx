@@ -1,7 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 
 const Favorite = () => (
-  <IonPage>
+  <IonPage style={{paddingTop:"env(safe-area-inset-top)" }}>
     <IonHeader className="ion-no-border z-0">
       <IonToolbar>
         <IonTitle>Favorite</IonTitle>

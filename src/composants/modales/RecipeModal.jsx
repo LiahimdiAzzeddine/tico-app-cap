@@ -14,6 +14,7 @@ const RecipeModal = ({ isOpen, onClose, recipe }) => {
       style={{
         "--background": "#fdf2f0",
         "--ion-padding": "0",
+        paddingTop:"env(safe-area-inset-top)",
       }}
     >
       <div className="bg-custom-red-bg-clear">

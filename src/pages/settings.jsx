@@ -44,7 +44,7 @@ const Settings = () => {
 
   return (
     <>
-      <IonPage>
+      <IonPage style={{paddingTop:"env(safe-area-inset-top)" }}>
         {/* Custom Header */}
         <div className="bg-[#ffeca7]">
           <ModalHeader

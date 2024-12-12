@@ -10,7 +10,7 @@ const AuthLayout = ({ children }) => {
 
   return (
     
-    <IonPage id="main-content">
+    <IonPage id="main-content" style={{ paddingTop:"env(safe-area-inset-top)" }}>
       <IonHeader
         className="ion-no-border z-0"
         style={{ "--ion-background-color": "#ffeda3" }}

@@ -354,3 +354,7 @@ padding-top: 1rem;
   background-size: contain !important;
   background-position: center !important;
 }
+/* Exemple d'utilisation d'un padding spécifique aux safe areas */
+.app-container {
+  padding-top: var(--ion-safe-area-top) !important;
+}
