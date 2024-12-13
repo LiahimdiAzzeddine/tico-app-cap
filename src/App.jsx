@@ -85,6 +85,7 @@ function App() {
           <HelpTiCO />
         </HomeLayout>
       </Route>
+      
       <Route path="/recipes" exact={true}>
         <Recipes />
       </Route>

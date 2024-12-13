@@ -3,6 +3,7 @@ import {
   IonContent,
   IonIcon,
   IonButton,
+  IonPage,
 } from "@ionic/react";
 import { alertCircle, searchCircle } from "ionicons/icons";
 import FicheProduit from "../FP/FicheProduit";
@@ -114,10 +115,9 @@ const ScanResultModal = ({
       onAnimationEnd={() => setIsAnimating(false)}
       keepContentsMounted={true}
       style={{
-        "--border-radius": modalBreakpoint === 1 ? "0" : "2rem 2rem 0 0",
-        paddingTop:"env(safe-area-inset-top)",
-      }}
+        "--border-radius": modalBreakpoint === 1 ? "0" : "2rem 2rem 0 0",      }}
     >
+      <IonPage id="main-content" style={{paddingTop:"env(safe-area-inset-top)" }}>
       {/***/}
       <ModalHeader image={"fb"} onClose={() => handleDismiss(false)} />
 
@@ -169,6 +169,7 @@ const ScanResultModal = ({
           </>
         )}
       </IonContent>
+      </IonPage>
     </IonModal>
   );
 };
