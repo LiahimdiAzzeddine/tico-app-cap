@@ -36,7 +36,7 @@ function App() {
         console.log("URL reçue :", data.url);
   
         // Extraire le slug depuis l'URL (partie après ".app")
-        const slug = data.url.split(".tico").pop();
+        const slug = data.url.split("tico.foodhea.com ").pop();
         console.log("Slug détecté :", slug);
   
         if (slug) {

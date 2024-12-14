@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	 <key>CFBundleURLName</key>
-        <string>com.tico.app</string>
+        <string>com.tico.foodhea.tico</string>
         <key>CFBundleURLSchemes</key>
         <array>
             <string>tico</string>
@@ -58,7 +58,7 @@
 
 <key>com.apple.developer.associated-domains</key>
 <array>
-    <string>applinks:resonant-lily-57b65d.netlify.app</string>
+    <string>applinks:tico.foodhea.com</string>
 </array>
 
 </dict>
