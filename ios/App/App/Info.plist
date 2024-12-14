@@ -56,7 +56,10 @@
 	<key>UIStatusBarHidden</key>
 <false/>
 
-
+<key>com.apple.developer.associated-domains</key>
+<array>
+    <string>applinks:resonant-lily-57b65d.netlify.app</string>
+</array>
 
 </dict>
 </plist>
