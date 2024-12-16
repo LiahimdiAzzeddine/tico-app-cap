@@ -2,18 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-<key>NSCameraUsageDescription</key>
-  <string>To be able to scan barcodes</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	 <key>CFBundleURLName</key>
-        <string>com.tico.foodhea.tico</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>tico</string>
-        </array>
 	<key>CFBundleDisplayName</key>
-        <string>tico</string>
+	<string>tico</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -26,10 +18,29 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLName</key>
+	<string>com.tico.foodhea.tico</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+		<string>tico</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tico</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>To be able to scan barcodes</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -38,6 +49,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarHidden</key>
+	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -52,14 +65,10 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-    <true/>
-	<key>UIStatusBarHidden</key>
-<false/>
-
-<key>com.apple.developer.associated-domains</key>
-<array>
-    <string>applinks:tico.foodhea.com</string>
-</array>
-
+	<true/>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:tico.foodhea.com</string>
+	</array>
 </dict>
 </plist>
