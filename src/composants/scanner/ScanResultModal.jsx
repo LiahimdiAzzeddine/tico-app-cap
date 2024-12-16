@@ -16,6 +16,7 @@ import { ErrorMessage } from "./UI/ErrorMessage";
 import ModalHeader from "../modales/ModalHeader";
 import { createProduct } from "../../utils/product";
 import LoadingFbState from "./UI/LoadingFbState";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 
 const ScanResultModal = ({
   scannedResult,
@@ -25,6 +26,7 @@ const ScanResultModal = ({
 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [modalBreakpoint, setModalBreakpoint] = useState(0.3);
+  const isAuthenticated = useIsAuthenticated();
   const {
     productData,
     loading,
@@ -57,7 +59,9 @@ const ScanResultModal = ({
       // Create the product using the imported function
       const product = createProduct(scannedResult, productData);
       setProduct(product);
-      addToHistory(scannedResult, product);
+      if (isAuthenticated) {
+        addToHistory(scannedResult, product);
+      }
     } else {
       const product = createProduct(scannedResult, {});
       setProduct(product);
@@ -75,10 +79,19 @@ const ScanResultModal = ({
   const addToLaterProducts = async (scannedResult, product) => {
     try {
       await addLaterProduct(product);
-      triggerToast("Produit ajouté à l'historique", "success");
+      triggerToast(
+        "Produit ajouté à la liste des produits à concevoir",
+        "success"
+      );
     } catch (error) {
-      triggerToast("Erreur lors de l'ajout du produit à l'historique", "error");
-      console.error("Erreur lors de l'ajout du produit à l'historique", error);
+      triggerToast(
+        "Erreur lors de l'ajout du produit à la liste des produits à concevoir",
+        "error"
+      );
+      console.error(
+        "Erreur lors de l'ajout du produit à la liste des produits à concevoir",
+        error
+      );
     }
   };
 

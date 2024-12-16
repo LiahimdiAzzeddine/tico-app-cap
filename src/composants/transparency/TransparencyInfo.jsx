@@ -54,7 +54,7 @@ const TransparencyInfo = () => {
       
       </div>
       <div className="p-4 flex flex-col items-center space-y-4">
-        <h3 className="text-lg text-custom-blue ArchivoBold py-4 mt-4 px-6 background_titre">
+        <h3 className="background_titre text-lg text-custom-blue ArchivoBold py-4 mt-4 px-6 ">
           L’échelle de transparence TiCO
         </h3>
         <div className="Archivo text-custom-blue">
