@@ -26,7 +26,7 @@ const History = () => {
     }
   };
   const handleDelete = async (gtin) => {
-    // Appeler triggerAlert pour afficher l'alerte
+    
     triggerAlert(
       "Êtes-vous sûr de vouloir continuer ?", // Message
       "Confirmation", // Titre
@@ -95,7 +95,6 @@ const History = () => {
                 <Item
                   product={product}
                   index={index}
-                  length={products.length}
                   key={index}
                   OpenFb={OpenFb}
                   handleDelete={handleDelete}

@@ -98,7 +98,7 @@ function IngredientsInfo({
             ))
           ) : (
             <p className="text-custom-blue ArchivoBold">
-              Aucun ingrédient disponible.
+              Aucun ingrédient disponible ne revisite ce produit entièrement. 
             </p>
           )}
         </div>

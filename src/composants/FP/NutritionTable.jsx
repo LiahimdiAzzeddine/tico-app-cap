@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 
-const NutritionTable = ({ product }) => {
+const NutritionTable = ({ product,portion }) => {
   const [unit, setUnit] = useState("100g");
 
   const organizeHierarchicalData = (lines) => {
@@ -108,6 +108,7 @@ const NutritionTable = ({ product }) => {
     <div className="p-2">
       {hierarchicalData?(
         <>
+        {(portion && portion!=0)&&(
       <div className="flex items-center justify-center gap-6 p-4">
         
         <button
@@ -143,7 +144,7 @@ const NutritionTable = ({ product }) => {
           Par portion
         </button>
       </div>
-
+)}
       <table className="w-full text-sm text-gray-700">
         <thead>
           <tr>
@@ -163,7 +164,7 @@ const NutritionTable = ({ product }) => {
             <NutritionRow
               key={`root-${item.id}`}
               item={item}
-              portion={product?.portion}
+              portion={portion}
             />
           ))}
         </tbody>

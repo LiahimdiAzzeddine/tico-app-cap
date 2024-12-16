@@ -15,13 +15,14 @@ function NameProduct(props) {
     <div>
     <div className="flex flex-row justify-center py-1 px-4 space-x-4">
       {/* Ajout de l'image */}
+      <div className="max-w-28 max-h-32 w-auto h-auto flex flex-col justify-center items-center">
       <img
         src={props.ImageSrc?props.ImageSrc:productDeffaultImg}
         alt={`${props.Name} - ${props.Brand}`}
-        className="w-28 h-auto object-cover cursor-pointer"
+        className="max-w-28 max-h-32 w-auto h-auto   object-cover cursor-pointer"
             onClick={handleZoom}
       />
-     
+     </div>
       <div className="flex flex-col justify-around space-y-1">
       <h3 className="text-xl titre-roboto-bold text-[#0f548d] Archivo">
         {props.Name}

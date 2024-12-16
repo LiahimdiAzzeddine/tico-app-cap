@@ -358,3 +358,16 @@ padding-top: 1rem;
 .app-container {
   padding-top: var(--ion-safe-area-top) !important;
 }
+
+.background_titre{
+  background-image: url('/src/assets/fb/titrBg.png') !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-position: center !important;
+}
+.background_plus{
+  background-image: url('/src/assets/fb/titreBg.svg') !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-position: center !important;
+}

@@ -16,7 +16,7 @@ function Sections({scrollToTarget, targetRefRecettes,gtin,productName}) {
       await Share.share({
         title: "Découvrez cette fiche produit",
         text: "Découvrez les informations nutritionnelles et d'autres détails sur ce produit.", // Ajout d'un texte de description
-        url: backendUrl + "/fp/"+gtin, // Assurez-vous que cette URL est accessible
+        url: backendUrl + "/tico/fp/"+gtin, // Assurez-vous que cette URL est accessible
         dialogTitle: "Fiche produit",
       });
     } catch (error) {

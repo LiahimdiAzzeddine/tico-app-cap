@@ -48,7 +48,8 @@ const ChangePassword = ({Close=null}) => {
       values.oldPassword,
       values.newPassword,
       values.confirmPassword,
-      email
+      email,
+      token,
     );
     if(onClose){
       Close(false);

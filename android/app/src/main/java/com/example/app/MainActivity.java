@@ -1,4 +1,4 @@
-package com.example.app;
+package com.tico.foodhea.tico;
 
 import com.getcapacitor.BridgeActivity;
 

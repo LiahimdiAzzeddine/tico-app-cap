@@ -55,8 +55,8 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,tar
 
 
   // Select the image based on product.nutriscore or provide a default
-  const selectedNutriscoreImage = nutriscoreImages[product?.nutriscore] || Nutri_score_E;
-  const selectedComent = nutriscoreComment[product?.nutriscore] || "";
+  const selectedNutriscoreImage = nutriscoreImages[product?.nutriscore] || null;
+  const selectedComent = nutriscoreComment[product?.nutriscore] || null;
 
 
   return (
@@ -76,46 +76,27 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,tar
                 Informations nutritionnelles
               </span>
             </div>
+            {selectedNutriscoreImage && (
             <div className="flex flex-row items-center justify-around py-2 space-x-4 ">
-              {product?.nutriscore ? (
+
                 <img src={selectedNutriscoreImage} className="w-28 h-auto" />
-              ) : (
-                <div className="text-gray-500 flex items-center justify-center text-xs Archivo">
-                  Données non communiquées
-                  <br />
-                  <a
-                    href="mailto:contact@example.com"
-                    className="text-custom-blue underline Archivo"
-                  >
-                    Contacter le fabricant
-                  </a>
-                </div>
-              )}
-              <div>
+                <div>
                 <IonIcon
                   className="text-2xl text-custom-blue"
                   icon={chevronForwardOutline}
                   onClick={() => setIsOpenNutrition(true)}
                 />
-              </div>
-            </div>
+                
+              </div>             
+            </div> )}
             <div className="text-xs text-[#42a29a] Archivo">
-            {product?.nutriscore ? (
+            {selectedComent ? (
                <span dangerouslySetInnerHTML={{ __html: selectedComent }} />
             ):(
-              <div className="text-gray-500 flex items-center justify-center text-xs Archivo">
-                  Données non communiquées
-                  <br />
-                  <a
-                    href="mailto:contact@example.com"
-                    className="text-custom-blue underline Archivo"
-                  >
-                    Contacter le fabricant
-                  </a>
-                </div>
+              "Données non communiquées par le fabricant"
             )}
             </div>
-            {(!product?.nutriscore_comment || !product?.nutriscore)  && (
+            {(!(selectedComent) || !(selectedNutriscoreImage))  && (
                 <div className="text-xs flex flex-row space-x-2 mt-3">
                   <div className="text-custom-gray Archivo">
                     Encourager la marque à atteindre 100% de transparence
@@ -141,18 +122,20 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,tar
             </div>
             <div className="flex flex-row items-center justify-between py-2 space-x-1 ">
               <div className="text-custom-blue flex items-center justify-center text-xs font-bold Archivo">
-                
                 {product?.additifs?.length
                   ? "Contient "+ product?.additifs?.length+" additifs"
                   : "Données non communiquées par le fabricant"}{" "}
               </div>
-              <div>
+              {product?.additifs?.length>0 &&(
+<div>
                 <IonIcon
                   className="text-2xl text-custom-blue"
                   icon={chevronForwardOutline}
                   onClick={() => setIsOpenadd(true)}
                 />
               </div>
+              )
+            }
             </div>
             {(product?.commentaire) ? (
               <div className="text-xs text-[#42a29a]"></div>

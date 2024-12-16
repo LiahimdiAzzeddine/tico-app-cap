@@ -1,11 +1,14 @@
-import React from "react";
+import React,{useState} from "react";
 import indicateur from "../../assets/fb/indicateur.svg";
 import indicateur100 from "../../assets/fb/indicateur100.svg";
 import scaleImage from "../../assets/fb/scale-image.svg";
 import { Link } from "react-router-dom";
+import WhiteModal from "../modales/WhiteModal";
+import TransparencyInfo from "../transparency/TransparencyInfo";
 
 const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
   const positions = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+  const [showModalTransparency, setShowModalTransparency] = useState(false);
 
   const handlePositionChange = (index) => {
     setCurrentPosition(index);
@@ -32,6 +35,8 @@ const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
   };
 
   return (
+    <>
+    
     <div className="px-4 pt-3">
       <div className="w-full flex items-center justify-center relative">
         <img src={scaleImage} alt="Transparency scale" className="w-full h-auto" />
@@ -56,13 +61,19 @@ const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
       </div>
       <div className="flex flex-col items-end mt-2">
         <Link 
-          to="#" 
+        onClick={() => {
+          setShowModalTransparency(true);
+        }}
           className="text-[#6dc3bc] underline underline-offset-4 text-xs ArchivoItalique"
         >
           En savoir plus sur notre échelle de transparence
         </Link>
       </div>
     </div>
+    <WhiteModal isOpen={showModalTransparency} ContentPadding={"ion-padding-top"} scroll={true} onClose={() => setShowModalTransparency(false)}>
+        <TransparencyInfo />
+      </WhiteModal>
+    </>
   );
 };
 

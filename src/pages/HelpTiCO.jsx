@@ -14,9 +14,10 @@ const HelpTiCO = () => {
     await Share.share({
       title: "TiCO App",
       text: "Découvrez l'application TiCO et partagez-la avec votre entourage !",
-      url: apiUrl + "/partager_tico",
+      url: apiUrl + "/tico/helptico",
       dialogTitle: "Partager TiCO",
     });
+    
   };
 
   return (
@@ -67,7 +68,7 @@ const HelpTiCO = () => {
                 className={`bg-custom-blue text-white font-bold w-2/4 text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 ${
                   loading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
-                onClick={() => handleDonate(amount)}
+                onClick={() => {if(amount>0){handleDonate(amount)};setAmount("");}}
                 disabled={loading} // Désactiver le bouton pendant le traitement
               >
                 {loading ? (

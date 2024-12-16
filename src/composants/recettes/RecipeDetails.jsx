@@ -119,23 +119,30 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               Ingrédients
             </h2>
             <ul className="list-inside list-none ">
-              {ingredients &&
+              {ingredients.length > 0?
+              (
                 ingredients.map((ingredient, index) => (
                   <li key={index} className="text-custom-red">
                     {ingredient.qt ? `${ingredient.qt} ` : ""}
                     {ingredient.unit ? `${ingredient.unit} ` : ""}
                     {ingredient.name}
                   </li>
-                ))}
+                ))):(
+                  <div className="py-6">
+          Les ingrédients de cette recette, malheureusement, ne sont pas disponibles. Revisitez cette page ultérieurement pour l'avoir.
+        </div>
+                )
+                
+                }
             </ul>
           </div>
         )}
-        {ingredients && (
+      
           <div className="px-6 mt-6">
             <hr className="w-full border-t border-[#fceae8]" />
           </div>
-        )}
-        {steps.length > 0 && (
+  
+        {steps.length > 0 ? (
           <div className="px-6 mt-6">
             <h2 className="text-custom-red text-2xl font-bold mb-3 titre-bold">
               Recette
@@ -164,8 +171,17 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               ))}
             </Swiper>
           </div>
+        ):(
+          <div className="px-6 mt-6">
+            <h2 className="text-custom-red text-2xl font-bold mb-3 titre-bold">
+              Recette
+            </h2>
+          <div className="py-6">
+            Les étapes de cette recette, malheureusement, ne sont pas disponibles. Revisitez cette page ultérieurement pour l'avoir.
+          </div>
+          </div>
         )}
-        <div className="w-20 h-auto absolute right-6 ">
+        <div className="w-20 h-auto absolute right-6  ">
           <img src={badgeimage} />
         </div>
       </div>

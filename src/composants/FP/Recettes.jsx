@@ -41,8 +41,12 @@ function Recettes({ recettes,targetRefRecettes }) {
 
   return (
     <>
+    {recettes?(
+      <div className="pt-6"></div>
+    ):("")}
+    
       {recettes.map((item, index) => (
-      <div className="flex flex-col w-full space-y-4 py-10 pb-5" >
+      <div className="flex flex-col w-full space-y-4 pb-2" >
         
           <div
             key={item.id}

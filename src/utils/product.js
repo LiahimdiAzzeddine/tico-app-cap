@@ -90,18 +90,15 @@ export function createProduct(scannedResult, productData) {
     )?.map(transformIngredient) ?? [];
 
   // Récupération des allergènes (sans doublon)
-  const allAllergens = ingredients.reduce((acc, ingredient) => {
-    if (ingredient.allergene && ingredient.allergene !== "") {
-      acc.add(ingredient.allergene); // Utilisation d'un Set pour éviter les doublons
-    }
-    // Vérification des allergènes dans les sous-produits
-    ingredient.children?.forEach((child) => {
-      if (child.allergene && child.allergene !== "") {
-        acc.add(child.allergene);
-      }
-    });
-    return acc;
-  }, new Set());
+  const allAllergens = (
+    productData.foodheaproduct?._allergenes_lst
+      ? productData.foodheaproduct._allergenes_lst
+      : productData.OFFproduct?._allergenes_lst
+      ? productData.OFFproduct._allergenes_lst
+      : ""
+  )?.split(",").map(item => item.trim()) || [];
+  
+
 
   // Convertion du Set en tableau
   const uniqueAllergens = [...allAllergens];

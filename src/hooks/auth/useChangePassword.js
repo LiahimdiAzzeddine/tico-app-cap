@@ -12,37 +12,53 @@ const useChangePassword = () => {
   const { triggerToast } = useToast();
   const history = useHistory();
   
-  const changePassword = async (currentPassword, newPassword, newPasswordConfirmation,emailParam) => {
+  const changePassword = async (currentPassword, newPassword, newPasswordConfirmation, emailParam, token) => {
     setLoading(true);
     setError(null);
 
     try {
-      if(emailParam){
-       const response= await axios.post('api/auth/change-password', {
+      let response;
+      if (emailParam) {
+        // Envoi de la requête pour changer le mot de passe avec l'email et token
+        response = await axios.post('api/auth/change-password', {
           email: emailParam,
           new_password: newPassword,
           new_password_confirmation: newPasswordConfirmation,
+          token: token,
         });
-        console.log("🚀 ~ changePassword ~ response:", response)
         triggerToast(response.data.message || "Mot de passe changé avec succès.", "success");
         history.replace("/scanner"); 
-      }else{
-        const response=await privateClient.post('api/profile/change-password', {
-        current_password: currentPassword,
-        new_password: newPassword,
-        new_password_confirmation: newPasswordConfirmation,
-      });
-      triggerToast(response.data.message || "Mot de passe changé avec succès.", "success");
-      //history.replace("/settings"); 
-      setOnClose(true);
+      } else {
+        // Envoi de la requête pour changer le mot de passe pour un utilisateur connecté
+        response = await privateClient.post('api/profile/change-password', {
+          current_password: currentPassword,
+          new_password: newPassword,
+          new_password_confirmation: newPasswordConfirmation,
+        });
+        triggerToast(response.data.message || "Mot de passe changé avec succès.", "success");
+        setOnClose(true);
       }
       
-      
     } catch (err) {
-      console.log("🚀 ~ changePassword ~ err:", err)
-      const errorMsg = err.response?.data?.errors || { message: "Une erreur est survenue." };
-      triggerToast(errorMsg.message || "Échec de la mise à jour du mot de passe.", "danger");
-      setError(errorMsg);
+      console.log("🚀 ~ changePassword ~ err:", err);
+      if (err.response && err.response.data && err.response.data.errors) {
+        // Gestion des erreurs spécifiques par champ
+        const errorMessages = err.response.data.errors;
+        const formattedErrors = Object.keys(errorMessages).map((key) => {
+          return {
+            field: key,
+            message: errorMessages[key].join(", "),  // On concatène les erreurs pour chaque champ
+          };
+        });
+
+        // Si les erreurs existent, on les stocke dans l'état
+        setError(formattedErrors);
+        // Affichage du toast d'erreur pour l'utilisateur
+        triggerToast("Erreur de validation. Vérifiez les champs indiqués.", "danger");
+      } else {
+        // Si l'erreur ne contient pas de validation spécifique, on affiche un message générique
+        triggerToast("Échec de la mise à jour du mot de passe.", "danger");
+      }
     } finally {
       setLoading(false);
     }

@@ -9,7 +9,7 @@ function InviteTico() {
     await Share.share({
       title: "TiCO App",
       text: "Découvrez l'application TiCO et partagez-la avec votre entourage !",
-      url: apiUrl + "/partager_tico",
+      url: apiUrl,
       dialogTitle: "Partager TiCO",
     });
   };

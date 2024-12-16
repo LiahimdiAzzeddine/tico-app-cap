@@ -14,7 +14,7 @@ import image64 from "../../assets/history/64.png";
 
 const defaultImage = image64;
 
-const Item = ({ product, index, length, OpenFb, handleDelete }) => {
+const Item = ({ product, index, OpenFb, handleDelete }) => {
   if (!product) return null;
 
   return (
@@ -50,6 +50,7 @@ const Item = ({ product, index, length, OpenFb, handleDelete }) => {
             <img
               src={product.image || defaultImage}
               alt={product.name}
+              onClick={() => OpenFb(product)}
               className="w-auto h-14 rounded object-cover"
               onError={(e) => {
                 e.target.onerror = null;

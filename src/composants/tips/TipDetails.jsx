@@ -12,7 +12,7 @@ const TipDetails = ({ tip }) => {
     try {
       // Construisez votre deep link. Le format dépend de la configuration de votre application
       // Exemple: "monapp://tips/details/[id]"
-      const deepLink = `${apiUrl}/tip/${id}`;
+      const deepLink = `${apiUrl}/tico/tip/${id}`;
 
       await Share.share({
         title: title,

@@ -25,50 +25,72 @@ import Recette from "./pages/recette";
 import Tip from "./pages/Tip";
 import Fp from "./pages/fp";
 import { StatusBar } from "@capacitor/status-bar";
+import ValidationEmail from "./pages/ValidationEmail";
 
 
 function App() {
   const history = useHistory();
   const { triggerAlert } = useAlert();
   useEffect(() => {
-    const appUrlListener = CapacitorApp.addListener("appUrlOpen", (data) => {
-      if (data?.url) {
-        console.log("URL reçue :", data.url);
-  
-        // Extraire le slug depuis l'URL (partie après ".app")
-        const slug = data.url.split(".tico").pop();
-        console.log("Slug détecté :", slug);
-  
-        if (slug) {
-          // Gestion des différentes routes à partir du slug
-          if (slug === "/login") {
-            triggerAlert(
-              "Félicitations, vous avez validé votre inscription !",
-              "Validation",
-              () => {
-                history.replace("/login"); // Rediriger vers la route "login"
-              },
-              "ios",
-              "Se connecter"
-            );
-          } else {
-            // Rediriger vers d'autres routes
-            history.replace(slug);
-          }
-        } else {
-          console.error("Erreur : slug manquant.");
-        }
+    const handleAppUrlOpen = (data) => {
+      if (!data?.url) return;
+      const { url } = data;
+      // Gestion des URL Stripe
+      if (url.includes("tico.foodhea.com/stripe/success")) {
+        return triggerAlert(
+          "Paiement réussi ! Merci pour votre donation.",
+          "Confirmation",
+          null,
+          "ios",
+          "OK"
+        );
       }
-    });
-
+      if (url.includes("tico.foodhea.com/stripe/cancel")) {
+        return triggerAlert(
+          "Paiement annulé. Merci d'avoir essayé, vous pouvez réessayer à tout moment.",
+          "Annulation",
+          null,
+          "ios",
+          "OK"
+        );
+      }
+  
+      // Gestion des routes sous "tico.foodhea.com/tico"
+      if (url.includes("tico.foodhea.com/tico")) {
+        const slug = url.split("tico.foodhea.com/tico").pop() || "/scanner";  
+        if (slug === "/login") {
+          return triggerAlert(
+            "Félicitations, vous avez validé votre inscription !",
+            "Validation",
+            () => history.replace("/login"),
+            "ios",
+            "Se connecter"
+          );
+        }
+  
+        return history.replace(slug);
+      }
+  
+      // URL non reconnues sous "tico.foodhea.com"
+      if (url.includes("tico.foodhea.com")) {
+        return history.replace("/scanner");
+      }
+  
+      console.error("Erreur : URL non valide.");
+    };
+  
+    const appUrlListener = CapacitorApp.addListener("appUrlOpen", handleAppUrlOpen);
+  
     // Verrouiller l'orientation en mode portrait
     ScreenOrientation.lock({ orientation: "portrait" });
-   
+  
     // Nettoyage à la destruction du composant
     return () => {
-      appUrlListener.remove(); // Supprimer le listener pour éviter les fuites de mémoire
+      appUrlListener.remove();
     };
   }, []);
+  
+  
 
   return (
     <IonRouterOutlet swipeGesture={true} animated={true}>
@@ -101,6 +123,17 @@ function App() {
           <Recette />
         </SimpleLyout>
       </Route>
+      <Route path="/validation/:token" exact={true}>
+    <SimpleLyout
+    image="bx"
+      Close={() => {
+        history.replace("/scanner");
+      }}
+    >
+      <ValidationEmail />
+    </SimpleLyout>
+</Route>
+
       <Route exact path="/tips" component={Tips} />
       <Route path="/tip/:id" exact={true}>
         <SimpleLyout
