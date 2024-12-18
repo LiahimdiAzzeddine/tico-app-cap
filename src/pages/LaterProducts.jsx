@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IonContent, IonModal } from "@ionic/react";
+import { IonContent, IonModal, IonPage } from "@ionic/react";
 import { useNetwork } from "../context/NetworkContext";
 import Background from "../assets/history/background.svg";
 
@@ -184,6 +184,7 @@ const LaterProducts = () => {
       </div>
 
       <IonModal isOpen={isOpenFb}>
+        <IonPage style={{paddingTop:"env(safe-area-inset-top)",backgroundColor:"#ffffff" }}>
         <ModalHeader image={"fb"} onClose={handleModalClose} />
         <IonContent className="ion-padding-bottom">
           {selectedProduct && (
@@ -193,6 +194,7 @@ const LaterProducts = () => {
             />
           )}
         </IonContent>
+        </IonPage>
       </IonModal>
     </>
   );

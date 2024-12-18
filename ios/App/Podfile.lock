@@ -12,6 +12,8 @@ PODS:
     - Capacitor
   - CapacitorNetwork (6.0.3):
     - Capacitor
+  - CapacitorPluginSafeArea (3.0.3):
+    - Capacitor
   - CapacitorScreenOrientation (6.0.3):
     - Capacitor
   - CapacitorShare (6.0.3):
@@ -33,6 +35,7 @@ DEPENDENCIES:
   - "CapacitorDialog (from `../../node_modules/@capacitor/dialog`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorNetwork (from `../../node_modules/@capacitor/network`)"
+  - CapacitorPluginSafeArea (from `../../node_modules/capacitor-plugin-safe-area`)
   - "CapacitorScreenOrientation (from `../../node_modules/@capacitor/screen-orientation`)"
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
@@ -55,6 +58,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/haptics"
   CapacitorNetwork:
     :path: "../../node_modules/@capacitor/network"
+  CapacitorPluginSafeArea:
+    :path: "../../node_modules/capacitor-plugin-safe-area"
   CapacitorScreenOrientation:
     :path: "../../node_modules/@capacitor/screen-orientation"
   CapacitorShare:
@@ -76,6 +81,7 @@ SPEC CHECKSUMS:
   CapacitorDialog: e966e2261e1c74a8a502e610dd66b4f97ec6fcca
   CapacitorHaptics: b53409aaca1203f79c6d0eb3ed5de40556339518
   CapacitorNetwork: da96b5fff8d05b67f4658503aabb22f65bda2c0f
+  CapacitorPluginSafeArea: e1eca7f70974f0e270d96f70cd0a5f51523164b1
   CapacitorScreenOrientation: 3bb823f5d265190301cdc5d58a568a287d98972a
   CapacitorShare: 7af6ca761ce62030e8e9fbd2eb82416f5ceced38
   CapacitorStatusBar: 3b9ac7d0684770522c532d1158a1434512ab1477
@@ -83,6 +89,6 @@ SPEC CHECKSUMS:
   CapacitorToast: 048d8cbefa6651509ed29c3e7262e9e64abe251d
   CapgoCapacitorFlash: 95210589a71f3ced3094193faab31288cbe29734
 
-PODFILE CHECKSUM: fcbd19e275e200c85da6590acfd64dab6eed5035
+PODFILE CHECKSUM: 6ded2ca4321b4b7eebabb5acd6c867598d4cdf3c
 
 COCOAPODS: 1.16.2

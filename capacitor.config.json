@@ -3,7 +3,7 @@
   "appName": "tico",
   "webDir": "dist",
   "server": {
-  "url": "http://192.168.11.103:3000",
+  "url": "http://192.168.11.104:3000",
   "cleartext": true
 }
   

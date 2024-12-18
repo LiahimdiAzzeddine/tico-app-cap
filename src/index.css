@@ -63,9 +63,6 @@ html {
   --ion-safe-area-left: 25px;
 }*/
 
-ion-modal {
-  --ion-safe-area-top: 0;
-}
 
 :root {
   --white-color: #ffffff;
@@ -85,18 +82,16 @@ ion-modal {
   --ion-background-color: #ffffff;
 }
 #root {
-  height: 100dvh;
-  width: 100dvw;
-  min-height: -webkit-fill-available;
+  height: 100vh;
+  width: 100vw;
 }
 
 /* Configuration de la taille de la police de base pour l'utilisation de rem */
 /* Taille de police pour les écrans plus grands (bureau) */
 html {
   font-size: 16px;
-  height: 100dvh;
-  width: 100dvw;
-  min-height: -webkit-fill-available;
+  height: 100vh;
+  width: 100vw;
 }
 /* Styles globaux */
 body {
@@ -107,22 +102,16 @@ body {
   background-color: var(--transparent-color);
   font-weight: 400;
   -webkit-font-smoothing: antialiased !important;
-  height: 100dvh;
-  width: 100dvw;
-  min-height: -webkit-fill-available;
+  height: 100%;
+  width: 100%;
   position: fixed;
   -webkit-overflow-scrolling: touch;
 }
-body {
-  margin-top: constant(safe-area-inset-top);
-  margin-top: env(safe-area-inset-top);
-}
-ion-tab-bar {
-  margin-bottom: calc(4px + env(safe-area-inset-top));
-}
+
+
 .wrapper {
-  width: 100dvw;
-  height: 100dvh;
+  width: 100vw;
+  height: 100vh;
   overflow-y: auto;
 }
 .details {
@@ -376,4 +365,7 @@ padding-top: 1rem;
   background-repeat: no-repeat !important;
   background-size: contain !important;
   background-position: center !important;
+}
+.toolbar {
+  padding-top: 300px;
 }

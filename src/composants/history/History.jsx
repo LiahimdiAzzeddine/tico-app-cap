@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Background from "../../assets/history/background.svg";
 import { getAllProducts } from "../../hooks/useIndexedDB";
-import { IonContent, IonModal } from "@ionic/react";
+import { IonContent, IonModal, IonPage } from "@ionic/react";
 import FicheProduit from "../FP/FicheProduit";
 import Item from "./Item";
 import { EmptyState } from "./ui/EmptyState";
@@ -108,15 +108,18 @@ const History = () => {
       </div>
 
       <IonModal isOpen={isOpenFb}>
+        <IonPage style={{paddingTop:"env(safe-area-inset-top)",backgroundColor:"#ffffff" }}>
         <ModalHeader
           image={"fb"}
           onClose={() => {
             setIsOpenFb(false);
           }}
+          
         />
         <IonContent className="ion-padding-bottom">
           <FicheProduit productData={ean} resetBarcode={setIsOpenFb} />
         </IonContent>
+        </IonPage>
       </IonModal>
     </>
   );

@@ -33,7 +33,7 @@ const useLogin = () => {
           })
         ) {
           triggerToast("Connexion réussie. Vous êtes maintenant connecté.", "success");
-          history.replace("/scanner")
+          history.replace("/home")
         } else {
           triggerToast("Erreur de connexion. Échec de la connexion.", "danger");
         }

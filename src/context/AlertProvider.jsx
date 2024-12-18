@@ -18,30 +18,40 @@ export const AlertProvider = ({ children }) => {
   });
 
   // Fonction pour afficher une alerte avec IonAlert
-  const triggerAlert = (message, title = "Confirmation", onConfirm = null, mode = "ios",confirmation="Oui") => {
+  const triggerAlert = (message, title = "Confirmation", onConfirm = null, mode = "ios",confirmation="Oui",anulation="Non",showCancelOnly = false ) => {
     setAlertConfig({
       isOpen: true,
       header: title,
       message: message,
       mode: mode, // Ajout du mode
-      buttons: [
-        {
-          text: "Non",
-          role: "cancel",
-          handler: () => {
-            setAlertConfig((prev) => ({ ...prev, isOpen: false }));
+      buttons: showCancelOnly
+      ? [
+          {
+            text: anulation,
+            role: "cancel",
+            handler: () => {
+              setAlertConfig((prev) => ({ ...prev, isOpen: false }));
+            },
           },
-        },
-        {
-          text: confirmation,
-          handler: () => {
-            if (onConfirm) onConfirm();
-            setAlertConfig((prev) => ({ ...prev, isOpen: false }));
+        ]
+      : [
+          {
+            text: anulation,
+            role: "cancel",
+            handler: () => {
+              setAlertConfig((prev) => ({ ...prev, isOpen: false }));
+            },
           },
-        },
-      ],
-    });
-  };
+          {
+            text: confirmation,
+            handler: () => {
+              if (onConfirm) onConfirm();
+              setAlertConfig((prev) => ({ ...prev, isOpen: false }));
+            },
+          },
+        ],
+  });
+};
 
   // Fonction pour afficher un toast
   const triggerToast = async (message, color = "success") => {

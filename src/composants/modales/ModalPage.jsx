@@ -17,9 +17,7 @@ const ModalPage=({ isOpen, onClose,children,bgHeader="#fad4ce",bgcontent="#fdf2f
           "--min-height": "100%",
           "--min-width": "100%",
           paddingTop:"env(safe-area-inset-top)",
-        }}
-        className="h-screen"
-        
+        }}        
       >
         <IonPage id="main-content" style={{ backgroundColor:bgHeader }}>
         <div style={{backgroundColor:bgHeader}}>

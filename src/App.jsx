@@ -24,7 +24,6 @@ import ChangePassword from "./composants/settings/ChangePassword";
 import Recette from "./pages/recette";
 import Tip from "./pages/Tip";
 import Fp from "./pages/fp";
-import { StatusBar } from "@capacitor/status-bar";
 import ValidationEmail from "./pages/ValidationEmail";
 
 
@@ -32,6 +31,8 @@ function App() {
   const history = useHistory();
   const { triggerAlert } = useAlert();
   useEffect(() => {
+    console.log("-------- data -------");
+    
     const handleAppUrlOpen = (data) => {
       if (!data?.url) return;
       const { url } = data;
@@ -42,7 +43,9 @@ function App() {
           "Confirmation",
           null,
           "ios",
-          "OK"
+          "",
+          "De rien",
+          true
         );
       }
       if (url.includes("tico.foodhea.com/stripe/cancel")) {
@@ -51,7 +54,9 @@ function App() {
           "Annulation",
           null,
           "ios",
-          "OK"
+          "",
+          "D'accord",
+          true
         );
       }
   
