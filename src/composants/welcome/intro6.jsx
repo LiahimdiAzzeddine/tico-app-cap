@@ -13,7 +13,7 @@ const Intro6 = () => {
   const handleGuestClick = async () => {
     try {
       await setFirstVisit(true); // Set first visit status in IndexedDB
-       history.push("/scanner");
+       history.replace("/scanner");
     } catch (error) {
       console.error("Error setting first visit status:", error);
     }

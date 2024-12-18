@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import indicateur from "../../assets/fb/indicateur.svg";
 import indicateur100 from "../../assets/fb/indicateur100.svg";
 import scaleImage from "../../assets/fb/scale-image.svg";
-import { Link } from "react-router-dom";
-import WhiteModal from "../modales/WhiteModal";
+
 
 const TransparencyInfo = () => {
   const positions = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];

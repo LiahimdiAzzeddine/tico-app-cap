@@ -8,6 +8,7 @@ import { alertCircle } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import TipDetails from "../composants/tips/TipDetails";
 import { createTip } from "../utils/createTip";
+import FirstVisitGuard from "../guards/FirstVisitGuard";
 
 const Tip = () => {
   const { id } = useParams(); 
@@ -25,6 +26,7 @@ const Tip = () => {
 
   if (error || !tip) {
     return (
+      <FirstVisitGuard>
       <IonContent className="ion-padding-bottom">
         <ErrorMessage
           message={error || "No recipe found"}
@@ -32,6 +34,7 @@ const Tip = () => {
           onClose={() => history.recipe("/scanner")}
         />
       </IonContent>
+      </FirstVisitGuard>
     );
   }
 

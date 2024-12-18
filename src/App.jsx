@@ -26,13 +26,10 @@ import Tip from "./pages/Tip";
 import Fp from "./pages/fp";
 import ValidationEmail from "./pages/ValidationEmail";
 
-
 function App() {
   const history = useHistory();
   const { triggerAlert } = useAlert();
   useEffect(() => {
-    console.log("-------- data -------");
-    
     const handleAppUrlOpen = (data) => {
       if (!data?.url) return;
       const { url } = data;
@@ -59,10 +56,10 @@ function App() {
           true
         );
       }
-  
+
       // Gestion des routes sous "tico.foodhea.com/tico"
       if (url.includes("tico.foodhea.com/tico")) {
-        const slug = url.split("tico.foodhea.com/tico").pop() || "/scanner";  
+        const slug = url.split("tico.foodhea.com/tico").pop() || "/scanner";
         if (slug === "/login") {
           return triggerAlert(
             "Félicitations, vous avez validé votre inscription !",
@@ -72,30 +69,31 @@ function App() {
             "Se connecter"
           );
         }
-  
+
         return history.replace(slug);
       }
-  
+
       // URL non reconnues sous "tico.foodhea.com"
       if (url.includes("tico.foodhea.com")) {
         return history.replace("/scanner");
       }
-  
+
       console.error("Erreur : URL non valide.");
     };
-  
-    const appUrlListener = CapacitorApp.addListener("appUrlOpen", handleAppUrlOpen);
-  
+
+    const appUrlListener = CapacitorApp.addListener(
+      "appUrlOpen",
+      handleAppUrlOpen
+    );
+
     // Verrouiller l'orientation en mode portrait
     ScreenOrientation.lock({ orientation: "portrait" });
-  
+
     // Nettoyage à la destruction du composant
     return () => {
       appUrlListener.remove();
     };
   }, []);
-  
-  
 
   return (
     <IonRouterOutlet swipeGesture={true} animated={true}>
@@ -112,7 +110,6 @@ function App() {
           <HelpTiCO />
         </HomeLayout>
       </Route>
-      
       <Route path="/recipes" exact={true}>
         <Recipes />
       </Route>
@@ -129,16 +126,15 @@ function App() {
         </SimpleLyout>
       </Route>
       <Route path="/validation/:token" exact={true}>
-    <SimpleLyout
-    image="bx"
-      Close={() => {
-        history.replace("/scanner");
-      }}
-    >
-      <ValidationEmail />
-    </SimpleLyout>
-</Route>
-
+        <SimpleLyout
+          image="bx"
+          Close={() => {
+            history.replace("/scanner");
+          }}
+        >
+          <ValidationEmail />
+        </SimpleLyout>
+      </Route>
       <Route exact path="/tips" component={Tips} />
       <Route path="/tip/:id" exact={true}>
         <SimpleLyout
@@ -156,7 +152,11 @@ function App() {
       <Route exact path="/scanner" component={Scanner} />
       <Route exact path="/settings" component={Settings} />
       <Route path="/laterProducts" exact={true}>
-        <SimpleLyout Close={() => {history.goBack()}}>
+        <SimpleLyout
+          Close={() => {
+            history.goBack();
+          }}
+        >
           <LaterProducts />
         </SimpleLyout>
       </Route>
@@ -181,7 +181,7 @@ function App() {
             history.replace("/scanner");
           }}
         >
-          <Fp/>
+          <Fp />
         </SimpleLyout>
       </Route>
 

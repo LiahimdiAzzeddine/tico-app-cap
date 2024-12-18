@@ -1,9 +1,6 @@
 import  React,{ useState,useRef } from "react";
 import TransparencyScale from "./TransparencyScale";
 import NameProduct from "./NameProduct";
-import ProductDetails from "./ProductDetails";
-import Sections from "./Sections";
-import TiConseil from "./TiConseil";
 import ProductDetailsAccordion from "./ProductDetailsAccordion";
 import Recettes from "./Recettes";
 import InfoSection from "./InfoSection";

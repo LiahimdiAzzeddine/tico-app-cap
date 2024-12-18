@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { IonContent } from "@ionic/react";
 import { createRecipe } from "../utils/createRecipe";
 import RecipeDetails from "../composants/recettes/RecipeDetails";
+import FirstVisitGuard from "../guards/FirstVisitGuard";
 
 const Recette = () => {
     const { id } = useParams();
@@ -37,7 +38,9 @@ const Recette = () => {
   }
   
     return (
+      <FirstVisitGuard>
         <RecipeDetails  recipe={recipeForme} />
+        </FirstVisitGuard>
     );
 }
 
