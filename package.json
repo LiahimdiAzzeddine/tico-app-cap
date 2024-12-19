@@ -19,6 +19,7 @@
     "@capacitor/dialog": "^6.0.2",
     "@capacitor/haptics": "^6.0.1",
     "@capacitor/ios": "^5.0.0",
+    "@capacitor/keyboard": "^6.0.3",
     "@capacitor/network": "^6.0.2",
     "@capacitor/screen-orientation": "^6.0.2",
     "@capacitor/share": "^6.0.2",

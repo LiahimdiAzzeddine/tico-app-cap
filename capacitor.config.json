@@ -2,8 +2,15 @@
   "appId": "com.tico.foodhea.tico",
   "appName": "tico",
   "webDir": "dist",
+  "plugins": {
+    "Keyboard": {
+      "resize": "body",
+      "style": "DARK",
+      "resizeOnFullScreen": true
+    }
+  },
   "server": {
-  "url": "http://192.168.11.103:3000",
+  "url": "http://192.168.11.104:3000",
   "cleartext": true
 }
   

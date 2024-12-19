@@ -1,8 +1,16 @@
 import React from "react";
 import { IonModal, IonContent,IonPage } from "@ionic/react";
 import ModalHeader from "./ModalHeader";
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 const ModalPage=({ isOpen, onClose,children,bgHeader="#fad4ce",bgcontent="#fdf2f0",image,scroll=true }) => {
+  const hideStatusBar = async () => {
+    await StatusBar.hide();
+  };
+  const setStatusBarStyleLight = async () => {
+    await StatusBar.setStyle({ style: Style.Light });
+  };
+
     return (
       <IonModal
         isOpen={isOpen}

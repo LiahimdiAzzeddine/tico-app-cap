@@ -91,9 +91,7 @@
 html {
   --ion-safe-area-left: 25px;
 }*/
-.tight-spacing {
-  margin-left: -0.7em;
-}
+
 
 :root {
   --white-color: #ffffff;
