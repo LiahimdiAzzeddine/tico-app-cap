@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IonHeader, IonToolbar } from "@ionic/react";
 import tico from "../../assets/navbar/tico.png";
-import info from "../../assets/navbar/info.png";
+import info from "../../assets/navbar/info.svg";
 import FAQComponent from "../settings/FAQ/FAQComponent";
 import WhiteModal from "../modales/WhiteModal";
 import { useHistory } from "react-router-dom";
@@ -37,10 +37,10 @@ const TopNavbar = () => {
     <>
       <IonHeader  className="ion-no-border z-0">
         <IonToolbar
-          className="px-2"
+          className="px-5"
           style={{ "--ion-toolbar-background": "#ffff" }}
         >
-          <div className="flex justify-between items-center py-2">
+          <div className="flex justify-between items-center pb-3 pt-4">
             <button
               className="flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200"
               onClick={handleLogoClick}
@@ -48,11 +48,11 @@ const TopNavbar = () => {
               aria-label="Go to home"
             >
               <div className="flex flex-col items-start justify-center space-y-1 p-1">
-                <span className="block w-2 h-2 bg-custom-blue rounded-full"></span>
-                <span className="block w-2 h-2 bg-custom-blue rounded-full"></span>
-                <span className="block w-2 h-2 bg-custom-blue rounded-full"></span>
+                <span className="block w-[0.35rem] h-[0.35rem] bg-custom-blue rounded-full"></span>
+                <span className="block w-[0.35rem] h-[0.35rem] bg-custom-blue rounded-full"></span>
+                <span className="block w-[0.35rem] h-[0.35rem] bg-custom-blue rounded-full"></span>
               </div>
-              <img src={tico} alt="Tico" className="h-8 ml-2" />
+              <img src={tico} alt="Tico" className="h-6 ml-2" />
             </button>
 
             {/* Bouton d'information avec icône */}

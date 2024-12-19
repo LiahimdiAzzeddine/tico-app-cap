@@ -6,6 +6,7 @@ import VX from "../../assets/home/X.svg";
 import BX from "../../assets/home/bx.svg";
 import flecheRecette from "../../assets/recettes/fleche.svg";
 import OF from "../../assets/tips/OFleche.svg";
+import VF from "../../assets/history/vf.svg";
 
 function ModalHeader({ image, onClose }) {
   let SRC = ReturnImage; // Valeur par défaut pour SRC
@@ -22,18 +23,20 @@ function ModalHeader({ image, onClose }) {
     SRC = VX;
   } else if (image === "of") {
     SRC = OF;
+  } else if (image === "vf") {
+    SRC = VF;
   }
   return (
-    <div className="flex justify-between items-center pt-3 pb-2 px-3  modal-background z-0" style={{zIndex:0}}>
+    <div className="flex justify-between items-center pt-4 pb-2 px-5  modal-background z-0" style={{zIndex:0}}>
       <button
         className="text-custom-blue transform transition-transform duration-150 ease-in-out active:scale-90"
         onClick={onClose}
       >
-        <img src={SRC} alt="Close" className="w-auto h-12" />
+        <img src={SRC} alt="Close" className="w-auto h-9" />
       </button>
       <div className="flex flex-row space-x-3 items-end">
         <div className="text-orange-500 font-bold text-2xl titre-bold transform transition-transform duration-150 ease-in-out active:scale-90">
-          <img src={Tico} alt="Tico" className="h-8" />
+          <img src={Tico} alt="Tico" className="h-6" />
         </div>
       </div>
     </div>

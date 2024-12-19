@@ -91,7 +91,6 @@ const History = () => {
             <LoadingState />
           ) : products.length > 0 ? (
             products.map((product,index) =>
-              
                 <Item
                   product={product}
                   index={index}
@@ -114,7 +113,6 @@ const History = () => {
           onClose={() => {
             setIsOpenFb(false);
           }}
-          
         />
         <IonContent className="ion-padding-bottom">
           <FicheProduit productData={ean} resetBarcode={setIsOpenFb} />

@@ -15,6 +15,12 @@
   font-weight: bold;
   font-style: normal;
 }
+@font-face {
+  font-family: 'pallybold';
+  src: url('./assets/fonts/Pally-Bold.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @font-face {
   font-family: 'Archivo';
@@ -41,10 +47,30 @@
   font-weight: bold;
   font-style: italic;
 }
-
+@font-face {
+  font-family: 'ArchivoExtraBold';
+  src: url('./assets/fonts/Archivo-ExtraBold.otf') format('opentype');
+}
+@font-face {
+  font-family: 'ArchivoLight';
+  src: url('./assets/fonts/Archivo-Light.otf') format('opentype');
+}
+@font-face {
+  font-family: 'ArchivoLightItalic';
+  src: url('./assets/fonts/Archivo-LightItalic.otf') format('opentype');
+}
 
 .Archivo{
   font-family: 'Archivo';
+}
+.ArchivoLightItalic{
+  font-family: 'ArchivoLightItalic';
+}
+.ArchivoExtraBold{
+  font-family: 'ArchivoExtraBold';
+}
+.ArchivoLight{
+  font-family: 'ArchivoLight';
 }
 .ArchivoBold{
   font-family: 'Archivo';
@@ -58,30 +84,20 @@
   font-weight: normal;
   font-style: italic;
 }
+.pallybold{
+  font-family: 'pallybold';
+}
 /*
 html {
   --ion-safe-area-left: 25px;
 }*/
-
+.tight-spacing {
+  margin-left: -0.7em;
+}
 
 :root {
   --white-color: #ffffff;
-  --light-grey-color: #f7f7f7;
-  --transparent-color: #f7f7f700;
-  --mid-grey-color: #cccccc;
-  --dark-color: #444444;
-  --light-green-color: rgba(0, 204, 118, 1);
-  --mid-green-color: rgba(0, 170, 149, 1);
-  --dark-green-color: #aa8b00;
-  --gradient-orange: linear-gradient(0deg,
-      rgba(255, 131, 0) 0%,
-      rgba(253, 160, 60) 100%);
-  --yellow-color: #ffed47;
-  --red-color: #d60202;
-  --fb-blue-sapphire: #b6e1dd;
   --ion-background-color: #ffffff;
-}
-#root {
   height: 100vh;
   width: 100vw;
 }
@@ -368,4 +384,9 @@ padding-top: 1rem;
 }
 .toolbar {
   padding-top: 300px;
+}
+.intro0{
+  background-position-y: center;
+  background-position-x: center;
+  background-size:90%;
 }

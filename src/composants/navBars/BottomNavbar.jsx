@@ -66,7 +66,7 @@ const BottomNavbar = () => {
         className="bg-[#f7f7f700] ion-no-padding"
         style={{ "--ion-toolbar-background": "#ffff" }}
       >
-        <div className="flex justify-around items-center py-4 px-2">
+        <div className="flex justify-around items-center py-3 px-2">
           {/* Bouton Accueil */}
           <button
             className="flex flex-col items-center hover:opacity-80 transition-opacity duration-200"
@@ -76,7 +76,7 @@ const BottomNavbar = () => {
             <img
               src={authState ? accueil_active : accueil}
               alt="Accueil"
-              className="w-14 h-14 mb-1"
+              className="w-14 h-14"
             />
           </button>
 
@@ -95,7 +95,7 @@ const BottomNavbar = () => {
             <img
               src={favoris_active}
               alt="Favoris"
-              className="w-14 h-14 mb-1"
+              className="w-14 h-14"
             />
           </button>
 
@@ -105,7 +105,7 @@ const BottomNavbar = () => {
             onClick={() => handleButtonClick("/scanner", false)} // Pas d'auth requis
             aria-label="Scanner"
           >
-            <img src={scanner} alt="Scanner" className="w-auto h-14 mb-1" />
+            <img src={scanner} alt="Scanner" className="w-auto h-14" />
           </button>
 
           {/* Bouton Recipes */}
@@ -117,7 +117,7 @@ const BottomNavbar = () => {
             <img
               src={authState ? recipes_active : recipes}
               alt="Recipes"
-              className="w-14 h-14 mb-1"
+              className="w-14 h-14"
             />
           </button>
 
@@ -130,7 +130,7 @@ const BottomNavbar = () => {
             <img
               src={authState ? astuces_active : astuces}
               alt="Astuces"
-              className="w-14 h-14 mb-1"
+              className="w-14 h-14"
             />
           </button>
         </div>

@@ -60,11 +60,11 @@ const Item = ({ product, index, OpenFb, handleDelete }) => {
           </div>
 
           {/* Détails du produit */}
-          <div className="flex-1">
-            <div className="font-bold text-green-600 text-base">
+          <div className="flex-1 flex flex-col space-y-0">
+            <div className="font-bold text-[#4E986D] ArchivoExtraBold">
               {product.name}
             </div>
-            <div className="text-gray-500 text-sm">{product.trademark}</div>
+            <div className="text-[#4E986D] text-sm ArchivoLight">{product.trademark}</div>
           </div>
 
           {/* Bouton flèche */}

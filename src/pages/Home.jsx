@@ -39,7 +39,7 @@ function Home() {
           <div className="w-full max-w-sm  flex items-center justify-center h-full">
             <div className="flex flex-col items-center justify-center w-3/4 space-y-6 h-full">
               <button
-                className="bg-[#4b996c] text-white font-bold  text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-[#4E986D] Archivo text-white font-bold  text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => setShowModalHistory(true)}
               >
                 Historique de scan
@@ -47,7 +47,7 @@ function Home() {
               
               <button
                 mode="md"
-                className="bg-[#4b996c] text-white font-bold  text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-[#4E986D] Archivo text-white font-bold  text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => history.push("/laterProducts")}
               >
                 Mes produits à consulter
@@ -63,6 +63,7 @@ function Home() {
         scroll={false}
         bgHeader="#fff"
         bgcontent="#fff"
+        image='vf'
       >
         <History />
       </ModalPage>
