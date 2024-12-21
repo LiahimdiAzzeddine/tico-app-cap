@@ -13,7 +13,7 @@ const Item = ({ recipe, index, length, OpenFb }) => {
 
   return (
     <div key={index}>
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4" onClick={() => OpenFb(recipe)}>
         {/* Product image */}
         <div
           className="w-20 h-20 mr-4 rounded-xl overflow-hidden flex-shrink-0 border-red-500 border-2"
@@ -36,8 +36,21 @@ const Item = ({ recipe, index, length, OpenFb }) => {
 
         {/* Product details */}
         <div className="flex-1">
-          <div className="font-bold text-custom-red text-lg titre-bold">{recipe.title}</div>
-          <div className="text-gray-500">{recipe?.subtitle?.substring(0, 30) + "..."  || 'N/A'}</div>
+          <div className="font-bold text-custom-red leading-[19.2px] ArchivoBold">
+            {recipe.title}
+          </div>
+          <div className="text-custom-red-clear leading-[19.2px] Archivo">
+            {recipe?.subtitle?.substring(0, 30) + "..." || "N/A"}
+          </div>
+          <div className="text-custom-red-clear leading-[19.2px] Archivo">
+            {recipe?.difficulte && <>{recipe.difficulte} |&nbsp;</>}
+            {recipe?.regimes.length > 0 && (
+              <>
+                {recipe.regimes[0]}
+                {recipe.regimes.length > 1 && "..."}
+              </>
+            )}
+          </div>
         </div>
 
         {/* Arrow button */}
@@ -49,7 +62,6 @@ const Item = ({ recipe, index, length, OpenFb }) => {
       {index < length - 1 && (
         <hr className="w-full border-t border-[#fceae8] " />
       )}
-      
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import tico_intro from "../assets/home/tico_intro.svg";
 import hands from "../assets/home/hands.svg";
 import { useHistory } from "react-router-dom";
 import History from "../composants/history/History";
@@ -19,8 +18,7 @@ function Home() {
       <div className="flex flex-col items-center justify-between w-full h-full">
         {/* Logo Section */}
         <div
-          className="grow-0 flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center w-72"
-          style={{ backgroundImage: `url(${tico_intro})` }}
+          className="grow-0 flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center w-72 tico_intro"
         >
           {isAuthenticated && (
             <span className="absolute text-2xl top-[26%] text-center text-custom-green-text titre-bold">

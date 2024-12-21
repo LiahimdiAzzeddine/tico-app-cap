@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { useHistory } from "react-router-dom"; 
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import axios from "../../api/axios";
 import { useToast } from "../../context/ToastContext"; 
@@ -8,9 +7,10 @@ const LOGIN_URL = "/api/auth/login";
 
 const useLogin = () => {
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const errRef = useRef(null);
-  const history = useHistory();
+  
   const signIn = useSignIn();
   const { triggerToast } = useToast();
 
@@ -32,10 +32,11 @@ const useLogin = () => {
         });
 
         if (isAuthenticated) {
+          setSuccess(true)
           triggerToast("Connexion réussie. Vous êtes maintenant connecté.", "success");
-          history.replace("/home"); // Replace with a dynamic route if needed
         } else {
           triggerToast("Erreur de connexion. Échec de la connexion.", "danger");
+          setSuccess(false)
         }
       }
     } catch (error) {
@@ -57,6 +58,7 @@ const useLogin = () => {
     loading,
     error,
     errRef,
+    success,
   };
 };
 

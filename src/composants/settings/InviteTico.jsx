@@ -16,14 +16,14 @@ function InviteTico() {
 
   return (
     <div className="w-full h-full">
-      <div className="details overflow-hidden h-full p-2">
-        <div className="bg-white flex flex-col items-center justify-center  h-full ">
+      <div className="details overflow-hidden h-full p-2 flex flex-col items-center justify-center">
+        <div className="bg-white flex flex-col items-center justify-center h-full max-h-[550px]">
           {/* Hands icon */}
-          <div className=" absolute top-12 mb-2">
-            <img src={hands} alt="TiCO Logo" className="w-44" />
+          <div className=" absolute top-16">
+            <img src={hands} alt="TiCO Logo" className="w-52" />
           </div>
           <div
-            className="w-full max-w-sm  flex flex-col items-center justify-center h-5/6 "
+            className="w-full max-w-sm  flex flex-col items-end justify-center h-5/6 "
             style={{
               backgroundImage: `url(${background})`,
               backgroundRepeat: "no-repeat",
@@ -35,23 +35,23 @@ function InviteTico() {
             <div className="flex flex-col items-center justify-center w-full px-6 ">
               {/* Text content */}
               <div className="text-center">
-                <h2 className="text-2xl  text-custom-blue mb-6">
-                  <span className="titre-bold">Faire connaître TiCO</span>
+                <h2 className="text-2xl  text-custom-blue mb-10">
+                  <span className="titre-bold">Faire connaître <span className="pallybold">Ti<span className="tracking-[-0.08em]">CO</span></span></span>
                 </h2>
 
-                <p className="text-custom-blue mb-4 text-lg">
+                <p className="text-custom-blue mb-4 text-lg Archivo">
                   Vous souhaitez faire connaître{" "}
-                  <span className="font-bold">TiCO</span> à votre entourage ?
+                  <span className="pallybold">Ti<span className="tracking-[-0.08em]">CO</span></span> à votre entourage ?
                 </p>
 
-                <p className="text-custom-blue text-lg">
+                <p className="text-custom-blue text-lg Archivo">
                   N'hésitez pas à partager l'application autour de vous.
                 </p>
               </div>
             </div>
           </div>
           {/* Share button */}
-          <div className="w-full max-w-sm p-2 flex items-start justify-center h-1/6">
+          <div className="w-full max-w-sm p-2 flex items-start justify-center">
             <button
               className="bg-[#FF8C00] text-xl text-white p-2 rounded-lg transition-colors duration-300 w-1/2 font-bold"
               onClick={handleShare}

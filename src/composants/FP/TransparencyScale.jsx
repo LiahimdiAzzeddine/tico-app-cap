@@ -64,7 +64,7 @@ const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
         onClick={() => {
           setShowModalTransparency(true);
         }}
-          className="text-[#6dc3bc] underline underline-offset-4 text-xs ArchivoItalique"
+          className="text-[#6dc3bc] underline underline-offset-4 text-xs ArchivoItalic"
         >
           En savoir plus sur notre échelle de transparence
         </Link>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Background from "../assets/recettes/background.svg";
 import { EmptyState } from "../composants/recettes/ui/EmptyState";
 import { ErrorState } from "../composants/ui/ErrorState";
 import Item from "../composants/recettes/ui/Item";
@@ -8,7 +7,6 @@ import useLastRecipes from "../hooks/recipes/useRecipesLast"; // Adjust path as 
 import { createRecipe } from "../utils/createRecipe";
 import WhiteModal from "../composants/modales/WhiteModal";
 import SuggestRecipe from "../composants/recettes/SuggestRecipe";
-import RecipeModal from "../composants/modales/RecipeModal";
 import TapLayout from "../composants/layout/TapLyout";
 import ModalPage from "../composants/modales/ModalPage";
 import RecipeDetails from "../composants/recettes/RecipeDetails";
@@ -30,15 +28,9 @@ function Recipes() {
   return (
     <TapLayout>
       <div className="details h-full w-full">
-        <div className="h-[15%]">
+        <div className="h-[17%] pb-4">
           <div
-            className="flex flex-col items-center justify-center h-5/6 max-h-28"
-            style={{
-              backgroundImage: `url(${Background})`,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              backgroundSize: "contain",
-            }}
+            className="flex flex-col items-center justify-center h-5/6 max-h-28 backgroundRecette"
           >
             <h2 className="text-center text-custom-red text-3xl titre-bold">
               Tit'recettes
@@ -46,8 +38,8 @@ function Recipes() {
           </div>
         </div>
 
-        <div className="flex flex-col h-[85%] justify-center items-center bg-[#fad4ce]">
-          <div className="flex flex-col h-5/6 w-full px-6 rounded-b-[2rem] bg-white overflow-auto">
+        <div className="flex flex-col h-[83%] justify-center items-center bg-[#fad4ce] ">
+          <div className="flex flex-col h-[90%] w-full px-6 rounded-b-[2rem] bg-white overflow-auto">
             {loading ? (
               <LoadingState />
             ) : error ? (
@@ -66,11 +58,11 @@ function Recipes() {
               <EmptyState />
             )}
           </div>
-          <div className="h-1/6 w-full flex flex-col items-center  justify-center">
+          <div className="h-[10%] w-full flex flex-col items-center justify-center">
             <button
               type="button"
               onClick={() => setShowModalAddRecipe(true)}
-              className="btn bg-custom-red text-white border-solid border-[1px] font-bold border-[#fad4ce] px-3 py-2 rounded-lg "
+              className="text-white bg-custom-red border-solid border-[1px] font-bold border-[#fad4ce] px-3 py-2 rounded-lg hover:bg-custom-red-clear "
             >
               Proposer une recette
             </button>

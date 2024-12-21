@@ -19,13 +19,13 @@ function Intro5() {
         >
           {/* Texte avec flèche */}
           <div className="flex flex-col items-center absolute justify-center w-2/3 ">
-            <h2 className="text-2xl titre-bold text-custom-blue mb-6 ">
+            <h2 className="text-3xl titre-bold text-custom-blue mb-6 ">
             C’est parti !
             </h2>
           </div>
             {/* Flèche */}
             <img
-            className="absolute w-1/2 right-0 bottom-11"
+            className="absolute w-1/2 right-3 bottom-12"
             src={fleche}
             alt="Flèche"
           />

@@ -1,5 +1,4 @@
 import React from "react";
-import bgImage from "../../assets/tips/bgImage.svg";
 import { Share } from "@capacitor/share";
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -32,11 +31,7 @@ const TipDetails = ({ tip }) => {
         {/* Section Titre et Image */}
         <div className="bg-custom-orange px-6 pt-2 pb-8 rounded-b-[2rem] w-full">
           <div
-            className="w-full flex items-end justify-end bg-no-repeat bg-contain bg-center relative"
-            style={{
-              backgroundImage: `url(${bgImage})`,
-              minHeight: "290px"
-            }}
+            className="w-full flex items-end justify-end bg-no-repeat bg-contain bg-center relative bgImage"
           >
             <div className="flex flex-col justify-end items-center w-full">
               <h2 className="text-center text-custom-blue text-2xl titre-bold mb-4">

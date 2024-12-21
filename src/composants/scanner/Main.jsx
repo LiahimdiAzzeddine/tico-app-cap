@@ -205,7 +205,7 @@ const Main = () => {
     <>
       <IonContent className={appState.hideBg ? "hideBg" : ""}>
         {!appState.hasPermission ? (
-          <IonRow class="w-full h-full flex flex-col text-center justify-center items-center">
+          <IonRow className="w-full h-full flex flex-col text-center justify-center items-center">
             <IonText color="danger" className="mb-1">{appState.error}</IonText>
             <IonButton style={{"--background":"#0f548d"}} onClick={() => startScan(true)}>Autoriser la caméra</IonButton>
           </IonRow>

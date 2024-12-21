@@ -9,7 +9,6 @@ import {
 } from "@ionic/react";
 import { trashBinOutline, eyeOutline } from "ionicons/icons";
 import produitFleche from "../../assets/history/productFlech.svg";
-import productBg from "../../assets/history/productBg.svg";
 import image64 from "../../assets/history/64.png";
 
 const defaultImage = image64;
@@ -39,18 +38,17 @@ const Item = ({ product, index, OpenFb, handleDelete }) => {
           drag="x" // Enable horizontal drag
           dragConstraints={{ left: 0, right: 0 }} // Constrain the drag movement horizontally
           whileTap={{ scale: 0.98 }} // Slightly scale down the item when tapped
+          onClick={() => OpenFb(product)}
         >
           {/* Image du produit */}
           <div
-            className="w-16 h-16 mr-4 rounded flex flex-col justify-center items-center bg-no-repeat bg-contain bg-center"
-            style={{
-              backgroundImage: `url(${productBg})`,
-            }}
+            className="w-16 h-16 mr-4 rounded flex flex-col justify-center items-center bg-no-repeat bg-contain bg-center productBg"
+          
           >
             <img
               src={product.image || defaultImage}
               alt={product.name}
-              onClick={() => OpenFb(product)}
+              
               className="w-auto h-14 rounded object-cover"
               onError={(e) => {
                 e.target.onerror = null;
@@ -60,11 +58,11 @@ const Item = ({ product, index, OpenFb, handleDelete }) => {
           </div>
 
           {/* Détails du produit */}
-          <div className="flex-1 flex flex-col space-y-0">
-            <div className="font-bold text-[#4E986D] ArchivoExtraBold">
+          <div className="flex-1 flex flex-col">
+            <div className="font-bold text-custom-green-text ArchivoExtraBold leading-[19.2px]">
               {product.name}
             </div>
-            <div className="text-[#4E986D] text-sm ArchivoLight">{product.trademark}</div>
+            <span className="text-custom-green-text text-sm ArchivoLight leading-[19.2px] italic">{product.trademark}</span>
           </div>
 
           {/* Bouton flèche */}

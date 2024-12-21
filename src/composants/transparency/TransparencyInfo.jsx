@@ -166,7 +166,7 @@ const TransparencyInfo = () => {
             <div className="w-[70%]">Décryptage TiCO</div> <div className="background_plus px-2 py-3">+1</div>
           </div>
         </div>
-        <div className="ArchivoItalique py-16 text-custom-blue">
+        <div className="ArchivoItalic py-16 text-custom-blue">
           Nous nous n’avons pas pu intégrer l’information sur la juste
           rémunération des producteurs car, malgré le fait que ce soit une
           information essentielle, il n’existe aucun référentiel satisfaisant

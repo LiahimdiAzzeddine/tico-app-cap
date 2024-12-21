@@ -101,7 +101,7 @@ function Menu() {
                 <IonIcon icon={logIn} className="w-10 h-10" />
               </span>
               <span className="text-custom-red-clear text-lg font-medium">
-                Se connecter
+                Se&nbsp;connecter
               </span>
             </button>
           )}

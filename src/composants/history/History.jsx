@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Background from "../../assets/history/background.svg";
 import { getAllProducts } from "../../hooks/useIndexedDB";
 import { IonContent, IonModal, IonPage } from "@ionic/react";
 import FicheProduit from "../FP/FicheProduit";
@@ -67,13 +66,8 @@ const History = () => {
       <div className="p-4 details flex flex-col h-full">
         {/* En-tête fixe */}
         <div
-          className="flex flex-col items-center justify-center min-h-[10vh]"
-          style={{
-            backgroundImage: `url(${Background})`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            backgroundSize: "contain",
-          }}
+          className="flex flex-col items-center justify-center min-h-[10vh] backgroundHistorique"
+          
         >
           <h2 className="text-center text-custom-green-text text-[1.7rem] titre-bold">
             Mon&nbsp;historique&nbsp;de scan
@@ -81,7 +75,7 @@ const History = () => {
         </div>
 
         {/* Message explicatif fixe */}
-        <div className="mt-4 text-center text-gray-700 text-sm italic">
+        <div className="mt-4 text-center text-gray-700 text-sm ArchivoLight italic">
         Glissez un produit pour afficher les options de suppression et de visualisation.
         </div>
 

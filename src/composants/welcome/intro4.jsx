@@ -1,6 +1,8 @@
 import React from "react";
 import tico_intro from "../../assets/intro/tico_intro.svg";
-import background from "../../assets/intro/background4.png";
+import background from "../../assets/intro/background.svg";
+import leftFlech from "../../assets/intro/leftFlech.svg";
+import rightFlech from "../../assets/intro/rightFlech.svg";
 
 function Intro4() {
   return (
@@ -18,13 +20,14 @@ function Intro4() {
           className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center"
           style={{ backgroundImage: `url(${background})` }}
         >
-          <div className="flex flex-col items-center justify-center w-4/5 text-center gap-4">
+          <div className="flex flex-col items-center justify-center w-4/5 text-center gap-8">
         
             <div className="text-xl text-custom-blue ">
-            Bien plus qu’une application, <span className="font-bold">un allié au quotidien !</span>
+            Bien plus qu’une application,<br></br> <span className="font-bold">un allié au quotidien !</span>
             </div>
-            <div className="text-xl text-custom-blue ">
-            Recettes faciles<br></br> Astuces utiles 
+            <div className="text-xl text-custom-blue flex flex-col space-y-4">
+            <div className="flex flex-row gap-3"><img src={leftFlech} className="w-6 h-6"/><div className="Archivo"> Des <span className="ArchivoBold">recettes</span> faciles</div></div> 
+            <div className="flex flex-row gap-3"><span className="w-6"></span><div className="Archivo">Des <span className="ArchivoBold">astuces</span> utiles</div> <img src={rightFlech} className="w-6 h-6"/></div> 
             </div>
           </div>
         </div>

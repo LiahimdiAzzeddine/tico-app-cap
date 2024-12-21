@@ -13,10 +13,12 @@ const SuggestRecipe = ({ onClose }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [Recette, setRecette] = useState(null);
+  
   const { triggerAlert } = useAlert();
 
   const VisualiseRecette = () => {
     setRecette(createViewRecipe(values));
+    console.log("🚀 ~ SuggestRecipe ~ Recette:", Recette)
     setModalOpen(true);
   };
 
@@ -136,13 +138,7 @@ function formatTime(totalMinutes) {
   return (
     <div className="px-2 details">
       <div
-        className="flex flex-col items-center justify-center min-h-[10vh]"
-        style={{
-          backgroundImage: `url(${Background})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundSize: "contain",
-        }}
+        className="flex flex-col items-center justify-center min-h-[10vh] backgroundRecette"
       >
         <h2 className="text-center text-custom-red text-2xl titre-bold ">
           Proposer une recette
@@ -163,8 +159,8 @@ function formatTime(totalMinutes) {
               placeholder="Titre de la recette"
               className={`input border-2 p-2 rounded-xl focus:outline-none ${
                 error?.titre
-                  ? "border-orange-300"
-                  : "border-red-500 focus:border-orange-500"
+                  ? "border-red-800"
+                  : "border-custom-red-clear focus:border-red-800"
               }`}
               required
             />
@@ -266,8 +262,8 @@ function formatTime(totalMinutes) {
               onChange={handleInputChange}
               className={`input border-2 p-2 rounded-xl focus:outline-none ${
                 error?.prep_time
-                  ? "border-orange-300"
-                  : "border-red-500 focus:border-orange-500"
+                  ? "border-red-800"
+                  : "border-custom-red-clear focus:border-orange-500"
               }`}
               required
             />
@@ -289,8 +285,8 @@ function formatTime(totalMinutes) {
               placeholder="Temps de cuisson"
               className={`input border-2 p-2 rounded-xl focus:outline-none ${
                 error?.cook_time
-                  ? "border-orange-300"
-                  : "border-red-500 focus:border-orange-500"
+                  ? "border-red-800"
+                  : "border-custom-red-clear focus:border-orange-500"
               }`}
               required
             />
@@ -312,8 +308,8 @@ function formatTime(totalMinutes) {
               placeholder="Temps de repos"
               className={`input border-2 p-2 rounded-xl focus:outline-none ${
                 error?.rest_time
-                  ? "border-orange-300"
-                  : "border-red-500 focus:border-orange-500"
+                  ? "border-red-800"
+                  : "border-custom-red-clear focus:border-orange-500"
               }`}
             />
             {error?.rest_time && (
@@ -352,8 +348,8 @@ function formatTime(totalMinutes) {
                 placeholder="Quantité"
                 className={`input border-2 p-2 rounded-xl focus:outline-none w-1/4 ${
                   error?.ingredients
-                    ? "border-orange-300"
-                    : "border-red-500 focus:border-orange-500"
+                    ? "border-red-800"
+                    : "border-custom-red-clear focus:border-orange-500"
                 }`}
               />
               <input
@@ -364,8 +360,8 @@ function formatTime(totalMinutes) {
                 placeholder="Unité"
                 className={`input border-2 p-2 rounded-xl focus:outline-none w-1/4 ${
                   error?.ingredients
-                    ? "border-orange-300"
-                    : "border-red-500 focus:border-orange-500"
+                    ? "border-red-800"
+                    : "border-custom-red-clear focus:border-orange-500"
                 }`}
               />
               <input
@@ -376,8 +372,8 @@ function formatTime(totalMinutes) {
                 placeholder="Nom de l'ingrédient"
                 className={`input border-2 p-2 rounded-xl focus:outline-none w-2/4 ${
                   error?.ingredients
-                    ? "border-orange-300"
-                    : "border-red-500 focus:border-orange-500"
+                    ? "border-red-800"
+                    : "border-custom-red-clear focus:border-orange-500"
                 }`}
               />
             </div>
@@ -423,8 +419,8 @@ function formatTime(totalMinutes) {
               placeholder="Étape"
               className={`input border-2 p-2 rounded-xl focus:outline-none w-full ${
                 error?.steps
-                  ? "border-orange-300"
-                  : "border-red-500 focus:border-orange-500"
+                  ? "border-red-800"
+                  : "border-custom-red-clear focus:border-orange-500"
               }`}
             />
             {error?.steps && (

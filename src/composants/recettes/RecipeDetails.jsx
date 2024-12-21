@@ -65,10 +65,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
       <div className="bg-white rounded-b-[2rem] pb-14">
         <div className="bg-custom-red-bg-clear px-6 pb-4  rounded-b-[2rem]  space-y-6">
           <div
-            className="w-full min-h-[30dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative"
-            style={{
-              backgroundImage: `url(${recetteBg})`,
-            }}
+            className="w-full min-h-[30dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative recetteBg"
           >
             <div className="flex flex-col justify-center items-center space-y-4">
               <h2 className="text-center text-custom-red text-2xl titre-bold ">
@@ -115,10 +112,10 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
         </div>
         {ingredients && (
           <div className="px-6 mt-6">
-            <h2 className="text-custom-red text-2xl font-bold mb-3 titre-bold">
+            <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoBold">
               Ingrédients
             </h2>
-            <ul className="list-inside list-none ">
+            <ul className="list-inside list-none Archivo">
               {ingredients.length > 0?
               (
                 ingredients.map((ingredient, index) => (
@@ -128,7 +125,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
                     {ingredient.name}
                   </li>
                 ))):(
-                  <div className="py-6">
+                  <div className="py-6 Archivo">
           Les ingrédients de cette recette, malheureusement, ne sont pas disponibles. Revisitez cette page ultérieurement pour l'avoir.
         </div>
                 )
@@ -144,7 +141,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
   
         {steps.length > 0 ? (
           <div className="px-6 mt-6">
-            <h2 className="text-custom-red text-2xl font-bold mb-3 titre-bold">
+            <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoBold">
               Recette
             </h2>
             <Swiper
@@ -160,7 +157,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
                   <div className="h-full flex flex-col items-start justify-start mb-6">
                     {stepGroup.map((step, stepIndex) => (
                       <div key={stepIndex} className="mb-2">
-                        <p className="text-custom-red">
+                        <p className="text-custom-red Archivo">
                           {"• "}
                           {step.description}
                         </p>
@@ -185,7 +182,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
           <img src={badgeimage} />
         </div>
       </div>
-      <div className="h-[10vh] w-full flex flex-col justify-center items-center"></div>
+      <div className="h-[7vh] w-full flex flex-col justify-center items-center"></div>
     </>
   );
 };

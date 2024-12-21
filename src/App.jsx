@@ -156,13 +156,14 @@ function App() {
           Close={() => {
             history.goBack();
           }}
+          image="vf"
         >
           <LaterProducts />
         </SimpleLyout>
       </Route>
       <Route path="/login" exact={true}>
         <AuthLayout>
-          <Login createCompte={true} />
+          <Login createCompte={true} redirection={() => history.replace("/scanner")} />
         </AuthLayout>
       </Route>
       <Route path="/change_password" exact={true}>

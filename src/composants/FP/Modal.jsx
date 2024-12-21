@@ -415,7 +415,7 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
         {/* Fixed Footer */}
         <div>
           {additifs.length>0?(
-          <button className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none ArchivoItalique"  onClick={MoreInfo}>
+          <button className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none ArchivoItalic"  onClick={MoreInfo}>
             En savoir plus
           </button>):("")}
         </div>
@@ -487,7 +487,7 @@ export const NutrriInfo = ({
         {/* Fixed Footer */}
         <div>
           <button
-            className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none ArchivoItalique"
+            className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none ArchivoItalic"
             onClick={MoreInfo}
           >
             En savoir plus

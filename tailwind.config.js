@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'custom-blue':'#0f548d',
+        'custom-blue':'#0F548D',
         'custom-gray':'#a4a4a4',
         'custom-rose':'#fff1f1',
         'custom-red':"#c32721",
@@ -15,13 +15,13 @@ export default {
         'custom-green':'#42a199',
         'custom-green-clear':"#ebf8f7",
         'custom-green-background':'#c7f0d9',
-        'custom-green-text':"#51736c",
         "custom-green-divider":"#b9d3d0",
         "custom-brown":"#ffeca7",
-        "custom-green-text":"#4b996c",
+        "custom-green-text":"#4E986D",
         "custom-red-bg-clear":"#fad4ce",
         "custom-orange":"#ffeda3",
-        "custom-text-orange":"#ff8300"
+        "custom-text-orange":"#FF8200",
+        "custom-orange-bg":"#FFECA7"
       },
       screens: {
 

@@ -44,9 +44,9 @@ const Settings = () => {
 
   return (
     <>
-      <IonPage style={{paddingTop:"env(safe-area-inset-top)",backgroundColor: '#ffeca7' }}>
+      <IonPage style={{paddingTop:"env(safe-area-inset-top)",backgroundColor: '#FFECA7' }}>
         {/* Custom Header */}
-        <div className="bg-[#ffeca7]">
+        <div className="bg-custom-orange-bg">
           <ModalHeader
             onClose={() => {
               history.goBack();
@@ -56,14 +56,14 @@ const Settings = () => {
         </div>
         <IonContent
           className="ion-padding"
-          style={{ overflow: "hidden", "--background": "#ffeca7" }}
+          style={{ overflow: "hidden", "--background": "#FFECA7" }}
         >
           {/* Menu Items */}
           <div className="flex flex-col h-full details">
-            {isAuthenticated??(
-            <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full ">
-              Mon &nbsp;<span className="marker-effect-orange">compte</span> 
-            </h2>)}
+            {isAuthenticated?(
+            <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-end justify-center w-full ">
+              Mon compte
+            </h2>):("")}
             <div 
               className={`flex flex-col items-center justify-center space-y-4 ${
                 isAuthenticated ? "h-4/6" : "h-5/6"
@@ -72,7 +72,7 @@ const Settings = () => {
               
               {isAuthenticated && (
                 <button
-                  className="bg-orange-500 text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+                  className="bg-custom-text-orange Archivo text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
                   onClick={() => {
                     setShowModalInfo(true);
                   }}
@@ -82,7 +82,7 @@ const Settings = () => {
               )}
               {!isAuthenticated && (
                 <button
-                  className="bg-orange-500 text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+                  className="bg-custom-text-orange Archivo text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
                   onClick={() => {
                     setShowModalInscription(true);
                   }}
@@ -97,7 +97,7 @@ const Settings = () => {
                 </button>
               )}*/}
               <button
-                className="bg-custom-blue text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-custom-blue Archivo text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => {
                   setShowModalContact(true);
                 }}
@@ -105,7 +105,7 @@ const Settings = () => {
                 Nous contacter
               </button>
               <button
-                className="bg-custom-blue text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-custom-blue Archivo text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => {
                   setShowModalFAQ(true);
                 }}
@@ -113,7 +113,7 @@ const Settings = () => {
                 FAQ
               </button>
               <button
-                className="bg-custom-blue text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-custom-blue Archivo text-white font-bold  text-lg py-2 w-3/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => {
                   setShowModalInviteTico(true);
                 }}
@@ -131,31 +131,27 @@ const Settings = () => {
             <div className="h-1/6 flex flex-col items-center mt-2">
               {isAuthenticated && (
                 <button
-                  className="bg-orange-500 text-white font-bold  text-lg py-2 w-2/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+                  className="bg-custom-text-orange Archivo text-white font-bold  text-lg py-2 w-2/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
                   onClick={handleLogout}
                 >
-                  Se déconnecter
+                  Se&nbsp;déconnecter
                 </button>
               )}
               {!isAuthenticated && (
                 <button
-                  className="bg-orange-500 text-white font-bold  text-lg py-2 w-2/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+                  className="bg-custom-text-orange Archivo text-white font-bold  text-lg py-2 w-2/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
                   onClick={() => setShowModalLogin(true)}
                 >
-                  Se connecter
+                  Se&nbsp;connecter
                 </button>
               )}
-              <div className="text-center text-orange-500 mt-4 font-bold"
+              <div className="text-center text-orange-500 mt-4"
                onClick={() => {
                 setShowModalCGU(true);
               }}
               >
-                <a href="#" className="underline">
-                  CGU
-                </a>
-                -
-                <a href="#" className="underline">
-                  Confidentialité
+                <a href="#" className="underline ArchivoLight">
+                  CGU-Confidentialité
                 </a>
               </div>
             </div>
@@ -202,7 +198,7 @@ const Settings = () => {
         isOpen={showModalLogin}
         onClose={() => setShowModalLogin(false)}
       >
-        <Login />
+        <Login redirection={() => setShowModalLogin(false)} />
       </CustomModal>
     </>
   );

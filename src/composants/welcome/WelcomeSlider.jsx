@@ -19,17 +19,17 @@ function WelcomeSlider() {
         spaceBetween={0}
         slidesPerView={1}
         pagination={{ clickable: true }}
-        className="h-full w-full welcome-slider" 
+        className="h-screen w-full welcome-slider" 
       >
         <SwiperSlide>
           <Intro0/>
         </SwiperSlide>
         <SwiperSlide>
-          <Intro1/>
+          <Intro2/>
         </SwiperSlide>
 
         <SwiperSlide>
-        <Intro2/>
+        <Intro1/>
         </SwiperSlide>
 {/*
         <SwiperSlide>

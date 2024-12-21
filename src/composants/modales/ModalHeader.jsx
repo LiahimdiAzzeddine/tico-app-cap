@@ -32,7 +32,7 @@ function ModalHeader({ image, onClose }) {
         className="text-custom-blue transform transition-transform duration-150 ease-in-out active:scale-90"
         onClick={onClose}
       >
-        <img src={SRC} alt="Close" className="w-auto h-9" />
+        <img src={SRC} alt="Close" className="w-auto h-10" />
       </button>
       <div className="flex flex-row space-x-3 items-end">
         <div className="text-orange-500 font-bold text-2xl titre-bold transform transition-transform duration-150 ease-in-out active:scale-90">

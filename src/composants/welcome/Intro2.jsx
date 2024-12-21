@@ -7,7 +7,7 @@ function Intro2() {
   return (
     <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full">
       {/* Logo Section */}
-      <div className="grow flex items-end justify-center w-full pt-1">
+      <div className="grow flex items-end justify-center w-full">
         <img className="w-64" src={tico_intro} alt="TiCO Logo" />
       </div>
 
@@ -22,9 +22,9 @@ function Intro2() {
             alt="Barcode"
           />
           <div className="flex flex-col items-center justify-center w-4/5 gap-3 text-center">
-            <div className="text-xl text-custom-blue ">
-              Encourager les pratiques plus responsables d’un{" "}
-              <span className="font-bold">simple scan.</span>
+            <div className="text-xl text-custom-blue Archivo">
+              Encourager<br></br> les pratiques plus responsables d’un{" "}
+              <span className="font-bold ArchivoBold">simple scan&nbsp;!</span>
             </div>
           </div>
         </div>

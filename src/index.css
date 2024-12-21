@@ -80,7 +80,7 @@
   font-weight: bold;
   font-style: italic;
 }
-.ArchivoItalique{
+.ArchivoItalic{
   font-weight: normal;
   font-style: italic;
 }
@@ -384,7 +384,36 @@ padding-top: 1rem;
   padding-top: 300px;
 }
 .intro0{
-  background-position-y: center;
-  background-position-x: center;
-  background-size:90%;
+    background-position: center calc(60%);
+  background-size:85%;
+}
+.tico_intro{
+  background-image: url('/src/assets/home/tico_intro.svg') !important;
+}
+.recetteBg{
+  background-image: url('/src/assets/recettes/recetteBg.svg') !important;
+}
+.bgImage{
+  background-image: url('/src/assets/tips/bgImage.svg') !important;
+}
+.productBg{
+  background-image: url('/src/assets/history/productBg.svg') !important;
+}
+.backgroundHistorique {
+  background-image: url('/src/assets/history/background.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.backgroundRecette {
+  background-image: url('/src/assets/recettes/background.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.backgroundTips {
+  background-image: url('/src/assets/tips/bachground.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }

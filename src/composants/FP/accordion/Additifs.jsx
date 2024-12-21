@@ -52,7 +52,7 @@ const Additifs = ({ additifs,targetRefAdditifs }) => {
                     {item?.label ?? "Label indisponible"}
                   </span>
                 </div>
-                <div className="text-custom-blue text-sm ArchivoItalique">
+                <div className="text-custom-blue text-sm ArchivoItalic">
                   {[item?.fonction1, item?.fonction2, SelectedNoteUFC(item?.noteUFC)]
                     .filter(Boolean) // Supprime les valeurs nulles, indéfinies ou vides
                     .join(" | ")}{" "}

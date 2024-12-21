@@ -35,13 +35,8 @@ function Tips() {
       <div className="details h-full w-full">
         <div className="h-[15%]">
           <div
-            className="flex flex-col items-center justify-center h-5/6 max-h-28"
-            style={{
-              backgroundImage: `url(${Background})`,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              backgroundSize: "contain",
-            }}
+            className="flex flex-col items-center justify-center h-5/6 max-h-28 backgroundTips"
+           
           >
             <h2 className="text-center text-custom-text-orange text-3xl titre-bold">
               Ti'conseils

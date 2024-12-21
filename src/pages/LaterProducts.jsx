@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IonContent, IonModal, IonPage } from "@ionic/react";
 import { useNetwork } from "../context/NetworkContext";
-import Background from "../assets/history/background.svg";
-
 import LaterItem from "../composants/history/LaterItem";
 import { EmptyLater } from "../composants/history/ui/EmptyLater";
 import ModalHeader from "../composants/modales/ModalHeader";
@@ -146,13 +144,8 @@ const LaterProducts = () => {
     <>
       <div className="p-4 details flex flex-col h-full">
         <div
-          className="flex flex-col items-center justify-center min-h-[10vh]"
-          style={{
-            backgroundImage: `url(${Background})`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            backgroundSize: "contain",
-          }}
+          className="flex flex-col items-center justify-center min-h-[10vh] backgroundHistorique"
+         
         >
           <h2 className="text-center text-custom-green-text text-[1.7rem] titre-bold z-10">
             Produits à&nbsp;consulter
