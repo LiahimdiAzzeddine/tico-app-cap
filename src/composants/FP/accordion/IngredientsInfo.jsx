@@ -75,13 +75,13 @@ function IngredientsInfo({
               <div key={index} className="mb-3">
                 {/* Titre pour les ingrédients principaux */}
                 <h2
-                  className={`ArchivoBold text-custom-blue font-semibold ${
+                  className={`ArchivoBold text-custom-blue font-semibold capitalize ${
                     ingredient.allergene && ingredient.allergene !== ""
                       ? "underline"
                       : ""
                   }`}
                 >
-                  {ingredient.label || "Inconnu"} {/* Valeur par défaut si label est manquant */}
+                  {ingredient.label || "Inconnu"}
                   {ingredient.quantity && ` ${ingredient.quantity}`}
                   {ingredient.children && ingredient.children.length > 0 ? ":" : ""}
                 </h2>

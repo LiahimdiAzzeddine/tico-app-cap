@@ -29,23 +29,23 @@ function Sections({scrollToTarget, targetRefRecettes,gtin,productName}) {
 
   return (
     <>
-      <div className="w-full flex flex-col items-center justify-center pt-6 px-4">
+      <div className="w-full flex flex-col items-center justify-center pt-6 px-6">
         <div className="bg-[#b6e1dd] rounded-full w-full px-4 py-4">
           <div className="flex flex-row">
             <button
               onClick={handleShare}
               className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95"
             >
-              <img src={Partage} className="h-14" alt="Partage" />
+              <img src={Partage} className="h-12" alt="Partage" />
             </button>
             <div onClick={()=>scrollRecettes()} className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95">
-              <img src={Recettes} className="h-14" alt="Recettes" />
+              <img src={Recettes} className="h-12" alt="Recettes" />
             </div>
             <div
               className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95"
               onClick={() => setIsOpen(true)}
             >
-              <img src={BubbleImg} className="h-14" alt="BubbleImg" />
+              <img src={BubbleImg} className="h-12" alt="BubbleImg" />
             </div>
           </div>
         </div>

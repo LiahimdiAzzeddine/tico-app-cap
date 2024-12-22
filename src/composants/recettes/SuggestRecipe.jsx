@@ -13,12 +13,12 @@ const SuggestRecipe = ({ onClose }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [Recette, setRecette] = useState(null);
-  
+
   const { triggerAlert } = useAlert();
 
   const VisualiseRecette = () => {
     setRecette(createViewRecipe(values));
-    console.log("🚀 ~ SuggestRecipe ~ Recette:", Recette)
+    console.log("🚀 ~ SuggestRecipe ~ Recette:", Recette);
     setModalOpen(true);
   };
 
@@ -128,18 +128,16 @@ const SuggestRecipe = ({ onClose }) => {
   };
 
   // Fonction utilitaire pour convertir les minutes en heures et minutes
-function formatTime(totalMinutes) {
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  return hours > 0 
-    ? `${hours}h ${minutes > 0 ? `${minutes}min` : ""}` 
-    : `${minutes}min`;
-}
+  function formatTime(totalMinutes) {
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return hours > 0
+      ? `${hours}h ${minutes > 0 ? `${minutes}min` : ""}`
+      : `${minutes}min`;
+  }
   return (
     <div className="px-2 details">
-      <div
-        className="flex flex-col items-center justify-center min-h-[10vh] backgroundRecette"
-      >
+      <div className="flex flex-col items-center justify-center min-h-[10vh] backgroundRecette">
         <h2 className="text-center text-custom-red text-2xl titre-bold ">
           Proposer une recette
         </h2>
@@ -165,7 +163,7 @@ function formatTime(totalMinutes) {
               required
             />
             {error?.titre && (
-              <p className="text-red-500 text-sm mt-1">{error.titre[0]}</p>
+              <p className="border-red-800 text-sm mt-1">{error.titre[0]}</p>
             )}
           </div>
           {/* Type de plats */}
@@ -190,7 +188,7 @@ function formatTime(totalMinutes) {
               )}
             </div>
             {error?.type && (
-              <p className="text-red-500 text-sm mt-1">{error.type[0]}</p>
+              <p className="border-red-800 text-sm mt-1">{error.type[0]}</p>
             )}
           </div>
 
@@ -214,7 +212,9 @@ function formatTime(totalMinutes) {
               ))}
             </div>
             {error?.difficulty && (
-              <p className="text-red-500 text-sm mt-1">{error.difficulty[0]}</p>
+              <p className="border-red-800 text-sm mt-1">
+                {error.difficulty[0]}
+              </p>
             )}
           </div>
 
@@ -244,7 +244,7 @@ function formatTime(totalMinutes) {
               ))}
             </div>
             {error?.filters && (
-              <p className="text-red-500 text-sm mt-1">{error.filters[0]}</p>
+              <p className="border-red-800 text-sm mt-1">{error.filters[0]}</p>
             )}
           </div>
           {/* Temps de préparation */}
@@ -263,12 +263,14 @@ function formatTime(totalMinutes) {
               className={`input border-2 p-2 rounded-xl focus:outline-none ${
                 error?.prep_time
                   ? "border-red-800"
-                  : "border-custom-red-clear focus:border-orange-500"
+                  : "border-custom-red-clear focus:border-red-800"
               }`}
               required
             />
             {error?.prep_time && (
-              <p className="text-red-500 text-sm mt-1">{error.prep_time[0]}</p>
+              <p className="border-red-800 text-sm mt-1">
+                {error.prep_time[0]}
+              </p>
             )}
           </div>
 
@@ -286,12 +288,14 @@ function formatTime(totalMinutes) {
               className={`input border-2 p-2 rounded-xl focus:outline-none ${
                 error?.cook_time
                   ? "border-red-800"
-                  : "border-custom-red-clear focus:border-orange-500"
+                  : "border-custom-red-clear focus:border-red-800"
               }`}
               required
             />
             {error?.cook_time && (
-              <p className="text-red-500 text-sm mt-1">{error.cook_time[0]}</p>
+              <p className="border-red-800 text-sm mt-1">
+                {error.cook_time[0]}
+              </p>
             )}
           </div>
 
@@ -309,32 +313,39 @@ function formatTime(totalMinutes) {
               className={`input border-2 p-2 rounded-xl focus:outline-none ${
                 error?.rest_time
                   ? "border-red-800"
-                  : "border-custom-red-clear focus:border-orange-500"
+                  : "border-custom-red-clear focus:border-red-800"
               }`}
             />
             {error?.rest_time && (
-              <p className="text-red-500 text-sm mt-1">{error.rest_time[0]}</p>
+              <p className="border-red-800 text-sm mt-1">
+                {error.rest_time[0]}
+              </p>
             )}
           </div>
           <div className="flex flex-col gap-3">
-  <label className="text-custom-red text-base">
-    Temps total :{" "}
-    {Number(values.cook_time) +
-      Number(values.prep_time) +
-      Number(values.rest_time) >
-    0 ? (
-      <span className="font-bold">
-        {formatTime(
-          Number(values.cook_time) +
-          Number(values.prep_time) +
-          Number(values.rest_time)
-        )}
-      </span>
-    ) : (
-      ""
-    )}
-  </label>
-</div>
+            <label className="text-custom-red text-base">
+              Temps total :{" "}
+              {Number(values.cook_time) +
+                Number(values.prep_time) +
+                Number(values.rest_time) >
+              0 ? (
+                <span className="font-bold relative group">
+                  {formatTime(
+                    Number(values.cook_time) +
+                      Number(values.prep_time) +
+                      Number(values.rest_time)
+                  )}
+                  {/* Bulle d'information */}
+                  <div className="absolute left-0 top-full mt-1 hidden group-hover:flex bg-gray-800 text-white text-sm rounded p-2 shadow-lg min-w-60">
+                    Temps total calculé à partir du temps de cuisson,
+                    préparation et repos.
+                  </div>
+                </span>
+              ) : (
+                ""
+              )}
+            </label>
+          </div>
 
           {/* Ingrédients */}
           <div className="flex flex-col gap-3 justify-center items-start">
@@ -349,7 +360,7 @@ function formatTime(totalMinutes) {
                 className={`input border-2 p-2 rounded-xl focus:outline-none w-1/4 ${
                   error?.ingredients
                     ? "border-red-800"
-                    : "border-custom-red-clear focus:border-orange-500"
+                    : "border-custom-red-clear focus:border-red-800"
                 }`}
               />
               <input
@@ -361,7 +372,7 @@ function formatTime(totalMinutes) {
                 className={`input border-2 p-2 rounded-xl focus:outline-none w-1/4 ${
                   error?.ingredients
                     ? "border-red-800"
-                    : "border-custom-red-clear focus:border-orange-500"
+                    : "border-custom-red-clear focus:border-red-800"
                 }`}
               />
               <input
@@ -373,12 +384,12 @@ function formatTime(totalMinutes) {
                 className={`input border-2 p-2 rounded-xl focus:outline-none w-2/4 ${
                   error?.ingredients
                     ? "border-red-800"
-                    : "border-custom-red-clear focus:border-orange-500"
+                    : "border-custom-red-clear focus:border-red-800"
                 }`}
               />
             </div>
             {error?.ingredients && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="border-red-800 text-sm mt-1">
                 {error.ingredients[0]}
               </p>
             )}
@@ -420,11 +431,11 @@ function formatTime(totalMinutes) {
               className={`input border-2 p-2 rounded-xl focus:outline-none w-full ${
                 error?.steps
                   ? "border-red-800"
-                  : "border-custom-red-clear focus:border-orange-500"
+                  : "border-custom-red-clear focus:border-red-800"
               }`}
             />
             {error?.steps && (
-              <p className="text-red-500 text-sm mt-1">{error.steps[0]}</p>
+              <p className="border-red-800 text-sm mt-1">{error.steps[0]}</p>
             )}
             <button
               type="button"
@@ -453,14 +464,14 @@ function formatTime(totalMinutes) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 justify-center items-center">
+          <div className="flex flex-col gap-4 justify-center items-center pb-5">
             <div className="text-custom-red">
               Pas d’inquiétude on se charge du shooting photo&nbsp;!
             </div>
             <button
               type="button"
               onClick={() => VisualiseRecette()} // Ouvrir le modal
-              className="btn bg-custom-red text-white border-solid border-[1px] font-bold border-red-400 px-3 py-2 rounded-lg"
+              className=" bg-custom-red text-white border-solid border-[1px] font-bold border-red-400 px-3 py-2 rounded-lg"
             >
               Je visualise ma recette
             </button>
@@ -472,7 +483,6 @@ function formatTime(totalMinutes) {
               {loading ? "Envoi..." : "Envoyer ma recette"}
             </button>
           </div>
-          
         </form>
       </div>
       {/* Afficher le modal avec les détails de la recette */}
@@ -483,7 +493,6 @@ function formatTime(totalMinutes) {
           recipe={Recette}
         />
       )}
-
       {/* Utilisation de AlertComponent */}
       <AlertComponent
         isOpen={showAlert}
@@ -493,10 +502,10 @@ function formatTime(totalMinutes) {
       />
       {/* Full-screen loading overlay */}
       {loading && (
-            <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-              <Spinner />
-            </div>
-          )}
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 };

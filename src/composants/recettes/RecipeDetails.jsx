@@ -63,10 +63,8 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
   return (
     <>
       <div className="bg-white rounded-b-[2rem] pb-14">
-        <div className="bg-custom-red-bg-clear px-6 pb-4  rounded-b-[2rem]  space-y-6">
-          <div
-            className="w-full min-h-[30dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative recetteBg"
-          >
+        <div className="bg-custom-red-bg-clear px-6 pb-4 pt-2 rounded-b-[2rem]  space-y-6">
+          <div className="w-full min-h-[30dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative recetteBg">
             <div className="flex flex-col justify-center items-center space-y-4">
               <h2 className="text-center text-custom-red text-2xl titre-bold ">
                 {title}
@@ -99,13 +97,8 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
             <div className="flex items-center justify-start text-sm text-custom-red mt-4">
               <img src={horloge} className="w-8 h-8 mr-2" alt="clock icon" />
               <div className="text-start">
-                {preparation&&(
-                  <div>{preparation} de préparation</div>
-                )}
-                {cuisson&&(
-                 <div>{cuisson} de cuisson</div>
-                )}
-                
+                {preparation && <div>{preparation} de préparation</div>}
+                {cuisson && <div>{cuisson} de cuisson</div>}
               </div>
             </div>
           </div>
@@ -116,29 +109,28 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               Ingrédients
             </h2>
             <ul className="list-inside list-none Archivo">
-              {ingredients.length > 0?
-              (
+              {ingredients.length > 0 ? (
                 ingredients.map((ingredient, index) => (
                   <li key={index} className="text-custom-red">
                     {ingredient.qt ? `${ingredient.qt} ` : ""}
                     {ingredient.unit ? `${ingredient.unit} ` : ""}
                     {ingredient.name}
                   </li>
-                ))):(
-                  <div className="py-6 Archivo">
-          Les ingrédients de cette recette, malheureusement, ne sont pas disponibles. Revisitez cette page ultérieurement pour l'avoir.
-        </div>
-                )
-                
-                }
+                ))
+              ) : (
+                <div className="py-6 Archivo">
+                  Les ingrédients de cette recette, malheureusement, ne sont pas
+                  disponibles. Revisitez cette page ultérieurement pour l'avoir.
+                </div>
+              )}
             </ul>
           </div>
         )}
-      
-          <div className="px-6 mt-6">
-            <hr className="w-full border-t border-[#fceae8]" />
-          </div>
-  
+
+        <div className="px-6 mt-6">
+          <hr className="w-full border-t border-[#fceae8]" />
+        </div>
+
         {steps.length > 0 ? (
           <div className="px-6 mt-6">
             <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoBold">
@@ -168,21 +160,22 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               ))}
             </Swiper>
           </div>
-        ):(
+        ) : (
           <div className="px-6 mt-6">
             <h2 className="text-custom-red text-2xl font-bold mb-3 titre-bold">
               Recette
             </h2>
-          <div className="py-6">
-            Les étapes de cette recette, malheureusement, ne sont pas disponibles. Revisitez cette page ultérieurement pour l'avoir.
-          </div>
+            <div className="py-6">
+              Les étapes de cette recette, malheureusement, ne sont pas
+              disponibles. Revisitez cette page ultérieurement pour l'avoir.
+            </div>
           </div>
         )}
         <div className="w-20 h-auto absolute right-6  ">
           <img src={badgeimage} />
         </div>
       </div>
-      <div className="h-[7vh] w-full flex flex-col justify-center items-center"></div>
+      <div className="h-[5vh] w-full flex flex-col justify-center items-center"></div>
     </>
   );
 };

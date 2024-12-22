@@ -15,7 +15,7 @@ export default {
         'custom-green':'#42a199',
         'custom-green-clear':"#ebf8f7",
         'custom-green-background':'#c7f0d9',
-        "custom-green-divider":"#b9d3d0",
+        "custom-green-divider":"#bde4e1",
         "custom-brown":"#ffeca7",
         "custom-green-text":"#4E986D",
         "custom-red-bg-clear":"#fad4ce",

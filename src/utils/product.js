@@ -9,7 +9,6 @@ function getValidValue(...values) {
 }
 
 export function createProduct(scannedResult, productData) {
-  console.log("🚀 ~ createProduct ~ productData:", productData?.foodheaproduct);
   // Extraction et transformation des additifs
   const additifs =
     (productData.foodheaproduct?._additifs?.length > 0
@@ -55,6 +54,7 @@ export function createProduct(scannedResult, productData) {
     vnr: line._vnr,
     symbol: line._symbole,
     nutType: line._nuttype,
+    forced: line._forced,
   }));
   console.log("🚀 ~ createProduct ~ lines:", lines);
   // Fonction de transformation des ingrédients

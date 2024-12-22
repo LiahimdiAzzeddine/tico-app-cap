@@ -30,7 +30,7 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
 
   return (
     <>
-      <div className="relative py-6" style={{ position: "relative" }}>
+      <div className="relative pb-6" style={{ position: "relative" }}>
         {[...Array(8)].map((_, index) => {
           const panel = index + 1;
           const panelref = index + 1 + "section";

@@ -368,7 +368,7 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
             ) : (
               <div className="flex flex-col items-center justify-center py-3">
                 <div className="space-y-4">
-                  <div className="flex items-end space-x-2">
+                  <div className="flex items-end space-x-2 py-2">
                     <span className="text-custom-blue font-bold text-2xl">
                       +{additifs.length}
                     </span>
@@ -410,15 +410,16 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
               </div>
             )}
           </div>
-        </div>
-
-        {/* Fixed Footer */}
-        <div>
+          <div className="pt-4">
           {additifs.length>0?(
-          <button className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none ArchivoItalic"  onClick={MoreInfo}>
+          <button className="w-full text-center text-custom-blue  underline underline-offset-2 focus:outline-none ArchivoItalic"  onClick={MoreInfo}>
             En savoir plus
           </button>):("")}
         </div>
+        </div>
+
+        {/* Fixed Footer */}
+        
       </div>
     </Modal>
   );
@@ -447,7 +448,7 @@ export const NutrriInfo = ({
     D: "Un produit noté&nbsp;D contient généralement des nutriments à limiter (graisses saturées, sucres ou sel). Mais certains, comme les fromages, apportent aussi des nutriments intéressants comme le calcium. Ils peuvent faire partie d’une alimentation variée si on les consomme avec modération.",
     E: "Les produits classés&nbsp;E sont ceux qui contiennent le plus d’éléments à limiter (graisses saturées, sucres, sel). Ils sont à consommer avec parcimonie. Toutefois, certains produits peuvent être classés&nbsp;E tout en étant intéressants nutritionnellement, comme certaines huiles. L’important, c’est de les intégrer à petite dose dans votre alimentation globale.",
   };
-  
+
   const selectedNutriscorePhrase =
     nutriscorePhrase[nutriscore] ||
     "Ce produit est à consommer avec précaution.";
@@ -461,33 +462,34 @@ export const NutrriInfo = ({
 
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      <div className="flex flex-col w-full h-full items-center justify-center">
+      <div className="flex flex-col w-full max-h-screen h-auto items-center justify-center">
         {/* Fixed Header with Buttons */}
         <div className="sticky top-0">
           {/* Title */}
-          <h1 className="text-xl text-custom-blue flex flex-col items-center justify-center py-1">
-            <span className="font-bold ArchivoBold">Nutrition</span>
+          <h1 className="text-xl font-bold text-custom-blue py-2 text-center titre-bold">
+           <span className="marker-effect-cyan">Nutrition</span> 
           </h1>
           <div className="py-2 flex justify-center">
-              <img
-                className="w-1/3"
-                src={selectedNutriscoreImage}
-                alt="Nutri-Score"
-              />
-            </div>
+            <img
+              className="w-1/3"
+              src={selectedNutriscoreImage}
+              alt="Nutri-Score"
+            />
+          </div>
         </div>
         {/* Scrollable Content Area */}
-        <div className="flex-1 overflow-y-aut">
-          <div className="max-w-md mx-auto">
-            <div className=" text-custom-blue text-center Archivo">
-            <span dangerouslySetInnerHTML={{ __html: selectedNutriscorePhrase }} />
-            </div>
+        <div className="flex-1 overflow-y-auto px-4 py-2">
+          <div className="max-w-md mx-auto text-custom-blue text-center">
+            <span
+              className="text-xs leading-tight"
+              dangerouslySetInnerHTML={{ __html: selectedNutriscorePhrase }}
+            />
           </div>
         </div>
         {/* Fixed Footer */}
-        <div>
+        <div className="py-2 w-full">
           <button
-            className="w-full text-center text-[#2c6c67] underline underline-offset-2 focus:outline-none ArchivoItalic"
+            className="w-full text-sm text-custom-blue underline focus:outline-none"
             onClick={MoreInfo}
           >
             En savoir plus
@@ -497,6 +499,7 @@ export const NutrriInfo = ({
     </Modal>
   );
 };
+
 
 // Utility function to determine the image based on noteUFC
 const getPastilleImage = (note) => {

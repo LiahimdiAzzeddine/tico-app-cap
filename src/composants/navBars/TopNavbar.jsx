@@ -57,7 +57,7 @@ const TopNavbar = () => {
 
             {/* Bouton d'information avec icône */}
             <button
-              className="flex items-center justify-center rounded-full px-1 hover:opacity-80 transition-opacity duration-200"
+              className="flex items-center justify-center rounded-full hover:opacity-80 transition-opacity duration-200"
               onClick={handleInfoClick}
               aria-label="Open FAQ"
             >

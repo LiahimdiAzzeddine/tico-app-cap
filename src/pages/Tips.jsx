@@ -33,7 +33,7 @@ function Tips() {
   return (
     <TapLayout>
       <div className="details h-full w-full">
-        <div className="h-[15%]">
+        <div className="h-[17%] pb-4" >
           <div
             className="flex flex-col items-center justify-center h-5/6 max-h-28 backgroundTips"
            
@@ -44,8 +44,8 @@ function Tips() {
           </div>
         </div>
 
-        <div className="flex flex-col h-[85%] justify-center items-center bg-custom-orange">
-          <div className="flex flex-col h-5/6 w-full px-6 rounded-b-[2rem] bg-white overflow-auto">
+        <div className="flex flex-col h-[83%] justify-center items-center bg-white">
+          <div className="flex flex-col h-full w-full px-6  overflow-auto">
             {loading ? (
               <LoadingState />
             ) : error ? (
@@ -64,7 +64,6 @@ function Tips() {
               <EmptyState />
             )}
           </div>
-          <div className="h-1/6 w-full flex flex-col items-center justify-center"></div>
         </div>
       </div>
 

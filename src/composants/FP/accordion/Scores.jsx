@@ -39,10 +39,10 @@ function Scores({ nutriscore }) {
           alt={`Nutri-Score ${nutriscore}`}
           className="w-40 h-auto m-auto p-2"
         />
-        <div className="indent-8 text-custom-green-text Archivo">
+        <div className="indent-8 text-custom-blue Archivo">
           Le Nutri-Score est une note qui vous permet d’avoir une information sur la qualité nutritionnelle d’un coup d’oeil. Il vous permet de comparer les produits d’une même catégorie. Le Nutri-Score est à considérer dans le cadre d’une alimentation variée, tout est question d’équilibre.
         </div>
-        <div className="indent-8 text-custom-green-text Archivo">
+        <div className="indent-8 text-custom-blue Archivo">
           <span dangerouslySetInnerHTML={{ __html: selectedNutriscorePhrase }} />
         </div>
       </div>

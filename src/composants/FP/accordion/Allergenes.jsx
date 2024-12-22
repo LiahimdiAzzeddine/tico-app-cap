@@ -53,7 +53,7 @@ const Allergenes = ({ allergenes = [] }) => {
                   <span className="text-xs text-gray-500">N/A</span>
                 </div>
               )}
-              <span className="text-sm text-gray-600 mt-1 ArchivoBold m-auto">
+              <span className="text-sm text-custom-blue mt-1 ArchivoBold m-auto">
                 {allergene
                   ? allergene.charAt(0).toUpperCase() + allergene.slice(1)
                   : "Inconnu"}

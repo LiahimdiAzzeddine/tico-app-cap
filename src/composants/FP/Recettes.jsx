@@ -96,10 +96,10 @@ function Recettes({ recettes,targetRefRecettes }) {
       </div>
      ))}
       <div className="flex flex-row items-center justify-center space-x-3 pb-8" ref={targetRefRecettes}>
-        <img src={flecheRed} alt="Fleche" className="w-12" />
+        <img src={flecheRed} alt="Fleche" className="w-12 absolute left-8 " />
         <button
           onClick={() => handleAddrecipe()}
-          className="text-gl text-white bg-custom-red rounded-md font-bold w-48 p-2 "
+          className="text-gl text-white bg-custom-blue rounded-md font-bold w-48 p-2 "
         >
           Proposer une recette pour ce produit
         </button>

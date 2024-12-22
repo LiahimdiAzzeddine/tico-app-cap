@@ -39,7 +39,7 @@ function Recipes() {
         </div>
 
         <div className="flex flex-col h-[83%] justify-center items-center bg-[#fad4ce] ">
-          <div className="flex flex-col h-[90%] w-full px-6 rounded-b-[2rem] bg-white overflow-auto">
+          <div className="flex flex-col h-[88%] w-full px-6 rounded-b-[2rem] bg-white overflow-auto">
             {loading ? (
               <LoadingState />
             ) : error ? (
@@ -58,7 +58,7 @@ function Recipes() {
               <EmptyState />
             )}
           </div>
-          <div className="h-[10%] w-full flex flex-col items-center justify-center">
+          <div className="h-[12%] w-full flex flex-col items-center justify-center">
             <button
               type="button"
               onClick={() => setShowModalAddRecipe(true)}

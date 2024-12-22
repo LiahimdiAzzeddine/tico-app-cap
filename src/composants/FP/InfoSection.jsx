@@ -14,7 +14,15 @@ import Sections from "./Sections";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "../../context/AlertProvider";
 
-const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,targetRefNutriInfo,targetRefRecettes,targetRefAdditifs }) => {
+const InfoSection = ({
+  product,
+  togglePanel,
+  scrollToTarget,
+  scrollToTargetById,
+  targetRefNutriInfo,
+  targetRefRecettes,
+  targetRefAdditifs,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenadd, setIsOpenadd] = useState(false);
   const [isOpenNutrition, setIsOpenNutrition] = useState(false);
@@ -34,7 +42,7 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,tar
     A: "Riche en nutriments bénéfiques et faibles en éléments à limiter&nbsp;! A&nbspprivilégier&nbsp;!",
     B: "Ca reste de bons choix pour votre alimentation",
     C: "Ce ne sont pas des aliments à&nbsp;éviter, mais à consommer dans le cadre d'une alimentation variée&nbsp;!",
-    D:"Plutôt à limiter, à&nbsp;consommer avec modération&nbsp;!",
+    D: "Plutôt à limiter, à&nbsp;consommer avec modération&nbsp;!",
     E: "A consommer avec parcimonie et pour le plaisir&nbsp;!",
   };
   const OpenContactSolliciter = () => {
@@ -49,104 +57,100 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,tar
         "Se connecter"
       );
     } else {
-      setIsOpen(true)
+      setIsOpen(true);
     }
   };
-
 
   // Select the image based on product.nutriscore or provide a default
   const selectedNutriscoreImage = nutriscoreImages[product?.nutriscore] || null;
   const selectedComent = nutriscoreComment[product?.nutriscore] || null;
 
-
   return (
     <div className="pt-2">
-      <div className="relative w-full px-2 pt-12 pb-6 mx-auto bg-custom-green-clear">
+      <div className="relative w-full px-4 pt-12 pb-6 mx-auto bg-custom-green-clear">
         {/* Title positioned between the white background and blue container */}
         <div className="absolute -top-4 left-0 right-0 flex justify-start">
           <span className="bg-[#a9d7d4] px-4 py-2 rounded-e-full text-custom-blue font-bold text-base ArchivoBold">
-            LA SYNTHÈSE
+            LA SYNTHÈSE TiCO
           </span>
         </div>
         <div className="grid grid-cols-2 divide-p divide-custom-green-divider">
           {/* Nutrition Section */}
           <div className="pb-2 pr-2 border-b border-custom-green-divider flex flex-col justify-start">
             <div className="text-sm font-bold text-custom-blue z-10 w-full">
-              <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis ArchivoBold">
+              <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis ArchivoBold text-xs">
                 Informations nutritionnelles
               </span>
             </div>
             {selectedNutriscoreImage && (
-            <div className="flex flex-row items-center justify-around py-2 space-x-4 ">
-
-                <img src={selectedNutriscoreImage} className="w-28 h-auto" />
+              <div className="flex flex-row items-center justify-around py-2 space-x-4 ">
+                <img src={selectedNutriscoreImage} className="w-24 h-auto"  onClick={() => setIsOpenNutrition(true)} />
                 <div>
-                <IonIcon
-                  className="text-2xl text-custom-blue"
-                  icon={chevronForwardOutline}
-                  onClick={() => setIsOpenNutrition(true)}
-                />
-                
-              </div>             
-            </div> )}
-            <div className="text-xs text-[#42a29a] Archivo">
-            {selectedComent ? (
-               <span dangerouslySetInnerHTML={{ __html: selectedComent }} />
-            ):(
-              "Données non communiquées par le fabricant"
-            )}
-            </div>
-            {(!(selectedComent) || !(selectedNutriscoreImage))  && (
-                <div className="text-xs flex flex-row space-x-2 mt-3">
-                  <div className="text-custom-gray Archivo">
-                    Encourager la marque à atteindre 100% de transparence
-                  </div>
-                  <div>
-                    <img
-                      className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
-                      src={illustrationOrigines}
-                      alt="Illustration des origines du produit"
-                      onClick={() => OpenContactSolliciter()}
-                    />
-                  </div>
+                  <IonIcon
+                    className="text-xl text-custom-blue"
+                    icon={chevronForwardOutline}
+                    onClick={() => setIsOpenNutrition(true)}
+                  />
                 </div>
+              </div>
+            )}
+            <div className="text-[0.6rem] text-[#42a29a] ArchivoLightItalic">
+              {selectedComent ? (
+                <span dangerouslySetInnerHTML={{ __html: selectedComent }} />
+              ) : (
+                <span className="text-[0.6rem]">Données non communiquées par le fabricant</span>
               )}
-          </div>
-
-          {/* Additifs Section */}
-          <div className="px-2 pb-3 border-l border-b border-custom-green-divider flex flex-col justify-start">
-            <div className="text-sm font-bold text-custom-blue z-10">
-              <span className="marker-effect-cyan font-bold ArchivoBold">
-                Naturalité des ingrédients
-              </span>
             </div>
-            <div className="flex flex-row items-center justify-between py-2 space-x-1 ">
-              <div className="text-custom-blue flex items-center justify-center text-xs font-bold Archivo">
-                {product?.additifs?.length
-                  ? "Contient "+ product?.additifs?.length+" additifs"
-                  : "Données non communiquées par le fabricant"}{" "}
-              </div>
-              {product?.additifs?.length>0 &&(
-<div>
-                <IonIcon
-                  className="text-2xl text-custom-blue"
-                  icon={chevronForwardOutline}
-                  onClick={() => setIsOpenadd(true)}
-                />
-              </div>
-              )
-            }
-            </div>
-            {(product?.commentaire) ? (
-              <div className="text-xs text-[#42a29a]"></div>
-            ) : (
-              <div className="text-xs flex flex-row space-x-2">
-                <div className="text-custom-gray">
+            {(!selectedComent || !selectedNutriscoreImage) && (
+              <div className="text-[0.6rem] flex flex-row space-x-1 mt-2">
+                <div className="text-custom-gray Archivo text-[0.6rem]">
                   Encourager la marque à atteindre 100% de transparence
                 </div>
                 <div>
                   <img
-                    className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
+                    className="w-20 mt-1 transition-transform duration-150 ease-in-out active:scale-95"
+                    src={illustrationOrigines}
+                    alt="Illustration des origines du produit"
+                    onClick={() => OpenContactSolliciter()}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Additifs Section */}
+          <div className="px-4 pb-3 border-l border-b border-custom-green-divider flex flex-col justify-start">
+            <div className="text-sm font-bold text-custom-blue z-10">
+              <span className="marker-effect-cyan font-bold ArchivoBold text-xs">
+                Naturalité des ingrédients
+              </span>
+            </div>
+            <div className="flex flex-row items-center justify-between py-2 space-x-1 ">
+              <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo">
+                {product?.additifs?.length
+                  ? "Contient " + product?.additifs?.length + " additifs"
+                  : (<span className="text-[0.6rem]">Données non communiquées par le fabricant</span>)}
+              </div>
+              {product?.additifs?.length > 0 && (
+                <div>
+                  <IonIcon
+                    className="text-xl text-custom-blue"
+                    icon={chevronForwardOutline}
+                    onClick={() => setIsOpenadd(true)}
+                  />
+                </div>
+              )}
+            </div>
+            {product?.commentaire ? (
+              <div className="text-[0.6rem] text-[#42a29a]"></div>
+            ) : (
+              <div className="text-[0.6rem] flex flex-row space-x-1">
+                <div className="text-custom-gray text-[0.6rem]">
+                  Encourager la marque à atteindre 100% de transparence
+                </div>
+                <div>
+                  <img
+                    className="w-20 mt-1 transition-transform duration-150 ease-in-out active:scale-95"
                     src={illustrationOrigines}
                     alt="Illustration des origines du produit"
                     onClick={() => OpenContactSolliciter()}
@@ -157,11 +161,11 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,tar
           </div>
 
           {/* Impact environnemental, */}
-          <div className="py-2 pr-2  border-custom-green-divider">
+          <div className="py-2 pr-4  border-custom-green-divider">
             {/* Impact environnemental */}
             <div>
               <div className="text-sm font-bold text-custom-blue  w-full">
-                <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis z-50 ArchivoBold">
+                <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis z-50 ArchivoBold text-xs">
                   Impact environnemental
                 </span>
               </div>
@@ -184,19 +188,19 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,tar
                     )}
                     <div>
                       <IonIcon
-                        className="text-2xl text-custom-blue"
+                        className="text-xl text-custom-blue"
                         icon={chevronForwardOutline}
                       />
                     </div>
                   </>
                 ) : (
-                  <div className="text-xs flex flex-row space-x-2 Archivo">
-                    <div className="text-custom-gray">
+                  <div className="text-xs flex flex-row space-x-1 Archivo text-[0.6rem]">
+                    <div className="text-custom-gray text-[0.6rem]">
                       Encourager la marque à atteindre 100% de transparence
                     </div>
                     <div>
                       <img
-                        className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
+                        className="w-20 mt-1 transition-transform duration-150 ease-in-out active:scale-95"
                         src={illustrationOrigines}
                         alt="Illustration des origines du produit"
                         onClick={() => OpenContactSolliciter()}
@@ -209,9 +213,9 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,tar
           </div>
 
           {/* Origines Section (Full Height) */}
-          <div className="py-2 px-2 border-l border-custom-green-divider">
+          <div className="py-2 px-4 border-l border-custom-green-divider">
             <div className="text-sm font-bold text-custom-blue z-10 w-full">
-              <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis z-50 ArchivoBold">
+              <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis z-50 ArchivoBold text-xs">
                 Origines
               </span>
             </div>
@@ -219,13 +223,13 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,tar
               {product?.commentaire ? (
                 <div className="text-xs text-[#42a29a]"></div>
               ) : (
-                <div className="text-xs flex flex-row space-x-2">
-                  <div className="text-custom-gray Archivo">
+                <div className="text-xs flex flex-row space-x-1 text-[0.6rem]">
+                  <div className="text-custom-gray Archivo text-[0.6rem]">
                     Encourager la marque à atteindre 100% de transparence
                   </div>
                   <div>
                     <img
-                      className="w-28 mt-2 transition-transform duration-150 ease-in-out active:scale-95"
+                      className="w-20 mt-1 transition-transform duration-150 ease-in-out active:scale-95"
                       src={illustrationOrigines}
                       alt="Illustration des origines du produit"
                       onClick={() => OpenContactSolliciter()}
@@ -237,24 +241,36 @@ const InfoSection = ({ product,togglePanel,scrollToTarget,scrollToTargetById,tar
           </div>
         </div>
         <Solliciter
-        isOpen={isOpen} setIsOpen={setIsOpen} 
-        gtin={product?.gtin}
-        productName={product?.name}
-        authUser={authUser}
-       
-      />
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          gtin={product?.gtin}
+          productName={product?.name}
+          authUser={authUser}
+        />
         <ContactAdditif
           isOpen={isOpenadd}
           setIsOpen={setIsOpenadd}
           additifs={product?.additifs}
           targetRefAdditifs={targetRefAdditifs}
-          togglePanel={togglePanel} 
+          togglePanel={togglePanel}
           scrollToTarget={scrollToTargetById}
         />
-        <NutrriInfo isOpen={isOpenNutrition} setIsOpen={setIsOpenNutrition} nutriscore={product?.nutriscore} nutriscore_comment={product?.nutriscore_comment} togglePanel={togglePanel} scrollToTarget={scrollToTarget} targetRefNutriInfo={targetRefNutriInfo} />
-        <Sections scrollToTarget={scrollToTarget} targetRefRecettes={targetRefRecettes} gtin={product?.gtin} productName={product?.name}/>
+        <NutrriInfo
+          isOpen={isOpenNutrition}
+          setIsOpen={setIsOpenNutrition}
+          nutriscore={product?.nutriscore}
+          nutriscore_comment={product?.nutriscore_comment}
+          togglePanel={togglePanel}
+          scrollToTarget={scrollToTarget}
+          targetRefNutriInfo={targetRefNutriInfo}
+        />
+        <Sections
+          scrollToTarget={scrollToTarget}
+          targetRefRecettes={targetRefRecettes}
+          gtin={product?.gtin}
+          productName={product?.name}
+        />
       </div>
-    
     </div>
   );
 };
