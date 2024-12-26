@@ -62,7 +62,7 @@ function App() {
 
       // Gestion des routes sous "tico.foodhea.com/tico"
       if (url.includes("tico.foodhea.com/tico")) {
-        const slug = url.split("tico.foodhea.com/tico").pop() || "/scanner";
+        const slug = url.split("tico.foodhea.com/tico").pop() || "/tabs";
         if (slug === "/login") {
           return triggerAlert(
             "Félicitations, vous avez validé votre inscription !",
@@ -108,7 +108,7 @@ function App() {
             goToPage("/tabs");
           }}
         >
-          <Login createCompte={true} redirection={() => goToPage("/scanner")} />
+          <Login createCompte={true} redirection={() => goToPage("/tabs")} />
         </AuthLayout>
       </Route>
       <Route path="/change_password" exact={true}>
@@ -135,7 +135,7 @@ function App() {
           <SimpleLyout
             image="bx"
             Close={() => {
-              goToPage("/scanner");
+              goToPage("/tabs");
             }}
           >
             <ValidationEmail />
