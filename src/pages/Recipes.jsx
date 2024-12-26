@@ -10,12 +10,22 @@ import SuggestRecipe from "../composants/recettes/SuggestRecipe";
 import TapLayout from "../composants/layout/TapLyout";
 import ModalPage from "../composants/modales/ModalPage";
 import RecipeDetails from "../composants/recettes/RecipeDetails";
+import { useIonRouter } from "@ionic/react";
+
 function Recipes() {
   const ids = [];
   const { recipes, loading, error } = useLastRecipes(ids);
   const [showModalAddRecipe, setShowModalAddRecipe] = useState(false);
   const [showModalRecipe, setShowModalRecipe] = useState(false);
   const [selectedRecette, setSelectedRecette] = useState(null);
+  const history = useIonRouter();
+    const goToPage = (path) => {
+      history.push(path, "root", "replace");
+    };
+    const goToSubPage = (path) => {
+      history.push(path, "forward", "push");
+    };
+  
   const handleRecetteClick = (recipe) => {
     setSelectedRecette(recipe); // Mettez à jour l'ID de la recette sélectionnée
     setShowModalRecipe(true); // Affichez le modal

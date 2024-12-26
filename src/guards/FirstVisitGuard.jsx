@@ -32,7 +32,7 @@ const FirstVisitGuard = ({ children }) => {
 
   // Si c'est la première visite, rediriger vers la page de bienvenue
   if (isFirstVisit) {
-    return <Redirect to="/welcome" />;
+    return <Redirect exact to="/welcome" />;
   }
 
   // Si ce n'est pas la première visite, rendre les enfants (composants imbriqués)

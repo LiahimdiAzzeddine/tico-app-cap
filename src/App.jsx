@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { IonRouterOutlet } from "@ionic/react";
-import Home from "./pages/Home";
 import Favorite from "./pages/Favorite";
-import HelpTiCO from "./pages/HelpTiCO";
-import Scanner from "./pages/Scanner";
-import Recipes from "./pages/Recipes";
-import Tips from "./pages/Tips";
 import Welcome from "./pages/Welcome";
 import Settings from "./pages/settings";
 import Login from "./composants/auth/login";
 import AccountCreationForm from "./composants/auth/Register";
-import HomeLayout from "./composants/layout/HomeLyout";
 import AuthLayout from "./composants/layout/AuthLyout";
 import LaterProducts from "./pages/LaterProducts";
 import SimpleLyout from "./composants/layout/SimpleLyout";
-import RequireNoAuth from "./guards/RequireNoAuth";
 import { App as CapacitorApp } from "@capacitor/app";
-import { useHistory } from "react-router-dom";
 import { ScreenOrientation } from "@capacitor/screen-orientation";
 import { useAlert } from "./context/AlertProvider";
 import ChangePassword from "./composants/settings/ChangePassword";
@@ -25,10 +17,21 @@ import Recette from "./pages/recette";
 import Tip from "./pages/Tip";
 import Fp from "./pages/fp";
 import ValidationEmail from "./pages/ValidationEmail";
+import { useIonRouter } from "@ionic/react";
+import Tabs from "./composants/Tabs";
+import History from "./composants/history/History";
+import FirstVisitGuard from "./guards/FirstVisitGuard";
 
 function App() {
-  const history = useHistory();
   const { triggerAlert } = useAlert();
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
+  const goToSubPage = (path) => {
+    history.push(path, "forward", "push");
+  };
+
   useEffect(() => {
     const handleAppUrlOpen = (data) => {
       if (!data?.url) return;
@@ -64,18 +67,18 @@ function App() {
           return triggerAlert(
             "Félicitations, vous avez validé votre inscription !",
             "Validation",
-            () => history.replace("/login"),
+            () => goToPage("/login"),
             "ios",
             "Se connecter"
           );
         }
 
-        return history.replace(slug);
+        return goToPage(slug);
       }
 
       // URL non reconnues sous "tico.foodhea.com"
       if (url.includes("tico.foodhea.com")) {
-        return history.replace("/scanner");
+        return goToPage("/scanner");
       }
 
       console.error("Erreur : URL non valide.");
@@ -97,96 +100,106 @@ function App() {
 
   return (
     <IonRouterOutlet swipeGesture={true} animated={true}>
-      <Route exact path="/welcome" component={Welcome} />
-      <Route path="/home" exact={true}>
-        <RequireNoAuth>
-          <HomeLayout>
-            <Home />
-          </HomeLayout>
-        </RequireNoAuth>
-      </Route>
-      <Route path="/helptico" exact={true}>
-        <HomeLayout>
-          <HelpTiCO />
-        </HomeLayout>
-      </Route>
-      <Route path="/recipes" exact={true}>
-        <Recipes />
-      </Route>
-      <Route path="/recipe/:id" exact={true}>
-        <SimpleLyout
-          bgHeader="#fad4ce"
-          bgcontent="#fdf2f0"
-          image={"rf"}
-          Close={() => {
-            history.replace("/scanner");
-          }}
-        >
-          <Recette />
-        </SimpleLyout>
-      </Route>
-      <Route path="/validation/:token" exact={true}>
-        <SimpleLyout
+      <Route path="/welcome" component={Welcome} />
+      <Route path="/login" exact={true}>
+        <AuthLayout
           image="bx"
           Close={() => {
-            history.replace("/scanner");
+            goToPage("/tabs");
           }}
         >
-          <ValidationEmail />
-        </SimpleLyout>
-      </Route>
-      <Route exact path="/tips" component={Tips} />
-      <Route path="/tip/:id" exact={true}>
-        <SimpleLyout
-          bgHeader="#ffeda3"
-          bgcontent="#ffeda3"
-          image="of"
-          Close={() => {
-            history.replace("/scanner");
-          }}
-        >
-          <Tip />
-        </SimpleLyout>
-      </Route>
-      <Route exact path="/favorite" component={Favorite} />
-      <Route exact path="/scanner" component={Scanner} />
-      <Route exact path="/settings" component={Settings} />
-      <Route path="/laterProducts" exact={true}>
-        <SimpleLyout
-          Close={() => {
-            history.goBack();
-          }}
-          image="vf"
-        >
-          <LaterProducts />
-        </SimpleLyout>
-      </Route>
-      <Route path="/login" exact={true}>
-        <AuthLayout>
-          <Login createCompte={true} redirection={() => history.replace("/scanner")} />
+          <Login createCompte={true} redirection={() => goToPage("/scanner")} />
         </AuthLayout>
       </Route>
       <Route path="/change_password" exact={true}>
-        <AuthLayout>
+        <AuthLayout
+          image="bx"
+          Close={() => {
+            goToPage("/tabs");
+          }}
+        >
           <ChangePassword />
         </AuthLayout>
       </Route>
       <Route path="/signup" exact={true}>
-        <AuthLayout>
+        <AuthLayout
+          Close={() => {
+            history.goBack();
+          }}
+          image="bf"
+        >
           <AccountCreationForm />
         </AuthLayout>
       </Route>
-      <Route path="/fp/:gtin" exact={true}>
-        <SimpleLyout
-          Close={() => {
-            history.replace("/scanner");
-          }}
-        >
-          <Fp />
-        </SimpleLyout>
-      </Route>
-
-      <Redirect exact from="/" to="/scanner" />
+      <Route path="/validation/:token" exact={true}>
+          <SimpleLyout
+            image="bx"
+            Close={() => {
+              goToPage("/scanner");
+            }}
+          >
+            <ValidationEmail />
+          </SimpleLyout>
+        </Route>
+      <FirstVisitGuard>
+        <Route path="/tabs" component={Tabs} />
+        <Route path="/recipe/:id" exact={true}>
+          <SimpleLyout
+            bgHeader="#fad4ce"
+            bgcontent="#fdf2f0"
+            image={"rf"}
+            Close={() => {
+              goToPage("/scanner");
+            }}
+          >
+            <Recette />
+          </SimpleLyout>
+        </Route>
+        <Route path="/tip/:id" exact={true}>
+          <SimpleLyout
+            bgHeader="#ffeda3"
+            bgcontent="#ffeda3"
+            image="of"
+            Close={() => {
+              goToPage("/scanner");
+            }}
+          >
+            <Tip />
+          </SimpleLyout>
+        </Route>
+        <Route exact path="/favorite" component={Favorite} />
+        <Route exact path="/settings" component={Settings} />
+        <Route path="/laterProducts" exact={true}>
+          <SimpleLyout
+            Close={() => {
+              history.goBack();
+            }}
+            image="vf"
+          >
+            <LaterProducts />
+          </SimpleLyout>
+        </Route>
+        <Route path="/history" exact={true}>
+          <SimpleLyout
+            Close={() => {
+              history.goBack();
+            }}
+            image="vf"
+          >
+            <History />
+          </SimpleLyout>
+        </Route>
+        <Route path="/fp/:gtin" exact={true}>
+          <SimpleLyout
+            Close={() => {
+              goToPage("/scanner");
+            }}
+          >
+            <Fp />
+          </SimpleLyout>
+        </Route>
+        <Redirect exact from="/" to="/tabs" />
+      </FirstVisitGuard>
     </IonRouterOutlet>
   );
 }

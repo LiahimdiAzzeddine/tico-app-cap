@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useAlert } from "../../context/AlertProvider";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import useProductIssues from "../../hooks/contact/useProductIssues";
 import useTransparencyRequests from "../../hooks/contact/useTransparencyRequests";
 
@@ -63,7 +63,10 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
   const isAuthenticated = useIsAuthenticated();
   const authUser = useAuthUser();
   const { triggerAlert } = useAlert();
-  const history = useHistory();
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
 
   const OpenContactTiCO = () => {
     if (!isAuthenticated) {
@@ -71,7 +74,7 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
         "pour contacter Tico, il faut être connecté",
         "Attention",
         () => {
-          history.replace("/login");
+          goToPage("/login");
         },
         "ios",
         "Se connecter"
@@ -87,7 +90,7 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
         "Connecte-toi pour encourager la marque",
         "Attention",
         () => {
-          history.replace("/login");
+          goToPage("/login");
         },
         "ios",
         "Se connecter"

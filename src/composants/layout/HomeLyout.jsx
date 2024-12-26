@@ -1,30 +1,33 @@
 import React from "react";
 import { IonPage, IonContent, IonHeader, IonToolbar } from "@ionic/react";
-import BottomNavbar from "../../composants/navBars/BottomNavbar";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ModalHeader from "../../composants/modales/ModalHeader";
+import { useIonRouter } from "@ionic/react";
 
 const HomeLayout = ({ children }) => {
-  const history = useHistory();
+  const history = useIonRouter();
+    const goToPage = (path) => {
+      history.push(path,"root", "replace");
+    };
   const location = useLocation();
 
   // Définir les couleurs de fond en fonction de la route actuelle
   const backgroundColors = {
     "/": "#c7f0d9",
-    "/helptico": "#e1f5f5",
-    "/tips": "#d9c7f0",
-    "/recipes": "#fff",
-    "/home": "#c7f0d9",
+    "/tabs/tab2": "#e1f5f5",
+    "/tabs/tab5": "#d9c7f0",
+    "/tabs/tab4": "#fff",
+    "/tabs/tab1": "#c7f0d9",
   };
   const closeIcon = {
-    "/home": "vx",
-    "/helptico": "bx",
+    "/tabs/tab1": "vx",
+    "/tabs/tab2": "bx",
     "/laterProducts": "bx",
-    "/recipes": "rf",
+    "/tabs/tab4": "rf",
   };
 
   const background = backgroundColors[location.pathname] || "#ffffff";
-  const icon = closeIcon[location.pathname] || "vx";
+  const icon = closeIcon[location.pathname] || "";
 
   return (
     <IonPage id="main-content" style={{ backgroundColor: background,paddingTop:"env(safe-area-inset-top)" }}>
@@ -37,7 +40,7 @@ const HomeLayout = ({ children }) => {
         >
           <ModalHeader
             image={icon}
-            onClose={() => history.replace("/scanner")}
+            onClose={() => goToPage("/tabs")}
           />
         </IonToolbar>
       </IonHeader>
@@ -52,9 +55,6 @@ const HomeLayout = ({ children }) => {
             <div className="flex-1 overflow-y-auto">{children}</div>
           </div>
 
-          {/* Navigation fixe en bas */}
-
-          <BottomNavbar />
         </div>
       </IonContent>
     </IonPage>

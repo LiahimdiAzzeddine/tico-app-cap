@@ -11,14 +11,18 @@ import useLogout from "../../hooks/auth/useLogout";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { logOut, logIn, settings, trailSign, home } from "ionicons/icons"; // Importing icons for settings, logout, and login
 import tico from "../../assets/navbar/tico.png";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
+
 import { useToast } from "../../context/ToastContext";
 
 function Menu() {
   const { triggerToast } = useToast();
-  const history = useHistory();
+  const history = useIonRouter();
   const logout = useLogout();
   const isAuthenticated = useIsAuthenticated();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
 
   const handleLogout = async () => {
     const result = await logout();
@@ -52,7 +56,7 @@ function Menu() {
           {/* Accueil Button */}
           <button
             onClick={() => {
-              history.replace("/");
+              goToPage("/");
             }}
             className="flex items-center w-full py-2 px-2 bg-white hover:bg-blue-100 rounded-lg shadow-md transition duration-300"
           >
@@ -64,7 +68,7 @@ function Menu() {
            {/* laterProducts  Button */}
           <button
             onClick={() => {
-              history.replace("/laterProducts");
+              goToPage("/laterProducts");
             }}
             className="flex items-center w-full py-2 px-2 bg-white hover:bg-blue-100 rounded-lg shadow-md transition duration-300"
           >
@@ -77,7 +81,7 @@ function Menu() {
           {/* Paramètres Button */}
           <button
             onClick={() => {
-              history.replace("/settings");
+              goToPage("/settings");
             }}
             className="flex items-center w-full py-2 px-2 bg-white hover:bg-blue-100 rounded-lg shadow-md transition duration-300"
           >
@@ -93,7 +97,7 @@ function Menu() {
           {!isAuthenticated && (
             <button
               onClick={() => {
-                history.replace("/login");
+                goToPage("/login");
               }}
               className="flex items-center w-full py-2 px-2 bg-white hover:bg-green-100 rounded-lg shadow-md transition duration-300"
             >
@@ -108,7 +112,7 @@ function Menu() {
           {!isAuthenticated && (
             <button
               onClick={() => {
-                history.replace("/signup");
+                goToPage("/signup");
               }}
               className="flex items-center w-full py-2 px-2 bg-white hover:bg-green-100 rounded-lg shadow-md transition duration-300"
             >

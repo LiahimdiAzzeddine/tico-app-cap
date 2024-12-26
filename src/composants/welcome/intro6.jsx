@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom"; 
+import { useIonRouter } from "@ionic/react";
 import tico_intro from "../../assets/intro/tico_intro.svg";
 import background from "../../assets/intro/background6.png";
 import AccountCreationForm from "../auth/Register";
@@ -8,12 +8,15 @@ import { setFirstVisit } from "../../hooks/useCapacitorStorage";
 
 const Intro6 = () => {
   const [showModalInscription, setShowModalInscription] = useState(false);
-  const history = useHistory();
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
 
   const handleGuestClick = async () => {
     try {
       await setFirstVisit(true); // Set first visit status in IndexedDB
-       history.replace("/scanner");
+      goToPage("/tabs");
     } catch (error) {
       console.error("Error setting first visit status:", error);
     }

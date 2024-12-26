@@ -39,15 +39,13 @@ const Item = ({ recipe, index, length, OpenFb }) => {
           <div className="font-bold text-custom-red leading-[19.2px] ArchivoBold">
             {recipe.title}
           </div>
-          <div className="text-custom-red-clear leading-[19.2px] Archivo">
-            {recipe?.subtitle?.substring(0, 30) + "..." || "N/A"}
-          </div>
+
           <div className="text-custom-red-clear leading-[19.2px] Archivo">
             {recipe?.difficulte && <>{recipe.difficulte} |&nbsp;</>}
-            {recipe?.regimes.length > 0 && (
+            {(recipe?.timecook || recipe?.timerest || recipe?.timebake) && (
               <>
-                {recipe.regimes[0]}
-                {recipe.regimes.length > 1 && "..."}
+                Temps total :{" "}
+                {recipe?.timecook + recipe?.timerest + recipe?.timebake}
               </>
             )}
           </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../scanner/UI/Header";
 import Fleche from "../../assets/fb/flech.svg";
 import Tico from "../../assets/auth/tico.png";
-import { useHistory  } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import TransparencyScale from "../fb/TransparencyScale";
 import NameProduct from "../fb/NameProduct";
 import ProductDetails from "../fb/ProductDetails";
@@ -10,16 +10,18 @@ import Sections from "../fb/Sections";
 import TiConseil from "../fb/TiConseil";
 
 const FbPage = () => {
-  const history = useHistory();
+  const history = useIonRouter();
   const [currentPosition, setCurrentPosition] = useState(3);
-
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
   return (
     <div className="px-0">
       <div className="flex flex-col h-full bg-[#ffffff] ">
         <div className="flex justify-between items-center modal-background pb-1 px-4">
           <button
             className="text-custom-blue"
-            onClick={() =>  history.replace("scanner")}
+            onClick={() =>  goToPage("tabs")}
           >
             <img src={Fleche} alt="Close" className="w-10 h-10" />
           </button>

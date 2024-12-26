@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import useAxiosPrivate from '../useAxiosPrivate'; // Assurez-vous que le chemin est correct
-import { useHistory , useLocation } from 'react-router-dom';
 
 const useUsers = () => {
     const [users, setUsers] = useState([]);
     const axiosPrivate = useAxiosPrivate();
-    const history = useHistory();
-    const location = useLocation();
+
 
     useEffect(() => {
         let isMounted = true;

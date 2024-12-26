@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { IonFooter, IonToolbar } from "@ionic/react";
+import { IonFooter, IonToolbar, useIonRouter } from "@ionic/react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
-import { useHistory } from "react-router-dom";
-import { Haptics, ImpactStyle } from "@capacitor/haptics"; 
-import { useAlert } from "../../context/AlertProvider"; 
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
+import { useAlert } from "../../context/AlertProvider";
 import accueil from "../../assets/navbar/accueil.png";
-import favoris from "../../assets/navbar/favoris.png";
 import astuces from "../../assets/navbar/astuces.png";
 import scanner from "../../assets/navbar/scanner.svg";
 import recipes from "../../assets/navbar/profil.png";
@@ -17,37 +15,31 @@ import recipes_active from "../../assets/navbar/profil_active.svg";
 const BottomNavbar = () => {
   const isAuthenticated = useIsAuthenticated();
   const [authState, setAuthState] = useState(isAuthenticated);
-  const history = useHistory();
+  const history = useIonRouter();
   const { triggerAlert } = useAlert();
- 
+  const goToPage = (path) => {
+    history.push(path, path == "/scanner" ? "root" : "forward", "replace");
+  };
   useEffect(() => {
     setAuthState(isAuthenticated);
   }, [isAuthenticated]);
 
-
   const handleButtonClick = async (path, isAuthRequired) => {
-    // Vérifier si l'utilisateur est déjà sur la page cible
-    if (history.location.pathname === path) {
-      return; // Ne rien faire si l'utilisateur est déjà sur la page
-    }
-  
     // Si l'utilisateur n'est pas authentifié et la route nécessite une authentification
     if (isAuthRequired && !authState) {
       triggerAlert(
         "Vous devez être connecté pour accéder à cette fonctionnalité. Veuillez vous connecter ou créer un compte.",
         "Connexion requise",
-        () => history.push("/settings") // Action si l'utilisateur clique sur "S'inscrire ou se connecter"
+        () => goToPage("/settings") // Action si l'utilisateur clique sur "S'inscrire ou se connecter"
       );
       return; // Empêcher la navigation
     }
-  
     // Ajout de retour haptique sur le clic
     await triggerHapticFeedback();
-  
+
     // Naviguer vers la nouvelle page
-    history.replace(path);
+    goToPage(path);
   };
-  
 
   const triggerHapticFeedback = async () => {
     try {
@@ -89,14 +81,10 @@ const BottomNavbar = () => {
                 "Fonctionnalité à venir"
               )
             }*/
-              onClick={() => handleButtonClick("/helptico", false)}
+            onClick={() => handleButtonClick("/helptico", false)}
             aria-label="Favoris"
           >
-            <img
-              src={favoris_active}
-              alt="Favoris"
-              className="w-14 h-14"
-            />
+            <img src={favoris_active} alt="Favoris" className="w-14 h-14" />
           </button>
 
           {/* Bouton Scanner */}

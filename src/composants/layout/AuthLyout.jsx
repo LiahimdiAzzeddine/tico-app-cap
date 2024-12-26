@@ -1,15 +1,12 @@
 import React from "react";
 import { IonPage, IonContent,IonHeader,IonToolbar } from "@ionic/react";
-import {useHistory } from "react-router-dom";
-import X from "../../assets/auth/XV6-33.png";
-import Tico from "../../assets/auth/tico.png";
+import { useIonRouter } from "@ionic/react";
 import ModalHeader from "../modales/ModalHeader";
 
-const AuthLayout = ({ children }) => {
-  const history = useHistory();
-
-  return (
-    
+const AuthLayout = ({ children,image="bx",Close  }) => {
+  const history = useIonRouter();
+  
+  return ( 
     <IonPage id="main-content" style={{ paddingTop:"env(safe-area-inset-top)",backgroundColor: '#ffeca7' }}>
       <IonHeader
         className="ion-no-border z-0"
@@ -19,8 +16,8 @@ const AuthLayout = ({ children }) => {
           style={{ "--ion-toolbar-background": "#ffeda3", padding: 0 }}
         >
           <ModalHeader
-            image={"bx"}
-            onClose={() => history.replace("/scanner")}
+            image={image}
+            onClose={() =>  Close()}
           />
         </IonToolbar>
       </IonHeader>

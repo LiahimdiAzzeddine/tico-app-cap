@@ -4,16 +4,20 @@ import tico from "../../assets/navbar/tico.png";
 import info from "../../assets/navbar/info.svg";
 import FAQComponent from "../settings/FAQ/FAQComponent";
 import WhiteModal from "../modales/WhiteModal";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 const TopNavbar = () => {
   const [showModalFAQ, setShowModalFAQ] = useState(false);
-  const history = useHistory();
+  const history = useIonRouter();
+  const goToSubPage = (path) => {
+    history.push(path, "forward", "push");
+  };
+
 
   const handleLogoClick = () => {
     triggerHapticFeedback();
-    history.push("/settings");
+    goToSubPage("/settings");
   };
 
   const handleInfoClick = () => {

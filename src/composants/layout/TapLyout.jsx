@@ -1,25 +1,28 @@
 import React from "react";
 import { IonPage, IonContent, IonHeader, IonToolbar } from "@ionic/react";
-import { useHistory  } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { useLocation } from "react-router-dom";
 import ModalHeader from "../../composants/modales/ModalHeader";
 
 const TapLayout = ({ children }) => {
-  const history = useHistory();
   const location = useLocation();
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
 
   // Définir les couleurs de fond en fonction de la route actuelle
   const backgroundColors = {
-    "/tips": "#fff",
-    "/recipes": "#fff",
+    "/tabs/tab5": "#fff",
+    "/tabs/tab4": "#fff",
   };
   const closeIcon = {
-    "/recipes":"rf",
-    "/tips": "of",
+    "/tabs/tab4":"rf",
+    "/tabs/tab5": "of",
   };
 
   const background = backgroundColors[location.pathname] || "#ffffff";
-  const icon = closeIcon[location.pathname] || "vx";
+  const icon = closeIcon[location.pathname] || "";
   return (
     <IonPage id="main-content" style={{ backgroundColor: background,paddingTop:"env(safe-area-inset-top)" }}>
       <IonHeader
@@ -29,7 +32,7 @@ const TapLayout = ({ children }) => {
         <IonToolbar style={{ "--ion-toolbar-background": background,padding:0 }}>
           <ModalHeader
             image={icon}
-            onClose={() =>  history.replace("scanner")}
+            onClose={() =>  goToPage("/tabs")}
           />
         </IonToolbar>
       </IonHeader>

@@ -1,6 +1,6 @@
 import { IonPage, IonContent, IonButton } from "@ionic/react";
 import React, { useState,useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 
 import WhiteModal from "../composants/modales/WhiteModal";
 import FAQComponent from "../composants/settings/FAQ/FAQComponent";
@@ -18,7 +18,7 @@ import CGUConfidentialite from "../composants/settings/CGUConfidentialite";
 
 const Settings = () => {
   const { triggerToast } = useToast();
-  const history = useHistory();
+  const history = useIonRouter();
   const [showModalFAQ, setShowModalFAQ] = useState(false);
   const [showModalContact, setShowModalContact] = useState(false);
   const [showModalInfo, setShowModalInfo] = useState(false);
@@ -28,12 +28,14 @@ const Settings = () => {
   const [showModalCGU, setShowModalCGU] = useState(false);
   const logout = useLogout();
   const isAuthenticated = useIsAuthenticated();
-
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
   const handleLogout = async () => {
     const result = await logout();
     if (result.success) {
       triggerToast("Déconnexion réussie.", "success");
-      history.replace("/scanner");
+      goToPage("/tabs");
     } else {
       triggerToast(
         "Erreur lors de la déconnexion. Veuillez réessayer.",

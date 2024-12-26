@@ -2,14 +2,16 @@ import { useState } from "react";
 import axios from "../../api/axios";
 import { useToast } from "../../context/ToastContext";
 import { useAlert } from "../../context/AlertProvider";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 
 const useRegister = () => {
   const [loading, setLoading] = useState(false);
   const { triggerToast } = useToast();
   const { triggerAlert } = useAlert();
-  const history = useHistory();
-
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
   
 
   const register = async ({ username, email, password, password_confirmation, role_id }) => {
@@ -27,7 +29,7 @@ const useRegister = () => {
       triggerToast("Enregistrement réussi", "success");
 
       // Rediriger vers la page de connexion
-      history.replace("/login");
+      goToPage("/login");
 
       // Déclencher une alerte avec deep link pour ouvrir l'application email
       triggerAlert(

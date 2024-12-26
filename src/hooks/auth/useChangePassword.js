@@ -2,7 +2,7 @@ import { useState } from "react";
 import useAxiosPrivate from "../useAxiosPrivate";
 import { useToast } from "../../context/ToastContext";
 import axios from "../../api/axios";
-import { useHistory } from "react-router-dom"; 
+import { useIonRouter } from "@ionic/react";
 
 const useChangePassword = () => {
   const privateClient = useAxiosPrivate();
@@ -10,7 +10,10 @@ const useChangePassword = () => {
   const [onClose, setOnClose] = useState(false);
   const [error, setError] = useState(null);
   const { triggerToast } = useToast();
-  const history = useHistory();
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
   
   const changePassword = async (currentPassword, newPassword, newPasswordConfirmation, emailParam, token) => {
     setLoading(true);
@@ -27,7 +30,7 @@ const useChangePassword = () => {
           token: token,
         });
         triggerToast(response.data.message || "Mot de passe changé avec succès.", "success");
-        history.replace("/scanner"); 
+        goToPage("/tabs"); 
       } else {
         // Envoi de la requête pour changer le mot de passe pour un utilisateur connecté
         response = await privateClient.post('api/profile/change-password', {

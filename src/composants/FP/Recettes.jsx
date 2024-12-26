@@ -7,7 +7,7 @@ import WhiteModal from "../modales/WhiteModal";
 import RecipeModal from "../modales/RecipeModal";
 import defaultImageRecette from "../../assets/recettes/defaultImageRecette.png";
 import { useAlert } from "../../context/AlertProvider";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 
 function Recettes({ recettes,targetRefRecettes }) {
@@ -16,8 +16,10 @@ function Recettes({ recettes,targetRefRecettes }) {
   const [selectedRecette, setSelectedRecette] = useState(null);
   const isAuthenticated = useIsAuthenticated();
   const { triggerAlert } = useAlert();
-  const history = useHistory();
-  
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
   const handleRecetteClick = (recette) => {
     setSelectedRecette(recette);
     setShowModalRecipe(true);
@@ -28,7 +30,7 @@ function Recettes({ recettes,targetRefRecettes }) {
         "pour Proposer une recette pour ce produit, il faut être connecté",
         "Attention",
         () => {
-          history.replace("/login");
+          goToPage("/login");
         },
         "ios",
         "Se connecter"

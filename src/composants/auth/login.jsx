@@ -6,7 +6,6 @@ import { IonIcon } from "@ionic/react";
 import CustomModal from "../modales/CustomModal";
 import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
-import { useHistory } from "react-router-dom";
 
 const Login = ({ createCompte = false,redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
@@ -14,7 +13,6 @@ const Login = ({ createCompte = false,redirection }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
-  const history = useHistory();
 
   const handleChange = (e) => {
     const { name, value } = e.target;

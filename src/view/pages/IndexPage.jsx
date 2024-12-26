@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import tico_intro from "../../assets/home/hands.svg";
-import { useHistory } from "react-router-dom"; 
+import { useIonRouter } from "@ionic/react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import WhiteModal from "../composants/WhiteModal";
 import History from "../history/History";
@@ -9,11 +9,18 @@ function IndexPage() {
   const isAuthenticated = useIsAuthenticated();
   const [showModalHistory, setShowModalHistory] = useState(false);
 
-  const history = useHistory();
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
+  const goToSubPage = (path) => {
+    history.push(path, "forward", "push");
+  };
+
 
   const VavSettings = () => {
     try {
-      history.replace("/settings");
+      goToPage("/settings");
     } catch (error) {
       console.error("Error setting first visit status:", error);
     }
@@ -33,7 +40,7 @@ function IndexPage() {
           <div className="flex flex-col items-center justify-center w-3/5 space-y-6">
             <button
               className="bg-custom-blue  text-white font-bold py-3 px-6 rounded-md w-full transform transition-transform duration-150 ease-in-out active:scale-90"
-              onClick={() => history.push('/settings')}
+              onClick={() => goToSubPage('/settings')}
             >
               Mon compte
             </button>

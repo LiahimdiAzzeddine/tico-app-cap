@@ -11,7 +11,7 @@ import Nutri_score_C from "../../assets/fb/score/Nutri-score-C.png";
 import Nutri_score_D from "../../assets/fb/score/Nutri-score-D.png";
 import Nutri_score_E from "../../assets/fb/score/Nutri-score-E.png";
 import Sections from "./Sections";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import { useAlert } from "../../context/AlertProvider";
 
 const InfoSection = ({
@@ -28,7 +28,10 @@ const InfoSection = ({
   const [isOpenNutrition, setIsOpenNutrition] = useState(false);
   const isAuthenticated = useIsAuthenticated();
   const authUser = useAuthUser();
-  const history = useHistory();
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
   const { triggerAlert } = useAlert();
   // Mapping nutriscore to images
   const nutriscoreImages = {
@@ -51,7 +54,7 @@ const InfoSection = ({
         "Connecte-toi pour encourager la marque",
         "Attention",
         () => {
-          history.replace("/login");
+         goToPage("/login");
         },
         "ios",
         "Se connecter"

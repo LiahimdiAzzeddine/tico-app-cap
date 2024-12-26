@@ -7,7 +7,7 @@ import { ToastProvider } from "./context/ToastContext.jsx";
 import { AlertProvider } from "./context/AlertProvider.jsx";
 import { NetworkProvider } from "./context/NetworkContext.jsx";
 import { setupIonicReact } from "@ionic/react";
-import { IonApp, IonRouterOutlet } from "@ionic/react";
+import { IonApp } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";

@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import Card from './UI/Card';
 import Header from './UI/Header';
 import Button from './UI/Button';
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 
 const Result = (props) => {
-  const history = useHistory();
-
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
   const resetAll = () => {
     props.resetBarcode();
   };
@@ -14,7 +16,7 @@ const Result = (props) => {
   // Fonction pour rediriger vers la page de fiche produit
   const FicheProduit = (barcode) => {
     // Rediriger vers la page 'fiche-produit' en passant le code-barres comme paramètre
-    history.replace(`/fiche-produit/${barcode}`);
+    goToPage(`/fiche-produit/${barcode}`);
   };
 
   let output = null;

@@ -417,3 +417,6 @@ padding-top: 1rem;
   background-position: center;
   background-size: contain;
 }
+ion-tab-bar[selected-tab="tab4"],ion-tab-bar[selected-tab="tab5"] {
+  display: none;
+}

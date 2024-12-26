@@ -5,7 +5,7 @@ import Spinner from "../composants/Spinner";
 import { ErrorMessage } from "../composants/scanner/UI/ErrorMessage";
 import { IonContent } from "@ionic/react";
 import { alertCircle } from "ionicons/icons";
-import { useHistory } from "react-router-dom";
+import { useIonRouter } from "@ionic/react";
 import TipDetails from "../composants/tips/TipDetails";
 import { createTip } from "../utils/createTip";
 import FirstVisitGuard from "../guards/FirstVisitGuard";
@@ -13,8 +13,11 @@ import FirstVisitGuard from "../guards/FirstVisitGuard";
 const Tip = () => {
   const { id } = useParams(); 
   const { tip, loading, error } = useTipById(id);
-  const history = useHistory();
+  const history = useIonRouter();
   const tipForme=tip?createTip(tip):{};
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
   if (loading) {
     return (
       <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
@@ -31,7 +34,7 @@ const Tip = () => {
         <ErrorMessage
           message={error || "No recipe found"}
           icon={alertCircle}
-          onClose={() => history.recipe("/scanner")}
+          onClose={() => goToPage("/tabs")}
         />
       </IonContent>
       </FirstVisitGuard>

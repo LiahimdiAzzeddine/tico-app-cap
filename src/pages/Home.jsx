@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import hands from "../assets/home/hands.svg";
-import { useHistory } from "react-router-dom";
-import History from "../composants/history/History";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import ModalPage from "../composants/modales/ModalPage";
+import { useIonRouter } from "@ionic/react";
 
 function Home() {
-  const [showModalHistory, setShowModalHistory] = useState(false);
-  const history = useHistory();
   const isAuthenticated = useIsAuthenticated();
   const authUser = useAuthUser();
   const name = authUser?.username;
+   const history = useIonRouter();
+    const goToPage = (path) => {
+      history.push(path, "forward","push");
+    };
 
   return (
     <>
@@ -38,7 +38,7 @@ function Home() {
             <div className="flex flex-col items-center justify-center w-3/4 space-y-6 h-full">
               <button
                 className="bg-[#4E986D] Archivo text-white font-bold  text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
-                onClick={() => setShowModalHistory(true)}
+                onClick={() => goToPage("/history")}
               >
                 Historique de scan
               </button>
@@ -46,7 +46,7 @@ function Home() {
               <button
                 mode="md"
                 className="bg-[#4E986D] Archivo text-white font-bold  text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
-                onClick={() => history.push("/laterProducts")}
+                onClick={() => goToPage("/laterProducts")}
               >
                 Mes produits à consulter
               </button>
@@ -54,17 +54,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <ModalPage
-        isOpen={showModalHistory}
-        onClose={() => setShowModalHistory(false)}
-        ContentPadding={"ion-padding-top"}
-        scroll={false}
-        bgHeader="#fff"
-        bgcontent="#fff"
-        image='vf'
-      >
-        <History />
-      </ModalPage>
     </>
   );
 }

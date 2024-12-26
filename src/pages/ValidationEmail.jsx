@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useIonRouter } from "@ionic/react";
+
 import Spinner from '../composants/Spinner';
 import { alertCircle, checkmarkCircle } from 'ionicons/icons';
 import axios from "../api/axios";
@@ -7,7 +9,10 @@ import { IonIcon } from "@ionic/react";
 
 const ValidationEmail = () => {
     const { token } = useParams();
-    const history = useHistory();
+    const history = useIonRouter();
+    const goToPage = (path) => {
+        history.push(path, "root", "replace");
+      };
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -25,7 +30,7 @@ const ValidationEmail = () => {
                 
                 // Redirection vers la page de login après 2 secondes
                 setTimeout(() => {
-                    history.replace('/login');
+                    goToPage('/login');
                 }, 2000);
 
             } catch (err) {
