@@ -2,7 +2,7 @@ import React from "react";
 import produitFleche from "../../../assets/recettes/recipeFleche.svg"; // Flèche pour ouvrir le feedback ou la vue détaillée
 import defaultImage from "../../../assets/history/64.png"; // Image par défaut pour un conseil
 
-const Item = ({ tip, index, length, OpenFb }) => {
+const Item = ({ tip, index, length, OpenTip }) => {
   if (!tip) {
     return null;
   }
@@ -10,7 +10,7 @@ const Item = ({ tip, index, length, OpenFb }) => {
   return (
     <div key={index}>
       <div className="flex items-center py-4"
-      onClick={() => OpenFb(tip)}
+      onClick={() => OpenTip(tip)}
       >
         {/* Image du conseil */}
         <div
@@ -46,7 +46,7 @@ const Item = ({ tip, index, length, OpenFb }) => {
         </div>
 
         {/* Flèche */}
-        <button onClick={() => OpenFb(tip)}>
+        <button onClick={() => OpenTip(tip)}>
             <img src={produitFleche} alt="flèche" className="w-10 h-10 ml-4" />
         </button>
       </div>

@@ -133,7 +133,11 @@ const ScanResultModal = ({
         <ModalHeader image={"fb"} onClose={() => handleDismiss(false)} />
 
         <IonContent className="ion-padding-bottom">
-          {loading ? (
+          <>
+          
+              {isConnected ? (
+               <>
+                 {loading ? (
             <LoadingFbState />
           ) : error ? (
             error === "Produit non trouvé." ? (
@@ -153,12 +157,13 @@ const ScanResultModal = ({
             <FicheProduit productData={product} resetBarcode={handleDismiss} />
           ) : (
             <>
-              {isConnected ? (
-                <ErrorMessage
+             <ErrorMessage
                   message="Désolé, nous n'avons pas reçu de réponse du serveur."
                   icon={searchCircle}
                   onClose={handleDismiss}
-                />
+                /></>
+          )}
+               </>
               ) : (
                 <div className="flex flex-col items-center justify-center px-6 text-center">
                   <IonIcon
@@ -178,8 +183,9 @@ const ScanResultModal = ({
                   </IonButton>
                 </div>
               )}
-            </>
-          )}
+            
+          </>
+        
         </IonContent>
       </IonPage>
     </IonModal>

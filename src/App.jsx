@@ -78,7 +78,7 @@ function App() {
 
       // URL non reconnues sous "tico.foodhea.com"
       if (url.includes("tico.foodhea.com")) {
-        return goToPage("/scanner");
+        return goToPage("/tabs");
       }
 
       console.error("Erreur : URL non valide.");
@@ -141,15 +141,14 @@ function App() {
             <ValidationEmail />
           </SimpleLyout>
         </Route>
-      <FirstVisitGuard>
         <Route path="/tabs" component={Tabs} />
-        <Route path="/recipe/:id" exact={true}>
+        <Route exact path="/recipe/:id" >
           <SimpleLyout
             bgHeader="#fad4ce"
             bgcontent="#fdf2f0"
             image={"rf"}
             Close={() => {
-              goToPage("/scanner");
+              goToPage("/tabs");
             }}
           >
             <Recette />
@@ -159,9 +158,9 @@ function App() {
           <SimpleLyout
             bgHeader="#ffeda3"
             bgcontent="#ffeda3"
-            image="of"
+            image="ox"
             Close={() => {
-              goToPage("/scanner");
+              goToPage("/tabs");
             }}
           >
             <Tip />
@@ -169,7 +168,7 @@ function App() {
         </Route>
         <Route exact path="/favorite" component={Favorite} />
         <Route exact path="/settings" component={Settings} />
-        <Route path="/laterProducts" exact={true}>
+        <Route exact path="/laterProducts" >
           <SimpleLyout
             Close={() => {
               history.goBack();
@@ -192,14 +191,14 @@ function App() {
         <Route path="/fp/:gtin" exact={true}>
           <SimpleLyout
             Close={() => {
-              goToPage("/scanner");
+              goToPage("/tabs");
             }}
           >
             <Fp />
           </SimpleLyout>
         </Route>
         <Redirect exact from="/" to="/tabs" />
-      </FirstVisitGuard>
+      
     </IonRouterOutlet>
   );
 }

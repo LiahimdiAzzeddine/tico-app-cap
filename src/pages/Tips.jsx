@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Background from "../assets/tips/bachground.svg";
+import React from "react";
 import { EmptyState } from "../composants/recettes/ui/EmptyState";
 import Item from "../composants/tips/ui/Item";
 import LoadingState from "../composants/recettes/ui/LoadingState";
@@ -7,37 +6,28 @@ import useLastTips from "../hooks/tips/useLastTips";
 import { createTip } from "../utils/createTip";
 import { ErrorState } from "../composants/ui/ErrorState";
 import TapLayout from "../composants/layout/TapLyout";
-import ModalPage from "../composants/modales/ModalPage";
-import TipDetails from "../composants/tips/TipDetails";
+import { useIonRouter } from "@ionic/react";
 
 function Tips() {
-  const ids = []; // Ajuste cette liste pour filtrer les conseils si nécessaire
+  const ids = [];
   const { tips, loading, error } = useLastTips(ids);
-  const [showModalRecipe, setShowModalRecipe] = useState(false); // État pour afficher ou cacher la modale
-  const [selectedTip, setSelectedTip] = useState(null); // Conseil sélectionné pour affichage
-  
-  const tipsList = Array.isArray(tips)
-    ? tips.map((tip) => createTip(tip))
-    : [];
+  const history = useIonRouter();
 
-  const handleTipClick = (tip) => {
-    setSelectedTip(tip); // Définit le conseil sélectionné
-    setShowModalRecipe(true); // Affiche la modale
+  const goToTip = (selectedTip) => {
+    history.push(`/tabs/tab5/tip/${selectedTip.id}`, "forward", "push");
   };
 
-  const handleModalClose = () => {
-    setShowModalRecipe(false); // Ferme la modale
-    setSelectedTip(null); // Réinitialise le conseil sélectionné
+  const tipsList = Array.isArray(tips) ? tips.map((tip) => createTip(tip)) : [];
+
+  const handleTipClick = (selectedTip) => {
+    goToTip(selectedTip);
   };
 
   return (
     <TapLayout>
       <div className="details h-full w-full">
-        <div className="h-[17%] pb-4" >
-          <div
-            className="flex flex-col items-center justify-center h-5/6 max-h-28 backgroundTips"
-           
-          >
+        <div className="h-[17%] pb-4">
+          <div className="flex flex-col items-center justify-center h-5/6 max-h-28 backgroundTips">
             <h2 className="text-center text-custom-text-orange text-3xl titre-bold">
               Ti'conseils
             </h2>
@@ -57,7 +47,7 @@ function Tips() {
                   tip={tip}
                   index={index}
                   length={tipsList.length}
-                  OpenFb={() => handleTipClick(tip)} // Passe l'objet tip complet
+                  OpenTip={() => handleTipClick(tip)} // Passe l'objet tip complet
                 />
               ))
             ) : (
@@ -66,17 +56,6 @@ function Tips() {
           </div>
         </div>
       </div>
-
-      {/* Modale pour afficher les détails d'un conseil */}
-      <ModalPage
-        isOpen={showModalRecipe}
-        onClose={handleModalClose}
-        bgHeader="#ffeda3"
-        bgcontent="#ffeda3"
-        image="of"
-      >
-        {selectedTip && <TipDetails tip={selectedTip} />} {/* Affiche les détails */}
-      </ModalPage>
     </TapLayout>
   );
 }

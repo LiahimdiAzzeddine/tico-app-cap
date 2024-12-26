@@ -40,9 +40,9 @@ const Recette = () => {
   }
   
     return (
-      <FirstVisitGuard>
+   
         <RecipeDetails  recipe={recipeForme} />
-        </FirstVisitGuard>
+       
     );
 }
 

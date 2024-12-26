@@ -10,7 +10,7 @@ const Item = ({ recipe, index, length, OpenFb }) => {
   if (!recipe) {
     return null;
   }
-
+  
   return (
     <div key={index}>
       <div className="flex items-center py-4" onClick={() => OpenFb(recipe)}>
@@ -45,7 +45,7 @@ const Item = ({ recipe, index, length, OpenFb }) => {
             {(recipe?.timecook || recipe?.timerest || recipe?.timebake) && (
               <>
                 Temps total :{" "}
-                {recipe?.timecook + recipe?.timerest + recipe?.timebake}
+                {recipe.totalTime}
               </>
             )}
           </div>

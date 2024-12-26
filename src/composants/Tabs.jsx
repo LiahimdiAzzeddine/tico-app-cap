@@ -24,6 +24,9 @@ import accueil_active from "../assets/navbar/accueil_active.svg";
 import favoris_active from "../assets/navbar/favoris_active.svg";
 import astuces_active from "../assets/navbar/astuces_active.svg";
 import recipes_active from "../assets/navbar/profil_active.svg";
+import SimpleLyout from "./layout/SimpleLyout";
+import Tip from "../pages/Tip";
+import Recette from "../pages/recette";
 
 const Tabs = () => {
   const isAuthenticated = useIsAuthenticated();
@@ -99,7 +102,7 @@ const Tabs = () => {
   return (
     <IonTabs>
       <IonRouterOutlet>
-        <Route exact path="/tabs/tab1">
+        <Route  path="/tabs/tab1">
           <HomeLayout>
             <Home />
           </HomeLayout>
@@ -109,12 +112,35 @@ const Tabs = () => {
             <HelpTiCO />
           </HomeLayout>
         </Route>
-        <Route exact path="/tabs/tab3" component={Scanner} />
-        <Route exact path="/tabs/tab4" component={Recipes} />
-        <Route exact path="/tabs/tab5" component={Tips} />
-        <Route path="/tabs" exact={true}>
-          <Redirect to="/tabs/tab3" />
+        <Route  path="/tabs/tab3" component={Scanner} />
+        <Route  exact path="/tabs/tab4" component={Recipes} />
+        <Route exact path="/tabs/tab4/recipe/:id" >
+          <SimpleLyout
+            bgHeader="#fad4ce"
+            bgcontent="#fdf2f0"
+            image={"rf"}
+            Close={() => {
+              history.goBack()
+            }}
+          >
+            <Recette />
+          </SimpleLyout>
         </Route>
+        <Route exact  path="/tabs/tab5" component={Tips} />
+        <Route exact path="/tabs/tab5/tip/:id">
+          <SimpleLyout
+            bgHeader="#ffeda3"
+            bgcontent="#ffeda3"
+            image="of"
+            Close={() => {
+              history.goBack();
+            }}
+          >
+            <Tip />
+          </SimpleLyout>
+        </Route>
+        <Redirect exact  from="/tabs" to="/tabs/tab3" />
+        
       </IonRouterOutlet>
       <IonTabBar
         mode="md"

@@ -13,7 +13,7 @@ const useGetProduct = (ean) => {
       const response = await axios.get(`/api/fiche-produit/product/ean/${ean}`);
       const data = response.data;
       console.log("Produit ajouté avec succès :", data);
-      if (response.status === 200) {
+      if (response.status === 200 && (data.OFFproduct!=null || data.foodheaproduct!=null)) {
         setProductData(data);
         
       } else {
