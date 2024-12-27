@@ -158,6 +158,12 @@ const Settings = () => {
               </div>
             </div>
           </div>
+          <CustomModal
+        isOpen={showModalInfo}
+        onClose={() => setShowModalInfo(false)}
+      >
+        <PersonalInfo />
+      </CustomModal>
         </IonContent>
       </IonPage>
       <WhiteModal isOpen={showModalFAQ} ContentPadding={"ion-padding-top"} onClose={() => setShowModalFAQ(false)}>
@@ -170,12 +176,7 @@ const Settings = () => {
       >
         <Contact setShowModalContact={setShowModalContact} />
       </CustomModal>
-      <CustomModal
-        isOpen={showModalInfo}
-        onClose={() => setShowModalInfo(false)}
-      >
-        <PersonalInfo />
-      </CustomModal>
+    
       {/* Sign-Up Modal */}
       <CustomModal
         isOpen={showModalInscription}
