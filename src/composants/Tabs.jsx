@@ -27,7 +27,9 @@ import recipes_active from "../assets/navbar/profil_active.svg";
 import SimpleLyout from "./layout/SimpleLyout";
 import Tip from "../pages/Tip";
 import Recette from "../pages/recette";
-
+{/**href={!isAuthRequired ? href : isAuthenticated ? href : undefined}
+        onClick={isAuthRequired && !isAuthenticated ? handleClick : undefined}
+           */}
 const Tabs = () => {
   const isAuthenticated = useIsAuthenticated();
   const { triggerAlert } = useAlert();
@@ -42,7 +44,7 @@ const Tabs = () => {
   };
 
   const goToPage = (path) => {
-    history.push(path, "root", "push");
+    history.push(path, "root", "replace");
   };
   const goToSubPage = (path) => {
     history.push(path, "forward", "push");
@@ -57,6 +59,7 @@ const Tabs = () => {
       );
       return false; // Empêche la navigation
     }
+    goToPage(href);
     return true; // Autorise la navigation
   };
 
@@ -82,8 +85,10 @@ const Tabs = () => {
           "--color-selected": color,
         }}
         tab={tab}
-        href={!isAuthRequired ? href : isAuthenticated ? href : undefined}
-        onClick={isAuthRequired && !isAuthenticated ? handleClick : undefined}
+        key={tab}
+        
+           onClick={ handleClick}
+
         className={
           "flex flex-col items-center " + (tab === "tab3" ? " min-w-28" : "")
         }
@@ -102,7 +107,7 @@ const Tabs = () => {
   return (
     <IonTabs>
       <IonRouterOutlet>
-        <Route  path="/tabs/tab1">
+        <Route exact path="/tabs/tab1" >
           <HomeLayout>
             <Home />
           </HomeLayout>
@@ -112,8 +117,8 @@ const Tabs = () => {
             <HelpTiCO />
           </HomeLayout>
         </Route>
-        <Route  path="/tabs/tab3" component={Scanner} />
-        <Route  exact path="/tabs/tab4" component={Recipes} />
+        <Route exact path="/tabs/tab3" component={Scanner} />
+        <Route exact path="/tabs/tab4" component={Recipes} />
         <Route exact path="/tabs/tab4/recipe/:id" >
           <SimpleLyout
             bgHeader="#fad4ce"
@@ -139,7 +144,7 @@ const Tabs = () => {
             <Tip />
           </SimpleLyout>
         </Route>
-        <Redirect exact  from="/tabs" to="/tabs/tab3" />
+        <Redirect exact from="/tabs" to="/tabs/tab3" />
         
       </IonRouterOutlet>
       <IonTabBar

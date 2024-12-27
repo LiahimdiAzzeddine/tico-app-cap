@@ -193,6 +193,7 @@ const Main = () => {
 
   useIonViewWillLeave(() => {
     stopScan();
+    appState.scannedResult=null;
   });
 
   useIonViewWillEnter(() => {

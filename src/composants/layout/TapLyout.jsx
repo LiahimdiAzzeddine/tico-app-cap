@@ -8,7 +8,7 @@ const TapLayout = ({ children }) => {
   const location = useLocation();
   const history = useIonRouter();
   const goToPage = (path) => {
-    history.push(path, "root", "replace");
+    history.push(path, "forward", "push");
   };
 
   // Définir les couleurs de fond en fonction de la route actuelle
@@ -32,7 +32,7 @@ const TapLayout = ({ children }) => {
         <IonToolbar style={{ "--ion-toolbar-background": background,padding:0 }}>
           <ModalHeader
             image={icon}
-            onClose={() =>  goToPage("/tabs")}
+            onClose={() =>  goToPage("/tabs/tab3")}
           />
         </IonToolbar>
       </IonHeader>

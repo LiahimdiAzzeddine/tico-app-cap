@@ -18,7 +18,7 @@ function Recipes() {
   const history = useIonRouter();
 
     const goToRecipe = (selectedRecipe) => {
-      history.push(`/tabs/tab4/recipe/${selectedRecipe.id}`, "forward", "push");
+      history.push(`/tabs/tab4/recipe/${selectedRecipe.id}`,"forward", "push");
     };
   
   const handleRecetteClick = (recipe) => {

@@ -134,58 +134,59 @@ const ScanResultModal = ({
 
         <IonContent className="ion-padding-bottom">
           <>
-          
-              {isConnected ? (
-               <>
-                 {loading ? (
-            <LoadingFbState />
-          ) : error ? (
-            error === "Produit non trouvé." ? (
-              <ErrorMessage
-                message={`Désolé, nous n'avons pas trouvé ce produit : ${scannedResult}`}
-                icon={searchCircle}
-                onClose={handleDismiss}
-              />
-            ) : (
-              <ErrorMessage
-                message={`Une erreur est survenue lors de la recherche : ${error}`}
-                icon={alertCircle}
-                onClose={handleDismiss}
-              />
-            )
-          ) : productData ? (
-            <FicheProduit productData={product} resetBarcode={handleDismiss} />
-          ) : (
-            <>
-             <ErrorMessage
-                  message="Désolé, nous n'avons pas reçu de réponse du serveur."
-                  icon={searchCircle}
-                  onClose={handleDismiss}
-                /></>
-          )}
-               </>
-              ) : (
-                <div className="flex flex-col items-center justify-center px-6 text-center">
-                  <IonIcon
-                    icon={alertCircle}
-                    className="w-16 h-16 text-yellow-500"
+            {isConnected ? (
+              <>
+                {loading ? (
+                  <LoadingFbState />
+                ) : error ? (
+                  error === "Produit non trouvé." ? (
+                    <ErrorMessage
+                      message={`Désolé, nous n'avons pas trouvé ce produit : ${scannedResult}`}
+                      icon={searchCircle}
+                      onClose={handleDismiss}
+                    />
+                  ) : (
+                    <ErrorMessage
+                      message={`Une erreur est survenue lors de la recherche : ${error}`}
+                      icon={alertCircle}
+                      onClose={handleDismiss}
+                    />
+                  )
+                ) : productData ? (
+                  <FicheProduit
+                    productData={product}
+                    resetBarcode={handleDismiss}
                   />
-                  <h2 className="text-xl font-semibold mb-1">Hors ligne</h2>
-                  <p className="text-gray-600 mb-2">
-                    Vous êtes hors ligne. Souhaitez-vous garder ce produit pour
-                    plus tard ?
-                  </p>
-                  <IonButton
-                    onClick={() => addToLaterProducts(scannedResult, product)}
-                    style={{ "--background": "#0f548d" }}
-                  >
-                    Sauvegarder
-                  </IonButton>
-                </div>
-              )}
-            
+                ) : (
+                  <>
+                    <ErrorMessage
+                      message="Désolé, nous n'avons pas reçu de réponse du serveur."
+                      icon={searchCircle}
+                      onClose={handleDismiss}
+                    />
+                  </>
+                )}
+              </>
+            ) : (
+              <div className="flex flex-col items-center justify-center px-6 text-center">
+                <IonIcon
+                  icon={alertCircle}
+                  className="w-16 h-16 text-yellow-500"
+                />
+                <h2 className="text-xl font-semibold mb-1">Hors ligne</h2>
+                <p className="text-gray-600 mb-2">
+                  Vous êtes hors ligne. Souhaitez-vous garder ce produit pour
+                  plus tard ?
+                </p>
+                <IonButton
+                  onClick={() => addToLaterProducts(scannedResult, product)}
+                  style={{ "--background": "#0f548d" }}
+                >
+                  Sauvegarder
+                </IonButton>
+              </div>
+            )}
           </>
-        
         </IonContent>
       </IonPage>
     </IonModal>

@@ -100,8 +100,8 @@ function App() {
 
   return (
     <IonRouterOutlet swipeGesture={true} animated={true}>
-      <Route path="/welcome" component={Welcome} />
-      <Route path="/login" exact={true}>
+      <Route exact path="/welcome" component={Welcome} />
+      <Route exact path="/login">
         <AuthLayout
           image="bx"
           Close={() => {

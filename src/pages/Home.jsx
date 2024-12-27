@@ -1,4 +1,16 @@
-import React from "react";
+import React, { useState, useRef } from 'react';
+import {
+  IonButtons,
+  IonButton,
+  IonModal,
+  IonHeader,
+  IonContent,
+  IonToolbar,
+  IonTitle,
+  IonPage,
+  IonItem,
+  IonInput,
+} from '@ionic/react';
 import hands from "../assets/home/hands.svg";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
@@ -12,6 +24,22 @@ function Home() {
     const goToPage = (path) => {
       history.push(path, "forward","push");
     };
+    const modal = useRef(null); // Supprimer le typage TS
+  const input = useRef(null); // Supprimer le typage TS
+
+  const [message, setMessage] = useState(
+    'This modal example uses triggers to automatically open a modal when the button is clicked.'
+  );
+
+  function confirm() {
+    modal.current?.dismiss(input.current?.value, 'confirm');
+  }
+
+  function onWillDismiss(ev) {
+    if (ev.detail.role === 'confirm') {
+      setMessage(`Hello, ${ev.detail.data}!`);
+    }
+  }
 
   return (
     <>
@@ -50,6 +78,36 @@ function Home() {
               >
                 Mes produits à consulter
               </button>
+              <IonButton id="open-modal" expand="block">
+          Open
+        </IonButton>
+        <p>{message}</p>
+        <IonModal ref={modal} trigger="open-modal" onWillDismiss={(ev) => onWillDismiss(ev)}>
+          <IonHeader>
+            <IonToolbar>
+              <IonButtons slot="start">
+                <IonButton onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
+              </IonButtons>
+              <IonTitle>Welcome</IonTitle>
+              <IonButtons slot="end">
+                <IonButton strong={true} onClick={() => confirm()}>
+                  Confirm
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <IonItem>
+              <IonInput
+                label="Enter your name"
+                labelPlacement="stacked"
+                ref={input}
+                type="text"
+                placeholder="Your name"
+              />
+            </IonItem>
+          </IonContent>
+        </IonModal>
             </div>
           </div>
         </div>

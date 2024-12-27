@@ -15,9 +15,7 @@ function Intro1() {
       <div className="grow flex items-center justify-center w-full max-w-sm">
         <div
           className="w-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center relative"
-          style={{
-            backgroundImage: `url(${background})`,
-          }}
+          style={{backgroundImage: `url(${background})`}}
         >
           <div className="flex flex-col items-center justify-evenly gap-3 text-center">
            
