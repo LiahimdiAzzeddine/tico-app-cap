@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../../hooks/useIndexedDB";
-import { IonContent, IonModal, IonPage } from "@ionic/react";
+import { IonContent, IonModal, IonPage, useIonRouter } from "@ionic/react";
 import FicheProduit from "../FP/FicheProduit";
 import Item from "./Item";
 import { EmptyState } from "./ui/EmptyState";
 import ModalHeader from "../modales/ModalHeader";
 import { useToast } from "../../context/ToastContext";
 import { useAlert } from "../../context/AlertProvider";
+import SimpleLyout from "../layout/SimpleLyout";
 
 import { deleteByGtin } from "../../hooks/useIndexedDB";
+import VF from "../../assets/history/vf.svg";
 
 const History = () => {
   const [products, setProducts] = useState([]);
@@ -17,6 +19,7 @@ const History = () => {
   const [ean, setEan] = useState(null);
   const { triggerToast } = useToast();
   const { triggerAlert } = useAlert();
+  const history = useIonRouter();
 
   const OpenFb = (product) => {
     if (product) {
@@ -63,6 +66,12 @@ const History = () => {
 
   return (
     <>
+     <SimpleLyout
+    Close={() => {
+      history.goBack();
+    }}
+      image={VF}
+    >
       <div className="p-4 details flex flex-col h-full">
         {/* En-tête fixe */}
         <div
@@ -99,7 +108,7 @@ const History = () => {
           )}
         </div>
       </div>
-
+</SimpleLyout>
       <IonModal isOpen={isOpenFb}>
         <IonPage style={{paddingTop:"env(safe-area-inset-top)",backgroundColor:"#ffffff" }}>
         <ModalHeader

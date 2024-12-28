@@ -9,6 +9,7 @@ import { ErrorState } from "../composants/ui/ErrorState";
 import TapLayout from "../composants/layout/TapLyout";
 import ModalPage from "../composants/modales/ModalPage";
 import TipDetails from "../composants/tips/TipDetails";
+import OF from "../assets/tips/OFleche.svg";
 
 function Tips() {
   const ids = []; // Ajuste cette liste pour filtrer les conseils si nécessaire
@@ -31,7 +32,7 @@ function Tips() {
   };
 
   return (
-    <TapLayout>
+    <TapLayout icon={OF}>
       <div className="details h-full w-full">
         <div className="h-[17%] pb-4" >
           <div

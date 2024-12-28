@@ -21,7 +21,7 @@ const FAQItem = ({ question, answer,index, length }) => {
     
   
     return (
-      <div className="mt-6">
+      <div className="">
         
         <div
           className="flex justify-between items-center cursor-pointer px-4"

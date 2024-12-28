@@ -70,16 +70,16 @@ const InfoSection = ({
 
   return (
     <div className="pt-2">
-      <div className="relative w-full px-4 pt-12 pb-6 mx-auto bg-custom-green-clear"> 
+      <div className="relative w-full px-4 pb-6 mx-auto bg-custom-green-clear"> 
         {/* Title positioned between the white background and blue container */}
         <div className="absolute -top-4 left-0 right-0 flex justify-start ">
-          <span className="bg-[#a9d7d4] px-4 py-2 rounded-e-full text-custom-blue font-bold text-base ArchivoBold">
-            LA SYNTHÈSE de TiCO
+          <span className="bg-[#a9d7d4] px-4 py-2 rounded-e-full text-custom-blue font-bold ArchivoBold">
+            LA SYNTHÈSE SUR LE PRODUIT
           </span>
         </div>
         <div className="grid grid-cols-2">
           {/* Nutrition Section */}
-          <div className="pb-2 pr-2 border-b border-custom-green-divider flex flex-col justify-start">
+          <div className="pb-2 pt-12 pr-2 border-b border-custom-green-divider flex flex-col justify-start">
             <div className="text-sm font-bold text-custom-blue z-10 w-full">
               <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis ArchivoBold text-xs">
                 Informations nutritionnelles
@@ -122,7 +122,7 @@ const InfoSection = ({
           </div>
 
           {/* Additifs Section */}
-          <div className="px-4 pb-3 border-l border-b border-custom-green-divider flex flex-col justify-start">
+          <div className="px-4 pb-3 pt-12 border-l border-b border-custom-green-divider flex flex-col justify-start">
             <div className="text-sm font-bold text-custom-blue z-10">
               <span className="marker-effect-cyan font-bold ArchivoBold text-xs">
                 Naturalité des ingrédients
@@ -164,7 +164,7 @@ const InfoSection = ({
           </div>
 
           {/* Impact environnemental, */}
-          <div className="py-2 pr-4  border-custom-green-divider">
+          <div className="pb-6 pt-3 pr-4  border-custom-green-divider">
             {/* Impact environnemental */}
             <div>
               <div className="text-sm font-bold text-custom-blue  w-full">
@@ -216,7 +216,7 @@ const InfoSection = ({
           </div>
 
           {/* Origines Section (Full Height) */}
-          <div className="py-2 px-4 border-l border-custom-green-divider">
+          <div className="pb-6 pt-3  px-4 border-l border-custom-green-divider">
             <div className="text-sm font-bold text-custom-blue z-10 w-full">
               <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis z-50 ArchivoBold text-xs">
                 Origines

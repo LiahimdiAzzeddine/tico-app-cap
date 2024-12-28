@@ -59,7 +59,18 @@
   font-family: 'ArchivoLightItalic';
   src: url('./assets/fonts/Archivo-LightItalic.otf') format('opentype');
 }
+ion-loading.custom-loading {
+  --background: #fad4ce;
+  --spinner-color: #c6312b;
 
+  color: #c6312b;
+}
+ion-loading.custom-loading-help {
+  --background: #e1f5f4;
+  --spinner-color: #0F548D;
+
+  color: #0F548D;
+}
 .Archivo{
   font-family: 'Archivo';
 }

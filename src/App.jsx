@@ -23,6 +23,9 @@ import History from "./composants/history/History";
 import FirstVisitGuard from "./guards/FirstVisitGuard";
 import Recipes from "./pages/Recipes";
 import Tips from "./pages/Tips";
+import flecheRecette from "./assets/recettes/fleche.svg";
+import OF from "./assets/tips/OFleche.svg";
+import ReturnImage from "./assets/fb/flech.svg";
 
 function App() {
   const { triggerAlert } = useAlert();
@@ -144,33 +147,15 @@ function App() {
           </SimpleLyout>
         </Route>
         <Route exact path="/tab4" component={Recipes} />
-        <Route exact  path="/tab5" component={Tips} />
-        <Route exact path="/laterProducts" >
-          <SimpleLyout
-            Close={() => {
-              history.goBack();
-            }}
-            image="vf"
-          >
-            <LaterProducts />
-          </SimpleLyout>
-        </Route>
-        <Route path="/history" exact={true}>
-          <SimpleLyout
-            Close={() => {
-              history.goBack();
-            }}
-            image="vf"
-          >
-            <History />
-          </SimpleLyout>
-        </Route>
+        <Route exact  path="/tab5"  component={Tips}/>
+        <Route exact path="/laterProducts" component={LaterProducts} />
+        <Route exact path="/history"  component={History}/>
         <Route path="/tabs" component={Tabs} />
         <Route exact path="/recipe/:id" >
           <SimpleLyout
             bgHeader="#fad4ce"
             bgcontent="#fdf2f0"
-            image={"rf"}
+            image={flecheRecette}
             Close={() => {
               goToPage("/tabs");
             }}
@@ -182,7 +167,7 @@ function App() {
           <SimpleLyout
             bgHeader="#ffeda3"
             bgcontent="#ffeda3"
-            image="of"
+            image={OF}
             Close={() => {
               goToPage("/tabs");
             }}
@@ -195,6 +180,7 @@ function App() {
         
         <Route path="/fp/:gtin" exact={true}>
           <SimpleLyout
+          image={ReturnImage}
             Close={() => {
               goToPage("/tabs");
             }}

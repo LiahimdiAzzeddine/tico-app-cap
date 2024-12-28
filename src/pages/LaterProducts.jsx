@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IonContent, IonModal, IonPage } from "@ionic/react";
+import { IonContent, IonModal, IonPage, useIonRouter } from "@ionic/react";
 import { useNetwork } from "../context/NetworkContext";
 import LaterItem from "../composants/history/LaterItem";
 import { EmptyLater } from "../composants/history/ui/EmptyLater";
@@ -14,6 +14,8 @@ import {
 } from "../hooks/useIndexedDB";
 import useGetProductLater from "../hooks/product/useGetProductLater";
 import { createProduct } from "../utils/product";
+import SimpleLyout from "../composants/layout/SimpleLyout";
+import VF from "../assets/history/vf.svg";
 
 const LaterProducts = () => {
   const [products, setProducts] = useState([]);
@@ -23,6 +25,7 @@ const LaterProducts = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { isConnected } = useNetwork();
   const { triggerAlert } = useAlert();
+  const history = useIonRouter();
 
   const {
     productLoading,
@@ -142,6 +145,12 @@ const LaterProducts = () => {
 
   return (
     <>
+       <SimpleLyout
+    Close={() => {
+      history.goBack();
+    }}
+      image={VF}
+    >
       <div className="p-4 details flex flex-col h-full">
         <div
           className="flex flex-col items-center justify-center min-h-[10vh] backgroundHistorique"
@@ -175,7 +184,7 @@ const LaterProducts = () => {
           )}
         </div>
       </div>
-
+</SimpleLyout>
       <IonModal isOpen={isOpenFb}>
         <IonPage style={{paddingTop:"env(safe-area-inset-top)",backgroundColor:"#ffffff" }}>
         <ModalHeader image={"fb"} onClose={handleModalClose} />

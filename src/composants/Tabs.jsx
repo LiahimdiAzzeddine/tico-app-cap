@@ -9,9 +9,6 @@ import { Redirect, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import HelpTiCO from "../pages/HelpTiCO";
 import Scanner from "../pages/Scanner";
-import Recipes from "../pages/Recipes";
-import Tips from "../pages/Tips";
-import HomeLayout from "./layout/HomeLyout";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { useAlert } from "../context/AlertProvider";
 import { useIonRouter } from "@ionic/react";
@@ -24,10 +21,6 @@ import accueil_active from "../assets/navbar/accueil_active.svg";
 import favoris_active from "../assets/navbar/favoris_active.svg";
 import astuces_active from "../assets/navbar/astuces_active.svg";
 import recipes_active from "../assets/navbar/profil_active.svg";
-import SimpleLyout from "./layout/SimpleLyout";
-import Tip from "../pages/Tip";
-import Recette from "../pages/recette";
-import BottomNavbar from "./navBars/BottomNavbar";
 import FirstVisitGuard from "../guards/FirstVisitGuard";
 
 const Tabs = () => {
@@ -114,16 +107,8 @@ const Tabs = () => {
 
     <IonTabs>
       <IonRouterOutlet>
-        <Route exact path="/tabs/tab1" >
-          <HomeLayout>
-            <Home />
-          </HomeLayout>
-        </Route>
-        <Route exact path="/tabs/tab2">
-          <HomeLayout>
-            <HelpTiCO />
-          </HomeLayout>
-        </Route>
+        <Route exact path="/tabs/tab1" component={Home}/>
+        <Route exact path="/tabs/tab2" component={HelpTiCO}/>
         <Route exact path="/tabs/tab3" component={Scanner} />
         
         <Redirect exact from="/tabs" to="/tabs/tab3" />

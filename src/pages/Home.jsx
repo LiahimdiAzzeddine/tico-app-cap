@@ -1,20 +1,9 @@
 import React, { useState, useRef } from "react";
-import {
-  IonButtons,
-  IonButton,
-  IonModal,
-  IonHeader,
-  IonContent,
-  IonToolbar,
-  IonTitle,
-  IonPage,
-  IonItem,
-  IonInput,
-} from "@ionic/react";
 import hands from "../assets/home/hands.svg";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useIonRouter } from "@ionic/react";
+import HomeLayout from "../composants/layout/HomeLyout";
 
 function Home() {
   const isAuthenticated = useIsAuthenticated();
@@ -42,7 +31,7 @@ function Home() {
   }
 
   return (
-    <>
+    <HomeLayout>
       <div className="flex flex-col items-center justify-between w-full h-full">
         {/* Logo Section */}
         <div className="grow-0 flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center w-72 tico_intro">
@@ -76,47 +65,11 @@ function Home() {
               >
                 Mes produits à consulter
               </button>
-              <IonButton id="open-modal" expand="block">
-                Open
-              </IonButton>
-              <p>{message}</p>
-              <IonModal
-                ref={modal}
-                trigger="open-modal"
-                onWillDismiss={(ev) => onWillDismiss(ev)}
-              >
-                <IonHeader>
-                  <IonToolbar>
-                    <IonButtons slot="start">
-                      <IonButton onClick={() => modal.current?.dismiss()}>
-                        Cancel
-                      </IonButton>
-                    </IonButtons>
-                    <IonTitle>Welcome</IonTitle>
-                    <IonButtons slot="end">
-                      <IonButton strong={true} onClick={() => confirm()}>
-                        Confirm
-                      </IonButton>
-                    </IonButtons>
-                  </IonToolbar>
-                </IonHeader>
-                <IonContent className="ion-padding">
-                  <IonItem>
-                    <IonInput
-                      label="Enter your name"
-                      labelPlacement="stacked"
-                      ref={input}
-                      type="text"
-                      placeholder="Your name"
-                    />
-                  </IonItem>
-                </IonContent>
-              </IonModal>
             </div>
           </div>
         </div>
       </div>
-    </>
+      </HomeLayout>
   );
 }
 

@@ -1,28 +1,14 @@
 import React from "react";
 import { IonPage, IonContent, IonHeader, IonToolbar } from "@ionic/react";
 import { useIonRouter } from "@ionic/react";
-import { useLocation } from "react-router-dom";
-import ModalHeader from "../../composants/modales/ModalHeader";
+import Header from "../modales/Header";
 
-const TapLayout = ({ children }) => {
-  const location = useLocation();
+const TapLayout = ({ children,icon,background="#fff" }) => {
   const history = useIonRouter();
   const goToPage = (path) => {
     history.push(path, "root", "replace");
   };
 
-  // Définir les couleurs de fond en fonction de la route actuelle
-  const backgroundColors = {
-    "/tab5": "#fff",
-    "/tab4": "#fff",
-  };
-  const closeIcon = {
-    "/tab4":"rf",
-    "/tab5": "of",
-  };
-
-  const background = backgroundColors[location.pathname] || "#ffffff";
-  const icon = closeIcon[location.pathname] || "";
   return (
     <IonPage id="main-content" style={{ backgroundColor: background,paddingTop:"env(safe-area-inset-top)" }}>
       <IonHeader
@@ -30,10 +16,8 @@ const TapLayout = ({ children }) => {
         style={{ "--ion-background-color": background }}
       >
         <IonToolbar style={{ "--ion-toolbar-background": background,padding:0 }}>
-          <ModalHeader
-            image={icon}
-            onClose={() => goToPage("/tabs/tab3")}
-          />
+ 
+          <Header image={icon} onClose={() => goToPage("/tabs/tab3")}/>
         </IonToolbar>
       </IonHeader>
       <IonContent className="flex flex-col ion-no-padding h-full" scroll-y="false" >

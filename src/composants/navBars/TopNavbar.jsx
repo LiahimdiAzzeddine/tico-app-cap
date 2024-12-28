@@ -11,7 +11,7 @@ const TopNavbar = () => {
   const [showModalFAQ, setShowModalFAQ] = useState(false);
   const history = useIonRouter();
   const goToSubPage = (path) => {
-    history.push(path, "forward", "push");
+    history.push(path, "forward","push");
   };
 
 

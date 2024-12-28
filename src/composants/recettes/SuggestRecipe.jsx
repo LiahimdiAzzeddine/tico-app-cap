@@ -6,6 +6,7 @@ import RecipeModal from "../modales/RecipeModal";
 import AlertComponent from "../AlertComponent";
 import { createViewRecipe } from "../../utils/createViewRecipe";
 import { useAlert } from "../../context/AlertProvider";
+import { useIonLoading } from "@ionic/react";
 
 const SuggestRecipe = ({ onClose }) => {
   const { handleSubmit, loading, error, success } = useSuggestRecipe();
@@ -13,6 +14,7 @@ const SuggestRecipe = ({ onClose }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [Recette, setRecette] = useState(null);
+  const [present, dismiss] = useIonLoading();
 
   const { triggerAlert } = useAlert();
 
@@ -45,9 +47,17 @@ const SuggestRecipe = ({ onClose }) => {
     unit: "",
   });
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+    await present({
+      mode: "ios",
+      spinner: "bubbles",
+      cssClass: "custom-loading",
+    });
     handleSubmit(values);
+    setTimeout(async () => {
+      await dismiss();
+    }, 1000);
   };
 
   const handleInputChange = (e) => {
@@ -500,12 +510,6 @@ const SuggestRecipe = ({ onClose }) => {
         header="Erreur"
         message="Veuillez remplir tous les champs de l'ingrédient."
       />
-      {/* Full-screen loading overlay */}
-      {loading && (
-        <div className="h-screen fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-          <Spinner />
-        </div>
-      )}
     </div>
   );
 };

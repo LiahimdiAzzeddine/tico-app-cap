@@ -11,6 +11,7 @@ import TapLayout from "../composants/layout/TapLyout";
 import ModalPage from "../composants/modales/ModalPage";
 import RecipeDetails from "../composants/recettes/RecipeDetails";
 import { useIonRouter } from "@ionic/react";
+import flecheRecette from "../assets/recettes/fleche.svg";
 
 function Recipes() {
   const ids = [];
@@ -36,7 +37,7 @@ function Recipes() {
     ? recipes.map((recipe) => createRecipe(recipe))
     : [];
   return (
-    <TapLayout>
+    <TapLayout icon={flecheRecette}>
       <div className="details h-full w-full">
         <div className="h-[17%] pb-4">
           <div

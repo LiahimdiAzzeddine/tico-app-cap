@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { IonIcon } from "@ionic/react";
+import { IonIcon, useIonLoading } from "@ionic/react";
 import hands from "../assets/help/helpHands.svg";
 import { logoEuro } from "ionicons/icons";
-import useStripe from "../hooks/useStripe"; 
+import useStripe from "../hooks/useStripe";
 import { Share } from "@capacitor/share";
+import { useAlert } from "../context/AlertProvider";
+
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 const HelpTiCO = () => {
   const [amount, setAmount] = useState();
   const { handleDonate, loading } = useStripe();
+  const { triggerAlert } = useAlert();
+  const [present, dismiss] = useIonLoading();
+
   const handleShare = async () => {
     await Share.share({
       title: "TiCO App",
@@ -16,15 +21,33 @@ const HelpTiCO = () => {
       url: apiUrl + "/tico/helptico",
       dialogTitle: "Partager TiCO",
     });
-    
+  };
+  const clickHelp = async () => {
+    if (amount > 0) {
+      await present({
+        mode: "ios",
+        spinner: "bubbles",
+        cssClass: "custom-loading-help",
+        duration: 10000,
+      });
+      handleDonate(amount);
+    } else {
+      triggerAlert(
+        "Le montant ne doit pas être nul.",
+        "Attention",
+        null,
+        "ios",
+        "",
+        "Compris",
+        true
+      );
+    }
   };
 
   return (
     <>
       <div className="flex flex-col items-center justify-between w-full h-full">
-        <div
-          className="flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-56 w-64 tico_intro"
-        >
+        <div className="flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-56 w-64 tico_intro">
           <span className="absolute text-2xl top-[26%] text-center text-custom-blue titre-bold">
             Bientôt disponible
           </span>
@@ -38,7 +61,8 @@ const HelpTiCO = () => {
         <div className="flex grow items-center justify-start w-full max-w-sm px-2 pb-4">
           <div className="w-full max-w-sm flex flex-col items-center h-full justify-center space-y-6">
             <p className="text-lg text-[#446d8f] w-full font-bold text-center ArchivoLight">
-              Vous pouvez nous aider à développer les nouvelles fonctionnalités :
+              Vous pouvez nous aider à développer les nouvelles fonctionnalités
+              :
             </p>
             <div className="flex flex-col items-center justify-center w-2/4">
               <button
@@ -60,13 +84,19 @@ const HelpTiCO = () => {
                   onChange={(e) => setAmount(e.target.value)}
                   disabled={loading} // Désactiver l'input si en cours de traitement
                 />
-                <IonIcon className="w-8 text-custom-blue text-xl pr-2" icon={logoEuro} />
+                <IonIcon
+                  className="w-8 text-custom-blue text-xl pr-2"
+                  icon={logoEuro}
+                />
               </div>
               <button
                 className={`bg-custom-blue text-white font-bold w-2/4 text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 ${
                   loading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
-                onClick={() => {if(amount>0){handleDonate(amount)};setAmount("");}}
+                onClick={() => {
+                  clickHelp();
+                  setAmount("");
+                }}
                 disabled={loading} // Désactiver le bouton pendant le traitement
               >
                 {loading ? (

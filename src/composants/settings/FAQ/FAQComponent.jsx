@@ -29,7 +29,7 @@ const FAQComponent = () => {
   
       {/* FAQ List Section */}
       <div className="flex flex-col h-[85%]">
-        <div className="flex flex-col h-full w-full bg-white overflow-auto">
+        <div className="flex flex-col h-full w-full bg-white overflow-auto pt-6">
         {loading && <LoadingStateFag />}
         {error && !loading && <ErrorState message={error} />}
         {!loading && !error && faqs.length === 0 && <EmptyStateFaq />}
