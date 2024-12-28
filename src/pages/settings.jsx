@@ -133,7 +133,7 @@ const Settings = () => {
             <div className="h-1/6 flex flex-col items-center mt-2">
               {isAuthenticated && (
                 <button
-                  className="bg-custom-text-orange Archivo text-white font-bold  text-lg py-2 w-2/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+                  className="bg-custom-text-orange Archivo text-white font-bold  text-lg py-2 w-auto px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
                   onClick={handleLogout}
                 >
                   Se&nbsp;déconnecter
@@ -141,7 +141,7 @@ const Settings = () => {
               )}
               {!isAuthenticated && (
                 <button
-                  className="bg-custom-text-orange Archivo text-white font-bold  text-lg py-2 w-2/4 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+                  className="bg-custom-text-orange Archivo text-white font-bold  text-lg py-2 w-auto px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
                   onClick={() => setShowModalLogin(true)}
                 >
                   Se&nbsp;connecter
@@ -158,12 +158,6 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <CustomModal
-        isOpen={showModalInfo}
-        onClose={() => setShowModalInfo(false)}
-      >
-        <PersonalInfo />
-      </CustomModal>
         </IonContent>
       </IonPage>
       <WhiteModal isOpen={showModalFAQ} ContentPadding={"ion-padding-top"} onClose={() => setShowModalFAQ(false)}>
@@ -176,7 +170,12 @@ const Settings = () => {
       >
         <Contact setShowModalContact={setShowModalContact} />
       </CustomModal>
-    
+      <CustomModal
+        isOpen={showModalInfo}
+        onClose={() => setShowModalInfo(false)}
+      >
+        <PersonalInfo />
+      </CustomModal>
       {/* Sign-Up Modal */}
       <CustomModal
         isOpen={showModalInscription}

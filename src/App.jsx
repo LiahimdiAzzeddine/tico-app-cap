@@ -21,6 +21,8 @@ import { useIonRouter } from "@ionic/react";
 import Tabs from "./composants/Tabs";
 import History from "./composants/history/History";
 import FirstVisitGuard from "./guards/FirstVisitGuard";
+import Recipes from "./pages/Recipes";
+import Tips from "./pages/Tips";
 
 function App() {
   const { triggerAlert } = useAlert();
@@ -141,33 +143,8 @@ function App() {
             <ValidationEmail />
           </SimpleLyout>
         </Route>
-        <Route path="/tabs" component={Tabs} />
-        <Route exact path="/recipe/:id" >
-          <SimpleLyout
-            bgHeader="#fad4ce"
-            bgcontent="#fdf2f0"
-            image={"rf"}
-            Close={() => {
-              goToPage("/tabs");
-            }}
-          >
-            <Recette />
-          </SimpleLyout>
-        </Route>
-        <Route path="/tip/:id" exact={true}>
-          <SimpleLyout
-            bgHeader="#ffeda3"
-            bgcontent="#ffeda3"
-            image="ox"
-            Close={() => {
-              goToPage("/tabs");
-            }}
-          >
-            <Tip />
-          </SimpleLyout>
-        </Route>
-        <Route exact path="/favorite" component={Favorite} />
-        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/tab4" component={Recipes} />
+        <Route exact  path="/tab5" component={Tips} />
         <Route exact path="/laterProducts" >
           <SimpleLyout
             Close={() => {
@@ -188,6 +165,34 @@ function App() {
             <History />
           </SimpleLyout>
         </Route>
+        <Route path="/tabs" component={Tabs} />
+        <Route exact path="/recipe/:id" >
+          <SimpleLyout
+            bgHeader="#fad4ce"
+            bgcontent="#fdf2f0"
+            image={"rf"}
+            Close={() => {
+              goToPage("/tabs");
+            }}
+          >
+            <Recette />
+          </SimpleLyout>
+        </Route>
+        <Route path="/tip/:id" exact={true}>
+          <SimpleLyout
+            bgHeader="#ffeda3"
+            bgcontent="#ffeda3"
+            image="of"
+            Close={() => {
+              goToPage("/tabs");
+            }}
+          >
+            <Tip />
+          </SimpleLyout>
+        </Route>
+        <Route exact path="/favorite" component={Favorite} />
+        <Route exact path="/settings" component={Settings} />
+        
         <Route path="/fp/:gtin" exact={true}>
           <SimpleLyout
             Close={() => {

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import {
   IonButtons,
   IonButton,
@@ -10,7 +10,7 @@ import {
   IonPage,
   IonItem,
   IonInput,
-} from '@ionic/react';
+} from "@ionic/react";
 import hands from "../assets/home/hands.svg";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
@@ -20,23 +20,23 @@ function Home() {
   const isAuthenticated = useIsAuthenticated();
   const authUser = useAuthUser();
   const name = authUser?.username;
-   const history = useIonRouter();
-    const goToPage = (path) => {
-      history.push(path, "forward","push");
-    };
-    const modal = useRef(null); // Supprimer le typage TS
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "forward", "push");
+  };
+  const modal = useRef(null); // Supprimer le typage TS
   const input = useRef(null); // Supprimer le typage TS
 
   const [message, setMessage] = useState(
-    'This modal example uses triggers to automatically open a modal when the button is clicked.'
+    "This modal example uses triggers to automatically open a modal when the button is clicked."
   );
 
   function confirm() {
-    modal.current?.dismiss(input.current?.value, 'confirm');
+    modal.current?.dismiss(input.current?.value, "confirm");
   }
 
   function onWillDismiss(ev) {
-    if (ev.detail.role === 'confirm') {
+    if (ev.detail.role === "confirm") {
       setMessage(`Hello, ${ev.detail.data}!`);
     }
   }
@@ -45,9 +45,7 @@ function Home() {
     <>
       <div className="flex flex-col items-center justify-between w-full h-full">
         {/* Logo Section */}
-        <div
-          className="grow-0 flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center w-72 tico_intro"
-        >
+        <div className="grow-0 flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center w-72 tico_intro">
           {isAuthenticated && (
             <span className="absolute text-2xl top-[26%] text-center text-custom-green-text titre-bold">
               Bonjour {name} !
@@ -70,7 +68,7 @@ function Home() {
               >
                 Historique de scan
               </button>
-              
+
               <button
                 mode="md"
                 className="bg-[#4E986D] Archivo text-white font-bold  text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
@@ -79,35 +77,41 @@ function Home() {
                 Mes produits à consulter
               </button>
               <IonButton id="open-modal" expand="block">
-          Open
-        </IonButton>
-        <p>{message}</p>
-        <IonModal ref={modal} trigger="open-modal" onWillDismiss={(ev) => onWillDismiss(ev)}>
-          <IonHeader>
-            <IonToolbar>
-              <IonButtons slot="start">
-                <IonButton onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
-              </IonButtons>
-              <IonTitle>Welcome</IonTitle>
-              <IonButtons slot="end">
-                <IonButton strong={true} onClick={() => confirm()}>
-                  Confirm
-                </IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent className="ion-padding">
-            <IonItem>
-              <IonInput
-                label="Enter your name"
-                labelPlacement="stacked"
-                ref={input}
-                type="text"
-                placeholder="Your name"
-              />
-            </IonItem>
-          </IonContent>
-        </IonModal>
+                Open
+              </IonButton>
+              <p>{message}</p>
+              <IonModal
+                ref={modal}
+                trigger="open-modal"
+                onWillDismiss={(ev) => onWillDismiss(ev)}
+              >
+                <IonHeader>
+                  <IonToolbar>
+                    <IonButtons slot="start">
+                      <IonButton onClick={() => modal.current?.dismiss()}>
+                        Cancel
+                      </IonButton>
+                    </IonButtons>
+                    <IonTitle>Welcome</IonTitle>
+                    <IonButtons slot="end">
+                      <IonButton strong={true} onClick={() => confirm()}>
+                        Confirm
+                      </IonButton>
+                    </IonButtons>
+                  </IonToolbar>
+                </IonHeader>
+                <IonContent className="ion-padding">
+                  <IonItem>
+                    <IonInput
+                      label="Enter your name"
+                      labelPlacement="stacked"
+                      ref={input}
+                      type="text"
+                      placeholder="Your name"
+                    />
+                  </IonItem>
+                </IonContent>
+              </IonModal>
             </div>
           </div>
         </div>

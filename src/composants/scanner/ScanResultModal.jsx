@@ -4,6 +4,8 @@ import {
   IonIcon,
   IonButton,
   IonPage,
+  IonHeader,
+  IonToolbar,
 } from "@ionic/react";
 import { alertCircle, searchCircle } from "ionicons/icons";
 import FicheProduit from "../FP/FicheProduit";
@@ -35,7 +37,7 @@ const ScanResultModal = ({
     setProductData,
     setError,
   } = useGetProduct(scannedResult);
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState({});
   const { isConnected } = useNetwork();
   const { triggerToast } = useToast();
 
@@ -43,7 +45,6 @@ const ScanResultModal = ({
     setModalBreakpoint(point);
     setBreakpoint(point);
   };
-
   // Effet pour lancer la récupération des données du produit
   useEffect(() => {
     if (scannedResult && isConnected) {
@@ -59,6 +60,7 @@ const ScanResultModal = ({
       // Create the product using the imported function
       const product = createProduct(scannedResult, productData);
       setProduct(product);
+
       if (isAuthenticated) {
         addToHistory(scannedResult, product);
       }
@@ -121,74 +123,79 @@ const ScanResultModal = ({
         "--border-radius": modalBreakpoint === 1 ? "0" : "2rem 2rem 0 0",
       }}
     >
-      <IonPage
-        id="main-content"
-        style={
-          modalBreakpoint === 1
-            ? { paddingTop: "env(safe-area-inset-top)" }
-            : {}
-        }
-      >
-        {/***/}
-        <ModalHeader image={"fb"} onClose={() => handleDismiss(false)} />
+      {
+        modalBreakpoint === 1
+        ? (
+          <IonHeader
+          trigger="open-modal"
+          className="ion-no-border z-0"
+          style={{ "--ion-background-color": "#fff" }}
+        >
+          <IonToolbar style={{ "--ion-toolbar-background": "#fff" }}>
+            <ModalHeader image={"fb"} onClose={() => handleDismiss(false)} />
+          </IonToolbar>
+        </IonHeader>
+        )
+        : (<ModalHeader image={"fb"} onClose={() => handleDismiss(false)} />)
+      }
 
-        <IonContent className="ion-padding-bottom">
-          <>
-            {isConnected ? (
-              <>
-                {loading ? (
-                  <LoadingFbState />
-                ) : error ? (
-                  error === "Produit non trouvé." ? (
-                    <ErrorMessage
-                      message={`Désolé, nous n'avons pas trouvé ce produit : ${scannedResult}`}
-                      icon={searchCircle}
-                      onClose={handleDismiss}
-                    />
-                  ) : (
-                    <ErrorMessage
-                      message={`Une erreur est survenue lors de la recherche : ${error}`}
-                      icon={alertCircle}
-                      onClose={handleDismiss}
-                    />
-                  )
-                ) : productData ? (
-                  <FicheProduit
-                    productData={product}
-                    resetBarcode={handleDismiss}
+    
+      <IonContent className="ion-padding-bottom">
+        <>
+          {isConnected ? (
+            <>
+              {loading ? (
+                <LoadingFbState />
+              ) : error ? (
+                error === "Produit non trouvé." ? (
+                  <ErrorMessage
+                    message={`Désolé, nous n'avons pas trouvé ce produit : ${scannedResult}`}
+                    icon={searchCircle}
+                    onClose={handleDismiss}
                   />
                 ) : (
-                  <>
-                    <ErrorMessage
-                      message="Désolé, nous n'avons pas reçu de réponse du serveur."
-                      icon={searchCircle}
-                      onClose={handleDismiss}
-                    />
-                  </>
-                )}
-              </>
-            ) : (
-              <div className="flex flex-col items-center justify-center px-6 text-center">
-                <IonIcon
-                  icon={alertCircle}
-                  className="w-16 h-16 text-yellow-500"
+                  <ErrorMessage
+                    message={`Une erreur est survenue lors de la recherche : ${error}`}
+                    icon={alertCircle}
+                    onClose={handleDismiss}
+                  />
+                )
+              ) : productData ? (
+                <FicheProduit
+                  productData={product}
+                  resetBarcode={handleDismiss}
                 />
-                <h2 className="text-xl font-semibold mb-1">Hors ligne</h2>
-                <p className="text-gray-600 mb-2">
-                  Vous êtes hors ligne. Souhaitez-vous garder ce produit pour
-                  plus tard ?
-                </p>
-                <IonButton
-                  onClick={() => addToLaterProducts(scannedResult, product)}
-                  style={{ "--background": "#0f548d" }}
-                >
-                  Sauvegarder
-                </IonButton>
-              </div>
-            )}
-          </>
-        </IonContent>
-      </IonPage>
+              ) : (
+                <>
+                  <ErrorMessage
+                    message="Désolé, nous n'avons pas reçu de réponse du serveur."
+                    icon={searchCircle}
+                    onClose={handleDismiss}
+                  />
+                </>
+              )}
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center px-6 text-center">
+              <IonIcon
+                icon={alertCircle}
+                className="w-16 h-16 text-yellow-500"
+              />
+              <h2 className="text-xl font-semibold mb-1">Hors ligne</h2>
+              <p className="text-gray-600 mb-2">
+                Vous êtes hors ligne. Souhaitez-vous garder ce produit pour plus
+                tard ?
+              </p>
+              <IonButton
+                onClick={() => addToLaterProducts(scannedResult, product)}
+                style={{ "--background": "#0f548d" }}
+              >
+                Sauvegarder
+              </IonButton>
+            </div>
+          )}
+        </>
+      </IonContent>
     </IonModal>
   );
 };

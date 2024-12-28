@@ -56,7 +56,7 @@ const TopNavbar = () => {
                 <span className="block w-[0.35rem] h-[0.35rem] bg-custom-blue rounded-full"></span>
                 <span className="block w-[0.35rem] h-[0.35rem] bg-custom-blue rounded-full"></span>
               </div>
-              <img src={tico} alt="Tico" className="h-6 ml-2" />
+              <img src={tico} alt="Tico" className="h-6 ml-4" />
             </button>
 
             {/* Bouton d'information avec icône */}

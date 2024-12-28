@@ -23,13 +23,13 @@ const HelpTiCO = () => {
     <>
       <div className="flex flex-col items-center justify-between w-full h-full">
         <div
-          className="grow-0 flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center w-72 tico_intro"
+          className="flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-56 w-64 tico_intro"
         >
           <span className="absolute text-2xl top-[26%] text-center text-custom-blue titre-bold">
             Bientôt disponible
           </span>
           <img
-            className="absolute w-48 bottom-[13%] left-1/2 transform -translate-x-1/2"
+            className="absolute w-44 bottom-2 left-1/2 transform -translate-x-1/2"
             src={hands}
             alt="TiCO hands"
           />

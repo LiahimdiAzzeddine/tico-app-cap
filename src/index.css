@@ -384,12 +384,14 @@ padding-top: 1rem;
   padding-top: 300px;
 }
 .intro0{
+  background-image: url('/src/assets/intro/BIENVENUE0.svg') !important;
     background-position: center calc(60%);
   background-size:85%;
 }
 .tico_intro{
   background-image: url('/src/assets/home/tico_intro.svg') !important;
 }
+
 .recetteBg{
   background-image: url('/src/assets/recettes/recetteBg.svg') !important;
 }

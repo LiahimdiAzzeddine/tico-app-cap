@@ -20,20 +20,11 @@ const AccountCreationForm = ({ onClose }) => {
 
   const { register, loading } = useRegister(); // Using the new useRegister hook
 
-  const handleMouseDown = () => {
-    setShowPassword(true);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword); // Inverse directement l'état
   };
-
-  const handleMouseUp = () => {
-    setShowPassword(false);
-  };
-
-  const ConhandleMouseDown = () => {
-    setShowCPassword(true);
-  };
-
-  const ConhandleMouseUp = () => {
-    setShowCPassword(false);
+  const toggleConPasswordVisibility = () => {
+    setShowCPassword(!showCPassword); // Inverse directement l'état
   };
 
   const handleSubmit = async (e) => {
@@ -130,10 +121,7 @@ const AccountCreationForm = ({ onClose }) => {
           />
           <button
             type="button"
-            onMouseDown={handleMouseDown} // Affiche le mot de passe
-            onMouseUp={handleMouseUp} // Masque le mot de passe
-            onTouchStart={handleMouseDown} // Support pour les appareils tactiles
-            onTouchEnd={handleMouseUp} // Support pour les appareils tactiles
+            onClick={togglePasswordVisibility}
             className="absolute right-3 top-9 text-gray-500 focus:outline-none"
           >
             <IonIcon icon={showPassword ? eyeOffOutline : eyeOutline} />
@@ -166,10 +154,7 @@ const AccountCreationForm = ({ onClose }) => {
           />
           <button
             type="button"
-            onMouseDown={ConhandleMouseDown} // Affiche le mot de passe
-            onMouseUp={ConhandleMouseUp} // Masque le mot de passe
-            onTouchStart={ConhandleMouseDown} // Support pour les appareils tactiles
-            onTouchEnd={ConhandleMouseUp} // Support pour les appareils tactiles
+            onClick={toggleConPasswordVisibility}
             className="absolute right-3 top-9 text-gray-500 focus:outline-none"
           >
             <IonIcon icon={showCPassword ? eyeOffOutline : eyeOutline} />
@@ -189,7 +174,6 @@ const AccountCreationForm = ({ onClose }) => {
               Valider
           </button>
         </div>
-        
       </form>
 
       

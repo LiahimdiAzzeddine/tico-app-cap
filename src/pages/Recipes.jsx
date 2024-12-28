@@ -8,21 +8,27 @@ import { createRecipe } from "../utils/createRecipe";
 import WhiteModal from "../composants/modales/WhiteModal";
 import SuggestRecipe from "../composants/recettes/SuggestRecipe";
 import TapLayout from "../composants/layout/TapLyout";
-
+import ModalPage from "../composants/modales/ModalPage";
+import RecipeDetails from "../composants/recettes/RecipeDetails";
 import { useIonRouter } from "@ionic/react";
 
 function Recipes() {
   const ids = [];
   const { recipes, loading, error } = useLastRecipes(ids);
   const [showModalAddRecipe, setShowModalAddRecipe] = useState(false);
+  const [showModalRecipe, setShowModalRecipe] = useState(false);
+  const [selectedRecette, setSelectedRecette] = useState(null);
   const history = useIonRouter();
-
-    const goToRecipe = (selectedRecipe) => {
-      history.push(`/tabs/tab4/recipe/${selectedRecipe.id}`,"forward", "push");
+    const goToPage = (path) => {
+      history.push(path, "root", "replace");
+    };
+    const goToSubPage = (path) => {
+      history.push(path, "forward", "push");
     };
   
   const handleRecetteClick = (recipe) => {
-    goToRecipe(recipe);
+    setSelectedRecette(recipe); // Mettez à jour l'ID de la recette sélectionnée
+    setShowModalRecipe(true); // Affichez le modal
   };
 
   // Make sure recipes is always an array, even if it's null or undefined
@@ -30,7 +36,6 @@ function Recipes() {
     ? recipes.map((recipe) => createRecipe(recipe))
     : [];
   return (
-    <>
     <TapLayout>
       <div className="details h-full w-full">
         <div className="h-[17%] pb-4">
@@ -56,7 +61,7 @@ function Recipes() {
                   recipe={recipe}
                   index={index}
                   length={recipes.length}
-                  OpenFb={() =>goToRecipe(recipe)}
+                  OpenFb={() => handleRecetteClick(recipe)}
                 />
               ))
             ) : (
@@ -77,16 +82,24 @@ function Recipes() {
         <WhiteModal
           isOpen={showModalAddRecipe}
           onClose={() => setShowModalAddRecipe(false)}
-          image={"rf"}
+          image="rf"
           scroll={true}
         >
           <SuggestRecipe onClose={() => setShowModalAddRecipe(false)} />
         </WhiteModal>
 
+        {/* Afficher le modal avec les détails de la recette */}
         
+          <ModalPage
+            isOpen={showModalRecipe}
+            onClose={() => setShowModalRecipe(false)}
+            image="rf"
+          >
+            <RecipeDetails recipe={selectedRecette} />
+          </ModalPage>
+
       </div>
     </TapLayout>
-    </>
   );
 }
 

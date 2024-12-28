@@ -502,7 +502,7 @@ const SuggestRecipe = ({ onClose }) => {
       />
       {/* Full-screen loading overlay */}
       {loading && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+        <div className="h-screen fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
           <Spinner />
         </div>
       )}

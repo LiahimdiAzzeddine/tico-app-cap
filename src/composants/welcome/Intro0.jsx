@@ -5,9 +5,6 @@ import Loupe from "../../assets/intro/Loupe.svg";
 function Intro0() {
   return (
     <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full bg-no-repeat intro0"
-    style={{
-            backgroundImage: `url(${background})`,
-          }}
     >
       {/* Logo Section */}
       <div className="grow flex items-end justify-center w-full">

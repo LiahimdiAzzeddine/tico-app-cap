@@ -3,6 +3,7 @@ import { IonPage, IonContent, IonHeader, IonToolbar } from "@ionic/react";
 import { useLocation } from "react-router-dom";
 import ModalHeader from "../../composants/modales/ModalHeader";
 import { useIonRouter } from "@ionic/react";
+import BottomNavbar from "../navBars/BottomNavbar";
 
 const HomeLayout = ({ children }) => {
   const history = useIonRouter();
@@ -40,7 +41,7 @@ const HomeLayout = ({ children }) => {
         >
           <ModalHeader
             image={icon}
-            onClose={() => goToPage("/tabs")}
+            onClose={() => goToPage("/tabs/tab3")}
           />
         </IonToolbar>
       </IonHeader>
@@ -54,7 +55,6 @@ const HomeLayout = ({ children }) => {
             {/* Contenu défilable */}
             <div className="flex-1 overflow-y-auto">{children}</div>
           </div>
-
         </div>
       </IonContent>
     </IonPage>

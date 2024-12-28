@@ -8,6 +8,7 @@ import useTransparencyRequests from "../../hooks/contact/useTransparencyRequests
 
 import closeImg from "../../assets/fb/popup/close.svg";
 import ContactImg from "../../assets/fb/BubbleImg.svg";
+import BubbleIImage from "../../assets/fb/BubbleIImage.svg";
 import flecheLeft from "../../assets/fb/popup/flecheleft.svg";
 import { motion } from "framer-motion";
 import Additif from "../../assets/fb/additifs.svg";
@@ -103,20 +104,20 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
   return (
     <>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="flex flex-col w-full h-full items-center justify-center max-sm:">
-          {/* Fixed Header with Buttons */}
-          <div className="sticky top-0">
+        <div className="flex flex-col w-full h-full items-start justify-start max-sm:">
+          
+          <div className="flex-1 overflow-y-auto px-6  flex flex-col items-center justify-start md:justify-center w-full space-y-6">
+            {/* Fixed Header with Buttons */}
+          <div className="sticky pt-6 ">
             {/* Bubble Icon */}
             <img
-              src={ContactImg}
+              src={BubbleIImage}
               alt="Bubble text icon"
               className="w-20 h-auto "
             />
           </div>
-          {/* Scrollable Content Area */}
-          <div className="flex-1 overflow-y-auto p-6  flex flex-col items-center justify-start md:justify-center w-full space-y-6">
             {/* Title */}
-            <h1 className="text-2xl text-custom-blue font-bold">
+            <h1 className="text-2xl text-custom-blue font-bold ArchivoExtraBold">
               <span className="marker-effect-cyan z-10">Contact</span>
             </h1>
 
@@ -125,10 +126,11 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
               className="text-xl text-custom-blue flex items-start"
               onClick={OpenContactTiCO}
             >
-              <img src={flecheLeft} className="w-5 mr-2" />
-              <span>
-                Contacter <span className="font-bold">TiCO</span>
+              
+              <span className="ArchivoLight">
+                Contacter  <span className="pallybold">Ti<span className="tracking-[-0.08em]">CO</span></span>
               </span>
+              <img src={flecheLeft} className="w-6 ml-2 scale-x-[-1]" />
             </div>
             {/** 
           <div className="text-xl text-custom-blue flex items-start">
@@ -140,8 +142,8 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
               className="text-xl text-custom-blue flex items-start"
               onClick={OpenContactSolliciter}
             >
-              <img src={flecheLeft} className="w-5 mr-2" />
-              <span>Encourager la marque pour faire la transparence</span>
+              <img src={flecheLeft} className="w-6" />
+              <span className="ArchivoLight leading-[22px] text-center">Encourager la marque pour faire la transparence</span>
             </div>
           </div>
         </div>
@@ -186,7 +188,7 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser, gtin }) => {
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <div className="flex flex-col items-center justify-center w-full space-y-3">
         {/* Bubble Icon */}
-        <img src={ContactImg} alt="Bubble text icon" className="w-20 h-auto " />
+        <img src={BubbleIImage} alt="Bubble text icon" className="w-20 h-auto pt-1" />
 
         {loading ? (
           // Affiche le spinner pendant le chargement
@@ -204,13 +206,13 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser, gtin }) => {
         ) : (
           <>
             {/* Titre */}
-            <h1 className="text-2xl text-custom-blue flex items-start">
-              <img src={flecheLeft} className="w-5 mr-2" />
+            <h1 className="text-xl ArchivoLight text-custom-blue flex items-start">
+              <img src={flecheLeft} className="w-6 mr-2" />
               <span>
-                Contacter <span className="font-bold">TiCO</span>
+                Contacter <span className="pallybold">Ti<span className="tracking-[-0.08em]">CO</span></span>
               </span>
             </h1>
-            <div className="text-xl text-custom-blue flex items-start">
+            <div className="text-lg text-custom-blue flex items-start ArchivoLight leading-[22px]">
               Un problème sur la fiche produit&nbsp;? Dites-nous en plus&nbsp;:
             </div>
             <textarea
@@ -226,7 +228,7 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser, gtin }) => {
             )}
             <div className="flex flex-col justify-center items-center space-y-3">
               <button
-                className="bg-custom-green px-4 py-2 text-xl text-white rounded hover:bg-teal-700"
+                className="bg-custom-green px-4 py-2 text-lg text-white rounded hover:bg-teal-700 Archivo"
                 onClick={handleSend} // Appelle handleSend au clic
                 disabled={loading}
               >
@@ -260,32 +262,32 @@ export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin, productName }) =
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <div className="flex flex-col items-center justify-center w-full space-y-4">
         {/* Bubble Icon */}
-        <img src={ContactImg} alt="Bubble text icon" className="w-20 h-auto" />
+        <img src={BubbleIImage} alt="Bubble text icon" className="w-20 h-auto" />
         {/* Title */}
         <h1 className="text-xl text-custom-blue flex items-start">
-          <img src={flecheLeft} className="w-5 mr-2" />
-          <span>Encourager la marque pour faire la transparence</span>
+          <img src={flecheLeft} className="w-6 mr-1" />
+          <span className="ArchivoLight leading-[22px] text-center">Encourager la marque <br></br>pour faire la transparence</span>
         </h1>
 
         {/* Bouton pour envoyer la demande */}
         {!sended ? (
           <button
             onClick={handleRequest}
-            className="bg-custom-blue text-white px-2 py-1 rounded-xl text-lg"
+            className="bg-custom-blue text-white px-4 py-1 rounded-xl"
             disabled={loading}
           >
             {loading ? (
               <span>Envoi en cours...</span>
             ) : (
               <>
-                <span className="font-bold text-xl">Oui,</span> je souhaite plus
+                <span className="font-bold text-lg Archivo">Oui,</span> je souhaite plus
                 <br />
                 d'informations sur ce produit
               </>
             )}
           </button>
         ) : (
-          <p className="text-green-500 font-bold text-sm">
+          <p className="text-[#6dc3bc] font-bold text-sm">
             Votre demande a été envoyée avec succès!
           </p>
         )}
@@ -294,7 +296,7 @@ export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin, productName }) =
         {error && <p className="text-red-500">{error}</p>}
 
         {/* Lien pour annuler */}
-        <div className="text-custom-gray text-center w-full">
+        <div className="text-[#6dc3bc] text-center w-full">
           Finalement j'ai tout ce qu'il me faut <br />
           <button
             onClick={() => setIsOpen(false)}
@@ -383,7 +385,7 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
                   </div>
                 </div>
                 <h1 className="text-xl text-custom-blue font-bold text-center py-2">
-                  <span className="marker-effect-cyan z-10 Archivo">Additifs</span>
+                  <span className="marker-effect-cyan z-10 ArchivoExtraBold">Additifs</span>
                 </h1>
 
                 <div className="space-y-2">
@@ -469,10 +471,10 @@ export const NutrriInfo = ({
         {/* Fixed Header with Buttons */}
         <div className="sticky top-0">
           {/* Title */}
-          <h1 className="text-xl font-bold text-custom-blue py-2 text-center titre-bold">
-           <span className="marker-effect-cyan">Nutrition</span> 
+          <h1 className="text-2xl font-bold text-custom-blue py-2 text-center ArchivoExtraBold">
+           <span className="marker-effect-cyan ">Nutrition</span> 
           </h1>
-          <div className="py-2 flex justify-center">
+          <div className="pt-2 pb-1 flex justify-center">
             <img
               className="w-1/3"
               src={selectedNutriscoreImage}
@@ -482,9 +484,9 @@ export const NutrriInfo = ({
         </div>
         {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-auto px-4 py-2">
-          <div className="max-w-md mx-auto text-custom-blue text-center">
+          <div className="max-w-md mx-auto text-custom-blue text-center  leading-tight">
             <span
-              className="text-xs leading-tight"
+              className="ArchivoLight "
               dangerouslySetInnerHTML={{ __html: selectedNutriscorePhrase }}
             />
           </div>

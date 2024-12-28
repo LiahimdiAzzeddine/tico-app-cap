@@ -43,7 +43,6 @@ const Item = ({ product, index, OpenFb, handleDelete }) => {
           {/* Image du produit */}
           <div
             className="w-16 h-16 mr-4 rounded flex flex-col justify-center items-center bg-no-repeat bg-contain bg-center productBg"
-          
           >
             <img
               src={product.image || defaultImage}

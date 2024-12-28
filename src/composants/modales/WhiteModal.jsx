@@ -1,28 +1,33 @@
-import React from 'react';
-import { IonModal, IonContent } from '@ionic/react';
-import ModalHeader from './ModalHeader';
+import React from "react";
+import { IonModal, IonContent, IonHeader, IonToolbar } from "@ionic/react";
+import ModalHeader from "./ModalHeader";
 
-const WhiteModal = ({ isOpen, onClose,image,scroll=false, children,ContentPadding="ion-padding" }) => {
+const WhiteModal = ({
+  isOpen,
+  onClose,
+  image,
+  scroll = false,
+  children,
+  ContentPadding = "ion-padding",
+}) => {
   return (
-    <IonModal
-      isOpen={isOpen}
-      onDidDismiss={onClose}
-      style={{
-        "--background": "#fff",
-        "--height": "100%",
-        "--max-height": "100%",
-        "--width": "100%",
-        "--max-width": "100%",
-        "--min-height": "100%",
-        "--min-width": "100%",
-        paddingTop:"env(safe-area-inset-top)",
-      }}
-    >
+    <IonModal isOpen={isOpen} onDidDismiss={onClose}>
       {/* Custom Header */}
-     
-      <ModalHeader image={image} onClose={onClose} />
-      <IonContent className={ContentPadding} style={{ overflow: 'hidden' }} scroll-y={scroll}>
-      {React.cloneElement(children, { onClose })}
+      <IonHeader
+        className="ion-no-border z-0"
+        style={{ "--ion-background-color": "#fff" }}
+      >
+        <IonToolbar class="z-0" style={{ "--ion-toolbar-background": "#fff" }}>
+          <ModalHeader image={image} onClose={onClose} />
+        </IonToolbar>
+      </IonHeader>
+
+      <IonContent
+        className={ContentPadding}
+        style={{ overflow: "hidden" }}
+        scroll-y={scroll}
+      >
+        {React.cloneElement(children, { onClose })}
       </IonContent>
     </IonModal>
   );

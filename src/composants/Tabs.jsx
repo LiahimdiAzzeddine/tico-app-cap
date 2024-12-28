@@ -27,9 +27,9 @@ import recipes_active from "../assets/navbar/profil_active.svg";
 import SimpleLyout from "./layout/SimpleLyout";
 import Tip from "../pages/Tip";
 import Recette from "../pages/recette";
-{/**href={!isAuthRequired ? href : isAuthenticated ? href : undefined}
-        onClick={isAuthRequired && !isAuthenticated ? handleClick : undefined}
-           */}
+import BottomNavbar from "./navBars/BottomNavbar";
+import FirstVisitGuard from "../guards/FirstVisitGuard";
+
 const Tabs = () => {
   const isAuthenticated = useIsAuthenticated();
   const { triggerAlert } = useAlert();
@@ -42,9 +42,15 @@ const Tabs = () => {
     recipes: { active: recipes_active, inactive: recipes },
     tips: { active: astuces_active, inactive: astuces },
   };
+{/**
+  
+  const goToPage = (path) => {
+    history.push(path, path == "/tabs/tab3" ? "root" : "forward", path == "/tabs/tab3" ?"replace":"push");
+  };
+  */}
 
   const goToPage = (path) => {
-    history.push(path, "root", "replace");
+    history.push(path,"root", "replace");
   };
   const goToSubPage = (path) => {
     history.push(path, "forward", "push");
@@ -57,9 +63,10 @@ const Tabs = () => {
         "Connexion requise",
         () => goToSubPage("/settings") // Redirection vers la page de paramètres
       );
+     
       return false; // Empêche la navigation
     }
-    goToPage(href);
+     goToPage(href);
     return true; // Autorise la navigation
   };
 
@@ -86,9 +93,7 @@ const Tabs = () => {
         }}
         tab={tab}
         key={tab}
-        
-           onClick={ handleClick}
-
+        onClick={handleClick}
         className={
           "flex flex-col items-center " + (tab === "tab3" ? " min-w-28" : "")
         }
@@ -105,6 +110,8 @@ const Tabs = () => {
   };
 
   return (
+    <FirstVisitGuard>
+
     <IonTabs>
       <IonRouterOutlet>
         <Route exact path="/tabs/tab1" >
@@ -118,35 +125,11 @@ const Tabs = () => {
           </HomeLayout>
         </Route>
         <Route exact path="/tabs/tab3" component={Scanner} />
-        <Route exact path="/tabs/tab4" component={Recipes} />
-        <Route exact path="/tabs/tab4/recipe/:id" >
-          <SimpleLyout
-            bgHeader="#fad4ce"
-            bgcontent="#fdf2f0"
-            image={"rf"}
-            Close={() => {
-              history.goBack()
-            }}
-          >
-            <Recette />
-          </SimpleLyout>
-        </Route>
-        <Route exact  path="/tabs/tab5" component={Tips} />
-        <Route exact path="/tabs/tab5/tip/:id">
-          <SimpleLyout
-            bgHeader="#ffeda3"
-            bgcontent="#ffeda3"
-            image="of"
-            Close={() => {
-              history.goBack();
-            }}
-          >
-            <Tip />
-          </SimpleLyout>
-        </Route>
+        
         <Redirect exact from="/tabs" to="/tabs/tab3" />
         
       </IonRouterOutlet>
+      {/** */}
       <IonTabBar
         mode="md"
         slot="bottom"
@@ -156,10 +139,12 @@ const Tabs = () => {
         {renderTabButton("tab1", "/tabs/tab1", "home", "#c8efd9", true)}
         {renderTabButton("tab2", "/tabs/tab2", "help", "#d9f2f2")}
         {renderTabButton("tab3", "/tabs/tab3", "scanner", "#4b7fa9")}
-        {renderTabButton("tab4", "/tabs/tab4", "recipes", "#f9d4cf", true)}
-        {renderTabButton("tab5", "/tabs/tab5", "tips", "#FFECA7", true)}
+        {renderTabButton("tab4", "/tab4", "recipes", "#f9d4cf", true)}
+        {renderTabButton("tab5", "/tab5", "tips", "#FFECA7", true)}
       </IonTabBar>
+          
     </IonTabs>
+    </FirstVisitGuard>
   );
 };
 

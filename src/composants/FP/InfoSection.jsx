@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import illustrationOrigines from "../../assets/fb/BubbleImg.svg";
 import { chevronForwardOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
-import { ContactModal, ContactAdditif, NutrriInfo, Solliciter } from "./Modal";
+import { ContactAdditif, NutrriInfo, Solliciter } from "./Modal";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import Nutri_score_A from "../../assets/fb/score/Nutri_score_A.png";
@@ -70,14 +70,14 @@ const InfoSection = ({
 
   return (
     <div className="pt-2">
-      <div className="relative w-full px-4 pt-12 pb-6 mx-auto bg-custom-green-clear">
+      <div className="relative w-full px-4 pt-12 pb-6 mx-auto bg-custom-green-clear"> 
         {/* Title positioned between the white background and blue container */}
-        <div className="absolute -top-4 left-0 right-0 flex justify-start">
+        <div className="absolute -top-4 left-0 right-0 flex justify-start ">
           <span className="bg-[#a9d7d4] px-4 py-2 rounded-e-full text-custom-blue font-bold text-base ArchivoBold">
-            LA SYNTHÈSE TiCO
+            LA SYNTHÈSE de TiCO
           </span>
         </div>
-        <div className="grid grid-cols-2 divide-p divide-custom-green-divider">
+        <div className="grid grid-cols-2">
           {/* Nutrition Section */}
           <div className="pb-2 pr-2 border-b border-custom-green-divider flex flex-col justify-start">
             <div className="text-sm font-bold text-custom-blue z-10 w-full">
@@ -106,7 +106,7 @@ const InfoSection = ({
             </div>
             {(!selectedComent || !selectedNutriscoreImage) && (
               <div className="text-[0.6rem] flex flex-row space-x-1 mt-2">
-                <div className="text-custom-gray Archivo text-[0.6rem]">
+                <div className="text-[#42a29a]  Archivo text-[0.6rem]">
                   Encourager la marque à atteindre 100% de transparence
                 </div>
                 <div>
@@ -148,7 +148,7 @@ const InfoSection = ({
               <div className="text-[0.6rem] text-[#42a29a]"></div>
             ) : (
               <div className="text-[0.6rem] flex flex-row space-x-1">
-                <div className="text-custom-gray text-[0.6rem]">
+                <div className="text-[#42a29a]  text-[0.6rem]">
                   Encourager la marque à atteindre 100% de transparence
                 </div>
                 <div>
@@ -198,7 +198,7 @@ const InfoSection = ({
                   </>
                 ) : (
                   <div className="text-xs flex flex-row space-x-1 Archivo text-[0.6rem]">
-                    <div className="text-custom-gray text-[0.6rem]">
+                    <div className="text-[#42a29a]  text-[0.6rem]">
                       Encourager la marque à atteindre 100% de transparence
                     </div>
                     <div>
@@ -227,7 +227,7 @@ const InfoSection = ({
                 <div className="text-xs text-[#42a29a]"></div>
               ) : (
                 <div className="text-xs flex flex-row space-x-1 text-[0.6rem]">
-                  <div className="text-custom-gray Archivo text-[0.6rem]">
+                  <div className="text-[#42a29a]  Archivo text-[0.6rem]">
                     Encourager la marque à atteindre 100% de transparence
                   </div>
                   <div>
