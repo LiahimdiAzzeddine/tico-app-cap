@@ -104,4 +104,4 @@ function Recipes() {
   );
 }
 
-export default Recipes;
+export default React.memo(Recipes);

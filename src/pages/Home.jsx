@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import hands from "../assets/home/hands.svg";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useIonRouter } from "@ionic/react";
 import HomeLayout from "../composants/layout/HomeLyout";
+import { useIonViewWillLeave, useIonViewWillEnter } from "@ionic/react";
 
 function Home() {
   const isAuthenticated = useIsAuthenticated();
@@ -15,6 +16,14 @@ function Home() {
   };
   const modal = useRef(null); // Supprimer le typage TS
   const input = useRef(null); // Supprimer le typage TS
+
+  useIonViewWillEnter(() => {
+    //console.log("useIonViewDidEnter called");
+  });
+
+  useIonViewWillLeave(() => {
+    //console.log("useIonViewWillLeave called");
+  });
 
   const [message, setMessage] = useState(
     "This modal example uses triggers to automatically open a modal when the button is clicked."
@@ -72,5 +81,5 @@ function Home() {
       </HomeLayout>
   );
 }
+export default React.memo(Home);
 
-export default Home;

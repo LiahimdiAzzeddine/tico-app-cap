@@ -82,4 +82,4 @@ function Tips() {
   );
 }
 
-export default Tips;
+export default React.memo(Tips);

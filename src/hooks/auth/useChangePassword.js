@@ -30,7 +30,7 @@ const useChangePassword = () => {
           token: token,
         });
         triggerToast(response.data.message || "Mot de passe changé avec succès.", "success");
-        goToPage("/tabs"); 
+        goToPage("/tab3"); 
       } else {
         // Envoi de la requête pour changer le mot de passe pour un utilisateur connecté
         response = await privateClient.post('api/profile/change-password', {

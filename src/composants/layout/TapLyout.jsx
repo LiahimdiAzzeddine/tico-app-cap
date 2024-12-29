@@ -17,7 +17,7 @@ const TapLayout = ({ children,icon,background="#fff" }) => {
       >
         <IonToolbar style={{ "--ion-toolbar-background": background,padding:0 }}>
  
-          <Header image={icon} onClose={() => goToPage("/tabs/tab3")}/>
+          <Header image={icon} onClose={() => goToPage("/tab3")}/>
         </IonToolbar>
       </IonHeader>
       <IonContent className="flex flex-col ion-no-padding h-full" scroll-y="false" >

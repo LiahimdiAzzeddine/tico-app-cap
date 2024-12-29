@@ -34,7 +34,7 @@ const Tip = () => {
         <ErrorMessage
           message={error || "No recipe found"}
           icon={alertCircle}
-          onClose={() => goToPage("/tabs")}
+          onClose={() => goToPage("/tab3")}
         />
       </IonContent>
     );

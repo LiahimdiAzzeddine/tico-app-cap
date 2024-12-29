@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 
-const RequireNoAuth = ({ redirectTo = "/tabs", children }) => {
+const RequireNoAuth = ({ redirectTo = "/tab3", children }) => {
   const isAuthenticated = useIsAuthenticated();
 console.log("isAuthenticated",isAuthenticated)
   // Si l'utilisateur est authentifié, rediriger vers le chemin spécifié

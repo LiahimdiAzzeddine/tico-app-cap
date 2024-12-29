@@ -18,7 +18,6 @@ import Tip from "./pages/Tip";
 import Fp from "./pages/fp";
 import ValidationEmail from "./pages/ValidationEmail";
 import { useIonRouter } from "@ionic/react";
-import Tabs from "./composants/Tabs";
 import History from "./composants/history/History";
 import FirstVisitGuard from "./guards/FirstVisitGuard";
 import Recipes from "./pages/Recipes";
@@ -26,6 +25,9 @@ import Tips from "./pages/Tips";
 import flecheRecette from "./assets/recettes/fleche.svg";
 import OF from "./assets/tips/OFleche.svg";
 import ReturnImage from "./assets/fb/flech.svg";
+import Home from "./pages/Home";
+import HelpTiCO from "./pages/HelpTiCO";
+import Scanner from "./pages/Scanner";
 
 function App() {
   const { triggerAlert } = useAlert();
@@ -67,7 +69,7 @@ function App() {
 
       // Gestion des routes sous "tico.foodhea.com/tico"
       if (url.includes("tico.foodhea.com/tico")) {
-        const slug = url.split("tico.foodhea.com/tico").pop() || "/tabs";
+        const slug = url.split("tico.foodhea.com/tico").pop() || "/tab3";
         if (slug === "/login") {
           return triggerAlert(
             "Félicitations, vous avez validé votre inscription !",
@@ -83,7 +85,7 @@ function App() {
 
       // URL non reconnues sous "tico.foodhea.com"
       if (url.includes("tico.foodhea.com")) {
-        return goToPage("/tabs");
+        return goToPage("/tab3");
       }
 
       console.error("Erreur : URL non valide.");
@@ -110,17 +112,17 @@ function App() {
         <AuthLayout
           image="bx"
           Close={() => {
-            goToPage("/tabs");
+            goToPage("/tab3");
           }}
         >
-          <Login createCompte={true} redirection={() => goToPage("/tabs")} />
+          <Login createCompte={true} redirection={() => goToPage("/tab3")} />
         </AuthLayout>
       </Route>
       <Route path="/change_password" exact={true}>
         <AuthLayout
           image="bx"
           Close={() => {
-            goToPage("/tabs");
+            goToPage("/tab3");
           }}
         >
           <ChangePassword />
@@ -137,59 +139,60 @@ function App() {
         </AuthLayout>
       </Route>
       <Route path="/validation/:token" exact={true}>
-          <SimpleLyout
-            image="bx"
-            Close={() => {
-              goToPage("/tabs");
-            }}
-          >
-            <ValidationEmail />
-          </SimpleLyout>
-        </Route>
-        <Route exact path="/tab4" component={Recipes} />
-        <Route exact  path="/tab5"  component={Tips}/>
-        <Route exact path="/laterProducts" component={LaterProducts} />
-        <Route exact path="/history"  component={History}/>
-        <Route path="/tabs" component={Tabs} />
-        <Route exact path="/recipe/:id" >
-          <SimpleLyout
-            bgHeader="#fad4ce"
-            bgcontent="#fdf2f0"
-            image={flecheRecette}
-            Close={() => {
-              goToPage("/tabs");
-            }}
-          >
-            <Recette />
-          </SimpleLyout>
-        </Route>
-        <Route path="/tip/:id" exact={true}>
-          <SimpleLyout
-            bgHeader="#ffeda3"
-            bgcontent="#ffeda3"
-            image={OF}
-            Close={() => {
-              goToPage("/tabs");
-            }}
-          >
-            <Tip />
-          </SimpleLyout>
-        </Route>
-        <Route exact path="/favorite" component={Favorite} />
-        <Route exact path="/settings" component={Settings} />
-        
-        <Route path="/fp/:gtin" exact={true}>
-          <SimpleLyout
+        <SimpleLyout
+          image="bx"
+          Close={() => {
+            goToPage("/tab3");
+          }}
+        >
+          <ValidationEmail />
+        </SimpleLyout>
+      </Route>
+      <Route exact path="/tab1" component={Home} />
+      <Route exact path="/tab2" component={HelpTiCO} />
+      <Route exact path="/tab3" component={Scanner} />
+      <Route exact path="/tab4" component={Recipes} />
+      <Route exact path="/tab5" component={Tips} />
+      <Route exact path="/laterProducts" component={LaterProducts} />
+      <Route exact path="/history" component={History} />
+      <Route exact path="/recipe/:id">
+        <SimpleLyout
+          bgHeader="#fad4ce"
+          bgcontent="#fdf2f0"
+          image={flecheRecette}
+          Close={() => {
+            goToPage("/tab3");
+          }}
+        >
+          <Recette />
+        </SimpleLyout>
+      </Route>
+      <Route path="/tip/:id" exact={true}>
+        <SimpleLyout
+          bgHeader="#ffeda3"
+          bgcontent="#ffeda3"
+          image={OF}
+          Close={() => {
+            goToPage("/tab3");
+          }}
+        >
+          <Tip />
+        </SimpleLyout>
+      </Route>
+      <Route exact path="/favorite" component={Favorite} />
+      <Route exact path="/settings" component={Settings} />
+
+      <Route path="/fp/:gtin" exact={true}>
+        <SimpleLyout
           image={ReturnImage}
-            Close={() => {
-              goToPage("/tabs");
-            }}
-          >
-            <Fp />
-          </SimpleLyout>
-        </Route>
-        <Redirect exact from="/" to="/tabs" />
-      
+          Close={() => {
+            goToPage("/tab3");
+          }}
+        >
+          <Fp />
+        </SimpleLyout>
+      </Route>
+      <Redirect exact from="/" to="/tab3" />
     </IonRouterOutlet>
   );
 }

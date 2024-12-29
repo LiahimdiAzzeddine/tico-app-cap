@@ -5,6 +5,7 @@ import { logoEuro } from "ionicons/icons";
 import useStripe from "../hooks/useStripe";
 import { Share } from "@capacitor/share";
 import { useAlert } from "../context/AlertProvider";
+import HomeLayout from "../composants/layout/HomeLyout";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -45,7 +46,7 @@ const HelpTiCO = () => {
   };
 
   return (
-    <>
+    <HomeLayout>
       <div className="flex flex-col items-center justify-between w-full h-full">
         <div className="flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-56 w-64 tico_intro">
           <span className="absolute text-2xl top-[26%] text-center text-custom-blue titre-bold">
@@ -131,8 +132,8 @@ const HelpTiCO = () => {
           </div>
         </div>
       </div>
-    </>
+    </HomeLayout>
   );
 };
 
-export default HelpTiCO;
+export default React.memo(HelpTiCO);

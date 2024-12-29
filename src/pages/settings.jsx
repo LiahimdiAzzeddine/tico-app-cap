@@ -35,7 +35,7 @@ const Settings = () => {
     const result = await logout();
     if (result.success) {
       triggerToast("Déconnexion réussie.", "success");
-      goToPage("/tabs");
+      goToPage("/tab3");
     } else {
       triggerToast(
         "Erreur lors de la déconnexion. Veuillez réessayer.",

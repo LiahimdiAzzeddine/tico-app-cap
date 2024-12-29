@@ -86,7 +86,7 @@ const Tabs = () => {
         }}
         tab={tab}
         key={tab}
-        onClick={handleClick}
+        href={href}
         className={
           "flex flex-col items-center " + (tab === "tab3" ? " min-w-28" : "")
         }
@@ -109,12 +109,12 @@ const Tabs = () => {
       <IonRouterOutlet>
         <Route exact path="/tabs/tab1" component={Home}/>
         <Route exact path="/tabs/tab2" component={HelpTiCO}/>
-        <Route exact path="/tabs/tab3" component={Scanner} />
+        <Route  path="/tabs/tab3" component={Scanner} />
         
         <Redirect exact from="/tabs" to="/tabs/tab3" />
         
       </IonRouterOutlet>
-      {/** */}
+      {/**
       <IonTabBar
         mode="md"
         slot="bottom"
@@ -127,7 +127,7 @@ const Tabs = () => {
         {renderTabButton("tab4", "/tab4", "recipes", "#f9d4cf", true)}
         {renderTabButton("tab5", "/tab5", "tips", "#FFECA7", true)}
       </IonTabBar>
-          
+           */}
     </IonTabs>
     </FirstVisitGuard>
   );

@@ -192,13 +192,11 @@ const Main = () => {
   }, []);
 
   useIonViewWillLeave(() => {
-    console.log("useIonViewWillLeave");
     stopScan();
     appState.scannedResult=null;
   });
 
   useIonViewWillEnter(() => {
-    console.log("useIonViewWillLeave");
     if (breakpoint !== 1) {
       startScan();
     }

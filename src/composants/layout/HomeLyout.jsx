@@ -15,16 +15,16 @@ const HomeLayout = ({ children }) => {
   // Définir les couleurs de fond en fonction de la route actuelle
   const backgroundColors = {
     "/": "#c7f0d9",
-    "/tabs/tab2": "#e1f5f5",
-    "/tabs/tab5": "#d9c7f0",
-    "/tabs/tab4": "#fff",
-    "/tabs/tab1": "#c7f0d9",
+    "/tab2": "#e1f5f5",
+    "/tab5": "#d9c7f0",
+    "/tab4": "#fff",
+    "/tab1": "#c7f0d9",
   };
   const closeIcon = {
-    "/tabs/tab1": "vx",
-    "/tabs/tab2": "bx",
+    "/tab1": "vx",
+    "/tab2": "bx",
     "/laterProducts": "bx",
-    "/tabs/tab4": "rf",
+    "/tab4": "rf",
   };
 
   const background = backgroundColors[location.pathname] || "#ffffff";
@@ -41,7 +41,7 @@ const HomeLayout = ({ children }) => {
         >
           <ModalHeader
             image={icon}
-            onClose={() => goToPage("/tabs/tab3")}
+            onClose={() => goToPage("/tab3")}
           />
         </IonToolbar>
       </IonHeader>
@@ -55,6 +55,7 @@ const HomeLayout = ({ children }) => {
             {/* Contenu défilable */}
             <div className="flex-1 overflow-y-auto">{children}</div>
           </div>
+          <BottomNavbar/>
         </div>
       </IonContent>
     </IonPage>

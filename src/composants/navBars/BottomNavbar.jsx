@@ -18,7 +18,10 @@ const BottomNavbar = () => {
   const history = useIonRouter();
   const { triggerAlert } = useAlert();
   const goToPage = (path) => {
-    history.push(path,"root", "replace");
+    history.push(path, "root", "replace");
+  };
+  const goToSubPage = (path) => {
+    history.push(path, "forward", "push");
   };
   useEffect(() => {
     setAuthState(isAuthenticated);
@@ -30,7 +33,7 @@ const BottomNavbar = () => {
       triggerAlert(
         "Vous devez être connecté pour accéder à cette fonctionnalité. Veuillez vous connecter ou créer un compte.",
         "Connexion requise",
-        () => history.push(path,"forward", "push") // Action si l'utilisateur clique sur "S'inscrire ou se connecter"
+        () => goToSubPage("/settings") // Action si l'utilisateur clique sur "S'inscrire ou se connecter"
       );
       return; // Empêcher la navigation
     }
@@ -51,10 +54,12 @@ const BottomNavbar = () => {
 
   return (
     <IonFooter
-      className="ion-no-border"
+     mode="md"
+      className="ion-no-border m-0 p-0"
       style={{ "--ion-background-color": "#ffff" }}
     >
       <IonToolbar
+       mode="md"
         className="bg-[#f7f7f700] ion-no-padding"
         style={{ "--ion-toolbar-background": "#ffff" }}
       >
@@ -62,7 +67,7 @@ const BottomNavbar = () => {
           {/* Bouton Accueil */}
           <button
             className="flex flex-col items-center hover:opacity-80 transition-opacity duration-200"
-            onClick={() => handleButtonClick("/tabs/tab1", true)} // Auth requis
+            onClick={() => handleButtonClick("/tab1", true)} // Auth requis
             aria-label="Accueil"
           >
             <img
@@ -81,7 +86,7 @@ const BottomNavbar = () => {
                 "Fonctionnalité à venir"
               )
             }*/
-            onClick={() => handleButtonClick("/tabs/tab2", false)}
+            onClick={() => handleButtonClick("/tab2", false)}
             aria-label="Favoris"
           >
             <img src={favoris_active} alt="Favoris" className="w-14 h-14" />
@@ -90,7 +95,7 @@ const BottomNavbar = () => {
           {/* Bouton Scanner */}
           <button
             className="flex flex-col items-center hover:opacity-80 transition-opacity duration-200"
-            onClick={() => handleButtonClick("/tabs/tab3", false)} // Pas d'auth requis
+            onClick={() => handleButtonClick("/tab3", false)} // Pas d'auth requis
             aria-label="Scanner"
           >
             <img src={scanner} alt="Scanner" className="w-auto h-14" />
@@ -99,7 +104,7 @@ const BottomNavbar = () => {
           {/* Bouton Recipes */}
           <button
             className="flex flex-col items-center hover:opacity-80 transition-opacity duration-200"
-            onClick={() => handleButtonClick("/tabs/tab4", true)} // Auth requis
+            onClick={() => handleButtonClick("/tab4", true)} // Auth requis
             aria-label="Recipes"
           >
             <img
@@ -112,7 +117,7 @@ const BottomNavbar = () => {
           {/* Bouton Astuces */}
           <button
             className="flex flex-col items-center hover:opacity-80 transition-opacity duration-200"
-            onClick={() => handleButtonClick("/tabs/tab5", true)} // Auth requis
+            onClick={() => handleButtonClick("/tab5", true)} // Auth requis
             aria-label="Astuces"
           >
             <img
