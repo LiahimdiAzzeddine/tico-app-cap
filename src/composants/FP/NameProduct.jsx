@@ -25,8 +25,8 @@ function NameProduct(props) {
         </div>
         <div className="flex flex-col justify-around space-y-1">
           <div>
-            <span className="text-xl titre-roboto-bold text-[#0f548d] ArchivoBold leading-[19.2px]">{props.Name}</span><br></br>
-            <span className="text-sm text-[#42a29a] leading-[19.2px] ArchivoBold">{props.Brand}</span>
+            <span className="text-xl titre-roboto-bold text-[#0f548d] ArchivoBold leading-archivo">{props.Name}</span><br></br>
+            <span className="text-sm text-[#42a29a] leading-archivo ArchivoBold">{props.Brand}</span>
           </div>
           
           <div className="text-sm text-[#42a29a] font-bold ArchivoBoldItalique">

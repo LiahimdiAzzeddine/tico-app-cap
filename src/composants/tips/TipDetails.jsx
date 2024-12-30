@@ -27,17 +27,17 @@ const TipDetails = ({ tip }) => {
   return (
     <div className="flex flex-col h-full">
       {/* Contenu principal */}
-      <div className="flex-grow bg-white rounded-b-[2rem] pb-14">
+      <div className="flex-grow bg-white rounded-b-[2rem] pb-8">
         {/* Section Titre et Image */}
         <div className="bg-custom-orange px-4 pt-4 pb-4 rounded-b-[2rem] w-full">
           <div
             className="w-full flex items-end justify-end bg-no-repeat bg-contain bg-center relative bgImage"
           >
             <div className="flex flex-col justify-end items-center w-full">
-              <h2 className="text-center text-custom-text-orange  text-2xl titre-bold mb-4">
+              <h2 className="text-center text-custom-blue  text-2xl ArchivoExtraBold py-2">
                 {title}
               </h2>
-              <div className="w-full flex flex-col justify-end items-end">
+              <div className="w-full flex flex-col justify-end items-end pr-2 pb-3">
                 <img
                   src={image}
                   alt={title}
@@ -49,12 +49,12 @@ const TipDetails = ({ tip }) => {
         </div>
 
         {/* Section Détails */}
-        <div className="px-6 mt-6">
-          <h2 className="text-custom-text-orange text-2xl font-bold mb-3 ArchivoBold">
+        <div className="px-6 pt-6">
+          <h2 className="text-custom-text-orange text-2xl ArchivoBold pb-3 leading-archivo ">
             Notre ti'conseil
           </h2>
           <p
-            className="text-[#ffb76c] text-base leading-relaxed break-words"
+            className="text-[#ffb76c] text-base break-words leading-snug"
             dangerouslySetInnerHTML={{ __html: details }}
           />
         </div>
@@ -65,7 +65,7 @@ const TipDetails = ({ tip }) => {
         <button
           type="button"
           onClick={shareTip}
-          className=" bg-custom-text-orange text-white ] font-bold px-3 py-2 rounded-lg Archivo"
+          className=" bg-custom-text-orange text-white ] ArchivoBold px-3 py-2 rounded-lg"
         >
           Partager autour de moi
         </button>

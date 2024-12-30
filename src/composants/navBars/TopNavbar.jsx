@@ -6,14 +6,15 @@ import FAQComponent from "../settings/FAQ/FAQComponent";
 import WhiteModal from "../modales/WhiteModal";
 import { useIonRouter } from "@ionic/react";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
+import { useAlert } from "../../context/AlertProvider";
 
 const TopNavbar = () => {
   const [showModalFAQ, setShowModalFAQ] = useState(false);
   const history = useIonRouter();
+  const { triggerAlert } = useAlert();
   const goToSubPage = (path) => {
     history.push(path, "forward","push");
   };
-
 
   const handleLogoClick = () => {
     triggerHapticFeedback();
@@ -24,6 +25,19 @@ const TopNavbar = () => {
     triggerHapticFeedback();
     setShowModalFAQ(true);
   };
+
+  const ficheProduitInfo = () => {
+    triggerAlert(
+      "Nous travaillons activement sur cette fonctionnalité. Elle sera bientôt disponible.",
+      "Information",
+      null,
+      "ios",
+      "",
+      "Compris",
+      true
+    );
+  };
+  
 
   const triggerHapticFeedback = async () => {
     if (Capacitor.isNativePlatform()) {
@@ -62,7 +76,7 @@ const TopNavbar = () => {
             {/* Bouton d'information avec icône */}
             <button
               className="flex items-center justify-center rounded-full hover:opacity-80 transition-opacity duration-200"
-              onClick={handleInfoClick}
+              onClick={()=>{ficheProduitInfo()}}
               aria-label="Open FAQ"
             >
               <img src={info} alt="Info" className="w-9 h-9" />

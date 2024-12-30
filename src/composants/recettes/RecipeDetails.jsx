@@ -63,7 +63,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
   return (
     <>
       <div className="bg-white rounded-b-[2rem] pb-14">
-        <div className="bg-custom-red-bg-clear px-6 pb-4 pt-2 rounded-b-[2rem]  space-y-6">
+        <div className="bg-custom-red-bg-clear px-6 pb-4 pt-6 rounded-b-[2rem]  space-y-6">
           <div className="w-full min-h-[30dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative recetteBg">
             <div className="flex flex-col justify-center items-center space-y-4">
               <h2 className="text-center text-custom-red text-2xl titre-bold ">
@@ -104,14 +104,14 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
           </div>
         </div>
         {ingredients && (
-          <div className="px-6 mt-6">
+          <div className="px-6 pt-6">
             <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoBold">
               Ingrédients
             </h2>
             <ul className="list-inside list-none Archivo">
               {ingredients.length > 0 ? (
                 ingredients.map((ingredient, index) => (
-                  <li key={index} className="text-custom-red">
+                  <li key={index} className="text-custom-red Archivo leading-archivo">
                     {ingredient.qt ? `${ingredient.qt} ` : ""}
                     {ingredient.unit ? `${ingredient.unit} ` : ""}
                     {ingredient.name}
@@ -132,7 +132,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
         </div>
 
         {steps.length > 0 ? (
-          <div className="px-6 mt-6">
+          <div className="px-6 pt-6">
             <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoBold">
               Recette
             </h2>
@@ -146,16 +146,15 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
             >
               {groupSteps(steps, 3).map((stepGroup, index) => (
                 <SwiperSlide key={index}>
-                  <div className="h-full flex flex-col items-start justify-start mb-6">
-                    {stepGroup.map((step, stepIndex) => (
-                      <div key={stepIndex} className="mb-2">
-                        <p className="text-custom-red Archivo">
-                          {"• "}
-                          {step.description}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+                   <div className="h-full flex flex-col items-start justify-start mb-6">
+          <ul className="list-disc pl-4">
+            {stepGroup.map((step, stepIndex) => (
+              <li key={stepIndex} className="text-custom-red Archivo leading-archivo mb-2">
+                {step.description}
+              </li>
+            ))}
+          </ul>
+        </div>
                 </SwiperSlide>
               ))}
             </Swiper>

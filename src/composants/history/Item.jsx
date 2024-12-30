@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import {
   IonItemSliding,
@@ -31,7 +30,7 @@ const Item = ({ product, index, OpenFb, handleDelete }) => {
         }} // S'assure que l'élément occupe toute la largeur
       >
         <motion.div
-          className="flex items-center py-4 w-full"
+          className="flex items-center py-3 w-full"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 50 }}
@@ -58,10 +57,10 @@ const Item = ({ product, index, OpenFb, handleDelete }) => {
 
           {/* Détails du produit */}
           <div className="flex-1 flex flex-col">
-            <div className="font-bold text-custom-green-text ArchivoExtraBold leading-[19.2px]">
+            <div className="font-bold text-custom-green-text ArchivoExtraBold leading-archivo">
               {product.name}
             </div>
-            <span className="text-custom-green-text text-sm ArchivoLight leading-[19.2px] italic">{product.trademark}</span>
+            <span className="text-custom-green-text text-sm ArchivoLight leading-archivo italic">{product.trademark}</span>
           </div>
 
           {/* Bouton flèche */}

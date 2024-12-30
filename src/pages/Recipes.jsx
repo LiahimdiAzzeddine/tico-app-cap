@@ -43,7 +43,7 @@ function Recipes() {
           <div
             className="flex flex-col items-center justify-center h-5/6 max-h-28 backgroundRecette"
           >
-            <h2 className="text-center text-custom-red text-3xl titre-bold">
+            <h2 className="text-center text-custom-red text-2xl titre-bold">
               Tit'recettes
             </h2>
           </div>
@@ -73,7 +73,7 @@ function Recipes() {
             <button
               type="button"
               onClick={() => setShowModalAddRecipe(true)}
-              className="text-white bg-custom-red border-solid border-[1px] font-bold border-[#fad4ce] px-3 py-2 rounded-lg hover:bg-custom-red-clear "
+              className="text-white bg-custom-red border-solid border-[1px] ArchivoBold border-[#fad4ce] px-3 py-2 rounded-lg hover:bg-custom-red-clear "
             >
               Proposer une recette
             </button>

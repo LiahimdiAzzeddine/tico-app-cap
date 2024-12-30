@@ -36,11 +36,11 @@ const Item = ({ recipe, index, length, OpenFb }) => {
 
         {/* Product details */}
         <div className="flex-1">
-          <div className="font-bold text-custom-red leading-[19.2px] ArchivoBold">
+          <div className="text-custom-red leading-archivo ArchivoExtraBold">
             {recipe.title}
           </div>
 
-          <div className="text-custom-red-clear leading-[19.2px] Archivo">
+          <div className="text-custom-red-clear leading-archivo Archivo">
             {recipe?.difficulte && <>{recipe.difficulte} |&nbsp;</>}
             {(recipe?.timecook || recipe?.timerest || recipe?.timebake) && (
               <>

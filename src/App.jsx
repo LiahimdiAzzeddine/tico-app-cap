@@ -140,7 +140,7 @@ function App() {
       </Route>
       <Route path="/validation/:token" exact={true}>
         <SimpleLyout
-          image="bx"
+         image={ReturnImage}
           Close={() => {
             goToPage("/tab3");
           }}

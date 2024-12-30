@@ -10,7 +10,7 @@ export const EmptyState = () => (
       <h3 className="text-xl font-semibold text-custom-green-text ArchivoBold mb-2">
         Aucun scan pour le moment
       </h3>
-      <p className="text-custom-green-text ArchivoItalic max-w-md">
+      <p className="text-custom-green-text ArchivoItalic max-w-md leading-archivo">
         Commencez à scanner des produits pour les voir apparaître dans votre historique.
       </p>
     </div>

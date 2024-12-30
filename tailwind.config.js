@@ -8,7 +8,8 @@ export default {
     extend: {
       
         lineHeight: {
-         
+         clash:1,
+         archivo:1.2,
         },
         
       colors: {

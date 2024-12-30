@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useIonRouter } from "@ionic/react";
+import { IonLoading, useIonLoading, useIonRouter } from "@ionic/react";
 
 import Spinner from '../composants/Spinner';
 import { alertCircle, checkmarkCircle } from 'ionicons/icons';
@@ -10,6 +10,8 @@ import { IonIcon } from "@ionic/react";
 const ValidationEmail = () => {
     const { token } = useParams();
     const history = useIonRouter();
+    const [present, dismiss] = useIonLoading();
+    
     const goToPage = (path) => {
         history.push(path, "root", "replace");
       };
@@ -19,7 +21,12 @@ const ValidationEmail = () => {
     const [successMessage, setSuccessMessage] = useState(null);
 
     useEffect(() => {
+        
         const validateEmail = async () => {
+            await present({
+            mode: "ios",
+            spinner: "bubbles",
+          });
             try {
                 // Tentative de validation de l'email avec le token
                 const response = await axios.get(`/api/validate-email/${token}`);
@@ -40,6 +47,7 @@ const ValidationEmail = () => {
                 setError(errorMessage);  // Mise à jour de l'état error
                 setLoading(false);
             }
+            await dismiss();
         };
 
         // Lancer la fonction de validation à chaque changement du token
@@ -50,9 +58,7 @@ const ValidationEmail = () => {
         <div className="flex justify-center items-center h-full">
             {/* Affichage du spinner pendant le chargement */}
             {loading && (
-                <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-                    <Spinner />
-                </div>
+               <IonLoading trigger="open-loading" message="Dismissing after 3 seconds..." duration={3000} />
             )}
 
             {/* Affichage de l'erreur si une erreur survient */}

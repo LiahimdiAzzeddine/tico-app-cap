@@ -202,4 +202,4 @@ const LaterProducts = () => {
   );
 };
 
-export default LaterProducts;
+export default React.memo(LaterProducts);

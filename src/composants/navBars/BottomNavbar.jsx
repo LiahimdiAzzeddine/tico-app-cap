@@ -54,11 +54,9 @@ const BottomNavbar = () => {
 
   return (
     <IonFooter
-     mode="md"
-      className="ion-no-border m-0 p-0"
-      style={{ "--ion-background-color": "#ffff" }}
+      className="ion-no-border m-0 p-0 bg-white"
     >
-      <IonToolbar
+      <div
        mode="md"
         className="bg-[#f7f7f700] ion-no-padding"
         style={{ "--ion-toolbar-background": "#ffff" }}
@@ -127,7 +125,7 @@ const BottomNavbar = () => {
             />
           </button>
         </div>
-      </IonToolbar>
+      </div>
     </IonFooter>
   );
 };

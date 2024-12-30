@@ -84,7 +84,7 @@ const History = () => {
         </div>
 
         {/* Message explicatif fixe */}
-        <div className="mt-4 text-center text-gray-700 text-sm ArchivoLight italic">
+        <div className="mt-4 text-center text-gray-700 text-sm ArchivoLight italic leading-archivo">
         Glissez un produit pour afficher les options de suppression et de visualisation.
         </div>
 
@@ -101,7 +101,6 @@ const History = () => {
                   OpenFb={OpenFb}
                   handleDelete={handleDelete}
                 />
-              
             )
           ) : (
             <EmptyState />
@@ -126,4 +125,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default React.memo(History);

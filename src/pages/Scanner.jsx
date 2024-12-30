@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import Main from '../composants/scanner/Main';
 import ScannerLyout from '../composants/layout/ScannerLyout';
 import { useIonViewDidEnter, useIonViewDidLeave } from "@ionic/react";
+import FirstVisitGuard from '../guards/FirstVisitGuard';
 const ScanPage = () => {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -16,9 +17,11 @@ const ScanPage = () => {
     });
   //if (!isVisible) return null;
   return (
+    <FirstVisitGuard>
     <ScannerLyout>
     <Main/>
     </ScannerLyout>
+    </FirstVisitGuard>
   );
 };
 

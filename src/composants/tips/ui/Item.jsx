@@ -34,11 +34,11 @@ const Item = ({ tip, index, length, OpenTip }) => {
 
         {/* Détails du conseil */}
         <div className="flex-1">
-          <div className="font-bold text-custom-text-orange  leading-[19.2px] ArchivoBold">
+          <div className="text-custom-text-orange leading-archivo ArchivoExtraBold">
             {tip.title} {/* Afficher le titre du conseil */}
           </div>
           <div
-            className="text-custom-text-orange  leading-[19.2px] Archivo"
+            className="text-custom-text-orange  leading-none Archivo"
             dangerouslySetInnerHTML={{
               __html: tip?.details?.substring(0, 50) + "...",
             }}
