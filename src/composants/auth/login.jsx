@@ -46,6 +46,7 @@ const Login = ({ createCompte = false, redirection }) => {
         <form
           onSubmit={handleSubmitLogin}
           autocorrect="on"
+          autoComplete="on"
           className="space-y-4 w-11/12 max-w-xs h-5/6"
         >
           {/* Email Input */}
@@ -71,6 +72,7 @@ const Login = ({ createCompte = false, redirection }) => {
               required
               aria-invalid={!!errors.email}
               aria-describedby="email-error"
+              autoComplete="email"
             />
 
             {errors.email && (
@@ -104,6 +106,7 @@ const Login = ({ createCompte = false, redirection }) => {
                 required
                 aria-invalid={!!errors.password}
                 aria-describedby="password-error"
+                autoComplete="password"
               />
 
               <button
