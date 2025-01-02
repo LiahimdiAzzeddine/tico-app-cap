@@ -6,7 +6,7 @@ import useStripe from "../hooks/useStripe";
 import { Share } from "@capacitor/share";
 import { useAlert } from "../context/AlertProvider";
 import HomeLayout from "../composants/layout/HomeLyout";
-
+import FlecheContact from "../assets/fb/FlecheContact.svg";
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 const HelpTiCO = () => {
@@ -62,9 +62,15 @@ const HelpTiCO = () => {
         <div className="flex grow items-center justify-start w-full max-w-sm px-2 pb-4">
           <div className="w-full max-w-sm flex flex-col items-center h-full justify-center space-y-6">
             <p className="text-lg text-[#446d8f] w-full font-bold text-center ArchivoLight leading-archivo">
-              Vous pouvez nous aider à développer les nouvelles fonctionnalités :
+              Vous souhaitez nous aider à faire la transparence&nbsp;?
             </p>
-            <div className="flex flex-col items-center justify-center w-2/4">
+            <div className="relative flex flex-col items-center justify-center w-2/4">
+              {/* Flèche */}
+              <img
+                src={FlecheContact}
+                className="absolute top-0 -left-11 w-8 h-auto" // Ajustez les valeurs pour positionner parfaitement
+              />
+              {/* Bouton */}
               <button
                 onClick={handleShare}
                 className="bg-custom-blue text-white ArchivoBold text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
@@ -72,9 +78,11 @@ const HelpTiCO = () => {
                 Partager TiCO
               </button>
             </div>
+
             <div className="max-w-sm flex flex-col items-center justify-start space-y-4 w-full">
               <p className="text-lg text-[#446d8f] w-full font-bold text-center ArchivoLight leading-archivo">
-                Aider TiCO financièrement à hauteur de :
+                Vous pouvez également nous soutenir financièrement pour
+                développer de nouvelles fonctionnalités.
               </p>
               <div className="flex w-2/4 items-center border-2 border-custom-blue rounded-xl">
                 <input
@@ -89,44 +97,50 @@ const HelpTiCO = () => {
                   icon={logoEuro}
                 />
               </div>
-              <button
-                className={`bg-custom-blue text-white ArchivoBold w-2/4 text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 ${
-                  loading ? "opacity-50 cursor-not-allowed" : ""
-                }`}
-                onClick={() => {
-                  clickHelp();
-                  setAmount("");
-                }}
-                disabled={loading} // Désactiver le bouton pendant le traitement
-              >
-                {loading ? (
-                  <div className="flex items-center justify-center">
-                    <svg
-                      className="animate-spin h-5 w-5 text-white mr-2"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    Traitement...
-                  </div>
-                ) : (
-                  "Aider TiCO"
-                )}
-              </button>
+              <div className="relative flex flex-col items-center justify-center w-2/4">
+                <img
+                  src={FlecheContact}
+                  className="absolute top-0 -left-5 w-8 h-auto" // Ajustez les valeurs pour positionner parfaitement
+                />
+                <button
+                  className={`bg-custom-blue text-white ArchivoBold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 ${
+                    loading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  onClick={() => {
+                    clickHelp();
+                    setAmount("");
+                  }}
+                  disabled={loading} // Désactiver le bouton pendant le traitement
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center">
+                      <svg
+                        className="animate-spin h-5 w-5 text-white mr-2"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Traitement...
+                    </div>
+                  ) : (
+                    "Aider TiCO"
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>

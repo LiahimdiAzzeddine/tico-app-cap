@@ -7,7 +7,7 @@ import CustomModal from "../modales/CustomModal";
 import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
 
-const Login = ({ createCompte = false,redirection }) => {
+const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
   const [values, setValues] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -59,6 +59,7 @@ const Login = ({ createCompte = false,redirection }) => {
               id="email"
               name="email"
               type="email"
+              autoComplete="email"
               value={values.email}
               onChange={handleChange}
               className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
@@ -70,6 +71,7 @@ const Login = ({ createCompte = false,redirection }) => {
               aria-invalid={!!errors.email}
               aria-describedby="email-error"
             />
+
             {errors.email && (
               <p id="email-error" className="text-red-500 text-sm mt-1">
                 {errors.email[0]}
@@ -90,6 +92,7 @@ const Login = ({ createCompte = false,redirection }) => {
                 id="password"
                 name="password"
                 type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
                 value={values.password}
                 onChange={handleChange}
                 className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
@@ -101,6 +104,7 @@ const Login = ({ createCompte = false,redirection }) => {
                 aria-invalid={!!errors.password}
                 aria-describedby="password-error"
               />
+
               <button
                 type="button"
                 onClick={togglePasswordVisibility}

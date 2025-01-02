@@ -58,7 +58,7 @@ const TopNavbar = () => {
           className="px-5"
           style={{ "--ion-toolbar-background": "#ffff" }}
         >
-          <div className="flex justify-between items-center pb-3 pt-4">
+          <div className="flex justify-between items-center pb-2 pt-2">
             <button
               className="flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200"
               onClick={handleLogoClick}

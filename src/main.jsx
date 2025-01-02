@@ -34,7 +34,7 @@ setupIonicReact({
 
 const store = createStore({
   authName: "_auth",
-  authType: "cookie",
+  authType: "localstorage",
   cookieDomain: window.location.hostname,
   cookieSecure: window.location.protocol === "https:",
   refresh: refresh,

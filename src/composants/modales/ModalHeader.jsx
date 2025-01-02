@@ -25,7 +25,7 @@ function ModalHeader({ image, onClose }) {
 
   return (
     <div
-      className="flex justify-between items-center pt-4 pb-1 px-5 modal-background"
+      className="flex justify-between items-center pt-2 pb-1 px-5 modal-background"
       style={{ zIndex: 10 }}
     >
       <button
