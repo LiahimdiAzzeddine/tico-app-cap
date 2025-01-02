@@ -62,7 +62,7 @@ const BottomNavbar = () => {
         className="bg-[#f7f7f700] ion-no-padding"
         style={{ "--ion-toolbar-background": "#ffff" }}
       >
-        <div className="flex justify-around items-center py-4 px-2">
+        <div className="flex justify-around items-center py-2 px-2">
           {/* Bouton Accueil */}
           <button
             className="flex flex-col items-center hover:opacity-80 transition-opacity duration-200"

@@ -45,6 +45,7 @@ const Login = ({ createCompte = false, redirection }) => {
 
         <form
           onSubmit={handleSubmitLogin}
+          autocorrect="on"
           className="space-y-4 w-11/12 max-w-xs h-5/6"
         >
           {/* Email Input */}
@@ -59,7 +60,7 @@ const Login = ({ createCompte = false, redirection }) => {
               id="email"
               name="email"
               type="email"
-              autoComplete="email"
+              autocorrect="on"
               value={values.email}
               onChange={handleChange}
               className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
@@ -92,7 +93,7 @@ const Login = ({ createCompte = false, redirection }) => {
                 id="password"
                 name="password"
                 type={showPassword ? "text" : "password"}
-                autoComplete="current-password"
+                autocorrect="on"
                 value={values.password}
                 onChange={handleChange}
                 className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
