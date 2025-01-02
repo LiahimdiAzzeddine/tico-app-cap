@@ -31,7 +31,7 @@ const BottomNavbar = () => {
     // Si l'utilisateur n'est pas authentifié et la route nécessite une authentification
     if (isAuthRequired && !authState) {
       triggerAlert(
-        "Vous devez être connecté pour accéder à cette fonctionnalité. Veuillez vous connecter ou créer un compte.",
+        "Pour accéder à cette fonctionnalité, vous devez être connecté à votre compte. Merci de vous connecter ou de créer un compte.",
         "Connexion requise",
         () => goToSubPage("/settings") // Action si l'utilisateur clique sur "S'inscrire ou se connecter"
       );
@@ -55,13 +55,14 @@ const BottomNavbar = () => {
   return (
     <IonFooter
       className="ion-no-border m-0 p-0 bg-white"
+       mode="ios"
     >
-      <div
-       mode="md"
+      <IonToolbar
+      mode="ios"
         className="bg-[#f7f7f700] ion-no-padding"
         style={{ "--ion-toolbar-background": "#ffff" }}
       >
-        <div className="flex justify-around items-center py-3 px-2">
+        <div className="flex justify-around items-center py-4 px-2">
           {/* Bouton Accueil */}
           <button
             className="flex flex-col items-center hover:opacity-80 transition-opacity duration-200"
@@ -125,7 +126,7 @@ const BottomNavbar = () => {
             />
           </button>
         </div>
-      </div>
+      </IonToolbar>
     </IonFooter>
   );
 };

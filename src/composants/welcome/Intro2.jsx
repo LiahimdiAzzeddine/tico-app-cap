@@ -23,7 +23,7 @@ function Intro2() {
           />
           <div className="flex flex-col items-center justify-center w-4/5 gap-3 text-center">
             <div className="text-xl text-custom-blue Archivo">
-              Encourager<br></br> les pratiques plus responsables d’un{" "}
+              Encourager<br></br> des pratiques plus responsables d’un{" "}
               <span className="font-bold ArchivoBold">simple scan&nbsp;!</span>
             </div>
           </div>

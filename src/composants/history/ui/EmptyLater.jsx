@@ -11,7 +11,9 @@ export const EmptyLater = () => (
       Aucun produit sauvegardé
     </h3>
     <p className="text-custom-green-text ArchivoItalic leading-archivo">
-      Ajoutez des produits à votre liste pour les retrouver plus tard !
+    Vous êtes hors ligne ? Scannez
+des produits et consultez-les plus
+tard !
     </p>
   </div>
 );

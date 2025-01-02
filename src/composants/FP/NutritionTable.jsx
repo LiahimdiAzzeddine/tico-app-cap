@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from "react";
-
 const NutritionTable = ({ product, portion }) => {
   const [unit, setUnit] = useState("100g");
 
@@ -36,13 +35,24 @@ const NutritionTable = ({ product, portion }) => {
     return (value / 100) * parseFloat(portion);
   };
 
+  const calculatePortionVNR = (vnr, portion) => {
+    return (vnr / 100) * parseFloat(portion);
+  };
+
   const NutritionRow = ({ item, level = 0, portion, parentId = "" }) => {
     const value =
       unit === "portion" && portion
         ? calculatePortionValue(item.value.qt, portion)
         : item.value.qt;
 
+    const vnr =
+      unit === "portion" && portion
+        ? calculatePortionVNR(item.value.vnr, portion)
+        : item.value.vnr;
+
     const formattedValue = value % 1 === 0 ? value : value.toFixed(1);
+    const formattedVNR = vnr % 1 === 0 ? vnr : vnr.toFixed(1);
+
     const rowKey = `${parentId}-${item.id}`;
 
     return (
@@ -67,8 +77,8 @@ const NutritionTable = ({ product, portion }) => {
             )}
           </td>
           <td className="text-right text-gray-500 py-1 Archivo min-w-16">
-            {item.value.vnr !== null && item.value.vnr !== undefined ? (
-              <>{item.value.vnr} %</>
+            {vnr !== null && vnr !== undefined && vnr !== 0 ? (
+              <>{formattedVNR} %</>
             ) : (
               ""
             )}
@@ -169,7 +179,6 @@ const NutritionTable = ({ product, portion }) => {
               </tr>
             </thead>
             <tbody>
-              {console.log(hierarchicalData)}
               {hierarchicalData
                 .filter(
                   (item) =>

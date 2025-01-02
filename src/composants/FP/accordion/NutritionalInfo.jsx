@@ -24,9 +24,7 @@ function NutritionalInfo({
     <div className="bg-custom-green-clear rounded-e-[3rem] left-0 w-[95%] min-h-72 z-0 relative pb-4">
       <div className="px-2 py-6">
         <div className="text-sm text-custom-blue Archivo">
-          La portion recommandée pour ce produit est de :
-        </div>
-        <div className="text-base font-bold text-center p-2 text-custom-blue Archivo">
+        Portion indiquée :<span className="text-base font-bold text-center p-2 text-custom-blue Archivo">
           {/* Affichage conditionnel pour les valeurs manquantes */}
           {portion && portion != 0 && unit && unit != "" ? (
             <>
@@ -38,7 +36,9 @@ function NutritionalInfo({
           ) : (
             "Données sur la portion non disponibles"
           )}
+        </span>
         </div>
+        
         <h1 className="text-xl text-custom-blue font-bold pt-3 px-2 ArchivoBold">
           <span className="marker-effect-cyan ArchivoBold">
             Profil nutritionnel

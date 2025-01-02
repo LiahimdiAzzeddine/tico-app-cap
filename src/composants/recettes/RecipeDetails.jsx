@@ -62,7 +62,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
   const defaultImage = defaultImageRecette;
   return (
     <>
-      <div className="bg-white rounded-b-[2rem] pb-14">
+      <div className="bg-white rounded-b-[2rem] pb-8">
         <div className="bg-custom-red-bg-clear px-6 pb-4 pt-6 rounded-b-[2rem]  space-y-6">
           <div className="w-full min-h-[30dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative recetteBg">
             <div className="flex flex-col justify-center items-center space-y-4">
@@ -147,7 +147,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               {groupSteps(steps, 3).map((stepGroup, index) => (
                 <SwiperSlide key={index}>
                    <div className="h-full flex flex-col items-start justify-start mb-6">
-          <ul className="list-disc pl-4">
+          <ul className="list-disc pl-5">
             {stepGroup.map((step, stepIndex) => (
               <li key={stepIndex} className="text-custom-red Archivo leading-archivo mb-2">
                 {step.description}
@@ -170,9 +170,10 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
             </div>
           </div>
         )}
+        {/**
         <div className="w-20 h-auto absolute right-6  ">
           <img src={badgeimage} />
-        </div>
+        </div> */}
       </div>
       <div className="h-[5vh] w-full flex flex-col justify-center items-center"></div>
     </>

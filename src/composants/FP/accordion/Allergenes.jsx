@@ -32,6 +32,23 @@ const Allergenes = ({ allergenes = [] }) => {
     soybeans: Soja,
     'sulphur-dioxide-and-sulphites': Sulfites,
   };
+  const allergenesEngToFr = {
+    peanuts: "Arachides",
+    celery: "Céleri",
+    molluscs: "Mollusques",
+    crustaceans: "Crustacés",
+    nuts: "Noix",
+    gluten: "Gluten",
+    milk: "Lait",
+    lupin: "Lupin",
+    mustard: "Moutarde",
+    eggs: "Œufs",
+    fish: "Poisson",
+    'sesame-seeds': "Graines de sésame",
+    soybeans: "Soja",
+    'sulphur-dioxide-and-sulphites': "Dioxyde de soufre et sulfites",
+  };
+  
 
   return (
     <>
@@ -55,7 +72,7 @@ const Allergenes = ({ allergenes = [] }) => {
               )}
               <span className="text-sm text-custom-blue mt-1 ArchivoBold m-auto">
                 {allergene
-                  ? allergene.charAt(0).toUpperCase() + allergene.slice(1)
+                  ? allergenesEngToFr[allergene]
                   : "Inconnu"}
               </span>
             </div>

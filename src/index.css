@@ -351,7 +351,7 @@ padding-top: 1rem;
 }
 
 .recipe-slider .swiper-pagination {
-  bottom: 10px; /* Position en bas du slider */
+  bottom: 0px; /* Position en bas du slider */
 }
 
 .recipe-slider .swiper-pagination-bullets {

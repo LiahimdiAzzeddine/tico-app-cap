@@ -101,7 +101,7 @@ function Recettes({ recettes,targetRefRecettes }) {
         <img src={flecheRed} alt="Fleche" className="w-12 absolute left-8 " />
         <button
           onClick={() => handleAddrecipe()}
-          className="text-gl text-white bg-custom-blue rounded-md font-bold w-48 p-2 "
+          className="text-gl text-white bg-custom-red rounded-md font-bold w-48 p-2 "
         >
           Proposer une recette pour ce produit
         </button>

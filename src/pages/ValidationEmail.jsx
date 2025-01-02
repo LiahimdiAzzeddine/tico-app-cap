@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { IonLoading, useIonLoading, useIonRouter } from "@ionic/react";
-
-import Spinner from '../composants/Spinner';
 import { alertCircle, checkmarkCircle } from 'ionicons/icons';
 import axios from "../api/axios";
 import { IonIcon } from "@ionic/react";

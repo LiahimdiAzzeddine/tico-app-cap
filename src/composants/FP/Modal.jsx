@@ -327,6 +327,7 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
         {/* Fixed Header with Buttons */}
         <div className="sticky">
           <div className="flex flex-row gap-1 max-w-xs mx-auto pt-2">
+            {/** 
             <button
               style={{ border: "2px solid #0f548d" }}
               className={`flex-1 p-1 rounded-xl Archivo opacity-50 cursor-not-allowed  ${
@@ -334,10 +335,10 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
                   ? "bg-custom-blue font-bold text-white"
                   : "text-custom-blue"
               }`}
-              onClick={() => console.log(/*setShowInfo("transformation")*/)}
+              onClick={() => console.log()}
             >
               Naturalité
-            </button>
+            </button>*/}
 
             <button
 
@@ -380,12 +381,12 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
                     <img
                       src={Additif}
                       alt="Additives"
-                      className="w-11 sm:w-12 h-auto"
+                      className="w-12 sm:w-12 h-auto"
                     />
                   </div>
                 </div>
                 <h1 className="text-xl text-custom-blue font-bold text-center py-2">
-                  <span className="marker-effect-cyan z-10 ArchivoExtraBold">Additifs</span>
+                  <span className="marker-effect-cyan z-10 ArchivoExtraBold ">Additifs</span>
                 </h1>
 
                 <div className="space-y-2">

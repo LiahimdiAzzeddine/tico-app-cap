@@ -42,11 +42,11 @@ const InfoSection = ({
     E: Nutri_score_E,
   };
   const nutriscoreComment = {
-    A: "Riche en nutriments bénéfiques et faibles en éléments à limiter&nbsp;! A&nbspprivilégier&nbsp;!",
-    B: "Ca reste de bons choix pour votre alimentation",
-    C: "Ce ne sont pas des aliments à&nbsp;éviter, mais à consommer dans le cadre d'une alimentation variée&nbsp;!",
-    D: "Plutôt à limiter, à&nbsp;consommer avec modération&nbsp;!",
-    E: "A consommer avec parcimonie et pour le plaisir&nbsp;!",
+    A: "OK côté nutrition, vérifier la naturalité des ingrédients avant de favoriser ce produit",
+    B: "Profil nutritionnel OK, vérifier la naturalité des ingrédients avant de favoriser ce produit",
+    C: "Profil nutritionnel moyen, vérifier la naturalité des ingrédients avant de favoriser ce produit",
+    D: "À consommer avec modération et vérifier la naturalité des ingrédients.",
+    E: "A consommer avec parcimonie et vérifier si les ingrédients sont naturels&nbsp;!",
   };
   const OpenContactSolliciter = () => {
     if (!isAuthenticated) {

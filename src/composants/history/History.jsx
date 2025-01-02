@@ -28,7 +28,6 @@ const History = () => {
     }
   };
   const handleDelete = async (gtin) => {
-    
     triggerAlert(
       "Êtes-vous sûr de vouloir continuer ?", // Message
       "Confirmation", // Titre
@@ -66,34 +65,32 @@ const History = () => {
 
   return (
     <>
-     <SimpleLyout
-    Close={() => {
-      history.goBack();
-    }}
-      image={VF}
-    >
-      <div className="p-4 details flex flex-col h-full">
-        {/* En-tête fixe */}
-        <div
-          className="flex flex-col items-center justify-center min-h-[10vh] backgroundHistorique"
-          
-        >
-          <h2 className="text-center text-custom-green-text text-[1.7rem] titre-bold">
-            Mon&nbsp;historique&nbsp;de scan
-          </h2>
-        </div>
+      <SimpleLyout
+        Close={() => {
+          history.goBack();
+        }}
+        image={VF}
+      >
+        <div className="p-4 details flex flex-col h-full">
+          {/* En-tête fixe */}
+          <div className="flex flex-col items-center justify-center min-h-[10vh] backgroundHistorique">
+            <h2 className="text-center text-custom-green-text text-[1.7rem] titre-bold">
+              Mon&nbsp;historique&nbsp;de scan
+            </h2>
+          </div>
 
-        {/* Message explicatif fixe */}
-        <div className="mt-4 text-center text-gray-700 text-sm ArchivoLight italic leading-archivo">
-        Glissez un produit pour afficher les options de suppression et de visualisation.
-        </div>
+          {/* Message explicatif fixe 
+          <div className="mt-4 text-center text-gray-700 text-sm ArchivoLight italic leading-archivo">
+            Glissez un produit pour afficher les options de suppression et de
+            visualisation.
+          </div>*/}
 
-        {/* Contenu scrollable */}
-        <div className="mt-2 flex-grow overflow-y-auto">
-          {loading ? (
-            <LoadingState />
-          ) : products.length > 0 ? (
-            products.map((product,index) =>
+          {/* Contenu scrollable */}
+          <div className="mt-2 flex-grow overflow-y-auto">
+            {loading ? (
+              <LoadingState />
+            ) : products.length > 0 ? (
+              products.map((product, index) => (
                 <Item
                   product={product}
                   index={index}
@@ -101,24 +98,29 @@ const History = () => {
                   OpenFb={OpenFb}
                   handleDelete={handleDelete}
                 />
-            )
-          ) : (
-            <EmptyState />
-          )}
+              ))
+            ) : (
+              <EmptyState />
+            )}
+          </div>
         </div>
-      </div>
-</SimpleLyout>
+      </SimpleLyout>
       <IonModal isOpen={isOpenFb}>
-        <IonPage style={{paddingTop:"env(safe-area-inset-top)",backgroundColor:"#ffffff" }}>
-        <ModalHeader
-          image={"fb"}
-          onClose={() => {
-            setIsOpenFb(false);
+        <IonPage
+          style={{
+            paddingTop: "env(safe-area-inset-top)",
+            backgroundColor: "#ffffff",
           }}
-        />
-        <IonContent className="ion-padding-bottom">
-          <FicheProduit productData={ean} resetBarcode={setIsOpenFb} />
-        </IonContent>
+        >
+          <ModalHeader
+            image={"fb"}
+            onClose={() => {
+              setIsOpenFb(false);
+            }}
+          />
+          <IonContent className="ion-padding-bottom">
+            <FicheProduit productData={ean} resetBarcode={setIsOpenFb} />
+          </IonContent>
         </IonPage>
       </IonModal>
     </>
