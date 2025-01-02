@@ -55,14 +55,14 @@ const BottomNavbar = () => {
   return (
     <IonFooter
       className="ion-no-border m-0 p-0 bg-white"
-       mode="ios"
+       mode="md"
     >
-      <IonToolbar
-      mode="ios"
+      <div
+      mode="md"
         className="bg-[#f7f7f700] ion-no-padding"
         style={{ "--ion-toolbar-background": "#ffff" }}
       >
-        <div className="flex justify-around items-center py-2 px-2">
+        <div className="flex justify-around items-center pt-3 pb-1 px-2">
           {/* Bouton Accueil */}
           <button
             className="flex flex-col items-center hover:opacity-80 transition-opacity duration-200"
@@ -126,7 +126,7 @@ const BottomNavbar = () => {
             />
           </button>
         </div>
-      </IonToolbar>
+      </div>
     </IonFooter>
   );
 };
