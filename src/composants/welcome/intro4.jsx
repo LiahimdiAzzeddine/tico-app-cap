@@ -17,8 +17,7 @@ function Intro4() {
       {/* Buttons Section with Background */}
       <div className="grow flex items-center justify-start w-full max-w-sm">
         <div
-          className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center"
-          style={{ backgroundImage: `url(${background})` }}
+          className="w-full max-w-sm aspect-square flex items-center justify-center intro4 bg-no-repeat bg-contain bg-center"
         >
           <div className="flex flex-col items-center justify-center w-4/5 text-center gap-8">
         

@@ -398,6 +398,9 @@ padding-top: 1rem;
     background-position: center calc(65%);
   background-size:92%;
 }
+.intro4{
+  background-image: url('/src/assets/intro/BIENVENUEV3-14.svg') !important;
+}
 .tico_intro{
   background-image: url('/src/assets/home/tico_intro.svg') !important;
 }

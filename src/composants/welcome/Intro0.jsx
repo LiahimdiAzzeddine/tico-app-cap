@@ -12,15 +12,15 @@ function Intro0() {
       {/* Main Content Section */}
       <div className="grow flex items-center justify-center w-full max-w-sm px-2">
         <div className="w-full aspect-square flex items-start justify-center relative">
-          <div className="flex flex-col items-center justify-center w-4/6 text-center space-y-8 min-h-[65%]">
-            <h2 className="text-3xl titre-bold text-custom-blue underline underline-offset-4 decoration-orange-400">
+          <div className="flex flex-col items-center justify-center w-4/6 text-center space-y-8 min-h-[70%]">
+            <h2 className="text-3xl titre-bold text-custom-blue underline underline-offset-4 decoration-orange-400 pt-2">
               Bienvenue !
             </h2>
             
             <div className="text-xl text-custom-blue Archivo leading-normal">
             <span className="pallybold leading-normal">Ti<span className="tracking-tightest leading-normal">CO</span></span> est l’application qui <span className="font-bold">évalue la transparence</span> des produits alimentaires.
             </div>
-            <img src={Loupe} className="w-36 h-36 absolute left-14 -bottom-4" />
+            <img src={Loupe} className="w-36 h-36 absolute left-14 -bottom-5" />
           </div>
         </div>
       </div>
