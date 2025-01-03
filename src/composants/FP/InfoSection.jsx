@@ -86,8 +86,8 @@ const InfoSection = ({
               </span>
             </div>
             {selectedNutriscoreImage && (
-              <div className="flex flex-row items-center justify-around py-2 space-x-4 ">
-                <img src={selectedNutriscoreImage} className="w-24 h-auto"  onClick={() => setIsOpenNutrition(true)} />
+              <div className="flex flex-row items-center justify-around py-2 space-x-4 " onClick={() => setIsOpenNutrition(true)}>
+                <img src={selectedNutriscoreImage} className="w-24 h-auto"   />
                 <div>
                   <IonIcon
                     className="text-xl text-custom-blue"
@@ -101,38 +101,37 @@ const InfoSection = ({
               {selectedComent ? (
                 <span dangerouslySetInnerHTML={{ __html: selectedComent }} />
               ) : (
-                <span className="text-[0.6rem]">Données non communiquées par le fabricant</span>
+                <span className="text-[0.6rem] text-custom-blue ArchivoLight">Données non communiquées par le fabricant</span>
               )}
             </div>
             {(!selectedComent || !selectedNutriscoreImage) && (
-              <div className="text-[0.6rem] flex flex-row space-x-1 mt-2">
-                <div className="text-[#42a29a]  Archivo text-[0.6rem]">
-                  Encourager la marque à atteindre 100% de transparence
-                </div>
-                <div>
-                  <img
-                    className="w-20 mt-1 transition-transform duration-150 ease-in-out active:scale-95"
-                    src={illustrationOrigines}
-                    alt="Illustration des origines du produit"
-                    onClick={() => OpenContactSolliciter()}
-                  />
-                </div>
+              <div className="text-xs flex flex-row space-x-1">
+              <div className="text-[#42a29a]  Archivo text-[0.6rem] w-[70%]">
+                Encourager la marque à atteindre 100% de transparence
               </div>
+              <div className="w-[30%]">
+                <img
+                  className="w-20 mt-1"
+                  src={illustrationOrigines}
+                  alt="Illustration des origines du produit"
+                  onClick={() => OpenContactSolliciter()}
+                />
+              </div>
+            </div>
             )}
           </div>
 
           {/* Additifs Section */}
-          <div className="px-4 pb-3 pt-12 border-l border-b border-custom-green-divider flex flex-col justify-start">
+          <div className="pl-4 pb-3 pt-12 border-l border-b border-custom-green-divider flex flex-col justify-start">
             <div className="text-sm font-bold text-custom-blue z-10">
-              <span className="marker-effect-cyan font-bold ArchivoBold text-xs">
+              <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis ArchivoBold text-xs">
                 Naturalité des ingrédients
               </span>
             </div>
-            <div className="flex flex-row items-center justify-between py-2 space-x-1 ">
+            {product?.additifs?.length?(
+              <div className="flex flex-row items-center justify-between py-2 space-x-1 " onClick={() => setIsOpenadd(true)}>
               <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo">
-                {product?.additifs?.length
-                  ? "Contient " + product?.additifs?.length + " additifs"
-                  : (<span className="text-[0.6rem]">Données non communiquées par le fabricant</span>)}
+                {"Contient " + product?.additifs?.length + " additifs"}
               </div>
               {product?.additifs?.length > 0 && (
                 <div>
@@ -144,22 +143,32 @@ const InfoSection = ({
                 </div>
               )}
             </div>
+            ):(
+<div className="flex flex-row items-center justify-between py-2 space-x-1 " onClick={() => setIsOpenadd(true)}>
+              <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo">
+                <span className="text-[0.6rem] text-custom-blue ArchivoLight">Données non communiquées par le fabricant</span>
+              </div>
+            </div>
+            )
+            
+          }
+
             {product?.commentaire ? (
               <div className="text-[0.6rem] text-[#42a29a]"></div>
             ) : (
-              <div className="text-[0.6rem] flex flex-row space-x-1">
-                <div className="text-[#42a29a]  text-[0.6rem]">
-                  Encourager la marque à atteindre 100% de transparence
+              <div className="text-xs flex flex-row space-x-1">
+                  <div className="text-[#42a29a]  Archivo text-[0.6rem] w-[70%]">
+                    Encourager la marque à atteindre 100% de transparence
+                  </div>
+                  <div className="w-[30%]">
+                    <img
+                      className="w-20 mt-1"
+                      src={illustrationOrigines}
+                      alt="Illustration des origines du produit"
+                      onClick={() => OpenContactSolliciter()}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <img
-                    className="w-20 mt-1 transition-transform duration-150 ease-in-out active:scale-95"
-                    src={illustrationOrigines}
-                    alt="Illustration des origines du produit"
-                    onClick={() => OpenContactSolliciter()}
-                  />
-                </div>
-              </div>
             )}
           </div>
 
@@ -178,7 +187,7 @@ const InfoSection = ({
                     {product?.planetScore ? (
                       <img src={product?.planetScore} className="w-36 h-auto" />
                     ) : (
-                      <div className="text-gray-500 flex items-center justify-center text-[0.60rem] Archivo">
+                      <div className="text-custom-blue flex items-center justify-center text-[0.60rem] ArchivoLight">
                         Données non communiquées par le fabricant
                         <br />
                         <a
@@ -197,28 +206,28 @@ const InfoSection = ({
                     </div>
                   </>
                 ) : (
-                  <div className="text-xs flex flex-row space-x-1 Archivo text-[0.6rem]">
-                    <div className="text-[#42a29a]  text-[0.6rem]">
-                      Encourager la marque à atteindre 100% de transparence
-                    </div>
-                    <div>
-                      <img
-                        className="w-20 mt-1 transition-transform duration-150 ease-in-out active:scale-95"
-                        src={illustrationOrigines}
-                        alt="Illustration des origines du produit"
-                        onClick={() => OpenContactSolliciter()}
-                      />
-                    </div>
+                  <div className="text-xs flex flex-row space-x-1">
+                  <div className="text-[#42a29a]  Archivo text-[0.6rem] w-[70%]">
+                    Encourager la marque à atteindre 100% de transparence
                   </div>
+                  <div className="w-[30%]">
+                    <img
+                      className="w-20 mt-1"
+                      src={illustrationOrigines}
+                      alt="Illustration des origines du produit"
+                      onClick={() => OpenContactSolliciter()}
+                    />
+                  </div>
+                </div>
                 )}
               </div>
             </div>
           </div>
 
           {/* Origines Section (Full Height) */}
-          <div className="pb-6 pt-3  px-4 border-l border-custom-green-divider">
+          <div className="pb-6 pt-3  pl-4 border-l border-custom-green-divider">
             <div className="text-sm font-bold text-custom-blue z-10 w-full">
-              <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis z-50 ArchivoBold text-xs">
+            <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis z-50 ArchivoBold text-xs">
                 Origines
               </span>
             </div>
@@ -226,13 +235,13 @@ const InfoSection = ({
               {product?.commentaire ? (
                 <div className="text-xs text-[#42a29a]"></div>
               ) : (
-                <div className="text-xs flex flex-row space-x-1 text-[0.6rem]">
-                  <div className="text-[#42a29a]  Archivo text-[0.6rem]">
+                <div className="text-xs flex flex-row space-x-1">
+                  <div className="text-[#42a29a]  Archivo text-[0.6rem] w-[70%]">
                     Encourager la marque à atteindre 100% de transparence
                   </div>
-                  <div>
+                  <div className="w-[30%]">
                     <img
-                      className="w-20 mt-1 transition-transform duration-150 ease-in-out active:scale-95"
+                      className="w-20 mt-1"
                       src={illustrationOrigines}
                       alt="Illustration des origines du produit"
                       onClick={() => OpenContactSolliciter()}

@@ -407,6 +407,10 @@ padding-top: 1rem;
 }
 .bgImage{
   background-image: url('/src/assets/tips/bgImage.svg') !important;
+  background-size: 78% !important;
+  background-position-x: center !important;
+  background-position-y: top !important;
+  min-height: 18rem;
 }
 .productBg{
   background-image: url('/src/assets/history/productBg.svg') !important;

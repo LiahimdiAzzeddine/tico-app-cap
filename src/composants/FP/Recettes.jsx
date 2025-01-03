@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import recetteBadge from "../../assets/fb/recetteBadge.svg";
 import horloge from "../../assets/fb/horloge.svg";
-import flecheRed from "../../assets/fb/flecheRed.svg";
+import flecheBleu from "../../assets/recettes/fpfleche.svg";
 import SuggestRecipe from "../recettes/SuggestRecipe";
 import WhiteModal from "../modales/WhiteModal";
 import RecipeModal from "../modales/RecipeModal";
@@ -52,7 +52,7 @@ function Recettes({ recettes,targetRefRecettes }) {
         
           <div
             key={item.id}
-            className="relative bg-custom-rose rounded-e-full px-6 py-6 flex items-center"
+            className="relative bg-[#ecf8f8] rounded-e-full px-6 py-6 flex items-center"
             style={{ width: "95%" }}
             onClick={() => handleRecetteClick(item)}
           >
@@ -74,15 +74,15 @@ function Recettes({ recettes,targetRefRecettes }) {
 
               {/* Informations de la recette */}
               <div className="flex flex-col">
-                <h2 className="text-md font-bold text-custom-red">
+                <h2 className="text-md font-bold text-custom-blue">
                   {item.title}
                 </h2>
-                <p className="text-sm text-custom-red-clear italic">
+                <p className="text-sm text-custom-blue italic">
                   {item.subtitle}
                 </p>
 
                 {/* Temps de préparation et de cuisson */}
-                <div className="flex flex-row items-center text-sm text-custom-red-clear mt-2 space-x-4">
+                <div className="flex flex-row items-center text-sm text-custom-blue mt-2 space-x-4">
                   <img src={horloge} alt="Horloge" className="w-8" />
                   <div className="flex flex-col items-start">
                   {item.timecook&&(
@@ -98,10 +98,10 @@ function Recettes({ recettes,targetRefRecettes }) {
       </div>
      ))}
       <div className="flex flex-row items-center justify-center space-x-3 pb-8" ref={targetRefRecettes}>
-        <img src={flecheRed} alt="Fleche" className="w-12 absolute left-8 " />
+        <img src={flecheBleu} alt="Fleche" className="w-10 absolute left-12 " />
         <button
           onClick={() => handleAddrecipe()}
-          className="text-gl text-white bg-custom-red rounded-md font-bold w-48 p-2 "
+          className="text-gl text-white bg-custom-blue rounded-md font-bold w-48 p-2 "
         >
           Proposer une recette pour ce produit
         </button>

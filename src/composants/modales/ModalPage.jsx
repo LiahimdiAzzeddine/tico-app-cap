@@ -31,7 +31,7 @@ const ModalPage = ({
       </IonHeader>
       <IonContent
         scroll-y={scroll}
-        className="flex flex-col ion-no-padding h-full"
+        className="flex flex-col ion-no-padding h-full overflow-hidden"
         style={{ "--background": bgcontent }}
       >
         {children}

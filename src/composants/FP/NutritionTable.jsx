@@ -31,12 +31,16 @@ const NutritionTable = ({ product, portion }) => {
     return hierarchy;
   };
 
-  const calculatePortionValue = (value, portion) => {
-    return (value / 100) * parseFloat(portion);
+  const calculatePortionValue = (qt, portion) => {
+    return (qt / 100) * parseFloat(portion);
   };
 
-  const calculatePortionVNR = (vnr, portion) => {
-    return (vnr / 100) * parseFloat(portion);
+  const calculatePortionVNR = (vnr, portion, qt) => {
+    if (qt > 0 && portion > 0 && vnr > 0) {
+      return ((qt / 100) * parseFloat(portion) * 100) / vnr;
+    } else {
+      return 0;
+    }
   };
 
   const NutritionRow = ({ item, level = 0, portion, parentId = "" }) => {
@@ -47,7 +51,7 @@ const NutritionTable = ({ product, portion }) => {
 
     const vnr =
       unit === "portion" && portion
-        ? calculatePortionVNR(item.value.vnr, portion)
+        ? calculatePortionVNR(item.value.vnr, portion, item.value.qt)
         : item.value.vnr;
 
     const formattedValue = value % 1 === 0 ? value : value.toFixed(1);
@@ -78,7 +82,7 @@ const NutritionTable = ({ product, portion }) => {
           </td>
           <td className="text-right text-gray-500 py-1 Archivo min-w-16">
             {vnr !== null && vnr !== undefined && vnr !== 0 ? (
-              <>{formattedVNR} %</>
+              <>{!(item.name).includes("Énergie")? formattedVNR+'%':""} </>
             ) : (
               ""
             )}
@@ -137,18 +141,18 @@ const NutritionTable = ({ product, portion }) => {
                 Par 100g
               </button>
 
-              <div 
-               onClick={() => setUnit(unit === "100g" ? "portion" : "100g")}
-               className={`relative w-14 h-8 rounded-full cursor-pointer transition-colors duration-200 ${
-                 unit === "portion" ? "bg-custom-blue" : "bg-gray-300"
-               }`}
-             >
-               <div
-                 className={`absolute w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-200 top-1 ${
-                   unit === "portion" ? "translate-x-7" : "translate-x-1"
-                 }`}
-               />
-             </div>
+              <div
+                onClick={() => setUnit(unit === "100g" ? "portion" : "100g")}
+                className={`relative w-14 h-8 rounded-full cursor-pointer transition-colors duration-200 ${
+                  unit === "portion" ? "bg-custom-blue" : "bg-gray-300"
+                }`}
+              >
+                <div
+                  className={`absolute w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-200 top-1 ${
+                    unit === "portion" ? "translate-x-7" : "translate-x-1"
+                  }`}
+                />
+              </div>
 
               <button
                 onClick={() => setUnit("portion")}

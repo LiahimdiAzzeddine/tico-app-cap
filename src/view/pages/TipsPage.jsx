@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Background from "../../assets/tips/bachground.svg";
 import { EmptyState } from "../recettes/ui/EmptyState";
-import Item from "../tips/ui/Item";
+import Item from "../../composants/tips/ui/Item";
 import LoadingState from "../recettes/ui/LoadingState"; // Assuming you can move `LoadingState` to a separate file for reusability
 import useLastTips from "../../hooks/tips/useLastTips"; // Adjust path as necessary
 import {createTip} from "../../utils/createTip"

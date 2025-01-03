@@ -48,11 +48,11 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
           const isDisabled = disabledPanels.includes(panel);
 
           return (
-            <div key={panel} className="pt-3 pb-2 border-b" ref={panel === 1 ? targetRefNutriInfo : panel==2 ?targetRefAdditifs:null}>
+            <div key={panel} className="pt-3" ref={panel === 1 ? targetRefNutriInfo : panel==2 ?targetRefAdditifs:null}>
               <div className="relative">
                 <button
                   onClick={() => !isDisabled && togglePanel(panel)}
-                  className={`px-2 w-full flex justify-start items-center font-bold text-xl ${
+                  className={`px-3 w-full flex justify-start items-center titre-bold text-xl ${
                     isDisabled
                       ? "text-custom-gray cursor-not-allowed"
                       : openPanel === panel
@@ -62,7 +62,7 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
                   disabled={isDisabled}
                 >
                   {title}
-                  {!isDisabled && <img src={fleche} className="w-10 h-auto px-2" />}
+                  {!isDisabled && <img src={fleche} className="w-9 h-auto px-2" />}
                 </button>
                 {/* Positionner l'image BubbleImg au-dessus du titre */}
                 {panel === 4 && (
@@ -86,6 +86,12 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
                   {panelContents[panel - 1]}
                 </motion.div>
               )}
+              <div className="px-3 pt-1">
+              <hr
+  className={`w-full mx-auto ${isDisabled ? "border-gray-200" : "border-[#c6e8e5]"}`}
+/>
+
+              </div>
             </div>
           );
         })}

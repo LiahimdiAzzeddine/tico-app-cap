@@ -1,5 +1,5 @@
 import React from "react";
-import produitFleche from "../../../assets/recettes/recipeFleche.svg"; // Flèche pour ouvrir le feedback ou la vue détaillée
+import produitFleche from "../../../assets/tips/elementFleche.svg"; // Flèche pour ouvrir le feedback ou la vue détaillée
 import defaultImage from "../../../assets/history/64.png"; // Image par défaut pour un conseil
 
 const Item = ({ tip, index, length, OpenTip }) => {
@@ -53,7 +53,7 @@ const Item = ({ tip, index, length, OpenTip }) => {
 
       {/* Séparateur */}
       {index < length - 1 && (
-        <hr className="w-full border-t border-gray-300 " />
+        <hr className="w-full border-t border-custom-orange" />
       )}
     </div>
   );

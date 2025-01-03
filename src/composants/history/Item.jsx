@@ -25,8 +25,8 @@ const Item = ({ product, index, OpenFb, handleDelete }) => {
           width: "100%",
           "--inner-padding-end": "0",
           "--padding-start": "0",
-          "--inner-border-width": "0 0 1.5px 0",
-          "--border-color": "#4b996c",
+          "--inner-border-width": "0 0 1.2px 0",
+          "--border-color": "#c7f0d8",
         }} // S'assure que l'élément occupe toute la largeur
       >
         <motion.div
@@ -57,7 +57,7 @@ const Item = ({ product, index, OpenFb, handleDelete }) => {
 
           {/* Détails du produit */}
           <div className="flex-1 flex flex-col">
-            <div className="font-bold text-custom-green-text ArchivoExtraBold leading-archivo">
+          <div className="text-custom-green-text leading-archivo ArchivoExtraBold">
               {product.name}
             </div>
             <span className="text-custom-green-text text-sm ArchivoLight leading-archivo italic">{product.trademark}</span>

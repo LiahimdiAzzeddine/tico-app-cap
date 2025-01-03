@@ -50,7 +50,7 @@ const HelpTiCO = () => {
   return (
     <HomeLayout>
       <div className="flex flex-col items-center justify-start w-full h-full">
-        <div className="flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-56 w-[73%] tico_intro">
+        <div className="flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-56 w-72 tico_intro">
           <span className="absolute text-2xl top-[26%] text-center text-custom-blue titre-bold">
             Bientôt disponible
           </span>

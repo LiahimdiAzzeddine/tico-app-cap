@@ -327,10 +327,10 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
         {/* Fixed Header with Buttons */}
         <div className="sticky">
           <div className="flex flex-row gap-1 max-w-xs mx-auto pt-2">
-            {/** 
+            {/** */}
             <button
-              style={{ border: "2px solid #0f548d" }}
-              className={`flex-1 p-1 rounded-xl Archivo opacity-50 cursor-not-allowed  ${
+              style={{ border: "1px solid #0f548d" }}
+              className={`flex-1 p-1 rounded-2xl ArchivoLight opacity-50 cursor-not-allowed  ${
                 showInfo === "transformation"
                   ? "bg-custom-blue font-bold text-white"
                   : "text-custom-blue"
@@ -338,14 +338,14 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
               onClick={() => console.log()}
             >
               Naturalité
-            </button>*/}
+            </button>
 
             <button
 
-              style={{ border: "2px solid #0f548d" }}
-              className={`flex-1 p-1 rounded-xl Archivo  ${
+              style={{ border: "1px solid #0f548d" }}
+              className={`flex-1 p-1 rounded-2xl ArchivoLight  ${
                 showInfo === "additifs"
-                  ? "bg-custom-blue text-white ArchivoBold"
+                  ? "bg-custom-blue text-white"
                   : "text-custom-blue"
               }`}
               onClick={() => setShowInfo("additifs")}
@@ -373,8 +373,8 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-3">
-                <div className="space-y-4">
-                  <div className="flex items-end space-x-2 py-2">
+                <div className="">
+                  <div className="flex items-end space-x-2 pt-1">
                     <span className="text-custom-blue font-bold text-2xl">
                       +{additifs.length}
                     </span>
@@ -385,8 +385,8 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
                     />
                   </div>
                 </div>
-                <h1 className="text-xl text-custom-blue font-bold text-center py-2">
-                  <span className="marker-effect-cyan z-10 ArchivoExtraBold ">Additifs</span>
+                <h1 className="text-xl text-custom-blue font-bold text-center py-6">
+                  <span className="marker-effect-cyan z-10 ArchivoExtraBold text-2xl">Additifs</span>
                 </h1>
 
                 <div className="space-y-2">
