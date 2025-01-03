@@ -156,8 +156,8 @@ const SuggestRecipe = ({ onClose }) => {
         <form onSubmit={handleFormSubmit} className="space-y-8 w-full">
           {/* Titre de la recette */}
           <div className="flex flex-col gap-3">
-            <label className="text-custom-red text-base">
-              Titre de la recette:
+            <label className="text-custom-red text-base ArchivoLight">
+              Titre de la recette&nbsp;:
             </label>
             <input
               type="text"
@@ -165,7 +165,7 @@ const SuggestRecipe = ({ onClose }) => {
               value={values.titre}
               onChange={handleInputChange}
               placeholder="Titre de la recette"
-              className={`input border-2 p-2 rounded-xl focus:outline-none ${
+              className={`input ArchivoLight  border-[1px] p-2 rounded-xl focus:outline-none ${
                 error?.titre
                   ? "border-red-800"
                   : "border-custom-red-clear focus:border-red-800"
@@ -173,20 +173,20 @@ const SuggestRecipe = ({ onClose }) => {
               required
             />
             {error?.titre && (
-              <p className="border-red-800 text-sm mt-1">{error.titre[0]}</p>
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">{error.titre[0]}</p>
             )}
           </div>
           {/* Type de plats */}
           <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base">Type de plats:</label>
-            <div className="space-x-2 space-y-2">
+            <label className="text-custom-red text-base ArchivoLight">Type de plats&nbsp;:</label>
+            <div className="flex flex-wrap gap-2">
               {["Entrée", "Plat", "Dessert", "Apéritif", "Boisson"].map(
                 (type) => (
                   <button
                     key={type}
                     type="button"
                     onClick={() => handleTypeToggle(type)}
-                    className={`border-solid border-[1px] border-red-700 px-3 py-1 rounded-full ${
+                    className={`border-solid ArchivoLight border-[1px] border-red-700 px-3 py-1 rounded-full ${
                       values.types.includes(type)
                         ? "bg-custom-red text-white border-custom-red"
                         : "bg-white border-gray-300 text-custom-red"
@@ -198,20 +198,20 @@ const SuggestRecipe = ({ onClose }) => {
               )}
             </div>
             {error?.type && (
-              <p className="border-red-800 text-sm mt-1">{error.type[0]}</p>
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">{error.type[0]}</p>
             )}
           </div>
 
           {/* Difficulté */}
           <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base">Difficulté:</label>
-            <div className="space-x-2 space-y-2 ">
+            <label className="text-custom-red text-base ArchivoLight">Difficulté&nbsp;:</label>
+            <div className="flex flex-wrap gap-2">
               {["Facile", "Moyen", "Difficile"].map((difficulty) => (
                 <button
                   key={difficulty}
                   type="button"
                   onClick={() => setValues({ ...values, difficulty })}
-                  className={`border-solid border-[1px] border-red-700 px-3 py-1 rounded-full ${
+                  className={`border-solid ArchivoLight border-[1px] border-red-700 px-3 py-1 rounded-full ${
                     values.difficulty === difficulty
                       ? "bg-custom-red text-white border-custom-red"
                       : "bg-white border-gray-300 text-custom-red"
@@ -222,7 +222,7 @@ const SuggestRecipe = ({ onClose }) => {
               ))}
             </div>
             {error?.difficulty && (
-              <p className="border-red-800 text-sm mt-1">
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">
                 {error.difficulty[0]}
               </p>
             )}
@@ -230,8 +230,8 @@ const SuggestRecipe = ({ onClose }) => {
 
           {/* Filtres */}
           <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base">Régimes:</label>
-            <div className="space-x-2 space-y-2">
+            <label className="text-custom-red text-base ArchivoLight">Régimes&nbsp;:</label>
+            <div className="flex flex-wrap gap-2">
               {[
                 "Végétarien",
                 "Végan",
@@ -243,7 +243,7 @@ const SuggestRecipe = ({ onClose }) => {
                   key={filter}
                   type="button"
                   onClick={() => addFilter(filter)}
-                  className={`border-solid border-[1px] border-red-700 px-3 py-1 rounded-full ${
+                  className={`border-solid ArchivoLight border-[1px] border-red-700 px-3 py-1 rounded-full ${
                     values.filters.includes(filter)
                       ? "bg-custom-red text-white border-custom-red"
                       : "bg-white border-gray-300 text-custom-red"
@@ -254,13 +254,13 @@ const SuggestRecipe = ({ onClose }) => {
               ))}
             </div>
             {error?.filters && (
-              <p className="border-red-800 text-sm mt-1">{error.filters[0]}</p>
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">{error.filters[0]}</p>
             )}
           </div>
           {/* Temps de préparation */}
           <div className="flex flex-col gap-3">
-            <label className="text-custom-red text-base">
-              Temps de préparation (en min) :
+            <label className="text-custom-red text-base ArchivoLight">
+              Temps de préparation (en min)&nbsp;:
             </label>
             <input
               type="number"
@@ -270,7 +270,7 @@ const SuggestRecipe = ({ onClose }) => {
               step="1"
               value={values.prep_time}
               onChange={handleInputChange}
-              className={`input border-2 p-2 rounded-xl focus:outline-none ${
+              className={`input  border-[1px] p-2 ArchivoLight rounded-xl focus:outline-none ${
                 error?.prep_time
                   ? "border-red-800"
                   : "border-custom-red-clear focus:border-red-800"
@@ -278,7 +278,7 @@ const SuggestRecipe = ({ onClose }) => {
               required
             />
             {error?.prep_time && (
-              <p className="border-red-800 text-sm mt-1">
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">
                 {error.prep_time[0]}
               </p>
             )}
@@ -286,8 +286,8 @@ const SuggestRecipe = ({ onClose }) => {
 
           {/* Temps de cuisson */}
           <div className="flex flex-col gap-3">
-            <label className="text-custom-red text-base">
-              Temps de cuisson (en min) :
+            <label className="text-custom-red text-base ArchivoLight">
+              Temps de cuisson (en min)&nbsp;:
             </label>
             <input
               type="number"
@@ -295,7 +295,7 @@ const SuggestRecipe = ({ onClose }) => {
               value={values.cook_time}
               onChange={handleInputChange}
               placeholder="Temps de cuisson"
-              className={`input border-2 p-2 rounded-xl focus:outline-none ${
+              className={`input  border-[1px] p-2 ArchivoLight rounded-xl focus:outline-none ${
                 error?.cook_time
                   ? "border-red-800"
                   : "border-custom-red-clear focus:border-red-800"
@@ -303,7 +303,7 @@ const SuggestRecipe = ({ onClose }) => {
               required
             />
             {error?.cook_time && (
-              <p className="border-red-800 text-sm mt-1">
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">
                 {error.cook_time[0]}
               </p>
             )}
@@ -311,8 +311,8 @@ const SuggestRecipe = ({ onClose }) => {
 
           {/* Temps de repos */}
           <div className="flex flex-col gap-3">
-            <label className="text-custom-red text-base">
-              Temps de repos (en min) :
+            <label className="text-custom-red text-base ArchivoLight">
+              Temps de repos (en min)&nbsp;:
             </label>
             <input
               type="number"
@@ -320,33 +320,33 @@ const SuggestRecipe = ({ onClose }) => {
               value={values.rest_time}
               onChange={handleInputChange}
               placeholder="Temps de repos"
-              className={`input border-2 p-2 rounded-xl focus:outline-none ${
+              className={`input ArchivoLight border-[1px] p-2 rounded-xl focus:outline-none ${
                 error?.rest_time
                   ? "border-red-800"
                   : "border-custom-red-clear focus:border-red-800"
               }`}
             />
             {error?.rest_time && (
-              <p className="border-red-800 text-sm mt-1">
+              <p className="border-red-800 ArchivoLight text-sm mt-1">
                 {error.rest_time[0]}
               </p>
             )}
           </div>
           <div className="flex flex-col gap-3">
-            <label className="text-custom-red text-base">
-              Temps total :{" "}
+            <label className="text-custom-red text-base ArchivoLight">
+              Temps total&nbsp;:{" "}
               {Number(values.cook_time) +
                 Number(values.prep_time) +
                 Number(values.rest_time) >
               0 ? (
-                <span className="font-bold relative group">
+                <span className="font-bold relative group ArchivoLight">
                   {formatTime(
                     Number(values.cook_time) +
                       Number(values.prep_time) +
                       Number(values.rest_time)
                   )}
                   {/* Bulle d'information */}
-                  <div className="absolute left-0 top-full mt-1 hidden group-hover:flex bg-gray-800 text-white text-sm rounded p-2 shadow-lg min-w-60">
+                  <div className="absolute left-0 top-full mt-1 hidden group-hover:flex bg-gray-800 text-white text-sm rounded p-2 shadow-lg min-w-60 ArchivoLight">
                     Temps total calculé à partir du temps de cuisson,
                     préparation et repos.
                   </div>
@@ -359,7 +359,7 @@ const SuggestRecipe = ({ onClose }) => {
 
           {/* Ingrédients */}
           <div className="flex flex-col gap-3 justify-center items-start">
-            <label className="text-custom-red text-base">Ingrédients:</label>
+            <label className="text-custom-red text-base ArchivoLight">Ingrédients&nbsp;:</label>
             <div className="flex flex-row gap-2 w-full">
               <input
                 type="number"
@@ -367,7 +367,7 @@ const SuggestRecipe = ({ onClose }) => {
                 value={ingredientInput.quantity}
                 onChange={handleIngredientChange}
                 placeholder="Quantité"
-                className={`input border-2 p-2 rounded-xl focus:outline-none w-1/4 ${
+                className={`input  border-[1px] ArchivoLight p-2 rounded-xl focus:outline-none w-1/4 ${
                   error?.ingredients
                     ? "border-red-800"
                     : "border-custom-red-clear focus:border-red-800"
@@ -379,7 +379,7 @@ const SuggestRecipe = ({ onClose }) => {
                 value={ingredientInput.unit}
                 onChange={handleIngredientChange}
                 placeholder="Unité"
-                className={`input border-2 p-2 rounded-xl focus:outline-none w-1/4 ${
+                className={`input ArchivoLight border-[1px] p-2 rounded-xl focus:outline-none w-1/4 ${
                   error?.ingredients
                     ? "border-red-800"
                     : "border-custom-red-clear focus:border-red-800"
@@ -391,7 +391,7 @@ const SuggestRecipe = ({ onClose }) => {
                 value={ingredientInput.name}
                 onChange={handleIngredientChange}
                 placeholder="Nom de l'ingrédient"
-                className={`input border-2 p-2 rounded-xl focus:outline-none w-2/4 ${
+                className={`input  border-[1px] ArchivoLight p-2 rounded-xl focus:outline-none w-2/4 ${
                   error?.ingredients
                     ? "border-red-800"
                     : "border-custom-red-clear focus:border-red-800"
@@ -399,14 +399,14 @@ const SuggestRecipe = ({ onClose }) => {
               />
             </div>
             {error?.ingredients && (
-              <p className="border-red-800 text-sm mt-1">
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">
                 {error.ingredients[0]}
               </p>
             )}
             <button
               type="button"
               onClick={addIngredient}
-              className="bg-custom-red text-white border-solid border-[1px] border-red-700 px-3 py-1 rounded-full"
+              className="bg-custom-red text-white border-solid border-[1px] border-red-700 px-3 py-1 rounded-full ArchivoLight"
             >
               + ajouter un ingrédient
             </button>
@@ -414,13 +414,13 @@ const SuggestRecipe = ({ onClose }) => {
               {values.ingredients.map((ingredient, index) => (
                 <span
                   key={index}
-                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red flex items-center gap-2"
+                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red flex items-center gap-2 ArchivoLight"
                 >
                   {ingredient.quantity}
                   {ingredient.unit} - {ingredient.name}
                   <button
                     type="button"
-                    className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-sm"
+                    className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-sm ArchivoLight"
                     onClick={() => removeIngredient(index)}
                     aria-label={`Supprimer ${ingredient.name}`}
                   >
@@ -432,25 +432,25 @@ const SuggestRecipe = ({ onClose }) => {
           </div>
           {/* Étapes */}
           <div className="flex flex-col gap-3 justify-center items-start">
-            <label className="text-custom-red text-base">Étapes:</label>
+            <label className="text-custom-red text-base ArchivoLight">Étapes&nbsp;:</label>
             <textarea
               type="text"
               value={stepInput}
               onChange={(e) => setStepInput(e.target.value)}
               placeholder="Étape"
-              className={`input border-2 p-2 rounded-xl focus:outline-none w-full ${
+              className={`input ArchivoLight border-[1px] p-2 rounded-xl focus:outline-none w-full ${
                 error?.steps
                   ? "border-red-800"
                   : "border-custom-red-clear focus:border-red-800"
               }`}
             />
             {error?.steps && (
-              <p className="border-red-800 text-sm mt-1">{error.steps[0]}</p>
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">{error.steps[0]}</p>
             )}
             <button
               type="button"
               onClick={addStep}
-              className="bg-custom-red text-white border-solid border-[1px] border-red-700 px-3 py-1 rounded-full"
+              className="bg-custom-red text-white border-solid border-[1px] border-red-700 px-3 py-1 rounded-full ArchivoLight"
             >
               + ajouter une étape
             </button>
@@ -458,12 +458,12 @@ const SuggestRecipe = ({ onClose }) => {
               {values.steps.map((step, index) => (
                 <span
                   key={index}
-                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red flex items-center gap-2"
+                  className="bg-white text-red-800 py-1 px-2 rounded-full m-1 border-[1px] border-custom-red flex items-center gap-2 ArchivoLight"
                 >
                   Étape {index + 1}: {step}
                   <button
                     type="button"
-                    className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-sm"
+                    className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-sm ArchivoLight"
                     onClick={() => removeStep(index)}
                     aria-label={`Supprimer l'étape ${index + 1}`}
                   >
@@ -475,19 +475,19 @@ const SuggestRecipe = ({ onClose }) => {
           </div>
 
           <div className="flex flex-col gap-4 justify-center items-center pb-5">
-            <div className="text-custom-red">
+            <div className="text-custom-red ArchivoLight">
               Pas d’inquiétude on se charge du shooting photo&nbsp;!
             </div>
             <button
               type="button"
               onClick={() => VisualiseRecette()} // Ouvrir le modal
-              className=" bg-custom-red text-white border-solid border-[1px] font-bold border-red-400 px-3 py-2 rounded-lg"
+              className=" bg-custom-red text-white border-solid border-[1px] font-bold px-3 py-2 rounded-lg ArchivoLight"
             >
               Je visualise ma recette
             </button>
             <button
               type="submit"
-              className="btn-submit bg-[#fad4ce] text-red-700 border-solid border-[1px] font-bold border-[#fad4ce] px-3 py-2 rounded-lg"
+              className="btn-submit bg-[#fad4ce] text-red-700 border-solid border-[1px] font-bold border-[#fad4ce] px-3 py-2 rounded-lg ArchivoLight"
               disabled={loading}
             >
               {loading ? "Envoi..." : "Envoyer ma recette"}

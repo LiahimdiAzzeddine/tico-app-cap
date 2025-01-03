@@ -1,6 +1,6 @@
 import React from "react";
 import tico_intro from "../../assets/intro/tico_intro.svg";
-import background from "../../assets/intro/background.svg";
+import background from "../../assets/intro/BIENVENUEV3-14.svg";
 import leftFlech from "../../assets/intro/leftFlech.svg";
 import rightFlech from "../../assets/intro/rightFlech.svg";
 

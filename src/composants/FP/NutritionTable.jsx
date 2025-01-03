@@ -137,20 +137,18 @@ const NutritionTable = ({ product, portion }) => {
                 Par 100g
               </button>
 
-              <div className="relative">
-                <button
-                  onClick={() => setUnit(unit === "100g" ? "portion" : "100g")}
-                  className="w-14 h-7 Archivo bg-white rounded-full transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2"
-                  role="switch"
-                  aria-checked={unit === "portion"}
-                >
-                  <span
-                    className={`absolute top-1 left-1 w-5 h-5 bg-custom-blue rounded-full transition-transform duration-200 ease-in-out ${
-                      unit === "portion" ? "translate-x-7" : ""
-                    }`}
-                  />
-                </button>
-              </div>
+              <div 
+               onClick={() => setUnit(unit === "100g" ? "portion" : "100g")}
+               className={`relative w-14 h-8 rounded-full cursor-pointer transition-colors duration-200 ${
+                 unit === "portion" ? "bg-custom-blue" : "bg-gray-300"
+               }`}
+             >
+               <div
+                 className={`absolute w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-200 top-1 ${
+                   unit === "portion" ? "translate-x-7" : "translate-x-1"
+                 }`}
+               />
+             </div>
 
               <button
                 onClick={() => setUnit("portion")}

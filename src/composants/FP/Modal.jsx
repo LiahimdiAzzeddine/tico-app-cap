@@ -128,7 +128,7 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
             >
               
               <span className="ArchivoLight">
-                Contacter  <span className="pallybold">Ti<span className="tracking-[-0.08em]">CO</span></span>
+                Contacter  <span className="pallybold leading-normal">Ti<span className="tracking-tightest leading-normal">CO</span></span>
               </span>
               <img src={flecheLeft} className="w-6 ml-2 scale-x-[-1]" />
             </div>
@@ -209,7 +209,7 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser, gtin }) => {
             <h1 className="text-xl ArchivoLight text-custom-blue flex items-start">
               <img src={flecheLeft} className="w-6 mr-2" />
               <span>
-                Contacter <span className="pallybold">Ti<span className="tracking-[-0.08em]">CO</span></span>
+                Contacter <span className="pallybold leading-normal">Ti<span className="tracking-tightest leading-normal">CO</span></span>
               </span>
             </h1>
             <div className="text-lg text-custom-blue flex items-start ArchivoLight leading-[22px]">

@@ -6,7 +6,9 @@ import useStripe from "../hooks/useStripe";
 import { Share } from "@capacitor/share";
 import { useAlert } from "../context/AlertProvider";
 import HomeLayout from "../composants/layout/HomeLyout";
-import FlecheContact from "../assets/fb/FlecheContact.svg";
+import leftFlech from "../assets/intro/leftFlech.svg";
+import rightFlech from "../assets/intro/rightFlech.svg";
+
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 const HelpTiCO = () => {
@@ -48,12 +50,12 @@ const HelpTiCO = () => {
   return (
     <HomeLayout>
       <div className="flex flex-col items-center justify-start w-full h-full">
-        <div className="flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-56 w-64 tico_intro">
+        <div className="flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-56 w-[73%] tico_intro">
           <span className="absolute text-2xl top-[26%] text-center text-custom-blue titre-bold">
             Bientôt disponible
           </span>
           <img
-            className="absolute w-44 bottom-2 left-1/2 transform -translate-x-1/2"
+            className="absolute w-[11.5rem] bottom-0 left-1/2 transform -translate-x-1/2"
             src={hands}
             alt="TiCO hands"
           />
@@ -61,30 +63,30 @@ const HelpTiCO = () => {
 
         <div className="flex grow items-center justify-start w-full max-w-sm px-2 pb-4">
           <div className="w-full max-w-sm flex flex-col items-center h-full justify-center space-y-6">
-            <p className="text-lg text-[#446d8f] w-full font-bold text-center ArchivoLight leading-archivo">
-              Vous souhaitez nous aider à faire la transparence&nbsp;?
+            <p className="text-custom-blue w-full text-center ArchivoLight leading-archivo">
+              Vous souhaitez nous aider <span className="font-bold ArchivoLightBold">à faire la transparence</span>&nbsp;?
             </p>
             <div className="relative flex flex-col items-center justify-center w-2/4">
               {/* Flèche */}
               <img
-                src={FlecheContact}
+                src={leftFlech}
                 className="absolute top-0 -left-11 w-8 h-auto" // Ajustez les valeurs pour positionner parfaitement
               />
               {/* Bouton */}
               <button
                 onClick={handleShare}
-                className="bg-custom-blue text-white ArchivoBold text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-custom-blue  text-white ArchivoBold text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
               >
-                Partager TiCO
+                Partager <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span>
               </button>
             </div>
 
             <div className="max-w-sm flex flex-col items-center justify-start space-y-4 w-full">
-              <p className="text-lg text-[#446d8f] w-full font-bold text-center ArchivoLight leading-archivo">
-                Vous pouvez également nous soutenir financièrement pour
+              <p className=" text-custom-blue  w-full text-center ArchivoLight leading-archivo">
+                Vous pouvez également <span className="font-bold ArchivoLightBold">nous soutenir financièrement</span> pour
                 développer de nouvelles fonctionnalités.
               </p>
-              <div className="flex w-2/4 items-center border-2 border-custom-blue rounded-xl">
+              <div className="flex w-2/4 items-center border-[1.2px] border-custom-blue rounded-xl">
                 <input
                   type="number"
                   className="w-full p-2 text-right outline-none rounded-l-xl"
@@ -99,8 +101,8 @@ const HelpTiCO = () => {
               </div>
               <div className="relative flex flex-col items-center justify-center w-2/4">
                 <img
-                  src={FlecheContact}
-                  className="absolute top-0 -left-5 w-8 h-auto" // Ajustez les valeurs pour positionner parfaitement
+                  src={rightFlech}
+                  className="absolute top-1 -right-5  w-8 h-auto" // Ajustez les valeurs pour positionner parfaitement
                 />
                 <button
                   className={`bg-custom-blue text-white ArchivoBold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 ${
@@ -137,7 +139,7 @@ const HelpTiCO = () => {
                       Traitement...
                     </div>
                   ) : (
-                    "Aider TiCO"
+                    <>Aider <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span></>
                   )}
                 </button>
               </div>

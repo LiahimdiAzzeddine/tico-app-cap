@@ -20,7 +20,7 @@ function Intro1() {
           <div className="flex flex-col items-center justify-evenly gap-3 text-center">
            
             <div className="text-xl text-custom-blue Archivo">
-            Quand l’information est
+            Quand l’information est...
             </div>
 
             {/* Feature List */}
@@ -30,15 +30,13 @@ function Intro1() {
                   key={index}
                   className="flex items-center justify-start text-xl text-custom-blue my-2 ArchivoBold"
                 >
-                  <img src={plusIcon} alt="Check Icon" className="mr-2 w-9 h-9" />
+                  <img src={plusIcon} alt="Check Icon" className="mr-4 w-10 h-10" />
                   {item}
                 </li>
               ))}
             </ul>
             <div className="text-xl text-custom-blue Archivo">
-            alors <span className="font-bold ArchivoBold">le choix est libre.</span>
-            </div>
-            <div className="text-xl text-custom-blue Archivo">
+            alors <span className="font-bold ArchivoBold">le choix est libre.</span><br></br>
 C’est ça, la transparence&nbsp;!
             </div>
           </div>

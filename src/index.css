@@ -395,15 +395,15 @@ padding-top: 1rem;
 }
 .intro0{
   background-image: url('/src/assets/intro/BIENVENUE0.svg') !important;
-    background-position: center calc(60%);
-  background-size:85%;
+    background-position: center calc(65%);
+  background-size:92%;
 }
 .tico_intro{
   background-image: url('/src/assets/home/tico_intro.svg') !important;
 }
 
 .recetteBg{
-  background-image: url('/src/assets/recettes/recetteBg.svg') !important;
+  background-image: url('/src/assets/recettes/recipeBg.svg') !important;
 }
 .bgImage{
   background-image: url('/src/assets/tips/bgImage.svg') !important;

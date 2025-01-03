@@ -18,13 +18,13 @@ function InviteTico() {
   return (
     <div className="w-full h-full">
       <div className="details overflow-hidden h-full p-2 flex flex-col items-center justify-center">
-        <div className="bg-white flex flex-col items-center justify-center h-full max-h-[550px] relative">
+        <div className="bg-white flex flex-col items-center justify-center h-full max-h-[590px] relative w-full max-w-sm">
           {/* Hands icon */}
-          <div className="absolute top-2">
+          <div className="absolute top-0">
             <img
               src={hands}
               alt="TiCO Logo"
-              className="w-48"
+              className="w-52"
             />
           </div>
           <div
@@ -32,34 +32,35 @@ function InviteTico() {
             style={{
               backgroundImage: `url(${background})`,
               backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
+              backgroundPositionX:"center",
+              backgroundPositionY:"68%",
               backgroundSize: "contain",
             }}
           >
             {/* Content container */}
-            <div className="flex flex-col items-center justify-center w-full px-6 mt-14">
+            <div className="flex flex-col items-center justify-center w-full px-4 pt-[10%] ">
               {/* Text content */}
-              <div className="text-center">
-                <h2 className="text-2xl text-custom-blue mb-10">
+              <div className="text-center space-y-5">
+                <h2 className="text-2xl text-custom-blue pb-4">
                   <span className="titre-bold">
                     Faire connaître{" "}
                     <span className="pallybold">
-                      Ti<span className="tracking-[-0.08em]">CO</span>
+                      Ti<span className="tracking-tightest">CO</span>
                     </span>
                   </span>
                 </h2>
 
-                <p className="text-custom-blue mb-4 text-lg Archivo">
+                <div className="text-custom-blue text-lg Archivo leading-archiv">
                   Vous souhaitez faire connaître{" "}
-                  <span className="pallybold">
-                    Ti<span className="tracking-[-0.08em]">CO</span>
-                  </span>{" "}
+                  <span className="pallybold leading-archiv">
+                    Ti<span className="tracking-tightest leading-archiv">CO</span>
+                  </span><br></br>
                   à votre entourage ?
-                </p>
+                </div>
 
-                <p className="text-custom-blue text-lg Archivo">
-                  N'hésitez pas à partager l'application autour de vous.
-                </p>
+                <div className="text-custom-blue text-lg Archivo leading-archivo">
+                  N'hésitez pas à partager<br></br> l'application autour de vous.
+                </div>
               </div>
             </div>
           </div>

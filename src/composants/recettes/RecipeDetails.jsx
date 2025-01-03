@@ -64,7 +64,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
     <>
       <div className="bg-white rounded-b-[2rem] pb-8">
         <div className="bg-custom-red-bg-clear px-6 pb-4 pt-6 rounded-b-[2rem]  space-y-6">
-          <div className="w-full min-h-[30dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative recetteBg">
+          <div className="w-full min-h-[32dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative recetteBg">
             <div className="flex flex-col justify-center items-center space-y-4">
               <h2 className="text-center text-custom-red text-2xl titre-bold ">
                 {title}
@@ -72,12 +72,12 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               <img
                 src={defaultImage}
                 alt={title}
-                className="w-1/2 h-auto rounded-2xl border-custom-red border-2 object-cover"
+                className="w-[43%] h-auto rounded-2xl border-custom-red border-2 object-cover"
               />
             </div>
           </div>
           <div className="flex flex-row justify-between">
-            <div className="flex flex-wrap justify-center items-center mt-4 space-x-2 space-y-1">
+            <div className="flex flex-wrap justify-center items-center mt-4 space-x-2 space-y-1 Archivo">
               {difficulte && (
                 <span className="text-white bg-red-800 py-1 px-2 rounded-full border-[1px] border-custom-red">
                   {difficulte}
@@ -96,7 +96,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
             </div>
             <div className="flex items-center justify-start text-sm text-custom-red mt-4">
               <img src={horloge} className="w-8 h-8 mr-2" alt="clock icon" />
-              <div className="text-start">
+              <div className="text-start Archivo">
                 {preparation && <div>{preparation} de préparation</div>}
                 {cuisson && <div>{cuisson} de cuisson</div>}
               </div>
@@ -105,20 +105,20 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
         </div>
         {ingredients && (
           <div className="px-6 pt-6">
-            <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoBold">
+            <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoExtraBold">
               Ingrédients
             </h2>
-            <ul className="list-inside list-none Archivo">
+            <ul className="list-inside list-none ArchivoLight">
               {ingredients.length > 0 ? (
                 ingredients.map((ingredient, index) => (
-                  <li key={index} className="text-custom-red Archivo leading-archivo">
+                  <li key={index} className="text-custom-red ArchivoLight leading-archivo">
                     {ingredient.qt ? `${ingredient.qt} ` : ""}
                     {ingredient.unit ? `${ingredient.unit} ` : ""}
                     {ingredient.name}
                   </li>
                 ))
               ) : (
-                <div className="py-6 Archivo">
+                <div className="py-6 ArchivoLight">
                   Les ingrédients de cette recette, malheureusement, ne sont pas
                   disponibles. Revisitez cette page ultérieurement pour l'avoir.
                 </div>
@@ -128,12 +128,12 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
         )}
 
         <div className="px-6 mt-6">
-          <hr className="w-full border-t border-[#fceae8]" />
+          <hr className="w-full border-t border-custom-red-bg-clear" />
         </div>
 
         {steps.length > 0 ? (
           <div className="px-6 pt-6">
-            <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoBold">
+            <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoExtraBold">
               Recette
             </h2>
             <Swiper
@@ -147,9 +147,9 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               {groupSteps(steps, 3).map((stepGroup, index) => (
                 <SwiperSlide key={index}>
                    <div className="h-full flex flex-col items-start justify-start mb-6">
-          <ul className="list-disc pl-5">
+          <ul className="list-disc pl-6">
             {stepGroup.map((step, stepIndex) => (
-              <li key={stepIndex} className="text-custom-red Archivo leading-archivo mb-2">
+              <li key={stepIndex} className="text-custom-red ArchivoLight leading-archivo mb-2">
                 {step.description}
               </li>
             ))}
@@ -160,11 +160,11 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
             </Swiper>
           </div>
         ) : (
-          <div className="px-6 mt-6">
-            <h2 className="text-custom-red text-2xl font-bold mb-3 titre-bold">
+          <div className="px-6 mt-6 ArchivoExtraBold">
+            <h2 className="text-custom-red text-2xl font-bold mb-3 titre-bold ">
               Recette
             </h2>
-            <div className="py-6">
+            <div className="py-6 ArchivoLight">
               Les étapes de cette recette, malheureusement, ne sont pas
               disponibles. Revisitez cette page ultérieurement pour l'avoir.
             </div>

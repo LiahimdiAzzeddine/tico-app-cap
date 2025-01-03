@@ -19,7 +19,7 @@ function WelcomeSlider() {
       spaceBetween={0}
       slidesPerView={1}
       pagination={{ clickable: true }}
-      className="h-screen w-full welcome-slider"
+      className="h-screen w-full welcome-slider bg-white"
     >
       <SwiperSlide>
         <Intro0 />

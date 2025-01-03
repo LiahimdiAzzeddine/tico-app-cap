@@ -41,9 +41,9 @@ function Home() {
 
   return (
     <HomeLayout>
-      <div className="flex flex-col items-center justify-between w-full h-full">
+      <div className="flex flex-col items-center justify-around w-full h-full">
         {/* Logo Section */}
-        <div className="grow-0 flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center w-72 tico_intro">
+        <div className=" flex items-end justify-center relative aspect-square bg-no-repeat bg-contain bg-center w-72 tico_intro">
           {isAuthenticated && (
             <span className="absolute text-2xl top-[26%] text-center text-custom-green-text titre-bold">
               Bonjour {name} !
@@ -57,9 +57,9 @@ function Home() {
         </div>
 
         {/* Buttons Section with Background */}
-        <div className="grow flex items-center justify-start w-full max-w-sm px-2  h-auto pb-4">
+        <div className="min-h-[30%]  flex items-center justify-start w-full max-w-sm px-2  pb-4">
           <div className="w-full max-w-sm  flex items-center justify-center h-full">
-            <div className="flex flex-col items-center justify-center w-3/4 space-y-6 h-full">
+            <div className="flex flex-col items-center justify-start w-3/4 space-y-6 h-full">
               <button
                 className="bg-[#4E986D] ArchivoBold text-white  text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => goToPage("/history")}
