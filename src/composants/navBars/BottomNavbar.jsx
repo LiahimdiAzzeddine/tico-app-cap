@@ -59,7 +59,7 @@ const BottomNavbar = () => {
     >
       <IonToolbar
         className="bg-[#f7f7f700] toolbar-custom"
-        style={{ "--ion-toolbar-background": "#ffff",'--padding-bottom':'var(--ion-safe-area-bottomaz, 0.75rem)' }}
+        style={{ "--ion-toolbar-background": "#ffff" }}
         
       >
         <div className="flex justify-around items-center pt-3 px-2 some-child-element">
