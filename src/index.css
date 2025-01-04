@@ -99,13 +99,10 @@ ion-loading.custom-loading-help {
 }
 /**/
 html {
-  --ion-safe-area-bottom: env(safe-area-inset-bottom,0.75rem);
+  --ion-safe-area-bottom:calc(env(safe-area-inset-bottom, -0.75rem ) + 0.75rem);
 }
 
-/* En cas d'absence de valeur d'inset */
-html:where(:not(:has(:root))) {
-  --ion-safe-area-bottom: 0.75rem;
-}
+
 
 :root {
   --white-color: #ffffff;
