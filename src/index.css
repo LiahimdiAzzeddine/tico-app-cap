@@ -97,11 +97,14 @@ ion-loading.custom-loading-help {
 .pallybold{
   font-family: 'pallybold';
 }
-/**/
+/*
 html {
-  --ion-safe-area-bottom:calc(env(safe-area-inset-bottom, -0.75rem ) + 0.75rem);
+  --ion-safe-area-left: 25px;
+}*/
+/* Solution 3: Classe utilitaire */
+.safe-area-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom)) !important;
 }
-
 
 
 :root {
