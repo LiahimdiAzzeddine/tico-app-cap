@@ -28,11 +28,9 @@ export function createProduct(scannedResult, productData) {
 
   // Extraction et transformation des recettes
   const recipes =
-    (productData.foodheaproduct?._recettes?.length > 0
-      ? productData.foodheaproduct._recettes
-      : productData.OFFproduct?._recettes?.length > 0
-      ? productData.OFFproduct._recettes
-      : []
+    (productData.recipes?.length > 0
+      ? productData.recipes
+      :[]
     )?.map((recipe) => createRecipe(recipe)) ?? [];
 
   // Extraction et transformation des lignes

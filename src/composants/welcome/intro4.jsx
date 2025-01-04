@@ -8,10 +8,10 @@ function Intro4() {
   return (
     
 
-    <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full">
+    <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full" style={{paddingTop:"env(safe-area-inset-top)" }}>
       {/* Logo Section */}
       <div className="grow flex items-end justify-center w-full pt-1">
-        <img className="w-64" src={tico_intro} alt="TiCO Logo" />
+        <img className="w-60" src={tico_intro} alt="TiCO Logo" />
       </div>
 
       {/* Buttons Section with Background */}

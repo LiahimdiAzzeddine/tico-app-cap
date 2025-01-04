@@ -5,10 +5,10 @@ import background from "../../assets/intro/background5.png";
 
 function Intro5() {
   return (
-    <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full">
+    <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full" style={{paddingTop:"env(safe-area-inset-top)" }}>
       {/* Logo Section */}
       <div className="grow flex items-end justify-center w-full">
-        <img className="w-64" src={tico_intro} alt="TiCO Logo" />
+        <img className="w-60" src={tico_intro} alt="TiCO Logo" />
       </div>
 
       {/* Section Texte avec image de fond */}
