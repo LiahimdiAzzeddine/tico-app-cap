@@ -58,11 +58,10 @@ const BottomNavbar = () => {
        mode="md"
     >
       <IonToolbar
-      mode="md"
         className="bg-[#f7f7f700]"
         style={{ "--ion-toolbar-background": "#ffff" }}
       >
-        <div className="flex justify-around items-center pt-3 pb-2 px-2">
+        <div className="flex justify-around items-center pt-3 pb-1 px-2">
           {/* Bouton Accueil */}
           <button
             className="flex flex-col items-center hover:opacity-80 transition-opacity duration-200"
