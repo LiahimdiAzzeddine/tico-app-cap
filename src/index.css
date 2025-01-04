@@ -97,10 +97,11 @@ ion-loading.custom-loading-help {
 .pallybold{
   font-family: 'pallybold';
 }
-/*
+/**/
 html {
-  --ion-safe-area-left: 25px;
-}*/
+  --ion-safe-area-bottom: 0.75rem;
+}
+
 
 
 :root {
