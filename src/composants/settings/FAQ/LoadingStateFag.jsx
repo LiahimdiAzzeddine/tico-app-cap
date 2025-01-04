@@ -15,18 +15,15 @@ function LoadingStateFag() {
         >
           {/* Simule la ligne de question */}
           <div className="flex justify-between items-center cursor-pointer">
-            <div className="w-5/6">
-              <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+            <div className="w-full">
+              <div className="h-6 bg-gray-200 rounded w-[95%]"></div>
             </div>
 
             {/* Icône de flèche fixe */}
             <IonIcon icon={chevronDown} className="text-gray-400 text-xl" />
           </div>
 
-          {/* Simule la réponse en cours de chargement */}
-          <div className="mt-2 p-4 rounded-e-full bg-[#fff5d3] border border-yellow-300">
-            <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-          </div>
+        
         </div>
       ))}
     </div>

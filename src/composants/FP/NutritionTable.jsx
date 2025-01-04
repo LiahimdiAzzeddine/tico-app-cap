@@ -37,7 +37,14 @@ const NutritionTable = ({ product, portion }) => {
 
   const calculatePortionVNR = (vnr, portion, qt) => {
     if (qt > 0 && portion > 0 && vnr > 0) {
-      return ((qt / 100) * parseFloat(portion) * 100) / vnr;
+      return (qt*parseFloat(portion)) / vnr;
+    } else {
+      return 0;
+    }
+  };
+  const calculatePortionVNR100 = (vnr, qt) => {
+    if (qt > 0 && vnr > 0) {
+      return (qt * 100) / vnr;
     } else {
       return 0;
     }
@@ -52,7 +59,7 @@ const NutritionTable = ({ product, portion }) => {
     const vnr =
       unit === "portion" && portion
         ? calculatePortionVNR(item.value.vnr, portion, item.value.qt)
-        : item.value.vnr;
+        : calculatePortionVNR100(item.value.vnr, item.value.qt);
 
     const formattedValue = value % 1 === 0 ? value : value.toFixed(1);
     const formattedVNR = vnr % 1 === 0 ? vnr : vnr.toFixed(1);
@@ -82,7 +89,7 @@ const NutritionTable = ({ product, portion }) => {
           </td>
           <td className="text-right text-gray-500 py-1 Archivo min-w-16">
             {vnr !== null && vnr !== undefined && vnr !== 0 ? (
-              <>{!(item.name).includes("Énergie")? formattedVNR+'%':""} </>
+              <>{ formattedVNR+'%'} </>
             ) : (
               ""
             )}

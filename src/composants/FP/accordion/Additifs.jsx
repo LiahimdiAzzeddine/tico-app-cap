@@ -31,7 +31,7 @@ const Additifs = ({ additifs,targetRefAdditifs }) => {
   return (
     <>
       <h1 className="text-xl text-custom-blue font-bold pt-3"  >
-        <span className="marker-effect-cyan">Additifs</span>
+        <span className="marker-effect-cyan ArchivoExtraBold">Additifs</span>
       </h1>
       <div className="mt-4" id="additifs">
         {additifs && additifs.length > 0 ? (

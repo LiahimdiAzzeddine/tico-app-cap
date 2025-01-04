@@ -53,7 +53,7 @@ const Allergenes = ({ allergenes = [] }) => {
   return (
     <>
       <h1 className="text-xl text-custom-blue font-bold pt-3">
-        <span className="marker-effect-cyan ArchivoBold">Allergènes</span>
+        <span className="marker-effect-cyan ArchivoExtraBold">Allergènes</span>
       </h1>
       <div className="mt-4 grid grid-cols-3 gap-x-4 gap-y-6 items-start">
         {allergenes.length > 0 ? (

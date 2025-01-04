@@ -39,8 +39,8 @@ function NutritionalInfo({
         </span>
         </div>
         
-        <h1 className="text-xl text-custom-blue font-bold pt-3 px-2 ArchivoBold">
-          <span className="marker-effect-cyan ArchivoBold">
+        <h1 className="text-xl text-custom-blue font-bold pt-3 px-2 ArchivoExtraBold">
+          <span className="marker-effect-cyan ArchivoExtraBold">
             Profil nutritionnel
           </span>
         </h1>
@@ -63,7 +63,7 @@ function NutritionalInfo({
 
         <img
           src={FICHETOP}
-          className="w-12 absolute bottom-0 right-0"
+          className="w-12 absolute bottom-1 right-0"
           onClick={() => scrollTop()}
           alt="Toggle Panel"
         />
