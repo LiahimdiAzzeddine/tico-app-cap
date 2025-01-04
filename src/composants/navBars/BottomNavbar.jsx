@@ -61,7 +61,6 @@ const BottomNavbar = () => {
   className="bg-[#f7f7f700] toolbar-custom safe-area-bottom"
   style={{ 
     "--ion-toolbar-background": "#ffff",
-    "--ion-toolbar-padding-bottom": "max(0.75rem, env(safe-area-inset-bottom))"
   }}
 >
         <div className="flex justify-around items-center pt-3 px-2 some-child-element">
