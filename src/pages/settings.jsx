@@ -120,7 +120,7 @@ const Settings = () => {
                   setShowModalInviteTico(true);
                 }}
               >
-                Faire connaître TiCO
+               <span className="leading-archivo">Faire connaître <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span></span> 
               </button>
               {/* 
               <button className="bg-blue-500 text-white py-2 px-6 rounded-xl w-3/4 hover:bg-blue-600 active:bg-blue-700 transition duration-75 transform active:scale-95">

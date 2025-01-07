@@ -30,7 +30,7 @@ function NameProduct(props) {
           </div>
           
           <div className="text-sm text-[#42a29a] font-bold ArchivoBoldItalique">
-            Produit {(Number(props.Transparent) + 1) * 10}% transparent !
+            Produit {(Number(props.Transparent) + 1) * 10}% transparent {Number(props.Transparent)==9?"!":""}
           </div>
         </div>
       </div>

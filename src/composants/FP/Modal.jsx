@@ -24,12 +24,20 @@ import Nutri_score_E from "../../assets/fb/score/Nutri-score-E.png";
 import { IonModal } from "@ionic/react";
 
 const Modal = ({ isOpen, onClose, children }) => {
+  const handleBackgroundClick = (e) => {
+    // Vérifie si le clic vient de l'arrière-plan (pas d'un enfant)
+    if (e.target.classList.contains("customionmodal")) {
+      onClose();
+    }
+  };
   return (
     <IonModal
       isOpen={isOpen}
       onDidDismiss={onClose}
       cssClass="custom-ion-modal"
+      onClick={handleBackgroundClick}
     >
+      <div className="customionmodal w-full h-full flex justify-center items-center">
       <motion.div
         className="relative w-full max-w-lg h-auto z-50 m-1 mx-auto"
         initial={{ opacity: 0, scale: 0.5 }}
@@ -51,6 +59,7 @@ const Modal = ({ isOpen, onClose, children }) => {
           </div>
         </div>
       </motion.div>
+      </div>
     </IonModal>
   );
 };
@@ -72,7 +81,7 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
   const OpenContactTiCO = () => {
     if (!isAuthenticated) {
       triggerAlert(
-        "pour contacter Tico, il faut être connecté",
+        "Connecte-toi pour nous contacter",
         "Attention",
         () => {
           goToPage("/login");
@@ -330,12 +339,12 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
             {/** */}
             <button
               style={{ border: "1px solid #0f548d" }}
-              className={`flex-1 p-1 rounded-2xl ArchivoLight opacity-50 cursor-not-allowed  ${
+              className={`flex-1 p-1 rounded-2xl ArchivoLight  cursor-not-allowed  ${
                 showInfo === "transformation"
                   ? "bg-custom-blue font-bold text-white"
                   : "text-custom-blue"
               }`}
-              onClick={() => console.log()}
+              onClick={() => setShowInfo("transformation")}
             >
               Naturalité
             </button>
@@ -361,14 +370,12 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
             {/* Content Section */}
             {showInfo === "transformation" ? (
               <div className="space-y-2 pt-4">
-                <div className="text-custom-blue text-center Archivo">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  consequuntur nostrum blanditiis dicta laboriosam.
+                <div className="text-custom-blue text-start ArchivoLight leading-archivo">
+                La naturalité des ingrédients s’oppose à l’ultra-transformation. Il est important de choisir des aliments peu ou pas transformés pour prendre soin de votre santé. 
+
                 </div>
-                <div className="text-custom-blue text-center Archivo">
-                  Lorem ipsum dolor sit amet consectetur adipisicing
-                  elit.mollitia incidunt sit consequuntur nostrum blanditiis
-                  dicta.
+                <div className="text-custom-blue text-start ArchivoLight leading-archivo">
+                En attendant plus d’information sur ce produit regardez les types d’additifs et la liste des ingrédients, si vous pourriez les avoir dans votre cuisine c’est tout bon, sinon cela nécessite plus d’information de la part de la marque.
                 </div>
               </div>
             ) : (
@@ -408,8 +415,9 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
                       </div>
                     ))
                   ) : (
-                    <div className="text-gray-500 text-center Archivo">
-                      Aucun additif disponible.
+                    <div className="text-custom-blue text-center ArchivoLight">
+                     Ne contient pas d'additifs<br></br>
+                     À confirmer par la marque
                     </div>
                   )}
                 </div>
@@ -417,10 +425,14 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
             )}
           </div>
           <div className="pt-4">
-          {additifs.length>0?(
-          <button className="w-full text-center text-custom-blue  underline underline-offset-2 focus:outline-none ArchivoItalic"  onClick={MoreInfo}>
+
+          {showInfo === "transformation"?(
+<img src={BubbleIImage} alt="Bubble text icon" className="w-14 h-auto m-auto" />
+          ):(
+<button className="w-full text-center text-custom-blue  underline underline-offset-2 focus:outline-none ArchivoItalic"  onClick={MoreInfo}>
             En savoir plus
-          </button>):("")}
+          </button>
+          )}
         </div>
         </div>
 

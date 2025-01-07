@@ -51,8 +51,9 @@ const HelpTiCO = () => {
     <HomeLayout>
       <div className="flex flex-col items-center justify-start w-full h-full">
         <div className="flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-56 w-72 tico_intro">
-          <span className="absolute text-2xl top-[26%] text-center text-custom-blue titre-bold">
-            Bientôt disponible
+          <span className="absolute text-xl top-[15%] text-center text-custom-blue titre-bold">
+          Nouvelles&nbsp;fonctionnalités
+          bientôt&nbsp;disponibles
           </span>
           <img
             className="absolute w-[11.5rem] bottom-0 left-1/2 transform -translate-x-1/2"
@@ -64,7 +65,8 @@ const HelpTiCO = () => {
         <div className="flex grow items-center justify-start w-full max-w-sm px-2 pb-4">
           <div className="w-full max-w-sm flex flex-col items-center h-full justify-center space-y-6">
             <p className="text-custom-blue w-full text-center ArchivoLight leading-archivo">
-              Vous souhaitez nous aider <span className="font-bold ArchivoLightBold">à faire la transparence</span>&nbsp;?
+
+            Ensemble, <span className="font-bold ArchivoLightBold">faisons grandir la transparence</span>&nbsp;!
             </p>
             <div className="relative flex flex-col items-center justify-center w-2/4">
               {/* Flèche */}
@@ -83,8 +85,7 @@ const HelpTiCO = () => {
 
             <div className="max-w-sm flex flex-col items-center justify-start space-y-4 w-full">
               <p className=" text-custom-blue  w-full text-center ArchivoLight leading-archivo">
-                Vous pouvez également <span className="font-bold ArchivoLightBold">nous soutenir financièrement</span> pour
-                développer de nouvelles fonctionnalités.
+              Votre soutien financier permettra d’améliorer<br></br> l’application et d’accélérer le déploiement de la<br></br> transparence alimentaire. Chaque contribution<br></br> compte pour bâtir un futur plus clair et responsable.
               </p>
               <div className="flex w-2/4 items-center border-[1.2px] border-custom-blue rounded-xl">
                 <input

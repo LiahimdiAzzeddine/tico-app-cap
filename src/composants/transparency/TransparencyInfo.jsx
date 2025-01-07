@@ -54,10 +54,10 @@ const TransparencyInfo = () => {
       </div>
       <div className="p-4 flex flex-col items-center space-y-4">
         <h3 className="background_titre text-lg text-custom-blue ArchivoBold py-4 mt-4 px-6 ">
-          L’échelle de transparence TiCO
+          L’échelle de transparence <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span>
         </h3>
         <div className="Archivo text-custom-blue">
-          La transparence TiCO est le fruit de recherches en matière
+          La transparence <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span> est le fruit de recherches en matière
           d’information. Nous avons étudié les thématiques essentielles et les
           référentiels existants avec des experts pour sélectionner les plus
           qualitatifs sur le plan scientifique.
@@ -151,7 +151,7 @@ const TransparencyInfo = () => {
           </div>
 
           <div className="flex flex-row w-full justify-around">
-            <div className="w-[70%]">Soit décryptage TiCO</div> <div className="background_plus px-2 py-3">+3</div>
+            <div className="w-[70%]">Soit décryptage <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span></div> <div className="background_plus px-2 py-3">+3</div>
           </div>
         </div>
         <div className="Archivo text-custom-blue flex flex-col items-start justify-start w-full space-y-2">
@@ -163,7 +163,7 @@ const TransparencyInfo = () => {
             qui est dit sur le produit
           </div>
           <div className="flex flex-row w-full justify-around">
-            <div className="w-[70%]">Décryptage TiCO</div> <div className="background_plus px-2 py-3">+1</div>
+            <div className="w-[70%]">Décryptage <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span></div> <div className="background_plus px-2 py-3">+1</div>
           </div>
         </div>
         <div className="ArchivoItalic py-16 text-custom-blue">

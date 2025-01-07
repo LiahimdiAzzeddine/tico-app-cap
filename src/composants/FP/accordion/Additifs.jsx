@@ -62,9 +62,10 @@ const Additifs = ({ additifs,targetRefAdditifs }) => {
             </div>
           ))
         ) : (
-          <div className="text-gray-500 ArchivoBold">
-            Aucun additif disponible.
-          </div>
+          <div className="text-custom-blue ArchivoLight">
+          Ne contient pas d'additifs<br></br>
+          À confirmer par la marque
+         </div>
         )}
       </div>
     </>

@@ -50,12 +50,11 @@ function InviteTico() {
                   </span>
                 </h2>
 
-                <div className="text-custom-blue text-lg Archivo leading-archiv">
-                  Vous souhaitez faire connaître{" "}
+                <div className="text-custom-blue text-lg Archivo leading-archivo">
+                  Vous souhaitez faire connaître<br></br>
                   <span className="pallybold leading-archiv">
                     Ti<span className="tracking-tightest leading-archiv">CO</span>
-                  </span><br></br>
-                  à votre entourage ?
+                  </span> à votre entourage ?
                 </div>
 
                 <div className="text-custom-blue text-lg Archivo leading-archivo">

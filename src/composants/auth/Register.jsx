@@ -3,6 +3,8 @@ import useRegister from "../../hooks/auth/useRegister";
 import Spinner from "../Spinner";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
 import { IonIcon, IonButton } from "@ionic/react";
+import WhiteModal from "../modales/WhiteModal";
+import CGUConfidentialite from "../settings/CGUConfidentialite";
 
 const AccountCreationForm = ({ onClose }) => {
   const [values, setValues] = useState({
@@ -12,8 +14,9 @@ const AccountCreationForm = ({ onClose }) => {
     confirm_password: "",
     role_id: "",
   });
-
+  const [acceptedCGUs, setAcceptedCGUs] = useState(false);
   const [errors, setErrors] = useState({}); // State for input field errors
+  const [showModalCGU, setShowModalCGU] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
@@ -150,7 +153,7 @@ const AccountCreationForm = ({ onClose }) => {
             }`}
             required
             aria-invalid={!!errors.confirm_password} // Accessibilité
-            aria-describedby="password-error" // Accessibilité
+            aria-describedby="password-error" 
           />
           <button
             type="button"
@@ -165,18 +168,38 @@ const AccountCreationForm = ({ onClose }) => {
             </p>
           )}
         </div>
+        <div className="flex flex-row space-x-2 items-center relative">
+        <input
+          required
+            type="checkbox"
+            className="accent-custom-text-orange"
+            checked={acceptedCGUs}
+            onChange={(e) => setAcceptedCGUs(e.target.checked)}
+          />
+
+          <p className="ArchivoLight text-custom-text-orange ">J'ai lu et j'accepte les <a className="underline"  onClick={() => {
+                setShowModalCGU(true);
+              }}>CGUs</a></p>
+        </div>
         <div className="pt-3 flex justify-center">
-          <button
-            className="bg-orange-500 text-white font-bold  text-lg py-2 px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
-            disabled={loading}
+        <button
+            className={`bg-custom-text-orange text-white font-bold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out ${
+              acceptedCGUs ? "hover:scale-105 active:scale-95" : "opacity-50 cursor-not-allowed"
+            }`}
+            disabled={loading || !acceptedCGUs}
             type="submit"
           >
-              Valider
+            Valider
           </button>
         </div>
       </form>
 
-      
+      <WhiteModal
+        isOpen={showModalCGU}
+        onClose={() => setShowModalCGU(false)} // Handle modal close logic
+      >
+        <CGUConfidentialite />
+      </WhiteModal>
       {/* Full-screen loading overlay */}
       {loading && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">

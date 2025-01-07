@@ -105,7 +105,7 @@ function IngredientsInfo({
 
         {/* Affichage des allergènes et additifs si présents */}
         {allergenesArray.length > 0 && <Allergenes allergenes={allergenesArray} />}
-        {additifsArray.length > 0 && <Additifs additifs={additifsArray}  targetRefAdditifs={targetRefAdditifs} />}
+        <Additifs additifs={additifsArray}  targetRefAdditifs={targetRefAdditifs} />
       </div>
 
       {/* Image pour toggler */}

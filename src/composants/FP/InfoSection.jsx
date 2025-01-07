@@ -146,7 +146,7 @@ const InfoSection = ({
             ):(
 <div className="flex flex-row items-center justify-between py-2 space-x-1 " onClick={() => setIsOpenadd(true)}>
               <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo">
-                <span className="text-[0.6rem] text-custom-blue ArchivoLight">Données non communiquées par le fabricant</span>
+                <span className="text-[0.6rem] text-custom-blue ArchivoLight">Ne contient pas d'additifs</span>
               </div>
             </div>
             )
