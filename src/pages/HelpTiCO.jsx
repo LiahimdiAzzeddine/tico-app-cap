@@ -56,7 +56,7 @@ const HelpTiCO = () => {
           bientôt&nbsp;disponibles
           </span>
           <img
-            className="absolute w-[11.5rem] bottom-0 left-1/2 transform -translate-x-1/2"
+            className="absolute w-44 bottom-1 left-1/2 transform -translate-x-1/2"
             src={hands}
             alt="TiCO hands"
           />
