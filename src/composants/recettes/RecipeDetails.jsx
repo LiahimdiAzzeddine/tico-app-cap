@@ -30,7 +30,8 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
     difficulte,
     regimes,
     ingredients,
-    steps;
+    steps,
+    totalTime;
 
   if (custom) {
     // Assigner les valeurs lorsque 'custom' est true
@@ -40,6 +41,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
       timebake: cuisson = "0 min",
       image = defaultImageRecette,
       difficulte,
+      totalTime,
       regimes = [],
       ingredients = [],
       recette: steps = [],
@@ -53,6 +55,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
       timebake: cuisson = "0 min",
       image = defaultImageRecette,
       difficulte,
+      totalTime,
       regimes,
       ingredients = [],
       recette: steps = [],
@@ -76,10 +79,10 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               />
             </div>
           </div>
-          <div className="flex flex-row justify-between">
-            <div className="flex flex-wrap justify-center items-center mt-4 space-x-2 space-y-1 Archivo">
+          <div className="flex flex-row justify-between space-x-2">
+            <div className="flex flex-wrap justify-center items-center mt-4 space-x-1 gap-y-1 Archivo max-w-[50%]">
               {difficulte && (
-                <span className="text-white bg-red-800 py-1 px-2 rounded-full border-[1px] border-custom-red">
+                <span className="text-white bg-red-800 py-1 px-2 rounded-full ">
                   {difficulte}
                 </span>
               )}
@@ -88,17 +91,17 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
                 regimes.map((filter, index) => (
                   <span
                     key={index}
-                    className="text-white bg-red-800 py-1 px-2 rounded-full border-[1px] border-custom-red"
+                    className="text-white bg-red-800 py-1 px-2 rounded-full"
                   >
                     {filter.trim()}
                   </span>
                 ))}
+                
             </div>
             <div className="flex items-center justify-start text-sm text-custom-red mt-4">
               <img src={horloge} className="w-8 h-8 mr-2" alt="clock icon" />
               <div className="text-start Archivo">
-                {preparation && <div>{preparation} de préparation</div>}
-                {cuisson && <div>{cuisson} de cuisson</div>}
+                {totalTime && <div>Temps&nbsp;total&nbsp;: <span style={{ whiteSpace: 'nowrap' }}>{totalTime}</span></div>}
               </div>
             </div>
           </div>

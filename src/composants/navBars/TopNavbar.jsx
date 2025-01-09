@@ -76,7 +76,7 @@ const TopNavbar = () => {
             {/* Bouton d'information avec icône */}
             <button
               className="flex items-center justify-center rounded-full hover:opacity-80 transition-opacity duration-200"
-              onClick={()=>{ficheProduitInfo()}}
+              onClick={()=>{handleInfoClick()}}
               aria-label="Open FAQ"
             >
               <img src={info} alt="Info" className="w-9 h-9" />

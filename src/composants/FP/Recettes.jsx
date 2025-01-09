@@ -27,7 +27,7 @@ function Recettes({ recettes,targetRefRecettes }) {
   const handleAddrecipe=()=>{
     if (!isAuthenticated) {
       triggerAlert(
-        "Connecte-toi pour proposer une recette",
+        "Se connecter pour proposer une recette",
         "Attention",
         () => {
           goToPage("/login");

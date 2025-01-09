@@ -17,10 +17,31 @@ const SuggestRecipe = ({ onClose }) => {
   const [present, dismiss] = useIonLoading();
 
   const { triggerAlert } = useAlert();
+  const canVisualizeRecipe = () => {
+    return (values.ingredients.length < 1 || values.steps.length < 1);
+  };
 
   const VisualiseRecette = () => {
-    setRecette(createViewRecipe(values));
-    console.log("🚀 ~ SuggestRecipe ~ Recette:", Recette);
+    if (canVisualizeRecipe()) {
+      // Déclencher une alerte si les conditions ne sont pas remplies
+      triggerAlert(
+        "Ajouter au moins un ingrédient et une étape avant de visualiser la recette.",
+        "Information",
+        () => {},
+        "ios",
+        "",
+        "ok",
+        true
+      );
+      return;
+    }
+    // Si les conditions sont remplies, afficher la recette
+    const total_time=formatTime(
+      Number(values.cook_time) +
+        Number(values.prep_time) +
+        Number(values.rest_time)
+    );
+    setRecette(createViewRecipe(values,total_time));
     setModalOpen(true);
   };
 
@@ -87,7 +108,7 @@ const SuggestRecipe = ({ onClose }) => {
   };
 
   const removeIngredient = (indexToRemove) => {
-    triggerAlert("Voulez-vous enlever l'ingrédient ?", "Attention", () => {
+    triggerAlert("Supprimer l’ingrédient ?", "Attention", () => {
       setValues((prevValues) => ({
         ...prevValues,
         ingredients: prevValues.ingredients.filter(
@@ -107,7 +128,7 @@ const SuggestRecipe = ({ onClose }) => {
     }
   };
   const removeStep = (indexToRemove) => {
-    triggerAlert("Voulez-vous supprimer cette étape ?", "Attention", () => {
+    triggerAlert("Supprimer cette étape ?", "Attention", () => {
       setValues((prevValues) => ({
         ...prevValues,
         steps: prevValues.steps.filter((_, index) => index !== indexToRemove),
@@ -173,12 +194,16 @@ const SuggestRecipe = ({ onClose }) => {
               required
             />
             {error?.titre && (
-              <p className="border-red-800 text-sm mt-1 ArchivoLight">{error.titre[0]}</p>
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">
+                {error.titre[0]}
+              </p>
             )}
           </div>
           {/* Type de plats */}
           <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base ArchivoLight">Type de plats&nbsp;:</label>
+            <label className="text-custom-red text-base ArchivoLight">
+              Type de plats&nbsp;:
+            </label>
             <div className="flex flex-wrap gap-2">
               {["Entrée", "Plat", "Dessert", "Apéritif", "Boisson"].map(
                 (type) => (
@@ -198,13 +223,17 @@ const SuggestRecipe = ({ onClose }) => {
               )}
             </div>
             {error?.type && (
-              <p className="border-red-800 text-sm mt-1 ArchivoLight">{error.type[0]}</p>
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">
+                {error.type[0]}
+              </p>
             )}
           </div>
 
           {/* Difficulté */}
           <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base ArchivoLight">Difficulté&nbsp;:</label>
+            <label className="text-custom-red text-base ArchivoLight">
+              Difficulté&nbsp;:
+            </label>
             <div className="flex flex-wrap gap-2">
               {["Facile", "Moyen", "Difficile"].map((difficulty) => (
                 <button
@@ -230,7 +259,9 @@ const SuggestRecipe = ({ onClose }) => {
 
           {/* Filtres */}
           <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base ArchivoLight">Régimes&nbsp;:</label>
+            <label className="text-custom-red text-base ArchivoLight">
+              Régimes&nbsp;:
+            </label>
             <div className="flex flex-wrap gap-2">
               {[
                 "Végétarien",
@@ -254,7 +285,9 @@ const SuggestRecipe = ({ onClose }) => {
               ))}
             </div>
             {error?.filters && (
-              <p className="border-red-800 text-sm mt-1 ArchivoLight">{error.filters[0]}</p>
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">
+                {error.filters[0]}
+              </p>
             )}
           </div>
           {/* Temps de préparation */}
@@ -269,6 +302,7 @@ const SuggestRecipe = ({ onClose }) => {
               max="120"
               step="1"
               value={values.prep_time}
+              placeholder="Temps de préparation"
               onChange={handleInputChange}
               className={`input  border-[1px] p-2 ArchivoLight rounded-xl focus:outline-none ${
                 error?.prep_time
@@ -355,11 +389,14 @@ const SuggestRecipe = ({ onClose }) => {
                 ""
               )}
             </label>
+            
           </div>
 
           {/* Ingrédients */}
           <div className="flex flex-col gap-3 justify-center items-start">
-            <label className="text-custom-red text-base ArchivoLight">Ingrédients&nbsp;:</label>
+            <label className="text-custom-red text-base ArchivoLight">
+              Ingrédients&nbsp;:
+            </label>
             <div className="flex flex-row gap-2 w-full">
               <input
                 type="number"
@@ -420,7 +457,7 @@ const SuggestRecipe = ({ onClose }) => {
                   {ingredient.unit} - {ingredient.name}
                   <button
                     type="button"
-                    className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-sm ArchivoLight"
+                    className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-sm ArchivoLight pb-[2px]"
                     onClick={() => removeIngredient(index)}
                     aria-label={`Supprimer ${ingredient.name}`}
                   >
@@ -432,7 +469,9 @@ const SuggestRecipe = ({ onClose }) => {
           </div>
           {/* Étapes */}
           <div className="flex flex-col gap-3 justify-center items-start">
-            <label className="text-custom-red text-base ArchivoLight">Étapes&nbsp;:</label>
+            <label className="text-custom-red text-base ArchivoLight">
+              Étapes&nbsp;:
+            </label>
             <textarea
               type="text"
               value={stepInput}
@@ -445,7 +484,9 @@ const SuggestRecipe = ({ onClose }) => {
               }`}
             />
             {error?.steps && (
-              <p className="border-red-800 text-sm mt-1 ArchivoLight">{error.steps[0]}</p>
+              <p className="border-red-800 text-sm mt-1 ArchivoLight">
+                {error.steps[0]}
+              </p>
             )}
             <button
               type="button"
@@ -463,7 +504,7 @@ const SuggestRecipe = ({ onClose }) => {
                   Étape {index + 1}: {step}
                   <button
                     type="button"
-                    className="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-sm ArchivoLight"
+                    className="bg-red-500 text-white rounded-full w-5 h-5 flex flex-col items-center justify-center m-auto text-sm ArchivoLight pb-[2px]"
                     onClick={() => removeStep(index)}
                     aria-label={`Supprimer l'étape ${index + 1}`}
                   >
@@ -481,7 +522,9 @@ const SuggestRecipe = ({ onClose }) => {
             <button
               type="button"
               onClick={() => VisualiseRecette()} // Ouvrir le modal
-              className=" bg-custom-red text-white border-solid border-[1px] font-bold px-3 py-2 rounded-lg ArchivoLight"
+              className={`px-3 py-2 rounded-lg bg-custom-red text-white hover:bg-red-600 ${
+                !canVisualizeRecipe() ? "" : "opacity-50 cursor-not-allowed"
+              }`}
             >
               Je visualise ma recette
             </button>

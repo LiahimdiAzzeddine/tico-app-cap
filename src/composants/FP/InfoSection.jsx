@@ -51,10 +51,10 @@ const InfoSection = ({
   const OpenContactSolliciter = () => {
     if (!isAuthenticated) {
       triggerAlert(
-        "Connecte-toi pour encourager la marque",
+        "Se connecter pour encourager la marque",
         "Attention",
         () => {
-         goToPage("/login");
+          goToPage("/login");
         },
         "ios",
         "Se connecter"
@@ -70,11 +70,11 @@ const InfoSection = ({
 
   return (
     <div className="pt-2">
-      <div className="relative w-full px-4 pb-6 mx-auto bg-custom-green-clear"> 
+      <div className="relative w-full px-4 pb-6 mx-auto bg-custom-green-clear">
         {/* Title positioned between the white background and blue container */}
         <div className="absolute -top-4 left-0 right-0 flex justify-start ">
           <span className="bg-[#a9d7d4] px-4 py-2 rounded-e-full text-custom-blue font-bold ArchivoBold">
-            LA SYNTHÈSE SUR LE PRODUIT
+            LA SYNTHÈSE DU PRODUIT
           </span>
         </div>
         <div className="grid grid-cols-2">
@@ -86,8 +86,11 @@ const InfoSection = ({
               </span>
             </div>
             {selectedNutriscoreImage && (
-              <div className="flex flex-row items-center justify-around py-2 space-x-4 " onClick={() => setIsOpenNutrition(true)}>
-                <img src={selectedNutriscoreImage} className="w-24 h-auto"   />
+              <div
+                className="flex flex-row items-center justify-around py-2 space-x-4 "
+                onClick={() => setIsOpenNutrition(true)}
+              >
+                <img src={selectedNutriscoreImage} className="w-24 h-auto" />
                 <div>
                   <IonIcon
                     className="text-xl text-custom-blue"
@@ -101,23 +104,17 @@ const InfoSection = ({
               {selectedComent ? (
                 <span dangerouslySetInnerHTML={{ __html: selectedComent }} />
               ) : (
-                <span className="text-[0.6rem] text-custom-blue ArchivoLight">Données non communiquées par le fabricant</span>
+                <span className="text-[0.6rem] text-custom-blue ArchivoLight">
+                  Données non communiquées par le fabricant
+                </span>
               )}
             </div>
             {(!selectedComent || !selectedNutriscoreImage) && (
               <div className="text-xs flex flex-row space-x-1">
-              <div className="text-[#42a29a]  Archivo text-[0.6rem] w-[70%]">
-                Encourager la marque à atteindre 100% de transparence
+                <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
+                  Encourager la marque à atteindre 100% de transparence
+                </div>
               </div>
-              <div className="w-[30%]">
-                <img
-                  className="w-20 mt-1"
-                  src={illustrationOrigines}
-                  alt="Illustration des origines du produit"
-                  onClick={() => OpenContactSolliciter()}
-                />
-              </div>
-            </div>
             )}
           </div>
 
@@ -128,12 +125,35 @@ const InfoSection = ({
                 Naturalité des ingrédients
               </span>
             </div>
-            {product?.additifs?.length?(
-              <div className="flex flex-row items-center justify-between py-2 space-x-1 " onClick={() => setIsOpenadd(true)}>
-              <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo">
-                {"Contient " + product?.additifs?.length + " additifs"}
+            {product?.additifs?.length ? (
+              <div
+                className="flex flex-row items-center justify-between py-2 space-x-1 "
+                onClick={() => setIsOpenadd(true)}
+              >
+                <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo">
+                  {"Contient " + product?.additifs?.length + " additifs"}
+                </div>
+                {product?.additifs?.length > 0 && (
+                  <div>
+                    <IonIcon
+                      className="text-xl text-custom-blue"
+                      icon={chevronForwardOutline}
+                      onClick={() => setIsOpenadd(true)}
+                    />
+                  </div>
+                )}
               </div>
-              {product?.additifs?.length > 0 && (
+            ) : (
+              <div
+                className="flex flex-row items-center justify-between py-2 space-x-1 "
+                onClick={() => setIsOpenadd(true)}
+              >
+                <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo">
+                  <span className="text-[0.6rem] text-custom-blue ArchivoLight">
+                    Ne contient pas d’additifs<br></br>
+                    (À confirmer par la maque )
+                  </span>
+                </div>
                 <div>
                   <IonIcon
                     className="text-xl text-custom-blue"
@@ -141,34 +161,17 @@ const InfoSection = ({
                     onClick={() => setIsOpenadd(true)}
                   />
                 </div>
-              )}
-            </div>
-            ):(
-<div className="flex flex-row items-center justify-between py-2 space-x-1 " onClick={() => setIsOpenadd(true)}>
-              <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo">
-                <span className="text-[0.6rem] text-custom-blue ArchivoLight">Ne contient pas d'additifs</span>
               </div>
-            </div>
-            )
-            
-          }
+            )}
 
             {product?.commentaire ? (
               <div className="text-[0.6rem] text-[#42a29a]"></div>
             ) : (
               <div className="text-xs flex flex-row space-x-1">
-                  <div className="text-[#42a29a]  Archivo text-[0.6rem] w-[70%]">
-                    Encourager la marque à atteindre 100% de transparence
-                  </div>
-                  <div className="w-[30%]">
-                    <img
-                      className="w-20 mt-1"
-                      src={illustrationOrigines}
-                      alt="Illustration des origines du produit"
-                      onClick={() => OpenContactSolliciter()}
-                    />
-                  </div>
+                <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
+                  Encourager la marque à atteindre 100% de transparence
                 </div>
+              </div>
             )}
           </div>
 
@@ -207,18 +210,10 @@ const InfoSection = ({
                   </>
                 ) : (
                   <div className="text-xs flex flex-row space-x-1">
-                  <div className="text-[#42a29a]  Archivo text-[0.6rem] w-[70%]">
-                    Encourager la marque à atteindre 100% de transparence
+                    <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
+                      Encourager la marque à atteindre 100% de transparence
+                    </div>
                   </div>
-                  <div className="w-[30%]">
-                    <img
-                      className="w-20 mt-1"
-                      src={illustrationOrigines}
-                      alt="Illustration des origines du produit"
-                      onClick={() => OpenContactSolliciter()}
-                    />
-                  </div>
-                </div>
                 )}
               </div>
             </div>
@@ -227,7 +222,7 @@ const InfoSection = ({
           {/* Origines Section (Full Height) */}
           <div className="pb-6 pt-3  pl-4 border-l border-custom-green-divider">
             <div className="text-sm font-bold text-custom-blue z-10 w-full">
-            <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis z-50 ArchivoBold text-xs">
+              <span className="marker-effect-cyan font-bold whitespace-nowrap overflow-hidden text-ellipsis z-50 ArchivoBold text-xs">
                 Origines
               </span>
             </div>
@@ -236,16 +231,8 @@ const InfoSection = ({
                 <div className="text-xs text-[#42a29a]"></div>
               ) : (
                 <div className="text-xs flex flex-row space-x-1">
-                  <div className="text-[#42a29a]  Archivo text-[0.6rem] w-[70%]">
+                  <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
                     Encourager la marque à atteindre 100% de transparence
-                  </div>
-                  <div className="w-[30%]">
-                    <img
-                      className="w-20 mt-1"
-                      src={illustrationOrigines}
-                      alt="Illustration des origines du produit"
-                      onClick={() => OpenContactSolliciter()}
-                    />
                   </div>
                 </div>
               )}

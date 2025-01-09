@@ -85,7 +85,9 @@ const HelpTiCO = () => {
 
             <div className="max-w-sm flex flex-col items-center justify-start space-y-4 w-full">
               <p className=" text-custom-blue  w-full text-center ArchivoLight leading-archivo">
-              Votre soutien financier permettra d’améliorer<br></br> l’application et d’accélérer le déploiement de la<br></br> transparence alimentaire. Chaque contribution<br></br> compte pour bâtir un futur plus clair et responsable.
+              Tout soutien permettra d’améliorer l’application.<br></br> 
+              <span className="font-bold ArchivoLightBold">Chaque contribution compte</span> pour bâtir un<br></br> futur plus clair et responsable.
+
               </p>
               <div className="flex w-2/4 items-center border-[1.2px] border-custom-blue rounded-xl">
                 <input

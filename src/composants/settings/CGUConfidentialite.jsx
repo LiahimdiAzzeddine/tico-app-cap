@@ -5,6 +5,7 @@ const CGUConfidentialite = () => {
   return (
     <IonContent>
       <div className="max-w-3xl mx-auto px-2">
+        <br></br>
         <h1 className="text-2xl font-bold text-center text-custom-blue mb-6">
           CGU-Confidentialité
         </h1>

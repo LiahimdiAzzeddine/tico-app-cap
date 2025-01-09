@@ -4,7 +4,7 @@ import { chevronDown } from "ionicons/icons";
 
 function LoadingStateFag() {
   // Simule un tableau d'éléments de chargement (ajustez la longueur selon vos besoins)
-  const loadingItems = Array.from({ length: 5 }); // Par défaut, 5 éléments de chargement
+  const loadingItems = Array.from({ length: 10 }); // Par défaut, 5 éléments de chargement
 
   return (
     <div className="flex flex-col space-y-4 h-full px-4">
@@ -16,7 +16,7 @@ function LoadingStateFag() {
           {/* Simule la ligne de question */}
           <div className="flex justify-between items-center cursor-pointer">
             <div className="w-full">
-              <div className="h-6 bg-gray-200 rounded w-[95%]"></div>
+              <div className="h-9 bg-gray-200 rounded w-[95%]"></div>
             </div>
 
             {/* Icône de flèche fixe */}

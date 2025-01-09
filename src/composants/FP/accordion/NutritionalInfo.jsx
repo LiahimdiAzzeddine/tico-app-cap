@@ -34,7 +34,7 @@ function NutritionalInfo({
                 : ""}
             </>
           ) : (
-            "Données sur la portion non disponibles"
+            "Non disponible"
           )}
         </span>
         </div>

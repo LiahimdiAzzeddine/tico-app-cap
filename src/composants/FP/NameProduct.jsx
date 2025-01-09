@@ -13,7 +13,7 @@ function NameProduct(props) {
 
   return (
     <div>
-      <div className="flex flex-row justify-center pb-6 px-4 space-x-10">
+      <div className="flex flex-row justify-center px-4 space-x-10">
         {/* Ajout de l'image */}
         <div className="max-w-28 max-h-32 w-auto h-auto flex flex-col justify-center items-center">
           <img

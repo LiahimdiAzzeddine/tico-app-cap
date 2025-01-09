@@ -1,4 +1,4 @@
-export function createViewRecipe(recipeData) {
+export function createViewRecipe(recipeData,total_time) {
   // Mapping des ingrédients pour correspondre à la structure attendue dans RecipeModal
   const ingredients = Array.isArray(recipeData.ingredients)
     ? recipeData.ingredients.map((ingredient) => ({
@@ -25,6 +25,7 @@ export function createViewRecipe(recipeData) {
     timecook: recipeData.prep_time ?? "Temps de préparation non précisé",
     timebake: recipeData.cook_time ?? "Temps de cuisson non précisé",
     timerest: recipeData.rest_time ?? "Temps de repos non précisé",
+    totalTime:total_time ?? "Temps de repos non précisé",
     image: recipeData.image ?? "", // Ajouter une image si nécessaire
     difficulte: recipeData.difficulty ?? "", // Difficulté
     regimes:regimes, // List des régimes (Végétarien, Sans oeufs, etc.)

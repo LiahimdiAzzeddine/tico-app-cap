@@ -62,14 +62,13 @@ const Settings = () => {
         >
           {/* Menu Items */}
           <div className="flex flex-col h-full details">
-            {isAuthenticated?(
+
+            {/*isAuthenticated?(
             <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-end justify-center w-full ">
               Mon compte
-            </h2>):("")}
+            </h2>):("")*/}
             <div 
-              className={`flex flex-col items-center justify-center space-y-4 ${
-                isAuthenticated ? "h-4/6" : "h-5/6"
-              }`}
+              className={`flex flex-col items-center justify-center space-y-4 h-4/5`}
             >
               
               {isAuthenticated && (
@@ -130,7 +129,7 @@ const Settings = () => {
 
             {/* Logout Section */}
 
-            <div className="h-1/6 flex flex-col items-center mt-2">
+            <div className="h-1/5 flex flex-col items-center mt-2">
               {isAuthenticated && (
                 <button
                   className="bg-custom-text-orange Archivo text-white font-bold  text-lg py-2 w-auto px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
@@ -191,7 +190,8 @@ const Settings = () => {
       </WhiteModal>
       <WhiteModal
         isOpen={showModalCGU}
-        onClose={() => setShowModalCGU(false)} // Handle modal close logic
+        onClose={() => setShowModalCGU(false)} 
+        ContentPadding = "ion-padding-horizontal"
       >
         <CGUConfidentialite />
       </WhiteModal>

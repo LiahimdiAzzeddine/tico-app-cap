@@ -118,6 +118,7 @@ export function createProduct(scannedResult, productData) {
 
   // Retour de l'objet produit avec les allergènes
   return {
+    isFoodheaProduct: !!productData.foodheaproduct,
     image: getValidValue(
       productData.foodheaproduct?._photoUrl,
       productData.OFFproduct?._photoUrl,

@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from "react";
 const NutritionTable = ({ product, portion }) => {
   const [unit, setUnit] = useState("100g");
-
+const [AGS,setAGS]=useState(false);
   const organizeHierarchicalData = (lines) => {
     const hierarchy = [];
+    
     const itemMap = new Map();
 
     lines.forEach((line) => {
@@ -51,6 +52,7 @@ const NutritionTable = ({ product, portion }) => {
   };
 
   const NutritionRow = ({ item, level = 0, portion, parentId = "" }) => {
+    if(item.name=="AGS"){setAGS(true)};
     const value =
       unit === "portion" && portion
         ? calculatePortionValue(item.value.qt, portion)
@@ -205,6 +207,15 @@ const NutritionTable = ({ product, portion }) => {
                 ))}
             </tbody>
           </table>
+          <div className="ArchivoLight pt-4 text-custom-blue flex flex-col space-y-4">
+            <span>
+            <span className="font-bold">VNR</span> : Valeur Nutritionnelles de Référence pour un adulte en bonne santé
+          </span>
+          {AGS?(
+            <span><span className="font-bold">AGS</span> : Acide Gras Saturés </span>
+          ):""}
+          
+          </div>
         </>
       ) : (
         "N/A"

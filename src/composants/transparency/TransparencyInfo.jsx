@@ -6,7 +6,12 @@ import scaleImage from "../../assets/fb/scale-image.svg";
 
 const TransparencyInfo = () => {
   const positions = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-
+// Composant pour le titre TiCO
+const TicoTitle = () => (
+  <span className="pallybold leading-archivo">
+    Ti<span className="tracking-tightest leading-archivo">CO</span>
+  </span>
+);
   const getIndicatorStyle = (index) => {
     const baseSize = 50;
     const growthFactor = 5;
@@ -69,11 +74,11 @@ const TransparencyInfo = () => {
           et l’engagement fourni par les marques.
         </div>
         <h3 className="text-lg text-custom-blue ArchivoBold py-4 px-6 background_titre">
-          Notre Grille d’évaluation
+          Notre grille d’évaluation <TicoTitle/>
         </h3>
         <div className="Archivo text-custom-blue flex flex-col items-start justify-start w-full space-y-2">
           <h3 className="text-lg text-custom-blue ArchivoBold">
-            Le produit et la Marque
+            Le produit et la marque
           </h3>
           <div className="text-[#42a29a] pb-2 Archivo">
             Parce qu’on aime bien savoir à qui on a à faire&nbsp;!
@@ -90,23 +95,23 @@ const TransparencyInfo = () => {
             L’impact santé
           </h3>
           <div className="text-[#42a29a] pb-2">
-            Parce que nous voulons tous le meilleur pour nous et nos enfants
+            Parce que nous voulons tous le meilleur
           </div>
-          <div className="flex flex-row w-full justify-around">
+          <div className="flex flex-row w-full justify-around items-center">
             <div className="max-w-[70%]">
-              Profil nutritionnel avec le Nutri-Score
+              Profil nutritionnel et le Nutri-Score
+            </div>{" "}
+            <div className="background_plus px-2 py-3">+1</div>
+          </div>
+          <div className="flex flex-row w-full justify-around items-center">
+            <div className="max-w-[70%]">
+              Décryptage Nutri-Score et Ti’conseil
             </div>{" "}
             <div className="background_plus px-2 py-3">+1</div>
           </div>
           <div className="flex flex-row w-full justify-around">
             <div className="max-w-[70%]">
-              Décryptage Nutri-Score et Ti’conseil pour une utilisation optimale
-            </div>{" "}
-            <div className="background_plus px-2 py-3">+1</div>
-          </div>
-          <div className="flex flex-row w-full justify-around">
-            <div className="max-w-[70%]">
-              Naturalité des ingrédients avec le cahier des charges Goûm
+            Naturalité des ingrédients selon le cahier des charges Goûm
             </div>{" "}
             <div className="background_plus px-2 py-3">+1</div>
           </div>
@@ -116,8 +121,7 @@ const TransparencyInfo = () => {
             L’impact environnemental
           </h3>
           <div className="text-[#42a29a] pb-2 Archivo">
-            Parce qu’on ne veut pas être les derniers êtres humains à fouler le
-            sol de notre belle planète
+          Parce qu’on veut aussi prendre soin de notre planète
           </div>
           <div className="flex flex-col w-full justify-around space-y-2">
             <div className="Archivo">Évaluation Planet score :</div>
@@ -137,21 +141,20 @@ const TransparencyInfo = () => {
         <div className="Archivo text-custom-blue flex flex-col items-start justify-start w-full space-y-2">
           <h3 className="text-lg text-custom-blue ArchivoBold">Les origines</h3>
           <div className="text-[#42a29a] pb-2 Archivo">
-            Parce qu’on préfère soutenir nos producteurs et qu’on veut le
-            meilleur
+          Parce qu’on veut savoir d’où vient ce qu’on met dans nos assiettes 
           </div>
           <div className="flex flex-row w-full justify-around">
             <div className="w-[70%]">
-              Soit certifications par des cahiers des charges spécialisés
+             Certifications par des cahiers des charges spécialisés
             </div>{" "}
             <div className="background_plus px-2 py-3">+2</div>
           </div>
-          <div className="flex flex-col justify-end items-end w-full px-4">
+          <div className="flex flex-col justify-end items-end w-full pr-14">
             Ou
           </div>
 
           <div className="flex flex-row w-full justify-around">
-            <div className="w-[70%]">Soit décryptage <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span></div> <div className="background_plus px-2 py-3">+3</div>
+            <div className="w-[70%]">Décryptage <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span></div> <div className="background_plus px-2 py-3">+3</div>
           </div>
         </div>
         <div className="Archivo text-custom-blue flex flex-col items-start justify-start w-full space-y-2">
@@ -159,8 +162,8 @@ const TransparencyInfo = () => {
             Labels et mentions
           </h3>
           <div className="text-[#42a29a] pb-2 Archivo">
-            Parce qu’on se pose beaucoup de questions sur les labels et tout ce
-            qui est dit sur le produit
+          Parce qu’on se pose beaucoup de question sur ce qui est écrit sur le produit 
+
           </div>
           <div className="flex flex-row w-full justify-around">
             <div className="w-[70%]">Décryptage <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span></div> <div className="background_plus px-2 py-3">+1</div>

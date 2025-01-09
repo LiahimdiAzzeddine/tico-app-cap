@@ -9,11 +9,37 @@ import LabelsInfo from "./accordion/LabelsInfo";
 import BrandInfo from "./accordion/BrandInfo";
 import UsageInfo from "./accordion/UsageInfo";
 import PackagingInfo from "./accordion/PackagingInfo";
-import { ContactModal } from "./Modal";
+import { Solliciter } from "./Modal";
+import { useAlert } from "../../context/AlertProvider";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { useIonRouter } from "@ionic/react";
 
 // Composants pour chaque contenu de panneau
 const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNutriInfo,targetRefAdditifs,scrollToTarget }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { triggerAlert } = useAlert();
+  const isAuthenticated = useIsAuthenticated();
+  const authUser = useAuthUser();
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
+  const OpenContactSolliciter = () => {
+    if (!isAuthenticated) {
+      triggerAlert(
+        "Se connecter pour encourager la marque",
+        "Attention",
+        () => {
+          goToPage("/login");
+        },
+        "ios",
+        "Se connecter"
+      );
+    } else {
+      setIsOpen(true);
+    }
+  };
 
   const disabledPanels = [3, 4, 5, 6, 7, 8]; // Désactive les panneaux 2, 4 et 6
 
@@ -40,9 +66,9 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
             "Naturalité des ingrédients",
             "Origines",
             "Labels et mentions",
-            "le produit, La marque",
+            "Produit & marque",
             "Utilisation et conservation",
-            "L'emballage",
+            "Emballage",
           ][index];
 
           const isDisabled = disabledPanels.includes(panel);
@@ -68,7 +94,7 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
                 {panel === 4 && (
                   <img
                     src={BubbleImg}
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => OpenContactSolliciter()}
                     alt="Bubble"
                     className="absolute top-1/2 left-3/4 transform -translate-x-1/4 translate-y-[-50%] w-20"
                   />
@@ -96,8 +122,13 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
           );
         })}
       </div>
-      <ContactModal isOpen={isOpen} setIsOpen={setIsOpen} />
-      <ContactModal isOpen={isOpen} setIsOpen={setIsOpen} gtin={product?.gtin} productName={product?.name} />
+      <Solliciter
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              gtin={product?.gtin}
+              productName={product?.name}
+              authUser={authUser}
+            />
     </>
   );
 };

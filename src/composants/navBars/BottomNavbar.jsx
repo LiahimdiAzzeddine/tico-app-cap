@@ -31,7 +31,7 @@ const BottomNavbar = () => {
     // Si l'utilisateur n'est pas authentifié et la route nécessite une authentification
     if (isAuthRequired && !authState) {
       triggerAlert(
-        "Connecte-toi pour accéder à cette fonctionnalité",
+        "Se connecter pour accéder à cette fonctionnalité",
         "Connexion requise",
         () => goToSubPage("/settings"),
         "",

@@ -38,27 +38,28 @@ const Modal = ({ isOpen, onClose, children }) => {
       onClick={handleBackgroundClick}
     >
       <div className="customionmodal w-full h-full flex justify-center items-center">
-      <motion.div
-        className="relative w-full max-w-lg h-auto z-50 m-1 mx-auto"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.5 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-      >
-        <div
-          className="w-full h-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center z-30 custom-modal-background"
+        <motion.div
+          className="relative w-full max-w-lg h-auto z-50 m-1 mx-auto"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.5 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-          {/* Bouton de fermeture */}
-          <button onClick={onClose} className="absolute left-8 top-0 p-2 z-50">
-            <img src={closeImg} className="w-12 h-auto" alt="Close" />
-          </button>
+          <div className="w-full h-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center z-30 custom-modal-background">
+            {/* Bouton de fermeture */}
+            <button
+              onClick={onClose}
+              className="absolute left-8 top-0 p-2 z-50"
+            >
+              <img src={closeImg} className="w-12 h-auto" alt="Close" />
+            </button>
 
-          {/* Contenu du modal */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-12 pt-6 bottom-7 bg-opacity-90">
-            {children}
+            {/* Contenu du modal */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center px-12 pt-6 bottom-7 bg-opacity-90">
+              {children}
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
       </div>
     </IonModal>
   );
@@ -67,7 +68,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 export default Modal;
 
 // contact Modal
-export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
+export const ContactModal = ({ isOpen, setIsOpen, gtin, productName }) => {
   const [isOpenTiCO, setIsOpenTiCO] = useState(false);
   const [isOpenSolliciter, setIsOpenSolliciter] = useState(false);
   const isAuthenticated = useIsAuthenticated();
@@ -81,7 +82,7 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
   const OpenContactTiCO = () => {
     if (!isAuthenticated) {
       triggerAlert(
-        "Connecte-toi pour nous contacter",
+        "Se connecter pour nous contacter",
         "Attention",
         () => {
           goToPage("/login");
@@ -97,7 +98,7 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
   const OpenContactSolliciter = () => {
     if (!isAuthenticated) {
       triggerAlert(
-        "Connecte-toi pour encourager la marque",
+        "Se connecter pour encourager la marque",
         "Attention",
         () => {
           goToPage("/login");
@@ -114,17 +115,16 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
     <>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div className="flex flex-col w-full h-full items-start justify-start max-sm:">
-          
           <div className="flex-1 overflow-y-auto px-6  flex flex-col items-center justify-start md:justify-center w-full space-y-6">
             {/* Fixed Header with Buttons */}
-          <div className="sticky pt-6 ">
-            {/* Bubble Icon */}
-            <img
-              src={BubbleIImage}
-              alt="Bubble text icon"
-              className="w-20 h-auto "
-            />
-          </div>
+            <div className="sticky pt-6 ">
+              {/* Bubble Icon */}
+              <img
+                src={BubbleIImage}
+                alt="Bubble text icon"
+                className="w-20 h-auto "
+              />
+            </div>
             {/* Title */}
             <h1 className="text-2xl text-custom-blue font-bold ArchivoExtraBold">
               <span className="marker-effect-cyan z-10">Contact</span>
@@ -135,9 +135,11 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
               className="text-xl text-custom-blue flex items-start"
               onClick={OpenContactTiCO}
             >
-              
               <span className="ArchivoLight">
-                Contacter  <span className="pallybold leading-normal">Ti<span className="tracking-tightest leading-normal">CO</span></span>
+                Contacter{" "}
+                <span className="pallybold leading-normal">
+                  Ti<span className="tracking-tightest leading-normal">CO</span>
+                </span>
               </span>
               <img src={flecheLeft} className="w-6 ml-2 scale-x-[-1]" />
             </div>
@@ -152,7 +154,9 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin,productName}) => {
               onClick={OpenContactSolliciter}
             >
               <img src={flecheLeft} className="w-6" />
-              <span className="ArchivoLight leading-[22px] text-center">Encourager la marque pour faire la transparence</span>
+              <span className="ArchivoLight leading-[22px] text-center">
+                Encourager la marque pour faire la transparence
+              </span>
             </div>
           </div>
         </div>
@@ -197,7 +201,11 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser, gtin }) => {
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       <div className="flex flex-col items-center justify-center w-full space-y-3">
         {/* Bubble Icon */}
-        <img src={BubbleIImage} alt="Bubble text icon" className="w-20 h-auto pt-1" />
+        <img
+          src={BubbleIImage}
+          alt="Bubble text icon"
+          className="w-20 h-auto pt-1"
+        />
 
         {loading ? (
           // Affiche le spinner pendant le chargement
@@ -218,7 +226,10 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser, gtin }) => {
             <h1 className="text-xl ArchivoLight text-custom-blue flex items-start">
               <img src={flecheLeft} className="w-6 mr-2" />
               <span>
-                Contacter <span className="pallybold leading-normal">Ti<span className="tracking-tightest leading-normal">CO</span></span>
+                Contacter{" "}
+                <span className="pallybold leading-normal">
+                  Ti<span className="tracking-tightest leading-normal">CO</span>
+                </span>
               </span>
             </h1>
             <div className="text-lg text-custom-blue flex items-start ArchivoLight leading-[22px]">
@@ -250,8 +261,13 @@ export const ContactTiCO = ({ isOpen, setIsOpen, authUser, gtin }) => {
     </Modal>
   );
 };
-export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin, productName }) => {
-  
+export const Solliciter = ({
+  isOpen,
+  setIsOpen,
+  authUser,
+  gtin,
+  productName,
+}) => {
   const { handleSubmit, loading, error, sended } = useTransparencyRequests();
   const [formValues, setFormValues] = useState({
     user_id: authUser?.id || "",
@@ -269,32 +285,42 @@ export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin, productName }) =
 
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      <div className="flex flex-col items-center justify-center w-full space-y-4">
+      <div className="flex flex-col items-center justify-center w-full space-y-9">
         {/* Bubble Icon */}
-        <img src={BubbleIImage} alt="Bubble text icon" className="w-20 h-auto" />
-        {/* Title */}
+        <img
+          src={BubbleIImage}
+          alt="Bubble text icon"
+          className="w-20 h-auto"
+        />
+        {/* Title 
         <h1 className="text-xl text-custom-blue flex items-start">
           <img src={flecheLeft} className="w-6 mr-1" />
           <span className="ArchivoLight leading-[22px] text-center">Encourager la marque <br></br>pour faire la transparence</span>
-        </h1>
+        </h1>*/}
 
         {/* Bouton pour envoyer la demande */}
         {!sended ? (
-          <button
-            onClick={handleRequest}
-            className="bg-custom-blue text-white px-4 py-1 rounded-xl"
-            disabled={loading}
-          >
-            {loading ? (
-              <span>Envoi en cours...</span>
-            ) : (
-              <>
-                <span className="font-bold text-lg Archivo">Oui,</span> je souhaite plus
-                <br />
-                d'informations sur ce produit
-              </>
-            )}
-          </button>
+          <div className="text-xl text-custom-blue flex items-start">
+            <img
+              src={flecheLeft}
+              className="w-7 absolute -translate-x-10 -translate-y-2 "
+            />
+            <button
+              onClick={handleRequest}
+              className="bg-custom-blue text-white px-8 py-1 rounded-xl"
+              disabled={loading}
+            >
+              {loading ? (
+                <span>Envoi en cours...</span>
+              ) : (
+                <>
+                  Encourager
+                  <br />
+                  la marque
+                </>
+              )}
+            </button>
+          </div>
         ) : (
           <p className="text-[#6dc3bc] font-bold text-sm">
             Votre demande a été envoyée avec succès!
@@ -319,7 +345,14 @@ export const Solliciter = ({ isOpen, setIsOpen, authUser, gtin, productName }) =
   );
 };
 
-export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,togglePanel,scrollToTarget }) => {
+export const ContactAdditif = ({
+  isOpen,
+  setIsOpen,
+  additifs,
+  targetRefAdditifs,
+  togglePanel,
+  scrollToTarget,
+}) => {
   const [showAll, setShowAll] = useState(false);
   const [showInfo, setShowInfo] = useState("additifs");
 
@@ -327,7 +360,7 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
   const MoreInfo = async () => {
     setIsOpen(false);
     await togglePanel(2);
-    scrollToTarget(targetRefAdditifs,"additifs");
+    scrollToTarget(targetRefAdditifs, "additifs");
   };
 
   return (
@@ -350,7 +383,6 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
             </button>
 
             <button
-
               style={{ border: "1px solid #0f548d" }}
               className={`flex-1 p-1 rounded-2xl ArchivoLight  ${
                 showInfo === "additifs"
@@ -366,16 +398,21 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
 
         {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-auto px-4">
-          <div className="max-w-md mx-auto">
+          <div className="max-w-md mx-auto h-full">
             {/* Content Section */}
             {showInfo === "transformation" ? (
-              <div className="space-y-2 pt-4">
+              <div className="space-y-2 flex pb-7 flex-col justify-center items-center h-full">
                 <div className="text-custom-blue text-start ArchivoLight leading-archivo">
-                La naturalité des ingrédients s’oppose à l’ultra-transformation. Il est important de choisir des aliments peu ou pas transformés pour prendre soin de votre santé. 
-
+                  La naturalité des ingrédients s’oppose à
+                  l’ultra-transformation. Il est important de choisir des
+                  aliments peu ou pas transformés pour prendre soin de votre
+                  santé.
                 </div>
                 <div className="text-custom-blue text-start ArchivoLight leading-archivo">
-                En attendant plus d’information sur ce produit regardez les types d’additifs et la liste des ingrédients, si vous pourriez les avoir dans votre cuisine c’est tout bon, sinon cela nécessite plus d’information de la part de la marque.
+                  En attendant plus d’information sur ce produit regardez les
+                  types d’additifs et la liste des ingrédients, si vous pourriez
+                  les avoir dans votre cuisine c’est tout bon, sinon cela
+                  nécessite plus d’information de la part de la marque.
                 </div>
               </div>
             ) : (
@@ -393,7 +430,9 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
                   </div>
                 </div>
                 <h1 className="text-xl text-custom-blue font-bold text-center py-6">
-                  <span className="marker-effect-cyan z-10 ArchivoExtraBold text-2xl">Additifs</span>
+                  <span className="marker-effect-cyan z-10 ArchivoExtraBold text-2xl">
+                    Additifs
+                  </span>
                 </h1>
 
                 <div className="space-y-2">
@@ -411,13 +450,15 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
                         <span className="font-bold text-custom-blue ArchivoBold">
                           {item.code}
                         </span>
-                        <span className="text-custom-blue Archivo">: {item.label}</span>
+                        <span className="text-custom-blue Archivo">
+                          : {item.label}
+                        </span>
                       </div>
                     ))
                   ) : (
                     <div className="text-custom-blue text-center ArchivoLight">
-                     Ne contient pas d'additifs<br></br>
-                     À confirmer par la marque
+                      Ne contient pas d'additifs<br></br>À confirmer par la
+                      marque
                     </div>
                   )}
                 </div>
@@ -425,19 +466,18 @@ export const ContactAdditif = ({ isOpen, setIsOpen, additifs,targetRefAdditifs,t
             )}
           </div>
           <div className="pt-4">
-
-          {showInfo === "transformation"?(
-<img src={BubbleIImage} alt="Bubble text icon" className="w-14 h-auto m-auto" />
-          ):(
-<button className="w-full text-center text-custom-blue  underline underline-offset-2 focus:outline-none ArchivoItalic"  onClick={MoreInfo}>
-            En savoir plus
-          </button>
-          )}
-        </div>
+            {(showInfo === "additifs") ?(
+              <button
+                className="w-full text-center text-custom-blue  underline underline-offset-2 focus:outline-none ArchivoItalic"
+                onClick={MoreInfo}
+              >
+                En savoir plus
+              </button>
+            ):("")}
+          </div>
         </div>
 
         {/* Fixed Footer */}
-        
       </div>
     </Modal>
   );
@@ -485,7 +525,7 @@ export const NutrriInfo = ({
         <div className="sticky top-0">
           {/* Title */}
           <h1 className="text-2xl font-bold text-custom-blue py-2 text-center ArchivoExtraBold">
-           <span className="marker-effect-cyan ">Nutrition</span> 
+            <span className="marker-effect-cyan ">Nutrition</span>
           </h1>
           <div className="pt-2 pb-1 flex justify-center">
             <img
@@ -517,7 +557,6 @@ export const NutrriInfo = ({
     </Modal>
   );
 };
-
 
 // Utility function to determine the image based on noteUFC
 const getPastilleImage = (note) => {

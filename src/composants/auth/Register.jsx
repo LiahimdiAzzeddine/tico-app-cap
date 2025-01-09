@@ -179,7 +179,7 @@ const AccountCreationForm = ({ onClose }) => {
 
           <p className="ArchivoLight text-custom-text-orange ">J'ai lu et j'accepte les <a className="underline"  onClick={() => {
                 setShowModalCGU(true);
-              }}>CGUs</a></p>
+              }}>CGU</a></p>
         </div>
         <div className="pt-3 flex justify-center">
         <button
@@ -197,6 +197,7 @@ const AccountCreationForm = ({ onClose }) => {
       <WhiteModal
         isOpen={showModalCGU}
         onClose={() => setShowModalCGU(false)} // Handle modal close logic
+        ContentPadding = "ion-padding-horizontal"
       >
         <CGUConfidentialite />
       </WhiteModal>
