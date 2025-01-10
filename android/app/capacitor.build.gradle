@@ -13,13 +13,16 @@ dependencies {
     implementation project(':capacitor-app')
     implementation project(':capacitor-dialog')
     implementation project(':capacitor-haptics')
+    implementation project(':capacitor-keyboard')
     implementation project(':capacitor-network')
     implementation project(':capacitor-screen-orientation')
     implementation project(':capacitor-share')
+    implementation project(':capacitor-splash-screen')
     implementation project(':capacitor-status-bar')
     implementation project(':capacitor-storage')
     implementation project(':capacitor-toast')
     implementation project(':capgo-capacitor-flash')
+    implementation project(':capacitor-plugin-safe-area')
 
 }
 
