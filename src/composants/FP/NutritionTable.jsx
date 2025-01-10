@@ -56,7 +56,7 @@ const [AGS,setAGS]=useState(false);
     const value =
       unit === "portion" && portion
         ? calculatePortionValue(item.value.qt, portion)
-        : item.value.qt;
+        : (item.value.qt?item.value.qt:0);
 
     const vnr =
       unit === "portion" && portion
@@ -99,7 +99,7 @@ const [AGS,setAGS]=useState(false);
         </tr>
         {item.children
           ?.filter(
-            (child) => child.forced || (child.quantity && child.quantity !== "")
+            (child) => child.forced || (child.quantity && child.quantity !== "" && child.forced==null)
           )
           .map((child) => (
             <NutritionRow

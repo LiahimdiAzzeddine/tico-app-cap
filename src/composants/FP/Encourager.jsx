@@ -34,38 +34,38 @@ const Encourager = ({ product }) => {
   };
   return (
     <>
-      <div className="flex flex-row justify-around items-center space-x-6 ArchivoLight px-4 pt-1 pb-3">
-      {!product.isFoodheaProduct ? (
-        <div className="text-[#42a29a] text-xs">
-          Informations non garanties,{" "}
-          <span className="font-bold">encourager la marque</span>
-          <br />à jouer la carte de la transparence{" "}
-          <span className="pallybold leading-normal">
-            Ti
-            <span className="tracking-tightest leading-normal  items-center inline-flex static">
-              CO
-              <img
-                src={flecheLeft}
-                className="w-6 1 absolute translate-x-6 translate-y-3 -rotate-12
-
-"
-              />
+      <div className="flex flex-row justify-between items-center space-x-6 ArchivoLight px-3 pt-1 pb-3">
+        {!product.isFoodheaProduct ? (
+          <div className="text-[#42a29a] text-xs max-w-[75%] leading-archivo">
+            Informations non garanties,{" "}
+            <span className="font-bold leading-archivo">
+              encourager la marque{" "}
+            </span><br></br>
+            à jouer la carte de la transparence{" "}
+            <span className="pallybold leading-archivo whitespace-nowrap">
+              Ti
+              <span className="tracking-tightest leading-archivo items-center inline-flex static">
+                CO
+                <img
+                  src={flecheLeft}
+                  className="w-6 1 absolute translate-x-5 translate-y-3 -rotate-[21deg]"
+                />
+              </span>
             </span>
-          </span>
-        </div>):(
-            <div className="text-[#42a29a] text-xs">
-          Encourager la marque à atteindre 100% de transparence
-        </div>
+          </div>
+        ) : (
+          <div className="text-[#42a29a] text-xs max-w-[75%]">
+            Encourager la marque à atteindre 100% de transparence
+          </div>
         )}
-        <div className="pr-3">
+        <div className="pr-3 max-w-[25%]">
           <img
-            className="min-w-16"
+            className="min-w-14"
             src={illustrationOrigines}
             alt="Illustration des origines du produit"
             onClick={() => OpenContactSolliciter()}
           />
         </div>
-        
       </div>
       <Solliciter
         isOpen={isOpen}

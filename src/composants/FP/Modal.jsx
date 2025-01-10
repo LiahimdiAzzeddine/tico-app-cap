@@ -154,8 +154,10 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin, productName }) => {
               onClick={OpenContactSolliciter}
             >
               <img src={flecheLeft} className="w-6" />
-              <span className="ArchivoLight leading-[22px] text-center">
-                Encourager la marque pour faire la transparence
+              <span className="ArchivoLight text-center leading-archivo ">
+                Encourager la marque à faire la transparence   <span className="pallybold leading-archivo">
+    Ti<span className="tracking-tightest leading-archivo">CO</span>
+  </span>
               </span>
             </div>
           </div>

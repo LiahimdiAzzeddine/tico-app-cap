@@ -74,7 +74,7 @@ const TicoTitle = () => (
           et l’engagement fourni par les marques.
         </div>
         <h3 className="text-lg text-custom-blue ArchivoBold py-4 px-6 background_titre">
-          Notre grille d’évaluation <TicoTitle/>
+          la grille d’évaluation <TicoTitle/>
         </h3>
         <div className="Archivo text-custom-blue flex flex-col items-start justify-start w-full space-y-2">
           <h3 className="text-lg text-custom-blue ArchivoBold">
