@@ -87,10 +87,10 @@ const InfoSection = ({
             </div>
             {selectedNutriscoreImage && (
               <div
-                className="flex flex-row items-center justify-around py-2 space-x-4 "
+                className="flex flex-row items-center justify-between py-2 space-x-4 "
                 onClick={() => setIsOpenNutrition(true)}
               >
-                <img src={selectedNutriscoreImage} className="w-24 h-auto" />
+                <img src={selectedNutriscoreImage} className="w-auto h-12 min-h-12" />
                 <div>
                   <IonIcon
                     className="text-xl text-custom-blue"
@@ -112,7 +112,7 @@ const InfoSection = ({
             {(!selectedComent || !selectedNutriscoreImage) && (
               <div className="text-xs flex flex-row space-x-1">
                 <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                  Encourager la marque à atteindre 100% de transparence
+                  Encourager la marque à atteindre 100% <span className="whitespace-nowrap">de transparence</span>
                 </div>
               </div>
             )}
@@ -130,7 +130,7 @@ const InfoSection = ({
                 className="flex flex-row items-center justify-between py-2 space-x-1 "
                 onClick={() => setIsOpenadd(true)}
               >
-                <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo">
+                <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo min-h-12">
                   {"Contient " + product?.additifs?.length + " additifs"}
                 </div>
                 {product?.additifs?.length > 0 && (
@@ -148,7 +148,7 @@ const InfoSection = ({
                 className="flex flex-row items-center justify-between py-2 space-x-1 "
                 onClick={() => setIsOpenadd(true)}
               >
-                <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo">
+                <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo min-h-12">
                   <span className="text-[0.6rem] text-custom-blue ArchivoLight">
                     Ne contient pas d’additifs<br></br>
                     (À confirmer par la maque )
@@ -169,7 +169,7 @@ const InfoSection = ({
             ) : (
               <div className="text-xs flex flex-row space-x-1">
                 <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                  Encourager la marque à atteindre 100% de transparence
+                  Encourager la marque à atteindre 100% <span className="whitespace-nowrap">de transparence</span>
                 </div>
               </div>
             )}
@@ -211,7 +211,7 @@ const InfoSection = ({
                 ) : (
                   <div className="text-xs flex flex-row space-x-1">
                     <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                      Encourager la marque à atteindre 100% de transparence
+                      Encourager la marque à atteindre 100% <span className="whitespace-nowrap"> de transparence</span>
                     </div>
                   </div>
                 )}
@@ -232,7 +232,7 @@ const InfoSection = ({
               ) : (
                 <div className="text-xs flex flex-row space-x-1">
                   <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                    Encourager la marque à atteindre 100% de transparence
+                    Encourager la marque à atteindre 100% <span className="whitespace-nowrap">de transparence</span>
                   </div>
                 </div>
               )}

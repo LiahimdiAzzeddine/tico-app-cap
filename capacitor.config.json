@@ -16,7 +16,7 @@
       "backgroundColor": "#ffffffff",
       "androidSplashResourceName": "splash",
       "androidScaleType": "CENTER_CROP",
-      "showSpinner": true,
+      "showSpinner": false,
       "androidSpinnerStyle": "large",
       "iosSpinnerStyle": "small",
       "spinnerColor": "#999999",
@@ -24,6 +24,10 @@
       "splashImmersive": true,
       "layoutName": "launch_screen",
       "useDialog": true
-    }
+    },
+  "server": {
+  "url": "http://192.168.11.110:3000",
+  "cleartext": true
+}
 }
  

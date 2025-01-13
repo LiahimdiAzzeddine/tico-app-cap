@@ -66,7 +66,7 @@ const AccountCreationForm = ({ onClose }) => {
         <form onSubmit={handleSubmit} className="space-y-4 w-11/12 max-w-xs h-5/6">
       
         <div className="flex flex-col items-center">
-          <label className="text-orange-500 mb-1 text-base text-center font-bold">
+          <label className="text-orange-500 mb-1 text-base text-center font-bold Archivo">
             Mon adresse mail
           </label>
           <input
@@ -77,7 +77,7 @@ const AccountCreationForm = ({ onClose }) => {
               errors.email
                 ? "border-red-500"
                 : "border-orange-300 focus:border-orange-500"
-            }`}
+            } Archivo`}
             required
           />
           {errors.email && (
@@ -86,7 +86,7 @@ const AccountCreationForm = ({ onClose }) => {
         </div>
 
         <div className="flex flex-col items-center">
-          <label className="text-orange-500 mb-1 text-sm text-center font-bold">
+          <label className="text-orange-500 mb-1 text-sm text-center font-bold Archivo">
             Mon pseudo
           </label>
           <input
@@ -97,7 +97,7 @@ const AccountCreationForm = ({ onClose }) => {
               errors.username
                 ? "border-red-500"
                 : "border-orange-300 focus:border-orange-500"
-            }`}
+            } Archivo`}
             required
           />
           {errors.username && (
@@ -106,7 +106,7 @@ const AccountCreationForm = ({ onClose }) => {
         </div>
 
         <div className="flex flex-col items-center relative">
-          <label className="text-orange-500 mb-1 text-sm text-center font-bold">
+          <label className="text-orange-500 mb-1 text-sm text-center font-bold Archivo">
             Mon mot de passe
           </label>
           <input
@@ -117,7 +117,7 @@ const AccountCreationForm = ({ onClose }) => {
               errors.password
                 ? "border-red-500"
                 : "border-orange-300 focus:border-orange-500"
-            }`}
+            } Archivo`}
             required
             aria-invalid={!!errors.password} // Accessibilité
             aria-describedby="password-error" // Accessibilité
@@ -137,7 +137,7 @@ const AccountCreationForm = ({ onClose }) => {
         </div>
 
         <div className="flex flex-col items-center relative">
-          <label className="text-orange-500 mb-1 text-sm text-center font-bold">
+          <label className="text-orange-500 mb-1 text-sm text-center font-bold Archivo">
             Confirmer mon mot de passe
           </label>
           <input
@@ -146,11 +146,11 @@ const AccountCreationForm = ({ onClose }) => {
             onChange={(e) =>
               setValues({ ...values, confirm_password: e.target.value })
             }
-            className={`w-full p-2 border-[1.5px] rounded-lg focus:outline-none ${
+            className={`w-full p-2 border-[1.5px] rounded-lg focus:outline-none Archivo ${
               errors.confirm_password
                 ? "border-red-500"
                 : "border-orange-300 focus:border-orange-500"
-            }`}
+            } Archivo`}
             required
             aria-invalid={!!errors.confirm_password} // Accessibilité
             aria-describedby="password-error" 
@@ -184,7 +184,7 @@ const AccountCreationForm = ({ onClose }) => {
         <div className="pt-3 flex justify-center">
         <button
             className={`bg-custom-text-orange text-white font-bold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out ${
-              acceptedCGUs ? "hover:scale-105 active:scale-95" : "opacity-50 cursor-not-allowed"
+              acceptedCGUs ? "hover:scale-105 active:scale-95" : "opacity-50 cursor-not-allowed Archivo"
             }`}
             disabled={loading || !acceptedCGUs}
             type="submit"

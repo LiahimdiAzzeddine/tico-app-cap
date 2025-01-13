@@ -13,6 +13,7 @@ const Encourager = ({ product }) => {
   const isAuthenticated = useIsAuthenticated();
   const authUser = useAuthUser();
   const history = useIonRouter();
+  
   const goToPage = (path) => {
     history.push(path, "root", "replace");
   };
@@ -32,35 +33,39 @@ const Encourager = ({ product }) => {
       setIsOpen(true);
     }
   };
+
   return (
     <>
-      <div className="flex flex-row justify-between items-center space-x-6 ArchivoLight px-3 pt-1 pb-3">
+      <div className="flex flex-row justify-start items-start space-x-4 px-3 pb-3 ArchivoLight">
         {!product.isFoodheaProduct ? (
-          <div className="text-[#42a29a] text-xs max-w-[75%] leading-archivo">
-            Informations non garanties,{" "}
-            <span className="font-bold leading-archivo">
-              encourager la marque{" "}
-            </span><br></br>
-            à jouer la carte de la transparence{" "}
-            <span className="pallybold leading-archivo whitespace-nowrap">
-              Ti
-              <span className="tracking-tightest leading-archivo items-center inline-flex static">
-                CO
-                <img
-                  src={flecheLeft}
-                  className="w-6 1 absolute translate-x-5 translate-y-3 -rotate-[21deg]"
-                />
+          <div className="flex-1 text-[#42a29a] text-xs sm:text-sm md:text-base leading-tight sm:leading-normal flex flex-col justify-center min-h-14 ">
+            <span className="block">
+              Informations non garanties,{" "}
+              <span className="font-bold">encourager la marque </span>
+            </span>
+            <span className="block">
+              à jouer la carte de la transparence{" "}
+              <span className="pallybold whitespace-nowrap relative">
+                Ti
+                <span className="tracking-tightest inline-flex items-center">
+                  CO
+                  <img
+                    src={flecheLeft}
+                    className="w-6 absolute -right-11 top-2 -rotate-[21deg] transform"
+                    alt=""
+                  />
+                </span>
               </span>
             </span>
           </div>
         ) : (
-          <div className="text-[#42a29a] text-xs max-w-[75%]">
+          <div className="flex-1 flex flex-col justify-center min-h-14 text-[#42a29a] text-xs sm:text-sm md:text-base leading-tight sm:leading-normal">
             Encourager la marque à atteindre 100% de transparence
           </div>
         )}
-        <div className="pr-3 max-w-[25%]">
+        <div className="flex-shrink-0 w-16 md:w-20 flex flex-row justify-start items-start p-0 m-auto">
           <img
-            className="min-w-14"
+            className="w-full h-auto m-auto pr-2"
             src={illustrationOrigines}
             alt="Illustration des origines du produit"
             onClick={() => OpenContactSolliciter()}

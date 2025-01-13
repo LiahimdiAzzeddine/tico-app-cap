@@ -6,6 +6,8 @@ import { IonIcon } from "@ionic/react";
 import CustomModal from "../modales/CustomModal";
 import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
+import { Capacitor } from '@capacitor/core';
+import { SavePassword } from 'capacitor-ios-autofill-save-password';
 
 const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
@@ -13,6 +15,19 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
+  const savePassword = async () => {
+    if (Capacitor.getPlatform() === 'ios') {
+      SavePassword.promptDialog({
+        username: values.email,
+        password: values.password,
+        serviceName: 'TiCO', // This will appear in the iOS password manager
+        server: 'tico.foodhea.com' // Optional: domain associated with the credentials
+      })
+      .then(() => console.log('promptDialog success'))
+      .catch((err) => console.error('promptDialog failure', err));
+  }
+   
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +41,7 @@ const Login = ({ createCompte = false, redirection }) => {
 
   useEffect(() => {
     if (success) {
+      savePassword();
       redirection();
     }
   }, [success]);
@@ -53,7 +69,7 @@ const Login = ({ createCompte = false, redirection }) => {
           <div className="flex flex-col items-center">
             <label
               htmlFor="email"
-              className="text-custom-text-orange mb-1 text-base text-center font-bold"
+              className="text-custom-text-orange mb-1 text-base text-center font-bold Archivo"
             >
               Mon adresse mail
             </label>
@@ -68,7 +84,7 @@ const Login = ({ createCompte = false, redirection }) => {
                 errors.email
                   ? "border-red-500"
                   : "border-orange-300 focus:border-custom-text-orange"
-              }`}
+              } Archivo`}
               required
               aria-invalid={!!errors.email}
               aria-describedby="email-error"
@@ -86,7 +102,7 @@ const Login = ({ createCompte = false, redirection }) => {
           <div className="flex flex-col items-center relative w-full">
             <label
               htmlFor="password"
-              className="text-custom-text-orange mb-1 text-base text-center font-bold"
+              className="text-custom-text-orange mb-1 text-base text-center font-bold Archivo"
             >
               Mon mot de passe
             </label>
@@ -102,7 +118,7 @@ const Login = ({ createCompte = false, redirection }) => {
                   errors.password
                     ? "border-red-500"
                     : "border-orange-300 focus:border-custom-text-orange"
-                }`}
+                } Archivo`}
                 required
                 aria-invalid={!!errors.password}
                 aria-describedby="password-error"
@@ -128,7 +144,7 @@ const Login = ({ createCompte = false, redirection }) => {
           <div className="flex items-center justify-between">
             <div
               onClick={() => setShowModalForgetPassword(true)}
-              className="font-medium text-custom-text-orange hover:text-custom-text-orange cursor-pointer"
+              className="font-medium text-custom-text-orange hover:text-custom-text-orange cursor-pointer Archivo"
             >
               Mot de passe oublié ?
             </div>
@@ -137,7 +153,7 @@ const Login = ({ createCompte = false, redirection }) => {
           {/* Submit Button */}
           <div className="pt-3 flex justify-center">
             <button
-              className="bg-custom-text-orange text-white font-bold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90"
+              className="bg-custom-text-orange text-white font-bold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
               disabled={loading}
               type="submit"
             >
@@ -150,7 +166,7 @@ const Login = ({ createCompte = false, redirection }) => {
             <div className="flex justify-center">
               <button
                 type="button"
-                className="font-medium text-custom-text-orange hover:text-custom-text-orange"
+                className="font-medium text-custom-text-orange hover:text-custom-text-orange Archivo"
                 onClick={() => setShowModalInscription(true)}
               >
                 Je&nbsp;crée&nbsp;mon&nbsp;compte
