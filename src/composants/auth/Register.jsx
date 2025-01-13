@@ -61,10 +61,13 @@ const AccountCreationForm = ({ onClose }) => {
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full">
       <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full">
-        Je crée mon compte</h2>
+        Je crée mon compte
+      </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4 w-11/12 max-w-xs h-5/6">
-      
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 w-11/12 max-w-xs h-5/6"
+      >
         <div className="flex flex-col items-center">
           <label className="text-orange-500 mb-1 text-base text-center font-bold Archivo">
             Mon adresse mail
@@ -153,7 +156,7 @@ const AccountCreationForm = ({ onClose }) => {
             } Archivo`}
             required
             aria-invalid={!!errors.confirm_password} // Accessibilité
-            aria-describedby="password-error" 
+            aria-describedby="password-error"
           />
           <button
             type="button"
@@ -169,22 +172,32 @@ const AccountCreationForm = ({ onClose }) => {
           )}
         </div>
         <div className="flex flex-row space-x-2 items-center relative">
-        <input
-          required
+          <input
+            required
             type="checkbox"
             className="accent-custom-text-orange"
             checked={acceptedCGUs}
             onChange={(e) => setAcceptedCGUs(e.target.checked)}
           />
 
-          <p className="ArchivoLight text-custom-text-orange ">J'ai lu et j'accepte les <a className="underline"  onClick={() => {
+          <p className="ArchivoLight text-custom-text-orange ">
+            J'ai lu et j'accepte les{" "}
+            <a
+              className="underline"
+              onClick={() => {
                 setShowModalCGU(true);
-              }}>CGU</a></p>
+              }}
+            >
+              CGU
+            </a>
+          </p>
         </div>
         <div className="pt-3 flex justify-center">
-        <button
+          <button
             className={`bg-custom-text-orange text-white font-bold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out ${
-              acceptedCGUs ? "hover:scale-105 active:scale-95" : "opacity-50 cursor-not-allowed Archivo"
+              acceptedCGUs
+                ? "hover:scale-105 active:scale-95"
+                : "opacity-50 cursor-not-allowed Archivo"
             }`}
             disabled={loading || !acceptedCGUs}
             type="submit"
@@ -197,7 +210,7 @@ const AccountCreationForm = ({ onClose }) => {
       <WhiteModal
         isOpen={showModalCGU}
         onClose={() => setShowModalCGU(false)} // Handle modal close logic
-        ContentPadding = "ion-padding-horizontal"
+        ContentPadding="ion-padding-horizontal"
       >
         <CGUConfidentialite />
       </WhiteModal>

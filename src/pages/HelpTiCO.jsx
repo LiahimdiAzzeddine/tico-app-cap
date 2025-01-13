@@ -92,6 +92,7 @@ const HelpTiCO = () => {
               <div className="flex w-2/4 items-center border-[1.2px] border-custom-blue rounded-xl">
                 <input
                   type="number"
+                  pattern="\d*"
                   className="w-full p-2 text-right outline-none rounded-l-xl"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}

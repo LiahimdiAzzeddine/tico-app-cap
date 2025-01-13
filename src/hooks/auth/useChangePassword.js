@@ -43,17 +43,11 @@ const useChangePassword = () => {
       }
       
     } catch (err) {
-      console.log("🚀 ~ changePassword ~ err:", err);
       if (err.response && err.response.data && err.response.data.errors) {
         // Gestion des erreurs spécifiques par champ
         const errorMessages = err.response.data.errors;
-        const formattedErrors = Object.keys(errorMessages).map((key) => {
-          return {
-            field: key,
-            message: errorMessages[key].join(", "),  // On concatène les erreurs pour chaque champ
-          };
-        });
-
+        const formattedErrors =err.response?.data?.errors || {};
+        console.log("🚀 ~ formattedErrors ~ err:", formattedErrors);
         // Si les erreurs existent, on les stocke dans l'état
         setError(formattedErrors);
         // Affichage du toast d'erreur pour l'utilisateur
