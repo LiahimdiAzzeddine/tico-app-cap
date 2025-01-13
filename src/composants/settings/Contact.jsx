@@ -27,14 +27,14 @@ const Contact = ({setShowModalContact}) => {
       <form onSubmit={handleFormSubmit} className="space-y-4 w-11/12 max-w-xs h-5/6">
         {/* Email Field */}
         <div className="flex flex-col items-center">
-          <label className="text-orange-500 mb-1 text-base text-center font-bold">Mon adresse mail</label>
+          <label className="text-orange-500 mb-1 text-base text-center font-bold Archivo">Mon adresse mail</label>
           <input
             type="email"
             value={values.email}
             onChange={(e) => setValues({ ...values, email: e.target.value })}
             className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
               error?.email ? "border-red-500" : "border-orange-300 focus:border-orange-500"
-            }`}
+            } Archivo`}
             required
             aria-invalid={!!error?.email}
             aria-describedby="email-error"
@@ -44,14 +44,14 @@ const Contact = ({setShowModalContact}) => {
 
         {/* Titre Field */}
         <div className="flex flex-col items-center">
-          <label className="text-orange-500 mb-1 text-base text-center font-bold">Titre</label>
+          <label className="text-orange-500 mb-1 text-base text-center font-bold Archivo">Titre</label>
           <input
             type="text"
             value={values.titre}
             onChange={(e) => setValues({ ...values, titre: e.target.value })}
             className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
               error?.titre ? "border-red-500" : "border-orange-300 focus:border-orange-500"
-            }`}
+            } Archivo`}
             required
             aria-invalid={!!error?.titre}
             aria-describedby="titre-error"
@@ -61,13 +61,13 @@ const Contact = ({setShowModalContact}) => {
 
         {/* Message Field */}
         <div className="flex flex-col items-center">
-          <label className="text-orange-500 mb-1 text-base text-center font-bold">Message</label>
+          <label className="text-orange-500 mb-1 text-base text-center font-bold Archivo">Message</label>
           <textarea
             value={values.message}
             onChange={(e) => setValues({ ...values, message: e.target.value })}
             className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
               error?.message ? "border-red-500" : "border-orange-300 focus:border-orange-500"
-            }`}
+            } Archivo`}
             required
             rows="4"
             aria-invalid={!!error?.message}
@@ -80,7 +80,7 @@ const Contact = ({setShowModalContact}) => {
         <div className="pt-3 flex justify-center">
           <button
             type="submit"
-            className="bg-orange-500 text-white font-bold  text-lg py-2  px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
+            className="bg-orange-500 text-white font-bold Archivo text-lg py-2  px-6 rounded-xl  transform transition-transform duration-150 ease-in-out active:scale-90"
             disabled={loading}
           >
             Envoyer
