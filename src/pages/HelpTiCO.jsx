@@ -91,7 +91,7 @@ const HelpTiCO = () => {
               </p>
               <div className="flex w-2/4 items-center border-[1.2px] border-custom-blue rounded-xl">
                 <input
-                  type="text" placeholder="0" min="1" input pattern="[0-9]*" inputmode="numeric"
+                  type="number" placeholder="0" min="1" input pattern="[0-9]*" inputmode="numeric"
                   className="w-full p-2 text-right outline-none rounded-l-xl"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}

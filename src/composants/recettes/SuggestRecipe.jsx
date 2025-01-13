@@ -296,7 +296,7 @@ const SuggestRecipe = ({ onClose }) => {
               Temps de préparation (en min)&nbsp;:
             </label>
             <input
-              type="text" input pattern="[0-9]*" inputmode="numeric"
+              type="number" input pattern="[0-9]*" inputmode="numeric"
               name="prep_time"
               min="0"
               max="120"
@@ -324,7 +324,7 @@ const SuggestRecipe = ({ onClose }) => {
               Temps de cuisson (en min)&nbsp;:
             </label>
             <input
-              type="text" min="1" input pattern="[0-9]*" inputmode="numeric"
+              type="number" min="1" input pattern="[0-9]*" inputmode="numeric"
               name="cook_time"
               value={values.cook_time}
               onChange={handleInputChange}
@@ -349,7 +349,7 @@ const SuggestRecipe = ({ onClose }) => {
               Temps de repos (en min)&nbsp;:
             </label>
             <input
-              type="text" min="1" input pattern="[0-9]*" inputmode="numeric"
+              type="number" min="1" input pattern="[0-9]*" inputmode="numeric"
               name="rest_time"
               value={values.rest_time}
               onChange={handleInputChange}
@@ -399,7 +399,7 @@ const SuggestRecipe = ({ onClose }) => {
             </label>
             <div className="flex flex-row gap-2 w-full">
               <input
-               type="text"  min="1" input pattern="[0-9]*" inputmode="numeric"
+               type="number"  min="1" input pattern="[0-9]*" inputmode="numeric"
                 name="quantity"
                 value={ingredientInput.quantity}
                 onChange={handleIngredientChange}
