@@ -112,7 +112,7 @@ const InfoSection = ({
             {(!selectedComent || !selectedNutriscoreImage) && (
               <div className="text-xs flex flex-row space-x-1">
                 <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                  Encourager la marque à atteindre 100% <span className="whitespace-nowrap">de transparence</span>
+                  Encourager la marque à atteindre <span className="whitespace-nowrap">100% de transparence</span>
                 </div>
               </div>
             )}
@@ -149,9 +149,9 @@ const InfoSection = ({
                 onClick={() => setIsOpenadd(true)}
               >
                 <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo min-h-12">
-                  <span className="text-[0.6rem] text-custom-blue ArchivoLight">
+                  <span className="text-[0.6rem] text-custom-blue ArchivoLight tracking-normal leading-archivo">
                     Ne contient pas d’additifs<br></br>
-                    (À confirmer par la maque )
+                    (À confirmer par la maque)
                   </span>
                 </div>
                 <div>
@@ -169,7 +169,7 @@ const InfoSection = ({
             ) : (
               <div className="text-xs flex flex-row space-x-1">
                 <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                  Encourager la marque à atteindre 100% <span className="whitespace-nowrap">de transparence</span>
+                  Encourager la marque à atteindre <span className="whitespace-nowrap">100% de transparence</span>
                 </div>
               </div>
             )}
@@ -211,7 +211,7 @@ const InfoSection = ({
                 ) : (
                   <div className="text-xs flex flex-row space-x-1">
                     <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                      Encourager la marque à atteindre 100% <span className="whitespace-nowrap"> de transparence</span>
+                      Encourager la marque à atteindre <span className="whitespace-nowrap">100% de transparence</span>
                     </div>
                   </div>
                 )}
@@ -232,7 +232,7 @@ const InfoSection = ({
               ) : (
                 <div className="text-xs flex flex-row space-x-1">
                   <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                    Encourager la marque à atteindre 100% <span className="whitespace-nowrap">de transparence</span>
+                    Encourager la marque à atteindre <span className="whitespace-nowrap">100% de transparence</span>
                   </div>
                 </div>
               )}

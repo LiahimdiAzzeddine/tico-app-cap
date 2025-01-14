@@ -45,14 +45,14 @@ const Additifs = ({ additifs,targetRefAdditifs }) => {
               />
               <div className="flex flex-col">
                 <div className="flex items-center">
-                  <span className="font-bold text-custom-blue ArchivoBold">
+                  <span className="font-bold text-custom-blue ArchivoBold text-sm">
                     {item?.code ?? "Code inconnu"}:
                   </span>
-                  <span className="text-custom-blue ml-2 Archivo">
+                  <span className="text-custom-blue ml-2 ArchivoLight text-sm">
                     {item?.label ?? "Label indisponible"}
                   </span>
                 </div>
-                <div className="text-custom-blue text-sm ArchivoItalic">
+                <div className="text-custom-blue text-sm ArchivoItalic ">
                   {[item?.fonction1, item?.fonction2, SelectedNoteUFC(item?.noteUFC)]
                     .filter(Boolean) // Supprime les valeurs nulles, indéfinies ou vides
                     .join(" | ")}{" "}
@@ -62,7 +62,7 @@ const Additifs = ({ additifs,targetRefAdditifs }) => {
             </div>
           ))
         ) : (
-          <div className="text-custom-blue ArchivoLight">
+          <div className="text-custom-blue ArchivoLight tracking-normal text-sm">
           Ne contient pas d'additifs<br></br>
           À confirmer par la marque
          </div>

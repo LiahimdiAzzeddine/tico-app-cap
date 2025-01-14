@@ -67,7 +67,7 @@ const Allergenes = ({ allergenes = [] }) => {
                 />
               ) : (
                 <div className="w-12 h-12  flex items-center justify-center bg-gray-200 rounded-full ">
-                  <span className="text-xs text-gray-500">N/A</span>
+                  <span className=" text-gray-500 text-sm">N/A</span>
                 </div>
               )}
               <span className="text-sm text-custom-blue mt-1 ArchivoBold m-auto">
@@ -78,7 +78,7 @@ const Allergenes = ({ allergenes = [] }) => {
             </div>
           ))
         ) : (
-          <div className="text-gray-500 ArchivoBold">
+          <div className="text-gray-500 ArchivoBold text-sm">
             Aucun allergène disponible.
           </div>
         )}

@@ -5,19 +5,22 @@ const FAQItem = ({ question, answer,index, length }) => {
     const [isOpen, setIsOpen] = useState(false);
   
     const highlightTiCO = (text) => {
-      // On divise le texte en morceaux, en utilisant une expression régulière pour isoler "TiCO"
+      // Diviser le texte en morceaux, isolant "TiCO" avec une regex
       const parts = text.split(/(TiCO)/i);
-      const highlightedText = parts.map((part, index) => 
-        // Si le mot est "TiCO", on le met en gras
+    
+      // Transformer les morceaux avec les styles spécifiques pour "TiCO"
+      const highlightedText = parts.map((part, index) =>
         part.toLowerCase() === 'tico' ? (
-          `<strong key="${index}">TiCO</strong>`
+          `<span key="${index}" class="pallybold leading-archivo">Ti<span class="tracking-tightest leading-archivo">CO</span></span>`
         ) : (
           part
         )
-      ).join('');  // On assemble les morceaux après transformation
-      
+      ).join(''); // Réassembler le texte après transformation
+    
+      // Retourner le contenu avec dangerouslySetInnerHTML
       return <span dangerouslySetInnerHTML={{ __html: highlightedText }} />;
     };
+    
     
   
     return (

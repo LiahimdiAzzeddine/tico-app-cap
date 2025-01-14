@@ -51,12 +51,12 @@ const HelpTiCO = () => {
     <HomeLayout>
       <div className="flex flex-col items-center justify-start w-full h-full">
         <div className="flex items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-56 w-72 tico_intro">
-          <span className="absolute text-xl top-[15%] text-center text-custom-blue titre-bold">
+          <span className="absolute text-xl top-[15%] text-center text-custom-blue titre-bold leading-clash">
           Nouvelles&nbsp;fonctionnalités
           bientôt&nbsp;disponibles
           </span>
           <img
-            className="absolute w-44 bottom-1 left-1/2 transform -translate-x-1/2"
+            className="absolute w-48 bottom-1 left-1/2 transform -translate-x-1/2"
             src={hands}
             alt="TiCO hands"
           />
@@ -64,10 +64,10 @@ const HelpTiCO = () => {
 
         <div className="flex grow items-center justify-start w-full max-w-sm px-2 pb-4">
           <div className="w-full max-w-sm flex flex-col items-center h-full justify-center space-y-6">
-            <p className="text-custom-blue w-full text-center ArchivoLight leading-archivo">
+            <div className="text-custom-blue w-full text-center ArchivoLight leading-archivo tracking-normal">
 
             Ensemble, <span className="font-bold ArchivoLightBold">faisons grandir la transparence</span>&nbsp;!
-            </p>
+            </div>
             <div className="relative flex flex-col items-center justify-center w-2/4">
               {/* Flèche */}
               <img
@@ -77,18 +77,17 @@ const HelpTiCO = () => {
               {/* Bouton */}
               <button
                 onClick={handleShare}
-                className="bg-custom-blue  text-white ArchivoBold text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-custom-blue  text-white text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
               >
-                Partager <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span>
+               <span className="ArchivoBold"> Partager</span> <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span>
               </button>
             </div>
 
             <div className="max-w-sm flex flex-col items-center justify-start space-y-4 w-full">
-              <p className=" text-custom-blue  w-full text-center ArchivoLight leading-archivo">
+              <div className=" text-custom-blue  w-full text-center ArchivoLight leading-archivo tracking-normal">
               Tout soutien permettra d’améliorer l’application.<br></br> 
-              <span className="font-bold ArchivoLightBold">Chaque contribution compte</span> pour bâtir un<br></br> futur plus clair et responsable.
-
-              </p>
+              <span className="font-bold ArchivoLightBold">Chaque contribution compte</span> pour bâtir <br></br>un futur plus clair et responsable.
+              </div>
               <div className="flex w-2/4 items-center border-[1.2px] border-custom-blue rounded-xl">
                 <input
                   type="number" placeholder="0" min="1" input pattern="[0-9]*" inputmode="numeric"
@@ -108,7 +107,7 @@ const HelpTiCO = () => {
                   className="absolute top-1 -right-5  w-8 h-auto" // Ajustez les valeurs pour positionner parfaitement
                 />
                 <button
-                  className={`bg-custom-blue text-white ArchivoBold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 ${
+                  className={`bg-custom-blue text-white text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 ${
                     loading ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                   onClick={() => {
@@ -142,7 +141,7 @@ const HelpTiCO = () => {
                       Traitement...
                     </div>
                   ) : (
-                    <>Aider <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span></>
+                    <><span className="ArchivoBold">Aider</span> <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span></>
                   )}
                 </button>
               </div>

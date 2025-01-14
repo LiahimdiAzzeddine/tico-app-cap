@@ -207,7 +207,7 @@ const [AGS,setAGS]=useState(false);
                 ))}
             </tbody>
           </table>
-          <div className="ArchivoLight pt-4 text-custom-blue flex flex-col space-y-4">
+          <div className="ArchivoLight pt-4 text-custom-blue flex flex-col space-y-4 text-sm">
             <span>
             <span className="font-bold">VNR</span> : Valeur Nutritionnelles de Référence pour un adulte en bonne santé
           </span>

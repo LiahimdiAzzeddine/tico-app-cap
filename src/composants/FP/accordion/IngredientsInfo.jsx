@@ -72,14 +72,14 @@ function IngredientsInfo({
         <div className="mt-4">
           {ingredients.length > 0 ? (
             ingredients.map((ingredient, index) => (
-              <div key={index} className="mb-3">
+              <div key={index} className="mb-3 text-sm">
                 {/* Titre pour les ingrédients principaux */}
                 <h2
                   className={`ArchivoBold text-custom-blue font-semibold capitalize ${
                     ingredient.allergene && ingredient.allergene !== ""
                       ? "underline"
                       : ""
-                  }`}
+                  } text-sm font-bold`}
                 >
                   {ingredient.label || "Inconnu"}
                   {ingredient.quantity && ` ${ingredient.quantity}`}
@@ -97,7 +97,7 @@ function IngredientsInfo({
               </div>
             ))
           ) : (
-            <p className="text-custom-blue ArchivoBold">
+            <p className="text-custom-blue ArchivoBold text-sm">
               Aucun ingrédient disponible ne revisite ce produit entièrement. 
             </p>
           )}

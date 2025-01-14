@@ -24,7 +24,7 @@ function NutritionalInfo({
     <div className="bg-custom-green-clear rounded-e-[3rem] left-0 w-[95%] min-h-72 z-0 relative pb-4">
       <div className="px-2 py-6">
         <div className="text-sm text-custom-blue Archivo">
-        Portion indiquée :<span className="text-base font-bold text-center p-2 text-custom-blue Archivo">
+        Portion indiquée :<span className="text-sm font-bold text-center p-2 text-custom-blue Archivo">
           {/* Affichage conditionnel pour les valeurs manquantes */}
           {portion && portion != 0 && unit && unit != "" ? (
             <>

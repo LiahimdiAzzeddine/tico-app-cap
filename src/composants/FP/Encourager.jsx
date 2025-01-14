@@ -51,7 +51,7 @@ const Encourager = ({ product }) => {
                   CO
                   <img
                     src={flecheLeft}
-                    className="w-6 absolute -right-11 top-2 -rotate-[21deg] transform"
+                    className="w-6 absolute -right-[3.25rem] top-2 -rotate-[21deg] transform"
                     alt=""
                   />
                 </span>

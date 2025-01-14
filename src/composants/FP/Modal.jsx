@@ -458,7 +458,7 @@ export const ContactAdditif = ({
                       </div>
                     ))
                   ) : (
-                    <div className="text-custom-blue text-center ArchivoLight">
+                    <div className="text-custom-blue text-center ArchivoLight tracking-normal">
                       Ne contient pas d'additifs<br></br>À confirmer par la
                       marque
                     </div>
