@@ -4,7 +4,6 @@ export function createTip(tipData) {
 
   // Formater l'URL de l'image
   const formatImageUrl = (url) => {
-   
     let formattedUrl = url.trim().replace(/\s/g, '%20'); // Remplacer les espaces
     if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
       formattedUrl = `https://${formattedUrl}`; // Ajouter https:// si manquant
