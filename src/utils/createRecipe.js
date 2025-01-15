@@ -40,7 +40,16 @@ export function createRecipe(recipeData) {
         name: ingredient.name ?? "",
       }))
     : [];
+// Fonction pour générer l'URL de l'image
+const generateImageUrl = (id, imageName) => {
+  
+  if (!id || !imageName) return null;
 
+  const idPadded = String(id).padStart(6, '0'); // Compléter l'ID avec des zéros
+  const thousands = idPadded.slice(0, 3); 
+  const hundreds = idPadded.slice(3); 
+  return "https://files.foodhea.com/recipe/files/"+thousands+"/"+hundreds+"/"+imageName;
+};
   // Extracting and formatting recette steps if they exist
   const recette =
     recipeData.recette && typeof recipeData.recette === "object"
@@ -56,7 +65,8 @@ export function createRecipe(recipeData) {
     title: recipeData.title ?? "Titre de la recette",
     subtitle: recipeData.subtitle ?? "Sous-titre de la recette",
     nbperson: recipeData.nbperson ?? 0,
-    image: recipeData.image_name ? recipeData.image_name : null,
+    image: generateImageUrl(recipeData.id, recipeData.image_name),
+    image_name:recipeData.image_name ? recipeData.image_name : null,
     recette, // Include the transformed recette steps data
     timecook: recipeData.timecook ?? "Temps de cuisson non précisé",
     timebake: recipeData.timebake ?? "Temps de cuisson au four non précisé",

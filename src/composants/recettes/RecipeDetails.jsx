@@ -39,7 +39,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
       title = "Recette sans titre",
       timecook: preparation = "0 min",
       timebake: cuisson = "0 min",
-      image = defaultImageRecette,
+      image =image?image:defaultImageRecette,
       difficulte,
       totalTime,
       regimes = [],
@@ -73,7 +73,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
                 {title}
               </h2>
               <img
-                src={defaultImage}
+                src={image}
                 alt={title}
                 className="w-[43%] h-auto rounded-2xl border-custom-red border-2 object-cover"
               />

@@ -6,6 +6,7 @@ const Item = ({ tip, index, length, OpenTip }) => {
   if (!tip) {
     return null;
   }
+  const imageSrc = tip.image ? tip.image : defaultImage;
 
   return (
     <div key={index}>
@@ -13,22 +14,11 @@ const Item = ({ tip, index, length, OpenTip }) => {
       onClick={() => OpenTip(tip)}
       >
         {/* Image du conseil */}
-        <div
-                  className="w-20 h-20 mr-4 rounded-xl overflow-hidden flex-shrink-0 border-custom-text-orange  border-2"
-
-          style={{
-            backgroundImage: `url(${tip.image || defaultImage})`, // Utilise l'image du conseil ou une image par défaut
-          }}
-        >
+        <div className="w-20 h-20 mr-4 rounded-xl overflow-hidden  border-custom-text-orange border-2">
           <img
-            src={tip.image || defaultImage} // Utiliser une image par défaut si tip.image est vide
+            src={imageSrc} // Utiliser l'image correcte (soit tip.image ou defaultImage)
             alt={tip.title}
-            className="w-auto h-16 mr-4 rounded object-cover m-auto"
-            onError={(e) => {
-              e.target.onerror = null; // Éviter une boucle infinie
-              e.target.src = defaultImage; // Image par défaut en cas d'erreur
-            }}
-            style={{ margin: "auto" }}
+            className="w-full h-full  object-cover "
           />
         </div>
 

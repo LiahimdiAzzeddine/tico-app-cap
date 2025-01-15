@@ -40,6 +40,7 @@ function App() {
   };
 
   useEffect(() => {
+    
     const handleAppUrlOpen = (data) => {
       if (!data?.url) return;
       const { url } = data;

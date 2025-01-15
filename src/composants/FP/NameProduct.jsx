@@ -30,7 +30,7 @@ function NameProduct(props) {
           </div>
           
           <div className="text-sm text-[#42a29a] font-bold ArchivoBoldItalique">
-            Produit {(Number(props.Transparent)) * 10}% transparent {Number(props.Transparent)==9?"!":""}
+             {(Number(props.Transparent)) * 10}% de transparence<span className="pallybold leading-archivo"> Ti<span className="tracking-tightest leading-archivo">CO</span></span> {Number(props.Transparent)==9?"!":""}
           </div>
         </div>
       </div>

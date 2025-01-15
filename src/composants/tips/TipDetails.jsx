@@ -39,7 +39,7 @@ const TipDetails = ({ tip }) => {
               </h2>
               <div className="w-full flex flex-col justify-end items-end pr-5 pb-5">
                 <img
-                  src={image}
+                  src={tip?.category?.image }
                   alt={title}
                   className="w-[43%] h-auto rounded-2xl border-custom-blue border-2 object-cover"
                 />
