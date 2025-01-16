@@ -20,6 +20,7 @@ const Item = ({ recipe, index, length, OpenFb }) => {
           style={{
             backgroundImage: `url(${productBg})`,
             backgroundSize: "contain",
+            backgroundRepeat: 'no-repeat',
             backgroundPosition: "center",
           }}
         >
