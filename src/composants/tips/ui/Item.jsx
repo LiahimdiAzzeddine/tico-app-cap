@@ -28,7 +28,7 @@ const Item = ({ tip, index, length, OpenTip }) => {
             {tip.title} {/* Afficher le titre du conseil */}
           </div>
           <div
-            className="text-custom-text-orange  leading-none Archivo"
+            className="text-custom-blue  leading-none Archivo"
             dangerouslySetInnerHTML={{
               __html: tip?.details?.substring(0, 50) + "...",
             }}

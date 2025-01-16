@@ -12,8 +12,8 @@ import TipDetails from "../composants/tips/TipDetails";
 import OF from "../assets/tips/OFleche.svg";
 
 function Tips() {
-  const ids = []; // Ajuste cette liste pour filtrer les conseils si nécessaire
-  const { tips, loading, error } = useLastTips(ids);
+  const [page, setPage] = useState(1); // Page actuelle pour la pagination
+  const { tips, loading, error } = useLastTips(page, 100); // Récupère les conseils en fonction de la page
   const [showModalRecipe, setShowModalRecipe] = useState(false); // État pour afficher ou cacher la modale
   const [selectedTip, setSelectedTip] = useState(null); // Conseil sélectionné pour affichage
   
@@ -31,13 +31,17 @@ function Tips() {
     setSelectedTip(null); // Réinitialise le conseil sélectionné
   };
 
+  // Fonction pour charger plus de conseils lors du clic sur "Charger plus"
+  const loadMoreTips = () => {
+    setPage((prevPage) => prevPage + 1); // Augmente le numéro de page
+  };
+
   return (
     <TapLayout icon={OF}>
       <div className="details h-full w-full">
         <div className="h-[17%] pb-4" >
           <div
             className="flex flex-col items-center justify-center h-5/6 max-h-28 backgroundTips"
-           
           >
             <h2 className="text-center text-custom-text-orange text-2xl titre-bold">
               Ti'conseils
@@ -46,7 +50,7 @@ function Tips() {
         </div>
 
         <div className="flex flex-col h-[83%] justify-center items-center bg-white">
-          <div className="flex flex-col h-full w-full px-6  overflow-auto">
+          <div className="flex flex-col h-full w-full px-6 overflow-auto">
             {loading ? (
               <LoadingState />
             ) : error ? (
@@ -64,6 +68,9 @@ function Tips() {
             ) : (
               <EmptyState />
             )}
+            {/*tipsList.length > 0 && !loading && (
+              <button onClick={loadMoreTips} className="mt-4">Charger plus</button>
+            )*/}
           </div>
         </div>
       </div>

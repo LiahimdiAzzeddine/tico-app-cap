@@ -41,7 +41,7 @@ const Item = ({ recipe, index, length, OpenFb }) => {
             {recipe.title}
           </div>
 
-          <div className="text-custom-red-clear leading-archivo Archivo">
+          <div className="text-custom-blue leading-archivo Archivo">
             {recipe?.difficulte && <>{recipe.difficulte} |&nbsp;</>}
             {(recipe?.timecook || recipe?.timerest || recipe?.timebake) && (
               <>

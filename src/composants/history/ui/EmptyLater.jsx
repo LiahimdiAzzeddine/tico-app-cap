@@ -10,7 +10,7 @@ export const EmptyLater = () => (
     <h3 className="text-xl font-semibold text-custom-green-text mb-1 ArchivoBold w-full">
       Aucun produit sauvegardé
     </h3>
-    <p className="text-custom-green-text ArchivoItalic leading-archivo">
+    <p className="text-custom-blue ArchivoItalic leading-archivo">
     Hors ligne ? <br></br>
 Scanner des produits pour les consulter plus&nbsp;tard
     </p>

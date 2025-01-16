@@ -34,14 +34,14 @@ const TipDetails = ({ tip }) => {
             className="w-full flex items-end justify-end bg-no-repeat relative bgImage min-h-full"
           >
             <div className="flex flex-col justify-between items-center w-full h-full">
-              <h2 className="min-h-16 text-center justify-start text-custom-blue  text-2xl titre-bold py-2">
+              <h2 className="min-h-16 text-center justify-start text-custom-text-orange text-2xl titre-bold py-2">
                 {title}
               </h2>
               <div className="w-full flex flex-col justify-end items-end pr-5 pb-5">
                 <img
                   src={tip?.category?.image }
                   alt={title}
-                  className="w-[43%] h-auto rounded-2xl border-custom-blue border-2 object-cover"
+                  className="w-[43%] h-auto rounded-2xl border-custom-text-orange border-2 object-cover"
                 />
               </div>
             </div>
@@ -51,10 +51,10 @@ const TipDetails = ({ tip }) => {
         {/* Section Détails */}
         <div className="px-6 pt-6">
           <h2 className="text-custom-text-orange text-2xl ArchivoExtraBold pb-3 leading-archivo ">
-            Notre ti'conseil
+            {tip?.category?.name?tip?.category?.name:"Notre ti'conseil"}
           </h2>
           <p
-            className="text-[#ffb76c] text-base break-words leading-archivo"
+            className="text-custom-blue text-base break-words leading-archivo"
             dangerouslySetInnerHTML={{ __html: details }}
           />
         </div>

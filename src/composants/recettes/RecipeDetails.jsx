@@ -75,7 +75,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
               <img
                 src={image}
                 alt={title}
-                className="w-[43%] h-auto rounded-2xl border-custom-red border-2 object-cover"
+                className="w-[43%] min-w-32 h-auto rounded-2xl border-custom-red border-2 object-cover"
               />
             </div>
           </div>
@@ -114,7 +114,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
             <ul className="list-inside list-none ArchivoLight">
               {ingredients.length > 0 ? (
                 ingredients.map((ingredient, index) => (
-                  <li key={index} className="text-custom-red ArchivoLight leading-archivo">
+                  <li key={index} className="text-custom-blue ArchivoLight leading-archivo">
                     {ingredient.qt ? `${ingredient.qt} ` : ""}
                     {ingredient.unit ? `${ingredient.unit} ` : ""}
                     {ingredient.name}
@@ -152,7 +152,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
                    <div className="h-full flex flex-col items-start justify-start mb-6">
           <ul className="list-disc pl-6">
             {stepGroup.map((step, stepIndex) => (
-              <li key={stepIndex} className="text-custom-red ArchivoLight leading-archivo mb-2">
+              <li key={stepIndex} className="text-custom-blue ArchivoLight leading-archivo mb-2">
                 {step.description}
               </li>
             ))}

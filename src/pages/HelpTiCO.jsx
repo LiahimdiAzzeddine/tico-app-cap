@@ -36,12 +36,12 @@ const HelpTiCO = () => {
       handleDonate(amount);
     } else {
       triggerAlert(
-        "Le montant ne doit pas être nul.",
-        "Attention",
+        "",
+        "Choisir un montant pour aider TiCO",
         null,
         "ios",
         "",
-        "Compris",
+        "OK",
         true
       );
     }
@@ -90,7 +90,7 @@ const HelpTiCO = () => {
               </div>
               <div className="flex w-2/4 items-center border-[1.2px] border-custom-blue rounded-xl">
                 <input
-                  type="number" placeholder="0" min="1" input pattern="[0-9]*" inputmode="numeric"
+                  type="number" placeholder="10" min="1" input pattern="[0-9]*" inputmode="numeric"
                   className="w-full p-2 text-right outline-none rounded-l-xl"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
