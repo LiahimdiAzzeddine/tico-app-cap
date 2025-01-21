@@ -29,7 +29,7 @@ function Recipes() {
     ? recipes.map((recipe) => createRecipe(recipe))
     : [];
   return (
-    <TapLayout icon={flecheRecette}>
+    <TapLayout icon={flecheRecette} filter={1}>
       <div className="details h-full w-full">
         <div className="h-[17%] pb-4">
           <div

@@ -6,7 +6,6 @@ import ScanArea from "./ScanArea";
 import PermissionAlert from "./PermissionAlert";
 import ScanResultModal from "./ScanResultModal";
 import { useIonViewWillLeave, useIonViewWillEnter } from "@ionic/react";
-import { scan } from "ionicons/icons"; 
 
 const Main = () => {
   const [appState, setAppState] = useState({
@@ -56,14 +55,9 @@ const Main = () => {
       updateAppState({
         showAlert: {
           header: "Autorisation caméra",
-          message: "Voulez-vous autoriser l'utilisation de la caméra ?",
+          message: "Nous avons besoin de l’accès à la caméra pour scanner les codes-barres, veuillez l’autoriser.",
           buttons: [
-            {
-              text: "Non",
-              role: "cancel",
-              handler: () => updateAppState({ error: "Permission non accordée." }),
-            },
-            { text: "Oui", handler: () => startScan(true) },
+            { text: "Continuer", handler: () => startScan(true) },
           ],
         },
       });

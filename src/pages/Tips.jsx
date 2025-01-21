@@ -37,7 +37,7 @@ function Tips() {
   };
 
   return (
-    <TapLayout icon={OF}>
+    <TapLayout icon={OF} filter={2}>
       <div className="details h-full w-full">
         <div className="h-[17%] pb-4" >
           <div

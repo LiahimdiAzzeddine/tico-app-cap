@@ -29,6 +29,7 @@ const ModalPage = ({
           <ModalHeader onClose={onClose} image={image} />
         </IonToolbar>
       </IonHeader>
+      
       <IonContent
         scroll-y={scroll}
         className="flex flex-col ion-no-padding h-full overflow-hidden"

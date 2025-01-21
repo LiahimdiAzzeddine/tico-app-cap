@@ -51,6 +51,7 @@
   font-family: 'ArchivoExtraBold';
   src: url('./assets/fonts/Archivo-ExtraBold.otf') format('opentype');
 }
+
 @font-face {
   font-family: 'ArchivoLight';
   src: url('./assets/fonts/Archivo-Light.otf') format('opentype');
@@ -64,6 +65,11 @@ ion-loading.custom-loading {
   --spinner-color: #c6312b;
 
   color: #c6312b;
+}
+ion-loading.custom-loading-dialog {
+  --background: #ffeca7;
+  --spinner-color: #0F548D;
+  color: #0F548D;
 }
 ion-loading.custom-loading-help {
   --background: #e1f5f4;
@@ -94,6 +100,7 @@ ion-loading.custom-loading-help {
   font-weight: normal;
   font-style: italic;
 }
+
 .pallybold{
   font-family: 'pallybold';
 }
@@ -121,6 +128,7 @@ html {
   height: 100vh;
   width: 100vw;
 }
+
 /* Styles globaux */
 body {
   padding: 0;
@@ -411,6 +419,10 @@ padding-top: 1rem;
 
 .recetteBg{
   background-image: url('/src/assets/recettes/recipeBg.svg') !important;
+}
+
+.recetteBgSettings{
+  background-image: url('/src/assets/recettes/recipeBgsettings.svg') !important;
 }
 .bgImage{
   background-image: url('/src/assets/tips/bgImage.svg') !important;
