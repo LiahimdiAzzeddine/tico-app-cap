@@ -130,7 +130,7 @@ const RecipeSettings = ({ setShowModalRe, setRelod }) => {
             Sélection d'affichage
             <br />
             personnalisée des <br />
-            ti'recettes
+            tit‘recettes
           </span>
         </div>
         <p className="text-custom-red pt-2 ArchivoLightItalic text-sm">
