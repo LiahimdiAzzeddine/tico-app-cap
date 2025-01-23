@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IonFooter, IonToolbar, useIonRouter } from "@ionic/react";
-import { Keyboard } from "@capacitor/keyboard";
+//import { Keyboard } from "@capacitor/keyboard";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import { useAlert } from "../../context/AlertProvider";
@@ -54,7 +54,7 @@ const BottomNavbar = () => {
   useEffect(() => {
     setAuthState(isAuthenticated);
   }, [isAuthenticated]);
-
+/*
   useEffect(() => {
     const showListener = Keyboard.addListener('keyboardWillShow', () => {
       setIsKeyboardVisible(true);
@@ -68,10 +68,10 @@ const BottomNavbar = () => {
       showListener.remove();
       hideListener.remove();
     };
-  }, []);
+  }, []);*/
 
   return (
-    !isKeyboardVisible && ( // Cacher le footer si le clavier est visible
+    //!isKeyboardVisible && ( 
       <IonFooter className="ion-no-border m-0 p-0 bg-white" mode="md">
         <IonToolbar
           className="bg-[#f7f7f700] toolbar-custom safe-area-bottom"
@@ -140,7 +140,7 @@ const BottomNavbar = () => {
         </IonToolbar>
       </IonFooter>
     )
-  );
+  //);
 };
 
 export default BottomNavbar;

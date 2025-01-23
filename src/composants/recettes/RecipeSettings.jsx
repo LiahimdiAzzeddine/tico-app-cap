@@ -52,7 +52,7 @@ const RecipeSettings = ({ setShowModalRe }) => {
       {/* En-tête fixe */}
       <div className="bg-[#fdf2f0] px-4 py-6 flex flex-col items-center">
         <div className="flex flex-col items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-36 w-full recetteBgSettings">
-          <span className="text-xl w-full text-center text-custom-text-orange titre-bold leading-clash">
+          <span className="text-xl w-full text-center text-custom-red titre-bold leading-clash">
             Sélection d’affichage
             <br />
             personnalisée des <br />
@@ -69,8 +69,8 @@ const RecipeSettings = ({ setShowModalRe }) => {
         <div className="flex flex-col space-y-8 pb-8">
           {/* Section Mon régime */}
           <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base ArchivoLight pb-1">Mon régime :</label>
-            <div className="flex flex-wrap gap-2">
+            <label className="text-custom-red text-base ArchivoLight pb-2">Mon régime :</label>
+            <div className="flex flex-wrap gap-4">
               {["Tous", "Végétarien", "Végan", "Sans gluten", "Sans lactose", "Sans oeufs"].map((diet) => (
                 <button
                   key={diet}
@@ -93,8 +93,8 @@ const RecipeSettings = ({ setShowModalRe }) => {
 
           {/* Section Allergènes à éviter */}
           <div className="flex flex-col gap-2">
-            <label className="text-custom-red text-base ArchivoLight pb-1">Allergènes à éviter :</label>
-            <div className="flex flex-wrap gap-2">
+            <label className="text-custom-red text-base ArchivoLight pb-2">Allergènes à éviter :</label>
+            <div className="flex flex-wrap gap-4">
               {[
                 "Arachides",
                 "Céleri",

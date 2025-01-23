@@ -1,6 +1,5 @@
 
 export function createTip(tipData) {
-  console.log("🚀 ~ createTip ~ tipData:", tipData);
 
   // Formater l'URL de l'image
   const formatImageUrl = (url) => {

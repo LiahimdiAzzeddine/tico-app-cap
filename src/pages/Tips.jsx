@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import Background from "../assets/tips/bachground.svg";
-import { EmptyState } from "../composants/recettes/ui/EmptyState";
+import React, { useState, useEffect } from "react";
+import { EmptyState } from "../composants/tips/ui/EmptyState";
 import Item from "../composants/tips/ui/Item";
 import LoadingState from "../composants/recettes/ui/LoadingState";
 import useLastTips from "../hooks/tips/useLastTips";
@@ -10,13 +9,34 @@ import TapLayout from "../composants/layout/TapLyout";
 import ModalPage from "../composants/modales/ModalPage";
 import TipDetails from "../composants/tips/TipDetails";
 import OF from "../assets/tips/OFleche.svg";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { getTipPreferences } from "../hooks/useCapacitorStorage";
 
 function Tips() {
-  const [page, setPage] = useState(1); // Page actuelle pour la pagination
-  const { tips, loading, error } = useLastTips(page, 100); // Récupère les conseils en fonction de la page
-  const [showModalRecipe, setShowModalRecipe] = useState(false); // État pour afficher ou cacher la modale
-  const [selectedTip, setSelectedTip] = useState(null); // Conseil sélectionné pour affichage
-  
+  const [page, setPage] = useState(1);
+  const [tipPreferences, setTipPreferences] = useState(null); // Ajout des préférences
+  const { tips, loading, error } = useLastTips(page, 100, tipPreferences); // Passage des préférences
+  const [showModalRecipe, setShowModalRecipe] = useState(false);
+  const [selectedTip, setSelectedTip] = useState(null);
+  const authUser = useAuthUser();
+  const userId = authUser?.id;
+  const [relod,setRelod] = useState(false)
+
+  // Charger les préférences utilisateur au montage
+  useEffect(() => {
+    const fetchPreferences = async () => {
+      try {
+        const storedPreferences = await getTipPreferences(userId);
+        setTipPreferences([...storedPreferences]); 
+      } catch (error) {
+        console.error("Erreur lors de la récupération des préférences :", error);
+      }
+      
+    };
+
+    fetchPreferences();
+  }, [userId,relod]);
+
   const tipsList = Array.isArray(tips)
     ? tips.map((tip) => createTip(tip))
     : [];
@@ -31,20 +51,19 @@ function Tips() {
     setSelectedTip(null); // Réinitialise le conseil sélectionné
   };
 
-  // Fonction pour charger plus de conseils lors du clic sur "Charger plus"
   const loadMoreTips = () => {
     setPage((prevPage) => prevPage + 1); // Augmente le numéro de page
   };
 
   return (
-    <TapLayout icon={OF} filter={2}>
+    <TapLayout icon={OF} filter={2} setRelod={setRelod}>
       <div className="details h-full w-full">
-        <div className="h-[17%] pb-4" >
+        <div className="h-[17%] pb-4">
           <div
             className="flex flex-col items-center justify-center h-5/6 max-h-28 backgroundTips"
           >
             <h2 className="text-center text-custom-text-orange text-2xl titre-bold">
-              Ti'conseils
+              Ti'conseils 
             </h2>
           </div>
         </div>
@@ -68,9 +87,6 @@ function Tips() {
             ) : (
               <EmptyState />
             )}
-            {/*tipsList.length > 0 && !loading && (
-              <button onClick={loadMoreTips} className="mt-4">Charger plus</button>
-            )*/}
           </div>
         </div>
       </div>

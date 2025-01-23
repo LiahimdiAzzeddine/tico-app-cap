@@ -6,21 +6,28 @@ import FilterRecettes from "../../assets/tab/FILTRE_RECETTES.svg";
 import ModalPage from "./ModalPage";
 import TipSettings from "../tips/TipSettings";
 import RecipeSettings from "../recettes/RecipeSettings";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 
-function HeaderTab({ image, onClose, filter = 1 }) {
+function HeaderTab({ image, onClose, filter = 1,setRelod }) {
   const [showModalTip, setShowModalTip] = useState(false);
   const [showModalRe, setShowModalRe] = useState(false);
+  const isAuthenticated = useIsAuthenticated();
 
   const filterImg = filter === 2 ? FilterConseils : FilterRecettes;
 
-  // Gestion des modales selon le filtre
-  const handleFilterClick = () => {
+ // Gestion des modales selon le filtre
+const handleFilterClick = () => {
+  if (isAuthenticated) {
     if (filter === 2) {
       setShowModalTip(true); // Ouvre la modale pour les conseils
     } else {
       setShowModalRe(true); // Ouvre la modale pour les recettes
     }
-  };
+  } else {
+    alert("Vous devez être connecté pour accéder à cette page.");
+  }
+};
+
 
   return (
     <>
@@ -55,7 +62,7 @@ function HeaderTab({ image, onClose, filter = 1 }) {
         bgcontent="#ffeda3"
         image="of"
       >
-        <TipSettings setShowModalTip={setShowModalTip} />
+        <TipSettings setShowModalTip={setShowModalTip} setRelod={setRelod} />
       </ModalPage>
 
       {/* Modale pour les recettes */}
@@ -64,7 +71,7 @@ function HeaderTab({ image, onClose, filter = 1 }) {
         onClose={() => setShowModalRe(false)}
         bgHeader="#fdf2f0"
         bgcontent="#fdf2f0"
-        image="of"
+        image="rf"
       >
         <RecipeSettings setShowModalRe={setShowModalRe} />
       </ModalPage>

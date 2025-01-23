@@ -53,7 +53,6 @@ export const getPreferences = async (userId) => {
     const key = `user_preferences_${userId}`;
     const { value } = await Storage.get({ key });
     if (value) {
-      console.log("Préférences chargées :", JSON.parse(value));
       return JSON.parse(value);
     }
     return null;

@@ -166,7 +166,7 @@ const PersonalInfo = () => {
             <label className="text-orange-500 mb-1 text-base text-center font-bold">
               Mon adresse email
             </label>
-            <p className="w-full p-2 border-[1.5px] rounded-xl bg-gray-100">
+            <p className="w-full p-2 border-2 rounded-xl bg-gray-100 Archivo text-custom-blue border-custom-text-orange">
               {displayProfile.email || "Pas d'email disponible"}
             </p>
           </div>
@@ -175,7 +175,7 @@ const PersonalInfo = () => {
             <label className="text-orange-500 mb-1 text-base text-center font-bold">
               Mon pseudo
             </label>
-            <p className="w-full p-2 border-[1.5px] rounded-xl bg-gray-100">
+            <p className="w-full p-2 border-2 rounded-xl bg-gray-100 Archivo text-custom-blue border-custom-text-orange">
               {displayProfile.username || "Pas de pseudo disponible"}
             </p>
           </div>
@@ -190,6 +190,7 @@ const PersonalInfo = () => {
               }`}
             >
               Changer mon mot de passe{" "}
+              
               {!isOnline && "(Non disponible hors ligne)"}
             </Link>
           </div>

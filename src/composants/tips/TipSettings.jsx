@@ -7,19 +7,62 @@ import Cuisine from "../../assets/tips/VISUELS_Cuisine.png";
 import CuisineActive from "../../assets/tips/VISUELS_Cuisine_blanc.png";
 import Techniques from "../../assets/tips/VISUELS_Techniques_culinaires.png";
 import TechniquesActive from "../../assets/tips/VISUELS_Techniques_culinaires_blanc.png";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import { storeTipPreferences, getTipPreferences } from "../../hooks/useCapacitorStorage"; // Importer les fonctions
+import Etiquette from "../../assets/tips/VISUELS_Etiquettes.svg";
+import EtiquetteActive from "../../assets/tips/tipsVISUELS_Etiquette_blanc.png";
+import plaisirs from "../../assets/tips/VISUELS_Petits_plaisirs.svg";
+import plaisirsActive from "../../assets/tips/VISUELS_Petits_plaisirs_blanc.png";
 
-const TipSettings = ({ setShowModalTip }) => {
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import {
+  storeTipPreferences,
+  getTipPreferences,
+} from "../../hooks/useCapacitorStorage";
+import { useIonLoading } from "@ionic/react";
+
+const TipSettings = ({ setShowModalTip,setRelod }) => {
   const [selectedTips, setSelectedTips] = useState(new Set());
   const authUser = useAuthUser();
   const userId = authUser?.id;
+  const [present, dismiss] = useIonLoading();
+  
 
   const tips = [
-    { id: "tips", label: "Astuces", image: Astuces, activeImage: AstucesActive },
-    { id: "antiWaste", label: "Antigaspi", image: Antigaspi, activeImage: AntigaspiActive },
-    { id: "sustainableCooking", label: "Cuisine durable", image: Cuisine, activeImage: CuisineActive },
-    { id: "cookingTechniques", label: "Techniques culinaires", image: Techniques, activeImage: TechniquesActive },
+    {
+      id: 1,
+      label: "Astuces",
+      image: Astuces,
+      activeImage: AstucesActive,
+    },
+    {
+      id: 2,
+      label: "Antigaspi",
+      image: Antigaspi,
+      activeImage: AntigaspiActive,
+    },
+    {
+      id:4,
+      label: "Cuisine durable",
+      image: Cuisine,
+      activeImage: CuisineActive,
+    },
+    {
+      id: 3,
+      label: "Techniques culinaires",
+      image: Techniques,
+      activeImage: TechniquesActive,
+    },
+    {
+      id: 5,
+      label: "Petits plaisirs",
+      image: plaisirs,
+      activeImage: plaisirsActive,
+    },
+    {
+      id: 6,
+      label: "Sous les étiquettes",
+      image: Etiquette,
+      activeImage: EtiquetteActive,
+    },
   ];
 
   const toggleTip = (tipId) => {
@@ -35,9 +78,24 @@ const TipSettings = ({ setShowModalTip }) => {
   };
 
   const handleSubmit = async () => {
-    await storeTipPreferences(userId, selectedTips); // Sauvegarder les préférences des astuces sélectionnées
-    console.log("Astuces sélectionnées :", Array.from(selectedTips));
+    try {
+      await present({
+        mode: "ios",
+        spinner: "bubbles",
+        cssClass: "custom-loading-dialog",
+      });
+  
+      await storeTipPreferences(userId, selectedTips);
+      setRelod(selectedTips);
+    } catch (error) {
+      console.error("Erreur lors de la sauvegarde des préférences :", error);
+      alert("Une erreur est survenue lors de la sauvegarde des préférences. Veuillez réessayer.");
+    } finally {
+      await dismiss();
+      setShowModalTip(false)
+    }
   };
+  
 
   // Charger les préférences des astuces sélectionnées au montage du composant
   useEffect(() => {
@@ -52,7 +110,7 @@ const TipSettings = ({ setShowModalTip }) => {
   }, [userId]);
 
   return (
-    <div className="flex flex-col h-full bg-white">
+    <div className="flex flex-col h-full ">
       {/* Fixed header */}
       <div className="bg-custom-brown px-4 py-6 flex flex-col items-center">
         <div className="flex flex-col items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-36 w-full recetteBgSettings">
@@ -69,23 +127,27 @@ const TipSettings = ({ setShowModalTip }) => {
       </div>
 
       {/* Scrollable content area */}
-      <div className="flex-1 overflow-y-auto px-8 rounded-b-3xl bg-custom-brown">
+      
+      <div className="flex-1 overflow-y-auto px-8 cadreHome bg-custom-brown">
         <div className="grid grid-cols-2 gap-2 w-full mb-4 justify-items-center">
           {tips.map((tip) => (
             <button
               key={tip.id}
               onClick={() => toggleTip(tip.id)}
-              className={`
-                aspect-square p-2 rounded-lg flex flex-col items-center justify-center
-                transition-transform duration-200
-                ${selectedTips.has(tip.id) ? "scale-105" : ""}
-              `}
+              className="aspect-square p-2 rounded-lg flex flex-col items-center justify-center"
             >
-              <img
-                src={selectedTips.has(tip.id) ? tip.activeImage : tip.image}
-                alt={tip.label}
-                className="h-24 w-24 object-contain rounded-2xl"
-              />
+              <div
+                className={`
+               transition-transform duration-200
+               ${selectedTips.has(tip.id) ? "scale-105" : ""}
+             `}
+              >
+                <img
+                  src={selectedTips.has(tip.id) ? tip.activeImage : tip.image}
+                  alt={tip.label}
+                  className="h-24 w-24 object-contain rounded-2xl"
+                />
+              </div>
               <span className="text-center text-sm mt-2 whitespace-pre-line text-custom-text-orange ArchivoBold">
                 {tip.label}
               </span>
