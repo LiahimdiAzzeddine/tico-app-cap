@@ -14,7 +14,7 @@ const Item = ({ tip, index, length, OpenTip }) => {
       onClick={() => OpenTip(tip)}
       >
         {/* Image du conseil */}
-        <div className="w-20 h-20 mr-4 rounded-xl overflow-hidden  border-custom-text-orange border-2">
+        <div className="w-20 h-20 mr-4 rounded-xl overflow-hidden">
           <img
             src={imageSrc} // Utiliser l'image correcte (soit tip.image ou defaultImage)
             alt={tip.title}

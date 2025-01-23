@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useLogin from "../../hooks/auth/useLogin";
-import Spinner from "../Spinner";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
-import { IonIcon } from "@ionic/react";
+import { IonIcon, useIonLoading } from "@ionic/react";
 import CustomModal from "../modales/CustomModal";
 import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
@@ -15,6 +14,8 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
+    const [present, dismiss] = useIonLoading();
+  
   const savePassword = async () => {
     if (Capacitor.getPlatform() === 'ios') {
       SavePassword.promptDialog({
@@ -36,7 +37,14 @@ const Login = ({ createCompte = false, redirection }) => {
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
+    await present({
+      mode: "ios",
+      spinner: "bubbles",
+      cssClass: "custom-loading-dialog",
+    });
+    
     await handleSubmit(values);
+    await dismiss();
   };
 
   useEffect(() => {
@@ -180,12 +188,7 @@ const Login = ({ createCompte = false, redirection }) => {
           )}
         </form>
 
-        {/* Loading Overlay */}
-        {loading && (
-          <div className="h-screen fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-            <Spinner />
-          </div>
-        )}
+        
       </div>
 
       {/* Modals */}

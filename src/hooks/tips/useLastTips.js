@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 
-const useLastTips = (page = 1, limit = 10, tipPreferences = null) => {
+const useLastTips = (page = 1, limit = 10, tipPreferences = []) => {
   const [tips, setTips] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

@@ -73,7 +73,7 @@ const handleFilterClick = () => {
         bgcontent="#fdf2f0"
         image="rf"
       >
-        <RecipeSettings setShowModalRe={setShowModalRe} />
+        <RecipeSettings setShowModalRe={setShowModalRe} setRelod={setRelod} />
       </ModalPage>
     </>
   );
