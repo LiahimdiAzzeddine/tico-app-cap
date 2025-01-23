@@ -7,13 +7,14 @@ import {
 } from "../../hooks/useCapacitorStorage";
 import { useIonLoading } from "@ionic/react";
 
+
 const DIET_OPTIONS = {
-  ALL: "Tous",
-  VEGETARIAN: "Végétarien", 
-  VEGAN: "Végan",
-  GLUTEN_FREE: "Sans gluten",
-  LACTOSE_FREE: "Sans lactose",
-  EGG_FREE: "Sans oeufs"
+  ALL: "Aucun régime spécial",
+  V: "Végétarien", 
+  VG: "Végan",
+  SG: "Sans gluten",
+  LF: "Sans lactose",
+  EF: "Sans oeufs"
 };
 
 const ALLERGEN_OPTIONS = {
@@ -44,6 +45,33 @@ const RecipeSettings = ({ setShowModalRe, setRelod }) => {
   const addFilter = (category, key) => {
     setValues((prev) => {
       const currentValues = prev[category];
+      
+      // Special handling for "Tous" (All) option
+      if (category === 'regime') {
+        if (key === 'ALL') {
+          // If "Tous" is selected, deselect all other options
+          return { ...prev, [category]: ['ALL'] };
+        } else {
+          // If any other option is selected
+          if (currentValues.includes('ALL')) {
+            // If "Tous" was previously selected, replace it
+            return { ...prev, [category]: [key] };
+          } else {
+            // Toggle the selected option
+            const updatedValues = currentValues.includes(key)
+              ? currentValues.filter((item) => item !== key)
+              : [...currentValues, key];
+            
+            // Ensure "Tous" is not selected with other options
+            return { 
+              ...prev, 
+              [category]: updatedValues.filter(val => val !== 'ALL') 
+            };
+          }
+        }
+      }
+      
+      // Default behavior for other categories
       const updatedValues = currentValues.includes(key)
         ? currentValues.filter((item) => item !== key)
         : [...currentValues, key];
