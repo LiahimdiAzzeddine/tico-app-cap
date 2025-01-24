@@ -17,14 +17,13 @@ import {
   storeTipPreferences,
   getTipPreferences,
 } from "../../hooks/useCapacitorStorage";
-import { useIonLoading } from "@ionic/react";
+import { IonCol, IonGrid, IonRow, useIonLoading } from "@ionic/react";
 
-const TipSettings = ({ setShowModalTip,setRelod }) => {
+const TipSettings = ({ setShowModalTip, setRelod }) => {
   const [selectedTips, setSelectedTips] = useState(new Set());
   const authUser = useAuthUser();
   const userId = authUser?.id;
   const [present, dismiss] = useIonLoading();
-  
 
   const tips = [
     {
@@ -40,7 +39,7 @@ const TipSettings = ({ setShowModalTip,setRelod }) => {
       activeImage: AntigaspiActive,
     },
     {
-      id:4,
+      id: 4,
       label: "Cuisine durable",
       image: Cuisine,
       activeImage: CuisineActive,
@@ -84,18 +83,19 @@ const TipSettings = ({ setShowModalTip,setRelod }) => {
         spinner: "bubbles",
         cssClass: "custom-loading-dialog",
       });
-  
+
       await storeTipPreferences(userId, selectedTips);
       setRelod(selectedTips);
     } catch (error) {
       console.error("Erreur lors de la sauvegarde des préférences :", error);
-      alert("Une erreur est survenue lors de la sauvegarde des préférences. Veuillez réessayer.");
+      alert(
+        "Une erreur est survenue lors de la sauvegarde des préférences. Veuillez réessayer."
+      );
     } finally {
       await dismiss();
-      setShowModalTip(false)
+      setShowModalTip(false);
     }
   };
-  
 
   // Charger les préférences des astuces sélectionnées au montage du composant
   useEffect(() => {
@@ -127,36 +127,43 @@ const TipSettings = ({ setShowModalTip,setRelod }) => {
       </div>
 
       {/* Scrollable content area */}
-      
+
       <div className="flex-1 overflow-y-auto px-8 cadreHome bg-custom-brown">
-      <div className="grid grid-cols-2 gap-4 w-full mb-4 justify-items-center">
-  {tips.map((tip) => (
-    <button
-      key={tip.id}
-      onClick={() => toggleTip(tip.id)}
-      className="aspect-square  p-1 rounded-lg flex flex-col items-center justify-center"
-    >
-      <div
-        className={`w-full flex flex-col items-center justify-center 
-          ${selectedTips.has(tip.id) ? "scale-105" : ""} 
-          transition-transform duration-200`}
+      <IonGrid>
+  <IonRow className="ion-justify-content-center">
+    {tips.map((tip) => (
+      <IonCol 
+        size="6" 
+        key={tip.id} 
+        className="ion-text-center ion-margin-bottom"
       >
-        <img
-          src={selectedTips.has(tip.id) ? tip.activeImage : tip.image}
-          alt={tip.label}
-          className="h-24 w-24 object-contain rounded-2xl"
-        />
-      </div>
-      <span className="text-center text-sm mt-2 whitespace-pre-line text-custom-text-orange ArchivoBold">
-        {tip.label}
-      </span>
-    </button>
-  ))}
-</div>
+        <button
+          onClick={() => toggleTip(tip.id)}
+          className="w-full flex flex-col items-center justify-center"
+        >
+          <div
+            className={`flex flex-col items-center 
+              ${selectedTips.has(tip.id) ? "scale-105" : ""} 
+              transition-transform duration-200`}
+          >
+            <img
+              src={selectedTips.has(tip.id) ? tip.activeImage : tip.image}
+              alt={tip.label}
+              className="h-24 w-24 object-contain rounded-2xl"
+            />
+          </div>
+          <span className="text-sm mt-2 text-custom-text-orange ArchivoBold">
+            {tip.label}
+          </span>
+        </button>
+      </IonCol>
+    ))}
+  </IonRow>
+</IonGrid>
       </div>
 
       {/* Fixed footer with button */}
-      <div className="p-5 flex justify-center bg-white safe-area-bottom-tab" >
+      <div className="p-5 flex justify-center bg-white safe-area-bottom-tab">
         <button
           onClick={handleSubmit}
           className="bg-orange-500 text-white py-2 px-12 rounded-lg font-bold hover:bg-orange-600 transition-colors ArchivoBold"
