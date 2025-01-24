@@ -10,7 +10,7 @@ const TapLayout = ({ children,icon,background="#fff",filter=2,setRelod }) => {
   };
 
   return (
-    <IonPage id="main-content" style={{ backgroundColor: background,paddingTop:"env(safe-area-inset-top)" }}>
+    <IonPage id="main-content" style={{ backgroundColor: background,paddingTop:"env(safe-area-inset-top)",ppaddingBottom: "env(safe-area-inset-bottom)"}}>
       <IonHeader
          className="ion-no-border z-0"
         style={{ "--ion-background-color": background }}

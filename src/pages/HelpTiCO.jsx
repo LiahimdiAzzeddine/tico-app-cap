@@ -68,7 +68,7 @@ const HelpTiCO = () => {
               </button>
             </div></div>
 
-            <div className="max-w-sm flex flex-col items-center justify-start space-y-8 w-full">
+            <div className="max-w-sm flex flex-col items-center justify-start space-y-7 w-full">
               <div className=" text-custom-blue  w-full text-center ArchivoLight leading-archivo tracking-normal">
                 Vous pouvez aider{" "}
                 <span className="pallybold leading-archivo">
@@ -82,7 +82,7 @@ const HelpTiCO = () => {
                   Ti
                   <span className="tracking-tightest leading-archivo">CO</span>
                 </span>
-                .
+                <br></br>Rendez-vous sur notre cagnotte en ligne.
               </div>
               <div className="relative flex flex-col items-center justify-center w-2/4">
                 <img

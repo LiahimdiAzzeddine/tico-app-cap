@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from "react";
 const NutritionTable = ({ product, portion }) => {
   const [unit, setUnit] = useState("100g");
-const [AGS,setAGS]=useState(false);
+  const [AGS, setAGS] = useState(false);
   const organizeHierarchicalData = (lines) => {
     const hierarchy = [];
-    
+
     const itemMap = new Map();
 
     lines.forEach((line) => {
@@ -38,7 +38,7 @@ const [AGS,setAGS]=useState(false);
 
   const calculatePortionVNR = (vnr, portion, qt) => {
     if (qt > 0 && portion > 0 && vnr > 0) {
-      return (qt*parseFloat(portion)) / vnr;
+      return (qt * parseFloat(portion)) / vnr;
     } else {
       return 0;
     }
@@ -52,11 +52,15 @@ const [AGS,setAGS]=useState(false);
   };
 
   const NutritionRow = ({ item, level = 0, portion, parentId = "" }) => {
-    if(item.name=="AGS"){setAGS(true)};
+    if (item.name == "AGS") {
+      setAGS(true);
+    }
     const value =
       unit === "portion" && portion
         ? calculatePortionValue(item.value.qt, portion)
-        : (item.value.qt?item.value.qt:0);
+        : item.value.qt
+        ? item.value.qt
+        : 0;
 
     const vnr =
       unit === "portion" && portion
@@ -83,7 +87,14 @@ const [AGS,setAGS]=useState(false);
           <td className="text-right py-1 Archivo min-w-20">
             {value !== null && value !== undefined && value !== 0 ? (
               <>
-                {formattedValue} {item.value.unit}
+                <div>
+      {formattedValue} {item.value.unit}
+    </div>
+    {item.value.unit === 'kcal' && (
+      <div>
+        {(formattedValue * 4.184).toFixed(2)} kJ
+      </div>
+    )}
               </>
             ) : (
               ""
@@ -91,7 +102,7 @@ const [AGS,setAGS]=useState(false);
           </td>
           <td className="text-right text-gray-500 py-1 Archivo min-w-16">
             {vnr !== null && vnr !== undefined && vnr !== 0 ? (
-              <>{ formattedVNR+'%'} </>
+              <>{formattedVNR + "%"} </>
             ) : (
               ""
             )}
@@ -99,7 +110,9 @@ const [AGS,setAGS]=useState(false);
         </tr>
         {item.children
           ?.filter(
-            (child) => child.forced || (child.quantity && child.quantity !== "" && child.forced==null)
+            (child) =>
+              child.forced ||
+              (child.quantity && child.quantity !== "" && child.forced == null)
           )
           .map((child) => (
             <NutritionRow
@@ -209,12 +222,16 @@ const [AGS,setAGS]=useState(false);
           </table>
           <div className="ArchivoLight pt-4 text-custom-blue flex flex-col space-y-4 text-sm">
             <span>
-            <span className="font-bold">VNR</span> : Valeur Nutritionnelles de Référence pour un adulte en bonne santé
-          </span>
-          {AGS?(
-            <span><span className="font-bold">AGS</span> : Acide Gras Saturés </span>
-          ):""}
-          
+              <span className="font-bold">VNR</span> : Valeur Nutritionnelles de
+              Référence pour un adulte en bonne santé
+            </span>
+            {AGS ? (
+              <span>
+                <span className="font-bold">AGS</span> : Acide Gras Saturés{" "}
+              </span>
+            ) : (
+              ""
+            )}
           </div>
         </>
       ) : (
