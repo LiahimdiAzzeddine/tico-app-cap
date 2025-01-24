@@ -46,28 +46,50 @@ const RecipeSettings = ({ setShowModalRe, setRelod }) => {
     setValues((prev) => {
       const currentValues = prev[category];
       
-      // Special handling for "Tous" (All) option
+      // Special handling for diet options
       if (category === 'regime') {
         if (key === 'ALL') {
           // If "Tous" is selected, deselect all other options
           return { ...prev, [category]: ['ALL'] };
         } else {
-          // If any other option is selected
+          // Prevent "ALL" from being selected with other options
           if (currentValues.includes('ALL')) {
-            // If "Tous" was previously selected, replace it
             return { ...prev, [category]: [key] };
-          } else {
-            // Toggle the selected option
-            const updatedValues = currentValues.includes(key)
-              ? currentValues.filter((item) => item !== key)
-              : [...currentValues, key];
+          }
+  
+          // Special handling for Végétarien and Végan
+          if (key === 'V') {
+            // If selecting Végétarien, remove Végan if present
+            const updatedValues = currentValues.includes('VG') 
+              ? currentValues.filter(item => item !== 'VG') 
+              : currentValues;
             
-            // Ensure "Tous" is not selected with other options
             return { 
               ...prev, 
-              [category]: updatedValues.filter(val => val !== 'ALL') 
+              [category]: updatedValues.includes('V')
+                ? updatedValues.filter(val => val !== 'V')
+                : [...updatedValues, 'V']
+            };
+          } else if (key === 'VG') {
+            // If selecting Végan, remove Végétarien if present
+            const updatedValues = currentValues.includes('V') 
+              ? currentValues.filter(item => item !== 'V') 
+              : currentValues;
+            
+            return { 
+              ...prev, 
+              [category]: updatedValues.includes('VG')
+                ? updatedValues.filter(val => val !== 'VG')
+                : [...updatedValues, 'VG']
             };
           }
+          
+          // Toggle the selected option
+          const updatedValues = currentValues.includes(key)
+            ? currentValues.filter((item) => item !== key)
+            : [...currentValues, key];
+          
+          return { ...prev, [category]: updatedValues };
         }
       }
       
@@ -78,7 +100,6 @@ const RecipeSettings = ({ setShowModalRe, setRelod }) => {
       return { ...prev, [category]: updatedValues };
     });
   };
-
   const handleSubmit = async () => {
     try {
       if (!values.regime.length) {

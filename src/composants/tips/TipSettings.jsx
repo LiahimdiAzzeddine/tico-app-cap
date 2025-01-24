@@ -129,12 +129,12 @@ const TipSettings = ({ setShowModalTip,setRelod }) => {
       {/* Scrollable content area */}
       
       <div className="flex-1 overflow-y-auto px-8 cadreHome bg-custom-brown">
-      <div className="grid grid-cols-2 gap-2 w-full mb-4 justify-items-center">
+      <div className="grid grid-cols-2 gap-4 w-full mb-4 justify-items-center">
   {tips.map((tip) => (
     <button
       key={tip.id}
       onClick={() => toggleTip(tip.id)}
-      className="aspect-square w-full p-2 rounded-lg flex flex-col items-center justify-center"
+      className="aspect-square  p-1 rounded-lg flex flex-col items-center justify-center"
     >
       <div
         className={`w-full flex flex-col items-center justify-center 
