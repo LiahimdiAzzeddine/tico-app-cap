@@ -132,11 +132,7 @@ const TipSettings = ({ setShowModalTip, setRelod }) => {
       <IonGrid>
   <IonRow className="ion-justify-content-center">
     {tips.map((tip) => (
-      <IonCol 
-        size="6" 
-        key={tip.id} 
-        className="ion-text-center ion-margin-bottom"
-      >
+      <IonCol size="6" key={tip.id} className="ion-text-center">
         <button
           onClick={() => toggleTip(tip.id)}
           className="w-full flex flex-col items-center justify-center"
