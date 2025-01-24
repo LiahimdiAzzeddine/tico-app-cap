@@ -10,7 +10,7 @@ import { useAlert } from "../../context/AlertProvider";
 import { useIonRouter } from "@ionic/react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 
-function Recettes({ recettes,targetRefRecettes }) {
+function Recettes({ recettes, targetRefRecettes }) {
   const [showModalAddRecipe, setShowModalAddRecipe] = useState(false);
   const [showModalRecipe, setShowModalRecipe] = useState(false);
   const [selectedRecette, setSelectedRecette] = useState(null);
@@ -24,7 +24,7 @@ function Recettes({ recettes,targetRefRecettes }) {
     setSelectedRecette(recette);
     setShowModalRecipe(true);
   };
-  const handleAddrecipe=()=>{
+  const handleAddrecipe = () => {
     if (!isAuthenticated) {
       triggerAlert(
         "Se connecter pour proposer une recette",
@@ -38,22 +38,18 @@ function Recettes({ recettes,targetRefRecettes }) {
     } else {
       setShowModalAddRecipe(true);
     }
-    
-  }
+  };
 
   return (
     <>
-    {recettes?(
-      <div className="pt-6"></div>
-    ):("")}
-    
+      {recettes ? <div className="pt-6"></div> : ""}
+
       {recettes.map((item, index) => (
-      <div className="flex flex-col w-full space-y-4 pb-2" >
-        
+        <div className="flex flex-col w-full space-y-4 pb-2">
           <div
             key={item.id}
-            className="relative bg-[#ecf8f8] rounded-e-full px-6 py-6 flex items-center"
-            style={{ width: "95%" }}
+            className="relative bg-[#ecf8f8] rounded-e-full pl-3 pr-6 py-6 flex items-center"
+            style={{ width: "97%" }}
             onClick={() => handleRecetteClick(item)}
           >
             {/* Badge "Recettes" */}
@@ -64,40 +60,40 @@ function Recettes({ recettes,targetRefRecettes }) {
                 className="absolute -top-12 -right-1 w-20 h-20"
               />
             )}
-            <div className="space-x-4 flex items-center">
+            <div className="space-x-3 flex items-center">
               {/* Image de la recette */}
               <img
-                src={defaultImageRecette}
+                src={item.image || defaultImageRecette}
                 alt={item.title}
                 className="w-20 h-20 rounded-2xl border-custom-blue border-2 object-cover"
               />
 
               {/* Informations de la recette */}
               <div className="flex flex-col">
-                <h2 className="text-md font-bold text-custom-blue">
+                <h2 className="text-md font-bold text-custom-blue pr-9">
                   {item.title}
                 </h2>
-                <p className="text-sm text-custom-blue italic">
-                  {item.subtitle}
-                </p>
-
                 {/* Temps de préparation et de cuisson */}
-                <div className="flex flex-row items-center text-sm text-custom-blue mt-2 space-x-4">
-                  <img src={horloge} alt="Horloge" className="w-8" />
-                  <div className="flex flex-col items-start">
-                  {item.timecook&&(
-                    <div>{item.timecook}  de préparation</div>)}
-                    {item.timerest&&(
-                    <div>{item.timerest}  de cuisson</div>)}
+                <div className="flex flex-row items-center text-sm text-custom-blue mt-3 space-x-4 ">
+                  <img src={horloge} alt="Horloge" className="w-7" />
+                  <div className="flex flex-col items-start leading-none">
+                    {item?.difficulte && <>{item.difficulte} |&nbsp;</>}
+                    {(item?.timecook || item?.timerest || item?.timebake) && (
+                      <div className="leading-none">
+                        Temps total : {item.totalTime}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-       
-      </div>
-     ))}
-      <div className="flex flex-row items-center justify-center space-x-3 pb-8" ref={targetRefRecettes}>
+        </div>
+      ))}
+      <div
+        className="flex flex-row items-center justify-center space-x-3 pb-8"
+        ref={targetRefRecettes}
+      >
         <img src={flecheBleu} alt="Fleche" className="w-10 absolute left-12 " />
         <button
           onClick={() => handleAddrecipe()}

@@ -12,7 +12,7 @@ const DIET_OPTIONS = {
   ALL: "Aucun régime spécial",
   V: "Végétarien", 
   VG: "Végan",
-  SG: "Sans gluten",
+  GF: "Sans gluten",
   LF: "Sans lactose",
   EF: "Sans oeufs"
 };
@@ -23,7 +23,7 @@ const ALLERGEN_OPTIONS = {
   CR: "Crustacés",
   FQ: "Fruits à coque",
   GL: "Gluten", 
-  LI: "Lait",
+  LA: "Lait",
   LU: "Lupin", 
   ML: "Mollusques",
   MT: "Moutarde", 
@@ -191,10 +191,11 @@ const RecipeSettings = ({ setShowModalRe, setRelod }) => {
         </div>
       </div>
 
-      <div className="p-4 flex justify-center bg-white">
+      <div className="p-5 flex justify-center bg-white safe-area-bottom-tab" >
         <button
           onClick={handleSubmit}
-          className="text-white bg-custom-red py-2 px-12 border-solid border-[1px] ArchivoBold border-[#fad4ce] rounded-lg hover:bg-custom-red-clear text-lg"
+          
+          className="text-white bg-custom-red py-2 px-12  ArchivoBold rounded-lg hover:bg-custom-red-clear font-bold"
         >
           Valider
         </button>

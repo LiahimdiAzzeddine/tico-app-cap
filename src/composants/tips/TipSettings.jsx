@@ -129,38 +129,37 @@ const TipSettings = ({ setShowModalTip,setRelod }) => {
       {/* Scrollable content area */}
       
       <div className="flex-1 overflow-y-auto px-8 cadreHome bg-custom-brown">
-        <div className="grid grid-cols-2 gap-2 w-full mb-4 justify-items-center">
-          {tips.map((tip) => (
-            <button
-              key={tip.id}
-              onClick={() => toggleTip(tip.id)}
-              className="aspect-square p-2 rounded-lg flex flex-col items-center justify-center"
-            >
-              <div
-                className={`
-               transition-transform duration-200
-               ${selectedTips.has(tip.id) ? "scale-105" : ""}
-             `}
-              >
-                <img
-                  src={selectedTips.has(tip.id) ? tip.activeImage : tip.image}
-                  alt={tip.label}
-                  className="h-24 w-24 object-contain rounded-2xl"
-                />
-              </div>
-              <span className="text-center text-sm mt-2 whitespace-pre-line text-custom-text-orange ArchivoBold">
-                {tip.label}
-              </span>
-            </button>
-          ))}
-        </div>
+      <div className="grid grid-cols-2 gap-2 w-full mb-4 justify-items-center">
+  {tips.map((tip) => (
+    <button
+      key={tip.id}
+      onClick={() => toggleTip(tip.id)}
+      className="aspect-square w-full p-2 rounded-lg flex flex-col items-center justify-center"
+    >
+      <div
+        className={`w-full flex flex-col items-center justify-center 
+          ${selectedTips.has(tip.id) ? "scale-105" : ""} 
+          transition-transform duration-200`}
+      >
+        <img
+          src={selectedTips.has(tip.id) ? tip.activeImage : tip.image}
+          alt={tip.label}
+          className="h-24 w-24 object-contain rounded-2xl"
+        />
+      </div>
+      <span className="text-center text-sm mt-2 whitespace-pre-line text-custom-text-orange ArchivoBold">
+        {tip.label}
+      </span>
+    </button>
+  ))}
+</div>
       </div>
 
       {/* Fixed footer with button */}
-      <div className="p-4 flex justify-center bg-white">
+      <div className="p-5 flex justify-center bg-white safe-area-bottom-tab" >
         <button
           onClick={handleSubmit}
-          className="bg-orange-500 text-white py-2 px-12 rounded-lg font-bold hover:bg-orange-600 transition-colors duration-200"
+          className="bg-orange-500 text-white py-2 px-12 rounded-lg font-bold hover:bg-orange-600 transition-colors ArchivoBold"
         >
           Valider
         </button>

@@ -112,7 +112,9 @@ html {
 .safe-area-bottom {
   padding-bottom: max(0.75rem, env(safe-area-inset-bottom)) !important;
 }
-
+.safe-area-bottom-tab {
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom)) !important;
+}
 
 :root {
   --white-color: #ffffff;
