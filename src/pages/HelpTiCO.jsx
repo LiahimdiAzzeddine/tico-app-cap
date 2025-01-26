@@ -18,8 +18,8 @@ const HelpTiCO = () => {
     });
   };
  
-  const OpenCagnotte = () => {
-    const url = "https://www.onparticipe.fr/c/tico_scan";
+  const OpenSite = () => {
+    const url = "https://www.foodhea.com";
     window.open(url, "_blank");
   };
   
@@ -70,19 +70,8 @@ const HelpTiCO = () => {
 
             <div className="max-w-sm flex flex-col items-center justify-start space-y-7 w-full">
               <div className=" text-custom-blue  w-full text-center ArchivoLight leading-archivo tracking-normal">
-                Vous pouvez aider{" "}
-                <span className="pallybold leading-archivo">
-                  Ti
-                  <span className="tracking-tightest leading-archivo">CO</span>
-                </span>{" "}
-                à grandir et nous<br></br>
-                aider à financer la 1ère campagne de<br></br>
-                communication pour faire connaitre{" "}
-                <span className="pallybold leading-archivo">
-                  Ti
-                  <span className="tracking-tightest leading-archivo">CO</span>
-                </span>
-                <br></br>Rendez-vous sur notre cagnotte en ligne.
+              En découvrir plus sur le projet et comment<br></br> <span className="ArchivoBold">apporter votre soutien</span> 
+               
               </div>
               <div className="relative flex flex-col items-center justify-center w-2/4">
                 <img
@@ -92,19 +81,11 @@ const HelpTiCO = () => {
                 <button
                   className={`bg-custom-blue text-white text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90`}
                   onClick={() => {
-                    OpenCagnotte();
+                    OpenSite();
                   }}
                  
                 >
-                
-                      <span className="ArchivoBold">Soutenir</span>{" "}
-                      <span className="pallybold leading-archivo">
-                        Ti
-                        <span className="tracking-tightest leading-archivo">
-                          CO
-                        </span>
-                      </span>
-                  
+                      <span className="ArchivoBold">En&nbsp;avoir&nbsp;plus</span>
                 </button>
               </div>
               
