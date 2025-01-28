@@ -88,7 +88,7 @@ function Recipes() {
             <button
               type="button"
               onClick={() => setShowModalAddRecipe(true)}
-              className="text-white bg-custom-red border-solid border-[1px] ArchivoBold border-[#fad4ce] px-3 py-2 rounded-lg hover:bg-custom-red-clear text-lg"
+              className="text-white bg-custom-red  ArchivoBold px-3 py-2 rounded-lg hover:bg-custom-red-clear text-lg"
             >
               Proposer une recette
             </button>

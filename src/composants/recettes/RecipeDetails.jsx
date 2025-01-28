@@ -88,7 +88,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
         <div className="bg-custom-red-bg-clear px-6 pb-4 pt-6 rounded-b-[2rem]  space-y-6">
           <div className="w-full min-h-[32dvh] flex items-center justify-center bg-no-repeat bg-contain bg-center relative recetteBg">
             <div className="flex flex-col justify-center items-center space-y-4">
-              <h2 className="text-center text-custom-red text-2xl titre-bold ">
+              <h2 className="text-center text-custom-red text-2xl titre-bold leading-clash">
                 {title}
               </h2>
               <img
@@ -127,7 +127,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
         </div>
         {ingredients && (
           <div className="px-6 pt-6">
-            <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoExtraBold">
+            <h2 className="text-custom-red text-xl font-bold mb-3 ArchivoExtraBold">
               Ingrédients
             </h2>
             <ul className="list-inside list-none ArchivoLight">
@@ -155,7 +155,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
 
         {steps.length > 0 ? (
           <div className="px-6 pt-6">
-            <h2 className="text-custom-red text-2xl font-bold mb-3 ArchivoExtraBold">
+            <h2 className="text-custom-red text-xl font-bold mb-3 ArchivoExtraBold">
               Recette
             </h2>
             <Swiper

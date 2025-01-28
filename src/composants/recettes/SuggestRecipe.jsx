@@ -522,9 +522,7 @@ const SuggestRecipe = ({ onClose }) => {
             <button
               type="button"
               onClick={() => VisualiseRecette()} // Ouvrir le modal
-              className={`px-3 py-2 rounded-lg bg-custom-red text-white hover:bg-red-600 ${
-                !canVisualizeRecipe() ? "" : "opacity-50 cursor-not-allowed"
-              }`}
+              className={`px-3 py-2 rounded-lg bg-custom-red text-white hover:bg-red-600`}
             >
               Je visualise ma recette
             </button>

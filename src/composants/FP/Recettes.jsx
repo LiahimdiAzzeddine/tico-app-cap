@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import recetteBadge from "../../assets/fb/recetteBadge.svg";
-import horloge from "../../assets/fb/horloge.svg";
+import horloge from "../../assets/recettes/horloge.svg";
 import flecheBleu from "../../assets/recettes/fpfleche.svg";
 import SuggestRecipe from "../recettes/SuggestRecipe";
 import WhiteModal from "../modales/WhiteModal";
@@ -70,16 +70,16 @@ function Recettes({ recettes, targetRefRecettes }) {
 
               {/* Informations de la recette */}
               <div className="flex flex-col">
-                <h2 className="text-md font-bold text-custom-blue pr-9">
+                <h2 className="text-sm font-bold text-custom-blue pr-16 ArchivoExtraBold leading-archivo">
                   {item.title}
                 </h2>
                 {/* Temps de préparation et de cuisson */}
-                <div className="flex flex-row items-center text-sm text-custom-blue mt-3 space-x-4 ">
+                <div className="flex flex-row items-center text-sm text-custom-blue mt-2 space-x-2 ">
                   <img src={horloge} alt="Horloge" className="w-7" />
-                  <div className="flex flex-col items-start leading-none">
+                  <div className="flex flex-col justify-start items-start leading-none">
                     {item?.difficulte && <>{item.difficulte} |&nbsp;</>}
                     {(item?.timecook || item?.timerest || item?.timebake) && (
-                      <div className="leading-none">
+                      <div className="leading-none ArchivoLight">
                         Temps total : {item.totalTime}
                       </div>
                     )}

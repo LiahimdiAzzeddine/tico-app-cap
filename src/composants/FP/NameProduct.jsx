@@ -29,8 +29,8 @@ function NameProduct(props) {
             <span className="text-sm text-[#42a29a] leading-archivo ArchivoBold">{props.Brand}</span>
           </div>
           
-          <div className="text-sm text-[#42a29a] font-bold ArchivoBoldItalique">
-             {(Number(props.Transparent)) * 10}% de transparence<span className="pallybold leading-archivo"> Ti<span className="tracking-tightest leading-archivo">CO</span></span> {Number(props.Transparent)==9?"!":""}
+          <div className="text-sm text-[#42a29a] font-bold ">
+             <span className="ArchivoBoldItalique">{(Number(props.Transparent)) * 10}% de transparence</span><span className="pallybold leading-archivo"> Ti<span className="tracking-tightest leading-archivo">CO</span></span> {Number(props.Transparent)==9?"!":""}
           </div>
         </div>
       </div>

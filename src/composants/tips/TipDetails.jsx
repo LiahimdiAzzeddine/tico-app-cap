@@ -33,8 +33,8 @@ const TipDetails = ({ tip }) => {
         <div
             className="w-full flex items-end justify-end bg-no-repeat relative bgImage min-h-full"
           >
-            <div className="flex flex-col justify-between items-center w-full h-full">
-              <h2 className="min-h-16 text-center justify-start text-custom-text-orange text-2xl titre-bold py-2">
+            <div className="flex flex-col justify-between items-center w-full h-full min-h-64">
+              <h2 className="min-h-16 text-center justify-start text-custom-blue text-2xl titre-bold py-2 leading-clash">
                 {title}
               </h2>
               <div className="w-full flex flex-col justify-end items-end pr-5 pb-5">
@@ -50,7 +50,7 @@ const TipDetails = ({ tip }) => {
 
         {/* Section Détails */}
         <div className="px-6 pt-6">
-          <h2 className="text-custom-text-orange text-2xl ArchivoExtraBold pb-3 leading-archivo ">
+          <h2 className="text-custom-text-orange text-xl ArchivoExtraBold pb-3 leading-archivo ">
             {tip?.category?.name?tip?.category?.name:"Notre ti'conseil"}
           </h2>
           <p

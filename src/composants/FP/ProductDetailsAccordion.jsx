@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import fleche from "../../assets/fb/flechBottom.svg";
-import BubbleImg from "../../assets/fb/BubbleImg.svg";  // L'image Bubble
+import BubbleImg from "../../assets/fb/BubbleImg.svg"; // L'image Bubble
 import NutritionalInfo from "./accordion/NutritionalInfo";
 import OriginsInfo from "./accordion/OriginsInfo";
 import IngredientsInfo from "./accordion/IngredientsInfo";
@@ -16,7 +16,14 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useIonRouter } from "@ionic/react";
 
 // Composants pour chaque contenu de panneau
-const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNutriInfo,targetRefAdditifs,scrollToTarget }) => {
+const ProductDetailsAccordion = ({
+  product,
+  togglePanel,
+  openPanel,
+  targetRefNutriInfo,
+  targetRefAdditifs,
+  scrollToTarget,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const { triggerAlert } = useAlert();
   const isAuthenticated = useIsAuthenticated();
@@ -44,8 +51,20 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
   const disabledPanels = [3, 4, 5, 6, 7, 8]; // Désactive les panneaux 2, 4 et 6
 
   const panelContents = [
-    <NutritionalInfo togglePanel={togglePanel} product={product} scrollToTarget={scrollToTarget} targetRefNutriInfo={targetRefNutriInfo} />,
-    <IngredientsInfo togglePanel={togglePanel} ingredients={product?.ingredients} allergenesArray={product?.allergens} additifsArray={product?.additifs}  targetRefAdditifs={targetRefAdditifs} scrollToTarget={scrollToTarget} />,
+    <NutritionalInfo
+      togglePanel={togglePanel}
+      product={product}
+      scrollToTarget={scrollToTarget}
+      targetRefNutriInfo={targetRefNutriInfo}
+    />,
+    <IngredientsInfo
+      togglePanel={togglePanel}
+      ingredients={product?.ingredients}
+      allergenesArray={product?.allergens}
+      additifsArray={product?.additifs}
+      targetRefAdditifs={targetRefAdditifs}
+      scrollToTarget={scrollToTarget}
+    />,
     <></>, // Naturalité des ingrédients
     <OriginsInfo togglePanel={togglePanel} origin={product.origin} />,
     <LabelsInfo />,
@@ -74,11 +93,21 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
           const isDisabled = disabledPanels.includes(panel);
 
           return (
-            <div key={panel} className="pt-3" ref={panel === 1 ? targetRefNutriInfo : panel==2 ?targetRefAdditifs:null}>
+            <div
+              key={panel}
+              className="pt-3"
+              ref={
+                panel === 1
+                  ? targetRefNutriInfo
+                  : panel == 2
+                  ? targetRefAdditifs
+                  : null
+              }
+            >
               <div className="relative">
                 <button
                   onClick={() => !isDisabled && togglePanel(panel)}
-                  className={`px-3 w-full flex justify-start items-center titre-bold text-xl ${
+                  className={`px-3 w-full flex justify-start items-center ArchivoExtraBold text-xl ${
                     isDisabled
                       ? "text-custom-gray cursor-not-allowed"
                       : openPanel === panel
@@ -88,7 +117,9 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
                   disabled={isDisabled}
                 >
                   {title}
-                  {!isDisabled && <img src={fleche} className="w-9 h-auto px-2" />}
+                  {!isDisabled && (
+                    <img src={fleche} className="w-9 h-auto px-2" />
+                  )}
                 </button>
                 {/* Positionner l'image BubbleImg au-dessus du titre */}
                 {panel === 4 && (
@@ -113,22 +144,23 @@ const ProductDetailsAccordion = ({ product, togglePanel, openPanel, targetRefNut
                 </motion.div>
               )}
               <div className="px-3 pt-1">
-              <hr
-  className={`w-full mx-auto ${isDisabled ? "border-gray-200" : "border-[#c6e8e5]"}`}
-/>
-
+                <hr
+                  className={`w-full mx-auto ${
+                    isDisabled ? "border-gray-200" : "border-[#c6e8e5]"
+                  }`}
+                />
               </div>
             </div>
           );
         })}
       </div>
       <Solliciter
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-              gtin={product?.gtin}
-              productName={product?.name}
-              authUser={authUser}
-            />
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        gtin={product?.gtin}
+        productName={product?.name}
+        authUser={authUser}
+      />
     </>
   );
 };
