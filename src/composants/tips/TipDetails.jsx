@@ -33,8 +33,8 @@ const TipDetails = ({ tip }) => {
         <div
             className="w-full flex items-end justify-end bg-no-repeat relative bgImage min-h-full"
           >
-            <div className="flex flex-col justify-between items-center w-full h-full min-h-64">
-              <h2 className="min-h-16 text-center justify-start text-custom-blue text-2xl titre-bold py-2 leading-clash">
+            <div className="flex flex-col justify-between items-center w-full h-full min-h-60 gap-1">
+              <h2 className="min-h-14 text-center justify-start text-custom-blue text-2xl titre-bold py-2 leading-clash">
                 {title}
               </h2>
               <div className="w-full flex flex-col justify-end items-end pr-5 pb-5">
