@@ -148,10 +148,8 @@ const RecipeSettings = ({ setShowModalRe, setRelod }) => {
       <div className="bg-[#fdf2f0] px-4 py-6 flex flex-col items-center">
         <div className="flex flex-col items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-36 w-full recetteBgSettings">
           <span className="text-xl w-full text-center text-custom-red titre-bold leading-clash">
-            Sélection d'affichage
-            <br />
-            personnalisée des <br />
-            tit‘recettes
+          Sélectionner vos<br />
+          préférences
           </span>
         </div>
         <p className="text-custom-red pt-2 ArchivoLightItalic text-sm">

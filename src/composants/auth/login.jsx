@@ -14,7 +14,7 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
-    const [present, dismiss] = useIonLoading();
+  const [present, dismiss] = useIonLoading();
   
   const savePassword = async () => {
     if (Capacitor.getPlatform() === 'ios') {
@@ -26,8 +26,7 @@ const Login = ({ createCompte = false, redirection }) => {
       })
       .then(() => console.log('promptDialog success'))
       .catch((err) => console.error('promptDialog failure', err));
-  }
-   
+    }
   };
 
   const handleChange = (e) => {
@@ -119,7 +118,8 @@ const Login = ({ createCompte = false, redirection }) => {
                 id="password"
                 name="password"
                 type={showPassword ? "text" : "password"}
-                autocorrect="on"
+                autocorrect="off" // Désactive l'autocorrection pour le mot de passe
+                autoComplete="current-password" // Assure l'auto-remplissage du mot de passe existant
                 value={values.password}
                 onChange={handleChange}
                 className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
@@ -130,7 +130,6 @@ const Login = ({ createCompte = false, redirection }) => {
                 required
                 aria-invalid={!!errors.password}
                 aria-describedby="password-error"
-                autoComplete="password"
               />
 
               <button
@@ -187,8 +186,6 @@ const Login = ({ createCompte = false, redirection }) => {
             <p className="text-red-500 text-sm mt-1">{errors.account[0]}</p>
           )}
         </form>
-
-        
       </div>
 
       {/* Modals */}

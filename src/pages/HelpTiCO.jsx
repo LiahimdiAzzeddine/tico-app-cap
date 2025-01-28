@@ -85,7 +85,7 @@ const HelpTiCO = () => {
                   }}
                  
                 >
-                      <span className="ArchivoBold">En&nbsp;avoir&nbsp;plus</span>
+                      <span className="ArchivoBold">En&nbsp;savoir&nbsp;plus</span>
                 </button>
               </div>
               

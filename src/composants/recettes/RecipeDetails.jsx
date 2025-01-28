@@ -10,7 +10,8 @@ import defaultImageRecette from "../../assets/recettes/defaultImageRecette.png";
 
 //import { Navigation } from "swiper/modules";
 import { Pagination } from "swiper/modules";
-
+import { Share } from "@capacitor/share";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 // Fonction pour regrouper les étapes par lots de 3
 const groupSteps = (steps, groupSize) => {
   if (!Array.isArray(steps)) return [];
@@ -31,11 +32,12 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
     regimes,
     ingredients,
     steps,
-    totalTime;
+    totalTime,id;
 
   if (custom) {
     // Assigner les valeurs lorsque 'custom' est true
     ({
+      id,
       title = "Recette sans titre",
       timecook: preparation = "0 min",
       timebake: cuisson = "0 min",
@@ -49,6 +51,7 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
   } else {
     // Assigner les valeurs lorsque 'custom' est false
     ({
+      id,
       title = "Recette sans titre",
       subtitle = "",
       timecook: preparation = "0 min",
@@ -63,6 +66,22 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
   }
 
   const defaultImage = defaultImageRecette;
+
+  const shareRecipe = async () => {
+    try {
+      const deepLink = `${apiUrl}/tico/recipe/${id}`;
+  
+      await Share.share({
+        title: title,
+        text: `Découvre cette recette : ${title}`,
+        url: deepLink, 
+        dialogTitle: 'Partager cette recette'
+      });
+    } catch (error) {
+      console.error('Erreur lors du partage', error);
+    }
+  };
+  
   return (
     <>
       <div className="bg-white rounded-b-[2rem] pb-8">
@@ -178,7 +197,16 @@ const RecipeDetails = ({ recipe = {}, custom = true }) => {
           <img src={badgeimage} />
         </div> */}
       </div>
-      <div className="h-[5vh] w-full flex flex-col justify-center items-center"></div>
+       {/* Section Bouton */}
+       <div className="w-full flex flex-col items-center justify-center py-6">
+        <button
+          type="button"
+          onClick={shareRecipe}
+          className=" bg-custom-red  text-white text-lg ArchivoBold px-3 py-2 rounded-lg"
+        >
+          Partager&nbsp;cette&nbsp;recette
+        </button>
+      </div>
     </>
   );
 };

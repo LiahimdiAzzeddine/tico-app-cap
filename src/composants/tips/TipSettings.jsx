@@ -29,38 +29,38 @@ const TipSettings = ({ setShowModalTip, setRelod }) => {
     {
       id: 1,
       label: "Astuces",
-      image: Astuces,
-      activeImage: AstucesActive,
+      image: AstucesActive,
+      activeImage: Astuces,
     },
     {
       id: 2,
       label: "Antigaspi",
-      image: Antigaspi,
-      activeImage: AntigaspiActive,
+      image:AntigaspiActive,
+      activeImage: Antigaspi,
     },
     {
       id: 4,
       label: "Cuisine durable",
-      image: Cuisine,
-      activeImage: CuisineActive,
+      image: CuisineActive,
+      activeImage: Cuisine,
     },
     {
       id: 3,
       label: "Techniques culinaires",
-      image: Techniques,
-      activeImage: TechniquesActive,
+      image: TechniquesActive,
+      activeImage: Techniques,
     },
     {
       id: 5,
       label: "Petits plaisirs",
-      image: plaisirs,
-      activeImage: plaisirsActive,
+      image: plaisirsActive,
+      activeImage: plaisirs,
     },
     {
       id: 6,
       label: "Sous les étiquettes",
-      image: Etiquette,
-      activeImage: EtiquetteActive,
+      image: EtiquetteActive,
+      activeImage: Etiquette,
     },
   ];
 
@@ -115,14 +115,14 @@ const TipSettings = ({ setShowModalTip, setRelod }) => {
       <div className="bg-custom-brown px-4 py-6 flex flex-col items-center">
         <div className="flex flex-col items-center justify-center relative aspect-square bg-no-repeat bg-contain bg-center max-h-36 w-full recetteBgSettings">
           <span className="text-xl w-full text-center text-custom-text-orange titre-bold leading-clash">
-            Sélection d’affichage
-            <br />
-            personnalisée des <br />
-            ti’conseils
+          Sélectionner vos<br />
+          préférences
           </span>
         </div>
         <p className="text-custom-text-orange pt-2 ArchivoLightItalic text-sm">
-          Désélectionner les conseils qui ne vous intéressent pas
+        Sélectionner les
+conseils qui vous
+intéressent
         </p>
       </div>
 
