@@ -28,7 +28,7 @@ function Intro7() {
             <div className="text-xl text-custom-blue ArchivoLight leading-archivo">
               qui{" "}
               <span className="font-bold">
-                demande aux marques de <br></br>faire la lumière&nbsp;
+                demande aux marques <br></br>de faire la lumière&nbsp;
               </span>
               sur leurs produits,<br></br> leur origine, leur fabrication,
             </div>

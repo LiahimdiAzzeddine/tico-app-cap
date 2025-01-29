@@ -24,8 +24,8 @@ function Intro4() {
             Bien plus qu’une application,<br></br> <span className="font-bold">un allié au quotidien !</span>
             </div>
             <div className="text-xl text-custom-blue flex flex-col space-y-4">
-            <div className="flex flex-row gap-3"><img src={leftFlech} className="w-6 h-6"/><div > Des <span >recettes</span> faciles</div></div> 
-            <div className="flex flex-row gap-3"><span className="w-6"></span><div >Des <span >astuces</span> utiles</div> <img src={rightFlech} className="w-6 h-6"/></div> 
+            <div className="flex flex-row gap-3"><img src={leftFlech} className="w-6 h-6"/><div > Des <span className="font-bold">recettes</span> faciles</div></div> 
+            <div className="flex flex-row gap-3"><span className="w-6"></span><div >Des <span className="font-bold">astuces</span> utiles</div> <img src={rightFlech} className="w-6 h-6"/></div> 
             </div>
           </div>
         </div>
