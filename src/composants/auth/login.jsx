@@ -16,7 +16,7 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
   const [present, dismiss] = useIonLoading();
   
-  /*const savePassword = async () => {
+  const savePassword = async () => {
     if (Capacitor.getPlatform() === 'ios') {
       SavePassword.promptDialog({
         username: values.email,
@@ -28,7 +28,7 @@ const Login = ({ createCompte = false, redirection }) => {
       .catch((err) => console.error('promptDialog failure', err));
     }
   };
-*/
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -48,7 +48,7 @@ const Login = ({ createCompte = false, redirection }) => {
 
   useEffect(() => {
     if (success) {
-      //savePassword();
+      savePassword();
       redirection();
     }
   }, [success]);
@@ -71,7 +71,6 @@ const Login = ({ createCompte = false, redirection }) => {
           autocorrect="on"
           autoComplete="on"
           className="space-y-4 w-11/12 max-w-xs h-5/6"
-          method="post" action="/login"
         >
           {/* Email Input */}
           <div className="flex flex-col items-center">
