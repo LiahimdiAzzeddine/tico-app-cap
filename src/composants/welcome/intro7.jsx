@@ -16,7 +16,7 @@ function Intro7() {
 
       {/* Buttons Section with Background */}
       <div className="grow flex items-center justify-start w-full max-w-sm">
-        <div className="w-[89%] m-auto max-w-sm aspect-square flex items-center justify-center intro7 bg-no-repeat bg-contain bg-center relative">
+        <div className="w-11/12 m-auto max-w-sm aspect-square flex items-center justify-center intro7 bg-no-repeat bg-contain bg-center relative">
           <div className="flex flex-col items-center justify-center w-full text-center gap-8 leading-archivo ">
             {/* TiCO Intro */}
             <div className="mb-10 ">
