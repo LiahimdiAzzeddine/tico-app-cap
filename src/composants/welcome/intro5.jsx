@@ -1,7 +1,7 @@
 import React from "react";
 import tico_intro from "../../assets/intro/tico_intro.svg";
 import fleche from "../../assets/intro/fleche.png";
-import background from "../../assets/intro/background5.png";
+import background from "../../assets/intro/BIENVENUEV4-21.svg";
 
 function Intro5() {
   return (
@@ -18,14 +18,18 @@ function Intro5() {
           style={{ backgroundImage: `url(${background})` }}
         >
           {/* Texte avec flèche */}
-          <div className="flex flex-col items-center absolute justify-center w-2/3 ">
-            <h2 className="text-3xl titre-bold text-custom-blue mb-6 ">
+          <div className="w-full flex flex-col items-center absolute justify-center ArchivoLight leading-archivo text-custom-blue text-xl gap-5">
+            <div className="text-center">
+          Vous n'êtes qu'à <span className="font-bold">un clic</span><br></br>
+          <span className="font-bold">de la liberté</span> de manger<br></br>
+          ce que <span className="font-bold">vous voulez vraiment</span>.</div>
+            <h2 className="text-2xl font-bold  titre-bold ">
             C’est parti !
             </h2>
           </div>
             {/* Flèche */}
             <img
-            className="absolute w-1/2 right-3 bottom-12"
+            className="absolute w-1/2 right-3 bottom-0 "
             src={fleche}
             alt="Flèche"
           />

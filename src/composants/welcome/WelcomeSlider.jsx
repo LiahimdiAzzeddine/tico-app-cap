@@ -11,7 +11,7 @@ import Intro4 from "./intro4";
 import Intro5 from "./intro5";
 import Intro6 from "./intro6";
 import Intro0 from "./Intro0";
-
+import Intro7 from "./intro7";
 function WelcomeSlider() {
   return (
     <Swiper
@@ -24,21 +24,22 @@ function WelcomeSlider() {
       <SwiperSlide>
         <Intro0 />
       </SwiperSlide>
-
+      <SwiperSlide>
+        <Intro3 />
+      </SwiperSlide>
       <SwiperSlide>
         <Intro1 />
       </SwiperSlide>
-      {/*
-        <SwiperSlide>
-        <Intro3/>
-        </SwiperSlide>
- */}
       <SwiperSlide>
-        <Intro4 />
+        <Intro7 />
       </SwiperSlide>
       <SwiperSlide>
         <Intro2 />
       </SwiperSlide>
+      <SwiperSlide>
+        <Intro4 />
+      </SwiperSlide>
+      
       <SwiperSlide>
         <Intro5 />
       </SwiperSlide>

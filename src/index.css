@@ -76,6 +76,10 @@ ion-loading.custom-loading-help {
   --spinner-color: #0F548D;
   color: #0F548D;
 }
+.custom-text {
+  white-space: pre-line;
+}
+
 .Archivo{
   font-family: 'Archivo';
 }
@@ -413,7 +417,10 @@ padding-top: 1rem;
   background-size:92%;
 }
 .intro4{
-  background-image: url('/src/assets/intro/BIENVENUEV3-14.svg') !important;
+  background-image: url('/src/assets/intro/BIENVENUEV4-14.svg') !important;
+}
+.intro7{
+  background-image: url('/src/assets/intro/BIENVENUEV423.svg') !important;
 }
 .tico_intro{
   background-image: url('/src/assets/home/tico_intro.svg') !important;

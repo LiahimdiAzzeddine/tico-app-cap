@@ -5,7 +5,10 @@ import background from "../../assets/intro/background4.png";
 
 function Intro1() {
   return (
-    <div className="flex flex-col items-center justify-between bg-white min-h-screen w-full"  style={{paddingTop:"env(safe-area-inset-top)" }}>
+    <div
+      className="flex flex-col items-center justify-between bg-white min-h-screen w-full"
+      style={{ paddingTop: "env(safe-area-inset-top)" }}
+    >
       {/* Logo Section */}
       <div className="grow flex items-end justify-center w-full">
         <img className="w-60" src={tico_intro} alt="TiCO Logo" />
@@ -15,12 +18,20 @@ function Intro1() {
       <div className="grow flex items-center justify-center w-full max-w-sm">
         <div
           className="w-full aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center relative"
-          style={{backgroundImage: `url(${background})`}}
+          style={{ backgroundImage: `url(${background})` }}
         >
-          <div className="flex flex-col items-center justify-evenly gap-3 text-center">
-           
-            <div className="text-xl text-custom-blue Archivo">
-            Quand l’information est...
+          <div className="flex flex-col items-center justify-evenly gap-2 text-center">
+            <div className="text-xl text-custom-blue ArchivoLight leading-archivo">
+              <div className="text-xl text-custom-blue ArchivoLight leading-archivo">
+                Faire la transparence,
+              </div>
+              <div className="text-xl text-custom-blue ArchivoLight leading-archivo">
+                c’est{" "}
+                <span className="font-bold">
+                  lever le voile sur l’opacité <br></br>alimentaire{" "}
+                </span>
+                en partageant <div className="text-xl text-custom-blue ArchivoLight leading-archivo">des informations :</div>
+              </div>
             </div>
 
             {/* Feature List */}
@@ -28,16 +39,19 @@ function Intro1() {
               {["claire", "complète", "accessible"].map((item, index) => (
                 <li
                   key={index}
-                  className="flex items-center justify-start text-xl text-custom-blue my-2 ArchivoBold"
+                  className="flex items-center justify-start text-xl text-custom-blue my-2 ArchivoLight font-bold"
                 >
-                  <img src={plusIcon} alt="Check Icon" className="mr-4 w-10 h-10" />
+                  <img
+                    src={plusIcon}
+                    alt="Check Icon"
+                    className="mr-4 w-10 h-10"
+                  />
                   {item}
                 </li>
               ))}
             </ul>
-            <div className="text-xl text-custom-blue Archivo">
-            alors <span className="font-bold ArchivoBold">le choix est libre.</span><br></br>
-C’est ça, la transparence&nbsp;!
+            <div className="text-xl text-custom-blue ArchivoLight leading-archivo">
+              Et ça, c’est notre credo&nbsp;!
             </div>
           </div>
         </div>

@@ -30,7 +30,8 @@ export default {
         "custom-orange-bg":"#FFECA7"
       },
       screens: {
-
+        'iphonese': '320px',   // Taille spécifique pour iPhone SE
+        'iphonexr': '414px',   // Taille spécifique pour iPhone XR
       },
     },
     letterSpacing: {
