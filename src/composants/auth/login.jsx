@@ -22,6 +22,7 @@ const Login = ({ createCompte = false, redirection }) => {
         username: values.email,
         password: values.password,
         serviceName: 'TiCO', // This will appear in the iOS password manager
+        server: 'tico.foodhea.com' // Optional: domain associated with the credentials
       })
       .then(() => console.log('promptDialog success'))
       .catch((err) => console.error('promptDialog failure', err));
