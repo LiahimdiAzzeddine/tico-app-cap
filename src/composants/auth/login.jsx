@@ -22,7 +22,6 @@ const Login = ({ createCompte = false, redirection }) => {
         username: values.email,
         password: values.password,
         serviceName: 'TiCO', // This will appear in the iOS password manager
-        server: 'TiCO' // Optional: domain associated with the credentials
       })
       .then(() => console.log('promptDialog success'))
       .catch((err) => console.error('promptDialog failure', err));
@@ -71,7 +70,6 @@ const Login = ({ createCompte = false, redirection }) => {
           autocorrect="on"
           autoComplete="on"
           className="space-y-4 w-11/12 max-w-xs h-5/6"
-          method="post" action="/login"
         >
           {/* Email Input */}
           <div className="flex flex-col items-center">
