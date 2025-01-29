@@ -40,7 +40,7 @@ function ProductDetails() {
 
         {/* Modal Fullscreen View */}
         {isZoomed && (
-          <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[10000000]">
             {/* Close Button */}
             <button
               onClick={closeZoom}

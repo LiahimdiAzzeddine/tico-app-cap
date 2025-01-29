@@ -9,7 +9,7 @@ function Header({ image, onClose }) {
   return (
     <div
       className="flex justify-between items-center pt-2 pb-2 px-5 modal-background"
-      style={{ zIndex: 10 }}
+      style={{ zIndex: -10 }}
     >
       <button
         className="text-custom-blue transform transition-transform duration-150 ease-in-out active:scale-90"
