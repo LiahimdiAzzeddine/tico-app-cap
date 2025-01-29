@@ -422,6 +422,12 @@ padding-top: 1rem;
 .intro7{
   background-image: url('/src/assets/intro/BIENVENUEV423.svg') !important;
 }
+.intro5{
+  background-image: url('/src/assets/intro/BIENVENUEV4-21.svg') !important;
+}
+.intro2{
+  background-image: url('/src/assets/intro/background2.svg') !important;
+}
 .tico_intro{
   background-image: url('/src/assets/home/tico_intro.svg') !important;
 }

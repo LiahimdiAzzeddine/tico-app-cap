@@ -14,8 +14,7 @@ function Intro5() {
       {/* Section Texte avec image de fond */}
       <div className="grow flex items-center justify-center w-full max-w-sm  px-6">
         <div
-          className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center relative "
-          style={{ backgroundImage: `url(${background})` }}
+          className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center relative intro5"
         >
           {/* Texte avec flèche */}
           <div className="w-full flex flex-col items-center absolute justify-center ArchivoLight leading-archivo text-custom-blue text-xl gap-5">

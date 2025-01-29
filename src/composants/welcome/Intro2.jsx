@@ -1,7 +1,6 @@
 import React from "react";
 import tico_intro from "../../assets/intro/tico_intro.svg";
 import barcode from "../../assets/intro/barcode.svg";
-import background from "../../assets/intro/background2.svg";
 import Bole from "../../assets/intro/BIENVENUEV4-20.svg";
 
 function Intro2() {
@@ -14,8 +13,7 @@ function Intro2() {
 
       <div className="grow flex items-center justify-center w-full max-w-sm px-2">
         <div
-          className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center relative "
-          style={{ backgroundImage: `url(${background})` }}
+          className="w-full max-w-sm aspect-square flex items-center justify-center bg-no-repeat bg-contain bg-center relative intro2"
         >
           <img
             src={barcode}
