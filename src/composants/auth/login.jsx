@@ -71,6 +71,7 @@ const Login = ({ createCompte = false, redirection }) => {
           autocorrect="on"
           autoComplete="on"
           className="space-y-4 w-11/12 max-w-xs h-5/6"
+          method="post" action="/login"
         >
           {/* Email Input */}
           <div className="flex flex-col items-center">
