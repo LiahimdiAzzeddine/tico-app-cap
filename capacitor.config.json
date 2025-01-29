@@ -21,6 +21,12 @@
       "splashImmersive": true,
       "layoutName": "launch_screen"
     }
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "webViewConfig": {
+      "allowsAutofillOnWebCredentials": true
+    }
   }
 }
  
