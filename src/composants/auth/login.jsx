@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import useLogin from "../../hooks/auth/useLogin";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
 import { IonIcon, useIonLoading } from "@ionic/react";
@@ -14,8 +14,8 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
-    const [present, dismiss] = useIonLoading();
-  
+  const [present, dismiss] = useIonLoading();
+
   const savePassword = async () => {
     if (Capacitor.getPlatform() === 'ios') {
       SavePassword.promptDialog({
@@ -24,8 +24,7 @@ const Login = ({ createCompte = false, redirection }) => {
       })
       .then(() => console.log('promptDialog success'))
       .catch((err) => console.error('promptDialog failure', err));
-  }
-   
+    }
   };
 
   const handleChange = (e) => {
@@ -40,7 +39,7 @@ const Login = ({ createCompte = false, redirection }) => {
       spinner: "bubbles",
       cssClass: "custom-loading-dialog",
     });
-    
+
     await handleSubmit(values);
     await dismiss();
   };
@@ -67,8 +66,8 @@ const Login = ({ createCompte = false, redirection }) => {
 
         <form
           onSubmit={handleSubmitLogin}
-          autocorrect="on"
           autoComplete="on"
+          autocorrect="on"
           className="space-y-4 w-11/12 max-w-xs h-5/6"
         >
           {/* Email Input */}
@@ -83,7 +82,6 @@ const Login = ({ createCompte = false, redirection }) => {
               id="email"
               name="email"
               type="email"
-              autocorrect="on"
               value={values.email}
               onChange={handleChange}
               className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
@@ -96,7 +94,6 @@ const Login = ({ createCompte = false, redirection }) => {
               aria-describedby="email-error"
               autoComplete="username"
             />
-
             {errors.email && (
               <p id="email-error" className="text-red-500 text-sm mt-1">
                 {errors.email[0]}
@@ -117,7 +114,6 @@ const Login = ({ createCompte = false, redirection }) => {
                 id="password"
                 name="password"
                 type={showPassword ? "text" : "password"}
-                autocorrect="on"
                 value={values.password}
                 onChange={handleChange}
                 className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
@@ -130,7 +126,6 @@ const Login = ({ createCompte = false, redirection }) => {
                 aria-describedby="password-error"
                 autoComplete="current-password" 
               />
-
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
@@ -185,8 +180,6 @@ const Login = ({ createCompte = false, redirection }) => {
             <p className="text-red-500 text-sm mt-1">{errors.account[0]}</p>
           )}
         </form>
-
-        
       </div>
 
       {/* Modals */}
