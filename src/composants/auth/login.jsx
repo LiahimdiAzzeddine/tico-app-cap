@@ -17,6 +17,7 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
   const [present, dismiss] = useIonLoading();
   const [biometricAvailable, setBiometricAvailable] = useState(false);
+  const [biometricError, setBiometricError] = useState('');
 
   // Vérification de la disponibilité de Face ID
   const checkBiometricAvailability = async () => {
@@ -37,14 +38,26 @@ const Login = ({ createCompte = false, redirection }) => {
   const saveCredentialsWithBiometric = async () => {
     if (Capacitor.getPlatform() === 'ios' && biometricAvailable) {
       try {
+        // Vérifie que nous avons des valeurs à sauvegarder
+        if (!values.email || !values.password) {
+          console.log('Pas d\'identifiants à sauvegarder');
+          return;
+        }
+  
         await NativeBiometric.setCredentials({
           username: values.email,
           password: values.password,
-          server: "com.tico.foodhea.tico"
+          server: "com.votreapp.id"
         });
-        alert('Identifiants sauvegardés avec succès'+values.email+values.password);
+        
+        alert('Identifiants sauvegardés avec succès');
       } catch (error) {
-        alert('Erreur lors de la sauvegarde biométrique:'+ error);
+        alert('Erreur lors de la sauvegarde:', error);
+        
+        // Gestion spécifique des erreurs
+        if (error.code === 'BIOMETRIC_SAVE_FAILED') {
+          alert('Échec de la sauvegarde des identifiants');
+        }
       }
     }
   };
@@ -53,42 +66,43 @@ const Login = ({ createCompte = false, redirection }) => {
   const loadCredentialsWithBiometric = async () => {
     if (Capacitor.getPlatform() === 'ios' && biometricAvailable) {
       try {
-        // Vérification de l'identité
-        const result = await NativeBiometric.verifyIdentity({
+        // D'abord on vérifie si la biométrie est disponible à nouveau
+        const { isAvailable } = await NativeBiometric.isAvailable();
+        
+        if (!isAvailable) {
+          alert('Biométrie non disponible');
+          return;
+        }
+  
+        // On essaie de vérifier l'identité sans destructurer le résultat
+        await NativeBiometric.verifyIdentity({
           reason: "Pour accéder à vos identifiants",
           title: "Face ID",
           subtitle: "Utilisez Face ID pour vous connecter",
           description: "Authentification requise"
         });
-        alert("🚀 ~ loadCredentialsWithBiometric ~ result:"+ result)
   
-        // Si l'authentification est réussie
-        if (result) {
-          try {
-            // Récupération des identifiants
-            const credentials = await NativeBiometric.getCredentials({
-              server: "com.tico.foodhea.tico"
-            });
-            
-            if (credentials) {
-              // Auto-connexion après récupération des identifiants
-              await handleSubmit({
-                email: credentials.username,
-                password: credentials.password
-              });
-            }
-          } catch (credError) {
-            alert('Erreur lors de la récupération des identifiants:'+credError);
-          }
-        }
-      } catch (error) {
-        alert('Erreur lors de l\'authentification biométrique:'+error);
+        // Si on arrive ici, c'est que l'authentification a réussi
+        // car verifyIdentity rejette la promesse en cas d'échec
+        const credentials = await NativeBiometric.getCredentials({
+          server: "com.votreapp.id"
+        });
         
-        // Afficher un message plus spécifique selon l'erreur
-        if (error.code === 'BIOMETRIC_DISMISSED') {
-          alert('L\'utilisateur a annulé l\'authentification');
-        } else if (error.code === 'BIOMETRIC_UNKNOWN_ERROR') {
-          alert('Erreur inconnue lors de l\'authentification');
+        if (credentials && credentials.username && credentials.password) {
+          await handleSubmit({
+            email: credentials.username,
+            password: credentials.password
+          });
+        }
+  
+      } catch (error) {
+        // Gestion plus détaillée des erreurs
+        if (error.code === 'BIOMETRIC_CANCELED') {
+         alert('Authentication annulée par l\'utilisateur');
+        } else if (error.code === 'BIOMETRIC_AUTHENTICATION_FAILED') {
+          alert('Échec de l\'authentification');
+        } else {
+         alert('Erreur lors de l\'authentification:'+ error);
         }
       }
     }
