@@ -16,7 +16,7 @@ function Intro0() {
       <div className="grow flex items-center justify-center w-full max-w-sm px-2">
         <div className="w-full aspect-square flex items-start justify-center relative">
           <div className="flex flex-col items-center justify-center w-10/12 text-center space-y-10 min-h-[65%]">
-            <h2 className="text-3xl titre-bold text-custom-blue underline underline-offset-4 decoration-orange-400 pt-2">
+            <h2 className="text-3xl titre-bold Archivo text-custom-blue underline underline-offset-4 decoration-orange-400 pt-2">
               Bienvenue !
             </h2>
 
@@ -27,7 +27,7 @@ function Intro0() {
               est&nbsp;l’application <br></br>
               de&nbsp;scan&nbsp;alimentaire&nbsp;qui&nbsp;vous<br></br>
               donne&nbsp;
-              <span className="font-bold">
+              <span className="font-bold Archivo">
                 le&nbsp;pouvoir&nbsp;d'agir<br></br>
                 pour&nbsp;une&nbsp;santé&nbsp;globale
               </span>

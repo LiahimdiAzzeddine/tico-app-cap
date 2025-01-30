@@ -7,7 +7,6 @@ import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
 import { Capacitor } from '@capacitor/core';
 import { SavePassword } from 'capacitor-ios-autofill-save-password';
-import { NativeBiometric } from 'capacitor-native-biometric';
 
 const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
@@ -15,82 +14,18 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
-  const [present, dismiss] = useIonLoading();
-  const [biometricAvailable, setBiometricAvailable] = useState(false);
-
-  // Vérifie la disponibilité de Face ID au chargement
-  useEffect(() => {
-    checkBiometricAvailability();
-  }, []);
-
-  const checkBiometricAvailability = async () => {
+    const [present, dismiss] = useIonLoading();
+  
+  const savePassword = async () => {
     if (Capacitor.getPlatform() === 'ios') {
-      try {
-        const { isAvailable } = await NativeBiometric.isAvailable();
-        setBiometricAvailable(isAvailable);
-        if (isAvailable) {
-          loadCredentialsWithBiometric();
-        }
-      } catch (error) {
-        console.error('Erreur lors de la vérification biométrique:', error);
-      }
-    }
-  };
-
-  // Sauvegarde les identifiants avec Face ID
-  const saveCredentialsWithBiometric = async () => {
-    if (Capacitor.getPlatform() === 'ios' && biometricAvailable) {
-      try {
-        // Sauvegarder dans le keychain avec biométrie
-        await NativeBiometric.setCredentials({
-          username: values.email,
-          password: values.password,
-          server: "com.votreapp.id"
-        });
-
-        // Proposer de sauvegarder dans le gestionnaire de mots de passe iOS
-        await SavePassword.promptDialog({
-          username: values.email,
-          password: values.password,
-        });
-
-      } catch (error) {
-        console.error('Erreur lors de la sauvegarde biométrique:', error);
-      }
-    }
-  };
-
-  // Charge les identifiants avec Face ID
-  const loadCredentialsWithBiometric = async () => {
-    if (Capacitor.getPlatform() === 'ios' && biometricAvailable) {
-      try {
-        const { verified } = await NativeBiometric.verifyIdentity({
-          reason: "Pour accéder à vos identifiants",
-          title: "Face ID",
-          subtitle: "Utilisez Face ID pour vous connecter",
-          description: "Authentification requise"
-        });
-
-        if (verified) {
-          const credentials = await NativeBiometric.getCredentials({
-            server: "com.votreapp.id"
-          });
-          
-          setValues({
-            email: credentials.username,
-            password: credentials.password
-          });
-          
-          // Auto-connexion après récupération des identifiants
-          handleSubmit({
-            email: credentials.username,
-            password: credentials.password
-          });
-        }
-      } catch (error) {
-        console.error('Erreur lors de la récupération biométrique:', error);
-      }
-    }
+      SavePassword.promptDialog({
+        username: values.email,
+        password: values.password,
+      })
+      .then(() => console.log('promptDialog success'))
+      .catch((err) => console.error('promptDialog failure', err));
+  }
+   
   };
 
   const handleChange = (e) => {
@@ -112,13 +47,13 @@ const Login = ({ createCompte = false, redirection }) => {
 
   useEffect(() => {
     if (success) {
-      saveCredentialsWithBiometric();
+      savePassword();
       redirection();
     }
   }, [success]);
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword(!showPassword); // Inverse directement l'état
   };
 
   const errors = error || {};
@@ -130,21 +65,13 @@ const Login = ({ createCompte = false, redirection }) => {
           Se&nbsp;connecter
         </h2>
 
-        {biometricAvailable && (
-          <button
-            onClick={loadCredentialsWithBiometric}
-            className="mb-4 bg-custom-blue text-white font-bold py-2 px-4 rounded-xl Archivo"
-          >
-            Se connecter avec Face ID
-          </button>
-        )}
-
         <form
           onSubmit={handleSubmitLogin}
           autocorrect="on"
           autoComplete="on"
           className="space-y-4 w-11/12 max-w-xs h-5/6"
         >
+          {/* Email Input */}
           <div className="flex flex-col items-center">
             <label
               htmlFor="email"
@@ -169,6 +96,7 @@ const Login = ({ createCompte = false, redirection }) => {
               aria-describedby="email-error"
               autoComplete="username"
             />
+
             {errors.email && (
               <p id="email-error" className="text-red-500 text-sm mt-1">
                 {errors.email[0]}
@@ -176,6 +104,7 @@ const Login = ({ createCompte = false, redirection }) => {
             )}
           </div>
 
+          {/* Password Input */}
           <div className="flex flex-col items-center relative w-full">
             <label
               htmlFor="password"
@@ -199,8 +128,9 @@ const Login = ({ createCompte = false, redirection }) => {
                 required
                 aria-invalid={!!errors.password}
                 aria-describedby="password-error"
-                autoComplete="current-password"
+                autoComplete="current-password" 
               />
+
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
@@ -216,6 +146,7 @@ const Login = ({ createCompte = false, redirection }) => {
             )}
           </div>
 
+          {/* Forgot Password */}
           <div className="flex items-center justify-between">
             <div
               onClick={() => setShowModalForgetPassword(true)}
@@ -225,6 +156,7 @@ const Login = ({ createCompte = false, redirection }) => {
             </div>
           </div>
 
+          {/* Submit Button */}
           <div className="pt-3 flex justify-center">
             <button
               className="bg-custom-text-orange text-white font-bold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
@@ -235,6 +167,7 @@ const Login = ({ createCompte = false, redirection }) => {
             </button>
           </div>
 
+          {/* Create Account */}
           {createCompte && (
             <div className="flex justify-center">
               <button
@@ -247,12 +180,16 @@ const Login = ({ createCompte = false, redirection }) => {
             </div>
           )}
 
+          {/* General Errors */}
           {errors.account && (
             <p className="text-red-500 text-sm mt-1">{errors.account[0]}</p>
           )}
         </form>
+
+        
       </div>
 
+      {/* Modals */}
       {createCompte && (
         <CustomModal
           isOpen={showModalInscription}

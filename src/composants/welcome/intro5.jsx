@@ -19,9 +19,9 @@ function Intro5() {
           {/* Texte avec flèche */}
           <div className="w-full flex flex-col items-center absolute justify-center ArchivoLight leading-archivo text-custom-blue text-xl gap-5">
             <div className="text-center">
-          Vous n'êtes qu'à <span className="font-bold">un clic</span><br></br>
-          <span className="font-bold">de la liberté</span> de manger<br></br>
-          ce que <span className="font-bold">vous voulez vraiment</span>.</div>
+          Vous n'êtes qu'à <span className="font-bold Archivo">un clic</span><br></br>
+          <span className="font-bold Archivo">de la liberté</span> de manger<br></br>
+          ce que <span className="font-bold Archivo">vous voulez vraiment</span>.</div>
             <h2 className="text-2xl font-bold  titre-bold ">
             C’est parti !
             </h2>

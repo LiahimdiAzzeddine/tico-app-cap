@@ -36,7 +36,6 @@
     "@zxing/library": "^0.21.3",
     "axios": "^1.7.7",
     "capacitor-ios-autofill-save-password": "^4.0.0",
-    "capacitor-native-biometric": "^4.2.2",
     "capacitor-plugin-safe-area": "^3.0.3",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.11.10",

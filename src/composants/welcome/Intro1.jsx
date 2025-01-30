@@ -27,7 +27,7 @@ function Intro1() {
               </div>
               <div className="text-xl text-custom-blue ArchivoLight leading-archivo">
                 c’est{" "}
-                <span className="font-bold">
+                <span className="font-bold Archivo">
                   lever le voile sur l’opacité <br></br>alimentaire{" "}
                 </span>
                 en partageant <div className="text-xl text-custom-blue ArchivoLight leading-archivo">des informations :</div>
@@ -39,7 +39,7 @@ function Intro1() {
               {["claires", "complètes", "accessibles"].map((item, index) => (
                 <li
                   key={index}
-                  className="flex items-center justify-start text-xl text-custom-blue my-2 ArchivoLight font-bold"
+                  className="flex items-center justify-start text-xl text-custom-blue my-2 Archivo font-bold"
                 >
                   <img
                     src={plusIcon}

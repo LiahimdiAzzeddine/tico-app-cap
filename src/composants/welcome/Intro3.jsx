@@ -21,18 +21,18 @@ function Intro3() {
         >
           <div className="flex flex-col items-center justify-center w-4/5 text-center gap-3">
             <div className="text-xl text-custom-blue leading-archivo ArchivoLight">
-              <span className="font-bold block">
+              <span className="font-bold block Archivo">
                 En évaluant la transparence
               </span>
               <span className="block">des produits alimentaires,</span>
               <span className="block">nous incitons les marques</span>
               <span className="block">
-                à <span className="font-bold">décrypter leurs produits</span>
+                à <span className="font-bold Archivo">décrypter leurs produits</span>
               </span>
               <span className="block">pour offrir la possibilité</span>
               <span className="block">
                 aux consommateurs de{" "}
-                <span className="font-bold">
+                <span className="font-bold Archivo">
                   faire<br></br> des choix éclairés.
                 </span>
               </span>

@@ -50,7 +50,7 @@ const Intro6 = () => {
         >
           <div className="flex flex-col items-center justify-center w-3/5">
             <button
-              className="bg-[#FF8200] hover:bg-[#ff7100] text-white font-bold py-2 px-6 rounded-md mb-4 w-full transition-colors duration-300"
+              className="bg-[#FF8200] hover:bg-[#ff7100] text-white font-bold Archivo py-2 px-6 rounded-md mb-4 w-full transition-colors duration-300"
               onClick={handleOpenModal} // Open the modal and set first visit status
             >
               Je crée mon compte
