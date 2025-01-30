@@ -60,6 +60,7 @@ const Login = ({ createCompte = false, redirection }) => {
           subtitle: "Utilisez Face ID pour vous connecter",
           description: "Authentification requise"
         });
+        alert("🚀 ~ loadCredentialsWithBiometric ~ result:"+ result)
   
         // Si l'authentification est réussie
         if (result) {
@@ -77,17 +78,17 @@ const Login = ({ createCompte = false, redirection }) => {
               });
             }
           } catch (credError) {
-            console.error('Erreur lors de la récupération des identifiants:', credError);
+            alert('Erreur lors de la récupération des identifiants:'+credError);
           }
         }
       } catch (error) {
-        console.error('Erreur lors de l\'authentification biométrique:', error);
+        alert('Erreur lors de l\'authentification biométrique:'+error);
         
         // Afficher un message plus spécifique selon l'erreur
         if (error.code === 'BIOMETRIC_DISMISSED') {
-          console.log('L\'utilisateur a annulé l\'authentification');
+          alert('L\'utilisateur a annulé l\'authentification');
         } else if (error.code === 'BIOMETRIC_UNKNOWN_ERROR') {
-          console.log('Erreur inconnue lors de l\'authentification');
+          alert('Erreur inconnue lors de l\'authentification');
         }
       }
     }
