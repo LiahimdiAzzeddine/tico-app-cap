@@ -58,6 +58,7 @@ const Login = ({ createCompte = false, redirection }) => {
           subtitle: "Utilisez Face ID pour vous connecter",
           description: "Authentification requise"
         });
+        alert("verified"+verified);
 
         if (verified) {
           const credentials = await NativeBiometric.getCredentials({
