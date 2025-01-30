@@ -63,6 +63,7 @@ const Login = ({ createCompte = false, redirection }) => {
           const credentials = await NativeBiometric.getCredentials({
             server: "com.tico.foodhea.tico"
           });
+          alert('email:', credentials.username,)
           
           // Auto-connexion après récupération des identifiants
           await handleSubmit({
