@@ -41,9 +41,9 @@ const Login = ({ createCompte = false, redirection }) => {
           password: values.password,
           server: "com.tico.foodhea.tico"
         });
-        console.log('Identifiants sauvegardés avec succès');
+        alert('Identifiants sauvegardés avec succès'+values.email+values.password);
       } catch (error) {
-        console.error('Erreur lors de la sauvegarde biométrique:', error);
+        alert('Erreur lors de la sauvegarde biométrique:'+ error);
       }
     }
   };
@@ -63,7 +63,7 @@ const Login = ({ createCompte = false, redirection }) => {
           const credentials = await NativeBiometric.getCredentials({
             server: "com.tico.foodhea.tico"
           });
-          alert('email:', credentials.username,)
+          alert('email:'+credentials.username+credentials.password)
           
           // Auto-connexion après récupération des identifiants
           await handleSubmit({
