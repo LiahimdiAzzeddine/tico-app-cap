@@ -8,6 +8,7 @@ import ForgotPassword from "./ForgotPassword";
 import { Capacitor } from '@capacitor/core';
 import { NativeBiometric } from 'capacitor-native-biometric';
 
+
 const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
   const [values, setValues] = useState({ email: "", password: "" });
@@ -52,31 +53,46 @@ const Login = ({ createCompte = false, redirection }) => {
   const loadCredentialsWithBiometric = async () => {
     if (Capacitor.getPlatform() === 'ios' && biometricAvailable) {
       try {
-        const { verified } = await NativeBiometric.verifyIdentity({
+        // Vérification de l'identité
+        const result = await NativeBiometric.verifyIdentity({
           reason: "Pour accéder à vos identifiants",
           title: "Face ID",
           subtitle: "Utilisez Face ID pour vous connecter",
           description: "Authentification requise"
         });
-        alert("verified"+verified);
-
-        if (verified) {
-          const credentials = await NativeBiometric.getCredentials({
-            server: "com.tico.foodhea.tico"
-          });
-          alert('email:'+credentials.username+credentials.password)
-          
-          // Auto-connexion après récupération des identifiants
-          await handleSubmit({
-            email: credentials.username,
-            password: credentials.password
-          });
+  
+        // Si l'authentification est réussie
+        if (result) {
+          try {
+            // Récupération des identifiants
+            const credentials = await NativeBiometric.getCredentials({
+              server: "com.votreapp.id"
+            });
+            
+            if (credentials) {
+              // Auto-connexion après récupération des identifiants
+              await handleSubmit({
+                email: credentials.username,
+                password: credentials.password
+              });
+            }
+          } catch (credError) {
+            console.error('Erreur lors de la récupération des identifiants:', credError);
+          }
         }
       } catch (error) {
-        alert('Erreur lors de la récupération biométrique:'+ error);
+        console.error('Erreur lors de l\'authentification biométrique:', error);
+        
+        // Afficher un message plus spécifique selon l'erreur
+        if (error.code === 'BIOMETRIC_DISMISSED') {
+          console.log('L\'utilisateur a annulé l\'authentification');
+        } else if (error.code === 'BIOMETRIC_UNKNOWN_ERROR') {
+          console.log('Erreur inconnue lors de l\'authentification');
+        }
       }
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
