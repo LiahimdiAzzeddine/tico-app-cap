@@ -47,7 +47,7 @@ function NameProduct(props) {
     <div className="flex flex-col items-center justify-center h-full w-full">
       <IonButton
         fill="clear"
-        className="absolute top-4 right-4 text-custom-blue text-2xl z-50"
+        className="absolute top-2 right-4 text-custom-blue text-2xl z-50 safe-area-top"
         onClick={() => setIsOpen(false)}
       >
         <IonIcon icon={closeOutline} />

@@ -22,9 +22,9 @@ function Intro2() {
           />
           <div className="flex flex-col items-center justify-center w-4/5 gap-8 text-center pt-16">
             <div className="text-xl text-custom-blue ArchivoLight leading-archivo">
-            <span className="font-bold Archivo">Scannez</span>, cliquez<br></br> et demandez&nbsp;aux de <span className="font-bold Archivo">soumettre</span><br></br>
-            <span className="font-bold Archivo">leurs produits aux évaluations</span><br></br>
-            de nos experts indépendants&nbsp;!
+            <span className="font-bold Archivo">Scannez</span>, cliquez<br></br> et demandez&nbsp;aux marques<br></br> de <span className="font-bold Archivo">soumettre </span>
+            <span className="font-bold Archivo">leurs produits aux évaluations </span>
+            de nos experts <br></br>indépendants&nbsp;!
             </div>
             <img src={Bole} className="iphonexr:w-12 iphonexr:h-12 iphonese:w-12 iphonese:h-12" />
 
