@@ -5,8 +5,8 @@ import { IonIcon, useIonLoading } from "@ionic/react";
 import CustomModal from "../modales/CustomModal";
 import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
-import { Capacitor } from "@capacitor/core";
-import { NativeBiometric } from "capacitor-native-biometric";
+import { Capacitor } from '@capacitor/core';
+import { SavePassword } from 'capacitor-ios-autofill-save-password';
 
 const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
@@ -14,103 +14,18 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
-  const [present, dismiss] = useIonLoading();
-  const [biometricAvailable, setBiometricAvailable] = useState(false);
-  const [biometricError, setBiometricError] = useState("");
-  const [hasCredentials, setHasCredentials] = useState(false);
-
-  // Vérification de la disponibilité de Face ID
-  const checkBiometricAvailability = async () => {
-    if (Capacitor.getPlatform() === "ios") {
-      try {
-        const { isAvailable } = await NativeBiometric.isAvailable();
-        setBiometricAvailable(isAvailable);
-        if (isAvailable) {
-          loadCredentialsWithBiometric();
-        }
-      } catch (error) {
-        setBiometricError("Erreur lors de la vérification biométrique:"+ error);
-      }
-    }
-  };
-
-  // Sauvegarde des identifiants avec biométrie
-  const saveCredentialsWithBiometric = async () => {
-    if (Capacitor.getPlatform() === "ios" && biometricAvailable) {
-      try {
-        // Vérifie que nous avons des valeurs à sauvegarder
-        if (!values.email || !values.password) {
-          console.log("Pas d'identifiants à sauvegarder");
-          return;
-        }
-
-        await NativeBiometric.setCredentials({
-          username: values.email,
-          password: values.password,
-          server: "com.votreapp.id",
-        });
-
-        console.log("Identifiants sauvegardés avec succès");
-      } catch (error) {
-        console.error("Erreur lors de la sauvegarde:", error);
-        setBiometricError("Erreur lors de la sauvegarde");
-
-        // Gestion spécifique des erreurs
-        if (error.code === "BIOMETRIC_SAVE_FAILED") {
-          console.log("Échec de la sauvegarde des identifiants");
-          setBiometricError("Échec de la sauvegarde des identifiants");
-        }
-      }
-    }
-  };
-
-  // Chargement des identifiants avec Face ID
-  const loadCredentialsWithBiometric = async () => {
-    if (Capacitor.getPlatform() === "ios" && biometricAvailable) {
-      try {
-        // D'abord on vérifie si la biométrie est disponible à nouveau
-        const { isAvailable } = await NativeBiometric.isAvailable();
-
-        if (!isAvailable) {
-          console.log("Biométrie non disponible");
-          setBiometricError("Biométrie non disponible");
-          return;
-        }
-
-        // On essaie de vérifier l'identité sans destructurer le résultat
-        await NativeBiometric.verifyIdentity({
-          reason: "Pour accéder à vos identifiants",
-          title: "Face ID",
-          subtitle: "Utilisez Face ID pour vous connecter",
-          description: "Authentification requise",
-        });
-
-        // Si on arrive ici, c'est que l'authentification a réussi
-        // car verifyIdentity rejette la promesse en cas d'échec
-        const credentials = await NativeBiometric.getCredentials({
-          server: "com.votreapp.id",
-        });
-
-        if (credentials && credentials.username && credentials.password) {
-          await handleSubmit({
-            email: credentials.username,
-            password: credentials.password,
-          });
-        }
-      } catch (error) {
-        // Gestion plus détaillée des erreurs
-        if (error.code === "BIOMETRIC_CANCELED") {
-          console.log("Authentication annulée par l'utilisateur");
-          setBiometricError("Authentication annulée par l'utilisateur");
-        } else if (error.code === "BIOMETRIC_AUTHENTICATION_FAILED") {
-          console.log("Échec de l'authentification");
-          setBiometricError("Échec de l'authentification");
-        } else {
-          console.error("Erreur lors de l'authentification:", error);
-          setBiometricError("Erreur lors de l'authentification");
-        }
-      }
-    }
+    const [present, dismiss] = useIonLoading();
+  
+  const savePassword = async () => {
+    if (Capacitor.getPlatform() === 'ios') {
+      SavePassword.promptDialog({
+        username: values.email,
+        password: values.password,
+      })
+      .then(() => console.log('promptDialog success'))
+      .catch((err) => console.error('promptDialog failure', err));
+  }
+   
   };
 
   const handleChange = (e) => {
@@ -125,50 +40,21 @@ const Login = ({ createCompte = false, redirection }) => {
       spinner: "bubbles",
       cssClass: "custom-loading-dialog",
     });
-
+    
     await handleSubmit(values);
     await dismiss();
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  // Ajoutez une fonction pour vérifier l'existence des credentials
-const checkExistingCredentials = async () => {
-  if (Capacitor.getPlatform() === 'ios' && biometricAvailable) {
-    try {
-      const credentials = await NativeBiometric.getCredentials({
-        server: "com.votreapp.id"
-      });
-      
-      setHasCredentials(Boolean(credentials?.username && credentials?.password));
-    } catch (error) {
-      setHasCredentials(false);
-      console.log('Pas de credentials enregistrés');
-    }
-  }
-};
-
-// Modifiez le useEffect initial pour inclure la vérification des credentials
-useEffect(() => {
-  const initialize = async () => {
-    await checkBiometricAvailability();
-    await checkExistingCredentials();
-  };
-  
-  initialize();
-}, []);
-
-
-
-  // Sauvegarde des identifiants après connexion réussie
   useEffect(() => {
     if (success) {
-      saveCredentialsWithBiometric();
+      savePassword();
       redirection();
     }
   }, [success]);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword); // Inverse directement l'état
+  };
 
   const errors = error || {};
 
@@ -179,19 +65,6 @@ useEffect(() => {
           Se&nbsp;connecter
         </h2>
 
-        {/* Bouton Face ID */}
-        {biometricAvailable && (
-  <button
-    onClick={loadCredentialsWithBiometric}
-    className="mb-4 bg-custom-blue text-white font-bold py-2 px-4 rounded-xl Archivo"
-  >
-    Se connecter avec Face ID
-    {setBiometricError}
-  </button>
-)}
-        {biometricError && (
-          <div className="text-red-500 text-sm mt-1">{biometricError}</div>
-        )}
         <form
           onSubmit={handleSubmitLogin}
           autocorrect="on"
@@ -221,8 +94,10 @@ useEffect(() => {
               required
               aria-invalid={!!errors.email}
               aria-describedby="email-error"
-              autoComplete="username"
+              autoComplete="email"
+              inputmode="password"
             />
+
             {errors.email && (
               <p id="email-error" className="text-red-500 text-sm mt-1">
                 {errors.email[0]}
@@ -254,8 +129,9 @@ useEffect(() => {
                 required
                 aria-invalid={!!errors.password}
                 aria-describedby="password-error"
-                autoComplete="current-password"
+                autoComplete="current-password" 
               />
+
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
@@ -271,7 +147,7 @@ useEffect(() => {
             )}
           </div>
 
-          {/* Mot de passe oublié */}
+          {/* Forgot Password */}
           <div className="flex items-center justify-between">
             <div
               onClick={() => setShowModalForgetPassword(true)}
@@ -281,7 +157,7 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* Bouton Se connecter */}
+          {/* Submit Button */}
           <div className="pt-3 flex justify-center">
             <button
               className="bg-custom-text-orange text-white font-bold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
@@ -292,7 +168,7 @@ useEffect(() => {
             </button>
           </div>
 
-          {/* Création de compte */}
+          {/* Create Account */}
           {createCompte && (
             <div className="flex justify-center">
               <button
@@ -305,14 +181,16 @@ useEffect(() => {
             </div>
           )}
 
-          {/* Message d'erreur général */}
+          {/* General Errors */}
           {errors.account && (
             <p className="text-red-500 text-sm mt-1">{errors.account[0]}</p>
           )}
         </form>
+
+        
       </div>
 
-      {/* Modales */}
+      {/* Modals */}
       {createCompte && (
         <CustomModal
           isOpen={showModalInscription}
