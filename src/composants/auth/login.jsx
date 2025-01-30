@@ -6,7 +6,7 @@ import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
 import { Capacitor } from '@capacitor/core';
 import { SavePassword } from 'capacitor-ios-autofill-save-password';
-import { IonButton, IonInput, IonLabel, IonItem, IonIcon,useIonLoading } from '@ionic/react';
+import { IonIcon,useIonLoading } from '@ionic/react';
 
 const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
@@ -64,38 +64,122 @@ const Login = ({ createCompte = false, redirection }) => {
           Se&nbsp;connecter
         </h2>
 
-        <form onSubmit={handleSubmitLogin} autoComplete="on">
-  <IonItem>
-    <IonLabel position="stacked">Mon adresse mail</IonLabel>
-    <IonInput
-      name="email"
-      type="email"
-      value={values.email}
-      onIonChange={handleChange}
-      required
-      autocomplete="username"
-    />
-  </IonItem>
+        <form
+          onSubmit={handleSubmitLogin}
+          autoComplete="on"
+          autocorrect="on"
+          className="space-y-4 w-11/12 max-w-xs h-5/6"
+        >
+          {/* Email Input */}
+          <div className="flex flex-col items-center">
+            <label
+              htmlFor="email"
+              className="text-custom-text-orange mb-1 text-base text-center font-bold Archivo"
+            >
+              Mon adresse mail
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={values.email}
+              onChange={handleChange}
+              className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
+                errors.email
+                  ? "border-red-500"
+                  : "border-orange-300 focus:border-custom-text-orange"
+              } Archivo`}
+              required
+              aria-invalid={!!errors.email}
+              aria-describedby="email-error"
+              autoComplete="username"
+            />
+            {errors.email && (
+              <p id="email-error" className="text-red-500 text-sm mt-1">
+                {errors.email[0]}
+              </p>
+            )}
+          </div>
 
-  <IonItem>
-    <IonLabel position="stacked">Mon mot de passe</IonLabel>
-    <IonInput
-      name="password"
-      type={showPassword ? "text" : "password"}
-      value={values.password}
-      onIonChange={handleChange}
-      required
-      autocomplete="current-password"
-    />
-    <IonButton onClick={togglePasswordVisibility}>
-      <IonIcon icon={showPassword ? eyeOffOutline : eyeOutline} />
-    </IonButton>
-  </IonItem>
+          {/* Password Input */}
+          <div className="flex flex-col items-center relative w-full">
+            <label
+              htmlFor="password"
+              className="text-custom-text-orange mb-1 text-base text-center font-bold Archivo"
+            >
+              Mon mot de passe
+            </label>
+            <div className="relative w-full">
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={values.password}
+                onChange={handleChange}
+                className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
+                  errors.password
+                    ? "border-red-500"
+                    : "border-orange-300 focus:border-custom-text-orange"
+                } Archivo`}
+                required
+                aria-invalid={!!errors.password}
+                aria-describedby="password-error"
+                autoComplete="current-password" 
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute right-3 top-1/2 -translate-y-[35%] text-gray-500 focus:outline-none"
+              >
+                <IonIcon icon={showPassword ? eyeOffOutline : eyeOutline} />
+              </button>
+            </div>
+            {errors.password && (
+              <p id="password-error" className="text-red-500 text-sm mt-1">
+                {errors.password[0]}
+              </p>
+            )}
+          </div>
 
-  <IonButton type="submit" expand="full" disabled={loading}>
-    Se connecter
-  </IonButton>
-</form>
+          {/* Forgot Password */}
+          <div className="flex items-center justify-between">
+            <div
+              onClick={() => setShowModalForgetPassword(true)}
+              className="font-medium text-custom-text-orange hover:text-custom-text-orange cursor-pointer Archivo"
+            >
+              Mot de passe oublié ?
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div className="pt-3 flex justify-center">
+            <button
+              className="bg-custom-text-orange text-white font-bold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
+              disabled={loading}
+              type="submit"
+            >
+              Se&nbsp;connecter
+            </button>
+          </div>
+
+          {/* Create Account */}
+          {createCompte && (
+            <div className="flex justify-center">
+              <button
+                type="button"
+                className="font-medium text-custom-text-orange hover:text-custom-text-orange Archivo"
+                onClick={() => setShowModalInscription(true)}
+              >
+                Je&nbsp;crée&nbsp;mon&nbsp;compte
+              </button>
+            </div>
+          )}
+
+          {/* General Errors */}
+          {errors.account && (
+            <p className="text-red-500 text-sm mt-1">{errors.account[0]}</p>
+          )}
+        </form>
       </div>
 
       {/* Modals */}
