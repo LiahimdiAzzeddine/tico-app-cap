@@ -73,7 +73,7 @@ const Login = ({ createCompte = false, redirection }) => {
           });
         }
       } catch (error) {
-        console.error('Erreur lors de la récupération biométrique:', error);
+        alert('Erreur lors de la récupération biométrique:'+ error);
       }
     }
   };
