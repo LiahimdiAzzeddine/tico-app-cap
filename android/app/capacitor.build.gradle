@@ -22,6 +22,7 @@ dependencies {
     implementation project(':capacitor-storage')
     implementation project(':capacitor-toast')
     implementation project(':capgo-capacitor-flash')
+    implementation project(':capacitor-native-biometric')
     implementation project(':capacitor-plugin-safe-area')
 
 }

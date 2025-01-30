@@ -22,7 +22,7 @@ function Intro2() {
           />
           <div className="flex flex-col items-center justify-center w-4/5 gap-8 text-center pt-16">
             <div className="text-xl text-custom-blue ArchivoLight leading-archivo">
-            <span className="font-bold">Scannez</span>, cliquez<br></br> et demandez&nbsp;leur de <span className="font-bold">soumettre</span><br></br>
+            <span className="font-bold">Scannez</span>, cliquez<br></br> et demandez&nbsp;aux de <span className="font-bold">soumettre</span><br></br>
             <span className="font-bold">leurs produits aux évaluations</span><br></br>
             de nos experts indépendants&nbsp;!
             </div>

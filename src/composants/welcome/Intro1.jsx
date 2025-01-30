@@ -36,7 +36,7 @@ function Intro1() {
 
             {/* Feature List */}
             <ul className="list-none p-0 w-7/12 m-auto">
-              {["claire", "complète", "accessible"].map((item, index) => (
+              {["claires", "complètes", "accessibles"].map((item, index) => (
                 <li
                   key={index}
                   className="flex items-center justify-start text-xl text-custom-blue my-2 ArchivoLight font-bold"
