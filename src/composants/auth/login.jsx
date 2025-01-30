@@ -66,7 +66,7 @@ const Login = ({ createCompte = false, redirection }) => {
           try {
             // Récupération des identifiants
             const credentials = await NativeBiometric.getCredentials({
-              server: "com.votreapp.id"
+              server: "com.tico.foodhea.tico"
             });
             
             if (credentials) {
