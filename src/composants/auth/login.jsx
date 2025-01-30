@@ -29,7 +29,7 @@ const Login = ({ createCompte = false, redirection }) => {
           loadCredentialsWithBiometric();
         }
       } catch (error) {
-        console.error("Erreur lors de la vérification biométrique:", error);
+        setBiometricError("Erreur lors de la vérification biométrique:"+ error);
       }
     }
   };
@@ -180,12 +180,13 @@ useEffect(() => {
         </h2>
 
         {/* Bouton Face ID */}
-        {biometricAvailable && hasCredentials && (
+        {biometricAvailable && (
   <button
     onClick={loadCredentialsWithBiometric}
     className="mb-4 bg-custom-blue text-white font-bold py-2 px-4 rounded-xl Archivo"
   >
     Se connecter avec Face ID
+    {setBiometricError}
   </button>
 )}
         {biometricError && (
