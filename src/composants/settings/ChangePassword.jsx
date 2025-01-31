@@ -5,14 +5,15 @@ import { eyeOffOutline, eyeOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { useToast } from "../../context/ToastContext";
 import useChangePassword from "../../hooks/auth/useChangePassword";
+import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth";
 
-const ChangePassword = ({Close=null}) => {
+const ChangePassword = ({ Close = null }) => {
   const location = useLocation();
   const [email, setEmail] = useState(null);
   const [token, setToken] = useState("");
 
   const { triggerToast } = useToast();
-  const { changePassword, loading, error,onClose } = useChangePassword(); // Use the hook
+  const { changePassword, loading, error, onClose } = useChangePassword(); // Use the hook
   const [values, setValues] = useState({
     oldPassword: "",
     newPassword: "",
@@ -23,7 +24,27 @@ const ChangePassword = ({Close=null}) => {
     new: false,
     confirm: false,
   });
-
+  const {
+      biometricAvailable,
+      hasCredentials,
+      biometricError,
+      deleteCredentialsWithBiometric,
+    } = useBiometricAuth();
+  const confirmDeleteCredentials = async () => {
+    try {
+      await deleteCredentialsWithBiometric();
+    } catch (error) {
+      triggerAlert(
+        "Erreur lors de la suppression des credentials",
+        "Erreur",
+        null,
+        "ios",
+        "",
+        "Ok",
+        true
+      );
+    }
+  };
   useEffect(() => {
     // Extraire les paramètres de l'URL
     const params = new URLSearchParams(location.search);
@@ -49,26 +70,37 @@ const ChangePassword = ({Close=null}) => {
       values.newPassword,
       values.confirmPassword,
       email,
-      token,
+      token
     );
-    if(onClose){
+    if (onClose) {
+      if(hasCredentials){
+        confirmDeleteCredentials()
+      }
       Close(false);
     }
   };
+  useEffect(() => {
+    if (onClose) {
+      if(hasCredentials){
+        confirmDeleteCredentials()
+      }
+      Close(false);
+    }
+  }, [onClose]);
 
   const togglePasswordVisibility = (field) => {
     setShowPasswords((prev) => ({
       ...prev,
-      [field]: !prev[field],  // Alterne entre true et false
+      [field]: !prev[field], // Alterne entre true et false
     }));
   };
-  
+
   return (
     <div className="flex gap-4 flex-col justify-start items-center h-full">
       <h2 className="h-1/6 text-center text-custom-blue text-3xl titre-bold flex items-center justify-center w-full">
         Changer mon mot de passe
       </h2>
-  
+
       <form onSubmit={handleSubmit} className="space-y-4 w-11/12 max-w-xs 5/6">
         {/* Ancien mot de passe */}
         {!email && (
@@ -96,7 +128,9 @@ const ChangePassword = ({Close=null}) => {
                 onClick={() => togglePasswordVisibility("old")}
                 className="absolute right-3 top-1/2  -translate-y-[35%] text-gray-500 focus:outline-none"
               >
-                <IonIcon icon={showPasswords.old ? eyeOffOutline : eyeOutline} />
+                <IonIcon
+                  icon={showPasswords.old ? eyeOffOutline : eyeOutline}
+                />
               </button>
             </div>
             {error?.current_password && (
@@ -106,7 +140,7 @@ const ChangePassword = ({Close=null}) => {
             )}
           </div>
         )}
-  
+
         {/* Nouveau mot de passe */}
         <div className="flex flex-col items-center relative w-full">
           <label className="text-orange-500 mb-1 text-base text-center font-bold">
@@ -141,7 +175,7 @@ const ChangePassword = ({Close=null}) => {
             </p>
           )}
         </div>
-  
+
         {/* Confirmation mot de passe */}
         <div className="flex flex-col items-center relative w-full">
           <label className="text-orange-500 mb-1 text-base text-center font-bold">
@@ -161,10 +195,12 @@ const ChangePassword = ({Close=null}) => {
             onClick={() => togglePasswordVisibility("confirm")}
             className="absolute right-3 top-1/2  translate-y-1/4 text-gray-500 focus:outline-none"
           >
-            <IonIcon icon={showPasswords.confirm ? eyeOffOutline : eyeOutline} />
+            <IonIcon
+              icon={showPasswords.confirm ? eyeOffOutline : eyeOutline}
+            />
           </button>
         </div>
-  
+
         <div className="pt-3 flex justify-center">
           <button
             type="submit"
@@ -175,7 +211,7 @@ const ChangePassword = ({Close=null}) => {
           </button>
         </div>
       </form>
-  
+
       {loading && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
           <Spinner />
@@ -183,7 +219,6 @@ const ChangePassword = ({Close=null}) => {
       )}
     </div>
   );
-  
 };
 
 export default ChangePassword;

@@ -17,7 +17,6 @@ export const useBiometricAuth = () => {
       }
     } catch (error) {
       console.log('Erreur lors de la vérification biométrique:', error);
-      setBiometricError('Vérification biométrique impossible');
     }
   };
 

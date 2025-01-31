@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Spinner from "../Spinner";
 import useGetProfile from "../../hooks/users/useGetProfile";
-import { Link } from "react-router-dom";
 import CustomModal from "../modales/CustomModal";
 import ChangePassword from "./ChangePassword";
 import deleteUserAccount from "../../hooks/users/deleteUserAccount";
-import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth";
+import FaceId from "../../assets/auth/face-id-icon.png";
+
 import {
-  IonButton,
-  IonContent,
-  IonFooter,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
   useIonLoading,
   useIonRouter,
   IonActionSheet, // Import IonActionSheet
 } from "@ionic/react";
+import { IonList, IonItem, IonLabel, IonIcon } from "@ionic/react";
+import { lockClosed, trashBin, personRemove } from "ionicons/icons";
 import { useAlert } from "../../context/AlertProvider";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
+import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth";
 
 const PersonalInfo = () => {
   const signOut = useSignOut();
@@ -37,23 +34,21 @@ const PersonalInfo = () => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [cachedProfile, setCachedProfile] = useState(null);
   const [showModalPass, setShowModalPass] = useState(false);
-  const [showModalDelete, setShowModalDelete] = useState(false);
-  const [showActionSheet, setShowActionSheet] = useState(false); // For IonActionSheet
+  const [showModalDelete, setShowModalDelete] = useState(false); // For account deletion modal
   const [present, dismiss] = useIonLoading();
+  const [showActionSheet, setShowActionSheet] = useState(false);
   const history = useIonRouter();
-
   // Use the new useBiometricAuth hook
   const {
     biometricAvailable,
     hasCredentials,
     biometricError,
-    deleteCredentialsWithBiometric
+    deleteCredentialsWithBiometric,
   } = useBiometricAuth();
 
   const goToPage = (path) => {
     history.push(path, "root", "replace");
   };
-
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
@@ -80,45 +75,49 @@ const PersonalInfo = () => {
     };
   }, [profile, isOnline]);
 
-  // Function to confirm and delete biometric credentials
-  const confirmDeleteCredentials = async () => {
-    try {
-      await deleteCredentialsWithBiometric();
-      triggerAlert(
-        "Vos credentials biométriques ont été supprimés avec succès", 
-        "Succès", 
-        null, 
-        "ios", 
-        "", 
-        "Ok", 
-        true
-      );
-      setShowActionSheet(false); // Close the action sheet after successful deletion
-    } catch (error) {
-      triggerAlert(
-        "Erreur lors de la suppression des credentials", 
-        "Erreur", 
-        null, 
-        "ios", 
-        "", 
-        "Ok", 
-        true
-      );
-    }
-  };
-
+  // Offline banner
+  const OfflineBanner = () => (
+    <div className="bg-yellow-100 p-2 text-center text-yellow-800 mb-4">
+      Vous êtes hors ligne. Les informations affichées proviennent du indexeddb.
+    </div>
+  );
   // Function to confirm account deletion
   const confirmAccountDeletion = () => {
     triggerAlert(
-      "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+      "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
       "Attention",
-      handleAccountDeletion,
+      handleAccountDeletion, // Callback if user confirms
       "ios",
       "oui",
       "annuler"
     );
   };
-
+  // Function to confirm and delete biometric credentials
+  const confirmDeleteCredentials = async () => {
+    try {
+      await deleteCredentialsWithBiometric();
+      triggerAlert(
+        "Vos credentials biométriques ont été supprimés avec succès",
+        "Succès",
+        null,
+        "ios",
+        "",
+        "Ok",
+        true
+      );
+      setShowActionSheet(false); // Close the action sheet after successful deletion
+    } catch (error) {
+      triggerAlert(
+        "Erreur lors de la suppression des credentials",
+        "Erreur",
+        null,
+        "ios",
+        "",
+        "Ok",
+        true
+      );
+    }
+  };
   // Function to handle account deletion
   const handleAccountDeletion = async () => {
     // Display loading spinner
@@ -131,6 +130,7 @@ const PersonalInfo = () => {
 
     // Call the deleteAccount function
     const result = await deleteAccount();
+    console.log("🚀 ~ handleAccountDeletion ~ result:", result);
 
     // Hide loading spinner
     dismiss();
@@ -143,8 +143,12 @@ const PersonalInfo = () => {
       // Redirect to the login page
       goToPage("/login");
     } else {
+      console.error(
+        "Erreur lors de la suppression du compte :",
+        result.message
+      );
       triggerAlert(
-        result.message,
+        result.message, // Use the error message from the result
         null,
         null,
         "ios",
@@ -155,7 +159,6 @@ const PersonalInfo = () => {
     }
   };
 
-  // Render loading state
   if (profileLoading && isOnline) {
     return (
       <div className="flex justify-center items-center h-full">
@@ -164,7 +167,6 @@ const PersonalInfo = () => {
     );
   }
 
-  // Render error state
   if (profileError && !cachedProfile) {
     return (
       <div className="text-red-500 text-center">
@@ -213,39 +215,64 @@ const PersonalInfo = () => {
             </p>
           </div>
 
-          {hasCredentials && (
-            <IonButton
-              color="danger"
-              expand="full"
-              onClick={() => setShowActionSheet(true)} // Show IonActionSheet
+          <IonList>
+            {/* Change Password Item */}
+            <IonItem
+              button
+              onClick={() => setShowModalPass(true)}
+              disabled={!isOnline}
             >
-              Supprimer les credentials biométriques
-            </IonButton>
-          )}
+              <IonIcon slot="start" icon={lockClosed} />
+              <IonLabel>
+                Changer mon mot de passe
+                {!isOnline && (
+                  <p className="text-sm text-gray-500">
+                    (Non disponible hors ligne)
+                  </p>
+                )}
+              </IonLabel>
+            </IonItem>
 
-          <div className="flex justify-center mt-2">
-            <Link
-              onClick={() => {
-                setShowModalPass(true);
-              }}
-              className={`underline underline-offset-2 text-orange-400 ${
-                !isOnline ? "pointer-events-none opacity-50" : ""
-              }`}
-            >
-              Changer mon mot de passe{" "}
-              {!isOnline && "(Non disponible hors ligne)"}
-            </Link>
-          </div>
-
-          {/* Button for account deletion */}
-          <div className="flex justify-center mt-4">
-            <button
+            {/* Account Deletion Item */}
+            <IonItem
+              button
               onClick={() => setShowModalDelete(true)}
-              className="underline underline-offset-2 text-orange-400 "
+              disabled={!isOnline}
             >
-              Supprimer mon compte
-            </button>
-          </div>
+              <IonIcon slot="start" icon={trashBin} />
+              <IonLabel>Supprimer mon compte</IonLabel>
+            </IonItem>
+            {hasCredentials && (
+              <IonItem
+                button
+                onClick={() => setShowActionSheet(true)}
+                disabled={!isOnline}
+              >
+                <img
+                  src={FaceId}
+                  className="w-6 h-auto mr-[32px]"
+                  alt="Face ID Icon"
+                />
+                <IonLabel>Supprimer les credentials biométriques</IonLabel>
+              </IonItem>
+            )}
+
+            {/* Action Sheet for additional options */}
+            <IonActionSheet
+              isOpen={showActionSheet}
+              buttons={[
+                {
+                  text: "Option 1",
+                  handler: () => console.log("Option 1 selected"),
+                },
+                {
+                  text: "Option 2",
+                  handler: () => console.log("Option 2 selected"),
+                },
+              ]}
+              onDidDismiss={() => setShowActionSheet(false)}
+            />
+          </IonList>
         </div>
       </div>
 
@@ -285,7 +312,6 @@ const PersonalInfo = () => {
           </div>
         </div>
       </CustomModal>
-
       {/* IonActionSheet for Biometric Credentials Deletion */}
       <IonActionSheet
         isOpen={showActionSheet}
