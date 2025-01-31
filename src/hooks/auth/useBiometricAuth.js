@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NativeBiometric } from 'capacitor-native-biometric';
+import { useIonLoading } from '@ionic/react';
 
 const SERVER_ID = 'com.TiCO.id';
 
@@ -7,7 +8,7 @@ export const useBiometricAuth = () => {
   const [biometricAvailable, setBiometricAvailable] = useState(false);
   const [hasCredentials, setHasCredentials] = useState(false);
   const [biometricError, setBiometricError] = useState('');
-
+const [present, dismiss] = useIonLoading();
   const checkBiometricAvailability = async () => {
     try {
       const { isAvailable } = await NativeBiometric.isAvailable();
@@ -43,6 +44,11 @@ export const useBiometricAuth = () => {
   };
 
   const loadCredentialsWithBiometric = async (handleSubmit) => {
+    await present({
+      mode: "ios",
+      spinner: "bubbles",
+      cssClass: "custom-loading-dialog",
+    });
     if (biometricAvailable) {
       try {
         await NativeBiometric.verifyIdentity({
@@ -66,6 +72,7 @@ export const useBiometricAuth = () => {
         setBiometricError('Erreur lors de l\'authentification: ' + error.message);
       }
     }
+    await dismiss();
   };
 
   const checkExistingCredentials = async () => {
