@@ -14,27 +14,25 @@ import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
 import { Capacitor } from "@capacitor/core";
 import { NativeBiometric } from "capacitor-native-biometric";
-import useBiometricAuth from "../../hooks/auth/useBiometricAuth";
+import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth";  // Import the new hook
 
 const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
+  const {
+    biometricAvailable, 
+    hasCredentials, 
+    biometricError,
+    loadCredentialsWithBiometric, 
+    saveCredentialsWithBiometric
+  } = useBiometricAuth();  // Use the new hook
+
   const [values, setValues] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
   const [present, dismiss] = useIonLoading();
+  const [saveBiometric, setSaveBiometric] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
-  const {
-    biometricAvailable,
-    biometricError,
-    hasCredentials,
-    saveBiometric,
-    setSaveBiometric,
-    loadCredentialsWithBiometric,
-    saveCredentialsWithBiometric,
-  } = useBiometricAuth(handleSubmit);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,27 +55,12 @@ const Login = ({ createCompte = false, redirection }) => {
     setShowPassword(!showPassword);
   };
 
-
-  
-
-  // Sauvegarde des identifiants après connexion réussie
-  useEffect(() => {
-    if (success && saveBiometric) {
-      saveCredentialsWithBiometric();
-    }
-    if (success) {
-      redirection();
-    }
-  }, [success]);
-
-  const errors = error || {};
-
   const handleCheckboxClick = (e) => {
     if (!saveBiometric) {
-      setShowModal(true); // Afficher le modal si la case n'est pas encore cochée
-      e.preventDefault(); // Empêcher le changement d'état immédiat
+      setShowModal(true);
+      e.preventDefault();
     } else {
-      setSaveBiometric(false); // Si déjà activé, désactiver directement
+      setSaveBiometric(false);
     }
   };
 
@@ -91,6 +74,20 @@ const Login = ({ createCompte = false, redirection }) => {
     setShowModal(false);
   };
 
+  useEffect(() => {
+    if (success && saveBiometric) {
+      saveCredentialsWithBiometric({ 
+        username: values.email, 
+        password: values.password 
+      });
+    }
+    if (success) {
+      redirection();
+    }
+  }, [success]);
+
+  const errors = error || {};
+
   return (
     <>
       <div className="flex gap-4 flex-col justify-start items-center h-full">
@@ -99,8 +96,8 @@ const Login = ({ createCompte = false, redirection }) => {
         </h2>
 
         {biometricError && (
-          <div className="text-red-500 text-sm mt-1">{biometricError}</div>
-        )}
+        <div className="text-red-500 text-sm mt-1">{biometricError}</div>
+      )}
         <form
           onSubmit={handleSubmitLogin}
           autocorrect="on"
@@ -209,13 +206,14 @@ const Login = ({ createCompte = false, redirection }) => {
             </button>
             {/* Bouton Face ID */}
             {biometricAvailable && hasCredentials && (
-              <button
-                onClick={loadCredentialsWithBiometric}
-                className="bg-custom-blue text-white font-bold text-lg py-2 px-2 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
-              >
-                <img src={FaceId} className="w-8 h-auto" />
-              </button>
-            )}
+        <button
+          onClick={() => loadCredentialsWithBiometric(handleSubmit)}
+          className="bg-custom-blue text-white font-bold text-lg py-2 px-2 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
+        >
+          <img src={FaceId} className="w-8 h-auto" />
+        </button>
+      )}
+
           </div>
 
           {/* Création de compte */}
