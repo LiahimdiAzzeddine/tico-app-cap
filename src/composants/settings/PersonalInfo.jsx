@@ -5,11 +5,17 @@ import { Link } from "react-router-dom";
 import CustomModal from "../modales/CustomModal";
 import ChangePassword from "./ChangePassword";
 import deleteUserAccount from "../../hooks/users/deleteUserAccount";
-import { useIonLoading, useIonRouter } from "@ionic/react";
+import { IonButton, IonContent, IonFooter, IonHeader, IonModal, IonTitle, IonToolbar, useIonLoading, useIonRouter } from "@ionic/react";
 import { useAlert } from "../../context/AlertProvider";
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
+import { NativeBiometric } from "capacitor-native-biometric";
 
 const PersonalInfo = () => {
+  const [hasCredentials, setHasCredentials] = useState(false);
+const [showModal, setShowModal] = useState(false);
+const [biometricError, setBiometricError] = useState("");
+
+
   const signOut = useSignOut()
   const {
     profile,
@@ -57,6 +63,40 @@ const PersonalInfo = () => {
       window.removeEventListener("offline", handleOffline);
     };
   }, [profile, isOnline]);
+  useEffect(() => {
+    const checkBiometricCredentials = async () => {
+      try {
+        const result = await NativeBiometric.isAvailable();
+        if (result.isAvailable) {
+          setHasCredentials(true);
+        } else {
+          setHasCredentials(false);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la vérification des credentials:", error);
+      }
+    };
+    checkBiometricCredentials();
+  }, []);
+  
+  const deleteCredentials = async () => {
+    try {
+      await NativeBiometric.deleteCredentials({
+        server: "com.votreappazz.id",
+      });
+      setHasCredentials(false);
+      setBiometricError("");
+      console.log("Credentials supprimés avec succès");
+      alert("Credentials supprimés avec succès");
+    } catch (error) {
+      console.error("Erreur lors de la suppression des credentials:", error);
+      setBiometricError("Erreur lors de la suppression des credentials");
+      alert("Erreur lors de la suppression des credentials");
+    }
+    setShowModal(false);
+  };
+  
+  
 
   // Offline banner
   const OfflineBanner = () => (
@@ -179,6 +219,12 @@ const PersonalInfo = () => {
               {displayProfile.username || "Pas de pseudo disponible"}
             </p>
           </div>
+          {hasCredentials && (
+  <IonButton color="danger" expand="full" onClick={() => setShowModal(true)}>
+    Supprimer les credentials biométriques
+  </IonButton>
+)}
+
 
           <div className="flex justify-center mt-2">
             <Link
@@ -243,6 +289,25 @@ const PersonalInfo = () => {
           </div>
         </div>
       </CustomModal>
+      <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
+  <IonHeader>
+    <IonToolbar>
+      <IonTitle>Confirmer la suppression</IonTitle>
+    </IonToolbar>
+  </IonHeader>
+  <IonContent className="ion-padding">
+    <p>Êtes-vous sûr de vouloir supprimer vos credentials biométriques ?</p>
+  </IonContent>
+  <IonFooter className="ion-padding">
+    <IonButton color="danger" expand="full" onClick={deleteCredentials}>
+      Supprimer
+    </IonButton>
+    <IonButton color="medium" expand="full" onClick={() => setShowModal(false)}>
+      Annuler
+    </IonButton>
+  </IonFooter>
+</IonModal>
+
     </>
   );
 };

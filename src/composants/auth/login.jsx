@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useLogin from "../../hooks/auth/useLogin";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
 import FaceId from "../../assets/auth/face-id.svg";
-import { IonIcon, useIonLoading, IonCheckbox } from "@ionic/react";
+import { IonIcon, useIonLoading, IonCheckbox, IonModal, IonButton } from "@ionic/react";
 import CustomModal from "../modales/CustomModal";
 import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
@@ -19,6 +19,8 @@ const Login = ({ createCompte = false, redirection }) => {
   const [biometricAvailable, setBiometricAvailable] = useState(false);
   const [biometricError, setBiometricError] = useState("");
   const [hasCredentials, setHasCredentials] = useState(false);
+  const [saveBiometric, setSaveBiometric] = useState(false);
+  const [showModal, setShowModal] = useState(false); 
 
   // Vérification de la disponibilité de Face ID
   const checkBiometricAvailability = async () => {
@@ -35,7 +37,7 @@ const Login = ({ createCompte = false, redirection }) => {
 
   // Sauvegarde des identifiants avec biométrie
   const saveCredentialsWithBiometric = async () => {
-    if (biometricAvailable) {
+    if (biometricAvailable && saveBiometric) {
       try {
         // Vérifie que nous avons des valeurs à sauvegarder
         if (!values.email || !values.password) {
@@ -132,13 +134,34 @@ const Login = ({ createCompte = false, redirection }) => {
 
   // Sauvegarde des identifiants après connexion réussie
   useEffect(() => {
-    if (success) {
+    if (success && saveBiometric) {
       saveCredentialsWithBiometric();
+    }
+    if (success) {
       redirection();
     }
   }, [success]);
 
   const errors = error || {};
+
+  const handleCheckboxClick = (e) => {
+    if (!saveBiometric) {
+      setShowModal(true); // Afficher le modal si la case n'est pas encore cochée
+      e.preventDefault(); // Empêcher le changement d'état immédiat
+    } else {
+      setSaveBiometric(false); // Si déjà activé, désactiver directement
+    }
+  };
+
+  const acceptBiometric = () => {
+    setSaveBiometric(true);
+    setShowModal(false);
+  };
+
+  const declineBiometric = () => {
+    setSaveBiometric(false);
+    setShowModal(false);
+  };
 
   return (
     <>
@@ -242,9 +265,9 @@ const Login = ({ createCompte = false, redirection }) => {
               Mot de passe oublié ?
             </div>
             {(biometricAvailable && !hasCredentials) &&(
-              <IonCheckbox labelPlacement="start" checked={hasCredentials}>
-                Activer Face ID
-              </IonCheckbox>
+                 <IonCheckbox checked={saveBiometric} onClick={handleCheckboxClick}>
+            Activer Face ID
+          </IonCheckbox>
             )}
           </div>
 
@@ -303,6 +326,17 @@ const Login = ({ createCompte = false, redirection }) => {
       >
         <ForgotPassword />
       </CustomModal>
+        {/* Modal d'explication pour Face ID */}
+      <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
+        <div className="p-4">
+          <h3 className="text-lg font-bold mb-2">Activer Face ID</h3>
+          <p>En activant cette option, vos identifiants seront enregistrés et pourront être utilisés pour une connexion rapide avec Face ID.</p>
+          <div className="flex justify-end mt-4 space-x-2">
+            <IonButton color="danger" onClick={declineBiometric}>Refuser</IonButton>
+            <IonButton color="success" onClick={acceptBiometric}>Accepter</IonButton>
+          </div>
+        </div>
+      </IonModal>
     </>
   );
 };
