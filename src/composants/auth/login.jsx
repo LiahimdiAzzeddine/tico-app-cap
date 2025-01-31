@@ -46,7 +46,7 @@ const Login = ({ createCompte = false, redirection }) => {
         await NativeBiometric.setCredentials({
           username: values.email,
           password: values.password,
-          server: "com.votreapp.id",
+          server: "com.votreappazz.id",
         });
 
         console.log("Identifiants sauvegardés avec succès");
@@ -64,51 +64,24 @@ const Login = ({ createCompte = false, redirection }) => {
   };
 
   // Chargement des identifiants avec Face ID
+
   const loadCredentialsWithBiometric = async () => {
     if (biometricAvailable) {
       try {
-        // D'abord on vérifie si la biométrie est disponible à nouveau
-        const { isAvailable } = await NativeBiometric.isAvailable();
-
-        if (!isAvailable) {
-          console.log("Biométrie non disponible");
-          setBiometricError("Biométrie non disponible");
-          return;
-        }
-        const isFaceID = isAvailable.biometryType == BiometryType.FACE_ID;
-
-        // On essaie de vérifier l'identité sans destructurer le résultat
         await NativeBiometric.verifyIdentity({
-          reason: "Pour accéder à vos identifiants",
-          title: "Face ID",
+          reason: "Connexion via Face ID",
+          title: "Authentification requise",
           subtitle: "Utilisez Face ID pour vous connecter",
-          description: "Authentification requise",
+          description: "Placez votre visage devant l'appareil",
         });
 
-        // Si on arrive ici, c'est que l'authentification a réussi
-        // car verifyIdentity rejette la promesse en cas d'échec
-        const credentials = await NativeBiometric.getCredentials({
-          server: "com.votreapp.id",
-        });
+        const credentials = await NativeBiometric.getCredentials({ server: "com.votreappazz.id" });
 
-        if (credentials && credentials.username && credentials.password) {
-          await handleSubmit({
-            email: credentials.username,
-            password: credentials.password,
-          });
+        if (credentials.username && credentials.password) {
+          await handleSubmit({ email: credentials.username, password: credentials.password });
         }
       } catch (error) {
-        // Gestion plus détaillée des erreurs
-        if (error.code === "BIOMETRIC_CANCELED") {
-          console.log("Authentication annulée par l'utilisateur");
-          setBiometricError("Authentication annulée par l'utilisateur");
-        } else if (error.code === "BIOMETRIC_AUTHENTICATION_FAILED") {
-          console.log("Échec de l'authentification");
-          setBiometricError("Échec de l'authentification");
-        } else {
-          console.error("Erreur lors de l'authentification:", error);
-          setBiometricError("Erreur lors de l'authentification");
-        }
+        setBiometricError("Erreur lors de l'authentification: " + error.message);
       }
     }
   };
@@ -135,22 +108,17 @@ const Login = ({ createCompte = false, redirection }) => {
   };
 
   // Ajoutez une fonction pour vérifier l'existence des credentials
-  const checkExistingCredentials = async () => {
-    if (biometricAvailable) {
-      try {
-        const credentials = await NativeBiometric.getCredentials({
-          server: "com.votreapp.id",
-        });
 
-        setHasCredentials(
-          Boolean(credentials && credentials.username && credentials.password)
-        );
-      } catch (error) {
+    // Vérifier si des credentials sont enregistrés
+    const checkExistingCredentials = async () => {
+      try {
+        const credentials = await NativeBiometric.getCredentials({ server: "com.votreappazz.id" });
+        setHasCredentials(!!credentials.username && !!credentials.password);
+      } catch {
         setHasCredentials(false);
-        console.log("Pas de credentials enregistrés");
+        setBiometricError("Pas de credentials enregistrés");
       }
-    }
-  };
+    };
 
   // Modifiez le useEffect initial pour inclure la vérification des credentials
   useEffect(() => {
@@ -183,7 +151,7 @@ const Login = ({ createCompte = false, redirection }) => {
           <div className="text-red-500 text-sm mt-1">{biometricError}</div>
         )}
         <h1>
-          hasCredentials:{hasCredentials}
+        <h1>hasCredentials: {hasCredentials ? "Oui" : "Non"}</h1>
         </h1>
         
         <form
