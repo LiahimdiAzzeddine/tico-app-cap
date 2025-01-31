@@ -5,8 +5,8 @@ import { IonIcon, useIonLoading } from "@ionic/react";
 import CustomModal from "../modales/CustomModal";
 import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
-import { Capacitor } from '@capacitor/core';
-import { SavePassword } from 'capacitor-ios-autofill-save-password';
+import { Capacitor } from "@capacitor/core";
+import { NativeBiometric } from "capacitor-native-biometric";
 
 const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
@@ -14,23 +14,119 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
-    const [present, dismiss] = useIonLoading();
-  
-  const savePassword = async () => {
-    if (Capacitor.getPlatform() === 'ios') {
-      SavePassword.promptDialog({
-        username: values.email,
-        password: values.password,
-      })
-      .then(() => console.log('promptDialog success'))
-      .catch((err) => console.error('promptDialog failure', err));
-  }
-   
+  const [present, dismiss] = useIonLoading();
+  const [biometricAvailable, setBiometricAvailable] = useState(false);
+  const [biometricError, setBiometricError] = useState("");
+  const [isFaceIdActivated, setIsFaceIdActivated] = useState(false);
+  const [hasCredentials, setHasCredentials] = useState(false);
+
+  // Vérification de la disponibilité de Face ID
+  const checkBiometricAvailability = async () => {
+    try {
+      const { isAvailable } = await NativeBiometric.isAvailable();
+      setBiometricAvailable(isAvailable);
+      if (isAvailable) {
+        // Vérifie si des credentials existent déjà
+        const hasExistingCredentials = await checkExistingCredentials();
+        setIsFaceIdActivated(hasExistingCredentials);
+      }
+    } catch (error) {
+      setBiometricError("Erreur lors de la vérification biométrique:" + error);
+    }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
+  // Activation de Face ID
+  const activateFaceId = async () => {
+    if (biometricAvailable) {
+      try {
+        // Vérifie d'abord si l'utilisateur peut utiliser Face ID
+        await NativeBiometric.verifyIdentity({
+          reason: "Pour activer Face ID",
+          title: "Activation Face ID",
+          subtitle: "Configurez Face ID pour les prochaines connexions",
+          description: "Authentification requise",
+        });
+
+        // Si la vérification réussit, on sauvegarde les credentials actuels
+        await saveCredentialsWithBiometric();
+        setIsFaceIdActivated(true);
+      } catch (error) {
+        if (error.code === "BIOMETRIC_CANCELED") {
+          setBiometricError("Activation annulée par l'utilisateur");
+        } else {
+          setBiometricError("Erreur lors de l'activation de Face ID");
+        }
+      }
+    }
+  };
+
+  // Sauvegarde des identifiants avec biométrie
+  const saveCredentialsWithBiometric = async () => {
+    if (biometricAvailable && values.email && values.password) {
+      try {
+        await NativeBiometric.setCredentials({
+          username: values.email,
+          password: values.password,
+          server: "com.votreapp.id",
+        });
+        console.log("Identifiants sauvegardés avec succès");
+        return true;
+      } catch (error) {
+        console.error("Erreur lors de la sauvegarde:", error);
+        setBiometricError("Erreur lors de la sauvegarde");
+        return false;
+      }
+    }
+    return false;
+  };
+
+  // Vérification de l'existence des credentials
+  const checkExistingCredentials = async () => {
+    if (biometricAvailable) {
+      try {
+        const credentials = await NativeBiometric.getCredentials({
+          server: "com.votreapp.id",
+        });
+        const hasCredentials = Boolean(credentials?.username && credentials?.password);
+        setHasCredentials(hasCredentials);
+        return hasCredentials;
+      } catch (error) {
+        setHasCredentials(false);
+        return false;
+      }
+    }
+    return false;
+  };
+
+  // Login avec Face ID
+  const loginWithFaceId = async () => {
+    if (biometricAvailable && isFaceIdActivated) {
+      try {
+        await NativeBiometric.verifyIdentity({
+          reason: "Pour vous connecter",
+          title: "Face ID",
+          subtitle: "Utilisez Face ID pour vous connecter",
+          description: "Authentification requise",
+        });
+
+        const credentials = await NativeBiometric.getCredentials({
+          server: "com.votreapp.id",
+        });
+
+        if (credentials && credentials.username && credentials.password) {
+          await handleSubmit({
+            email: credentials.username,
+            password: credentials.password,
+          });
+        }
+      } catch (error) {
+        if (error.code === "BIOMETRIC_CANCELED") {
+          setBiometricError("Authentification annulée par l'utilisateur");
+        } else {
+          setBiometricError("Échec de l'authentification");
+        }
+      }
+    }
   };
 
   const handleSubmitLogin = async (e) => {
@@ -40,21 +136,41 @@ const Login = ({ createCompte = false, redirection }) => {
       spinner: "bubbles",
       cssClass: "custom-loading-dialog",
     });
+
+    const success = await handleSubmit(values);
+    if (success && biometricAvailable && !isFaceIdActivated) {
+      // Propose d'activer Face ID après une connexion réussie
+      const shouldActivate = window.confirm("Voulez-vous activer Face ID pour vos prochaines connexions ?");
+      if (shouldActivate) {
+        await activateFaceId();
+      }
+    }
     
-    await handleSubmit(values);
     await dismiss();
   };
 
+  // Reste du code inchangé...
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  useEffect(() => {
+    const initialize = async () => {
+      await checkBiometricAvailability();
+    };
+    initialize();
+  }, []);
+
   useEffect(() => {
     if (success) {
-      savePassword();
       redirection();
     }
   }, [success]);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); // Inverse directement l'état
-  };
 
   const errors = error || {};
 
@@ -65,6 +181,32 @@ const Login = ({ createCompte = false, redirection }) => {
           Se&nbsp;connecter
         </h2>
 
+        {/* Boutons Face ID */}
+        {biometricAvailable && (
+          <>
+            {isFaceIdActivated ? (
+              <button
+                onClick={loginWithFaceId}
+                className="mb-4 bg-custom-blue text-white font-bold py-2 px-4 rounded-xl Archivo"
+              >
+                Se connecter avec Face ID
+              </button>
+            ) : (
+              <button
+                onClick={activateFaceId}
+                className="mb-4 bg-custom-blue text-white font-bold py-2 px-4 rounded-xl Archivo"
+              >
+                Activer Face ID
+              </button>
+            )}
+          </>
+        )}
+        
+        {biometricError && (
+          <div className="text-red-500 text-sm mt-1">{biometricError}</div>
+        )}
+
+        {/* Reste du formulaire inchangé... */}
         <form
           onSubmit={handleSubmitLogin}
           autocorrect="on"
@@ -94,10 +236,8 @@ const Login = ({ createCompte = false, redirection }) => {
               required
               aria-invalid={!!errors.email}
               aria-describedby="email-error"
-              autoComplete="email"
-              inputmode="password"
+              autoComplete="username"
             />
-
             {errors.email && (
               <p id="email-error" className="text-red-500 text-sm mt-1">
                 {errors.email[0]}
@@ -129,9 +269,8 @@ const Login = ({ createCompte = false, redirection }) => {
                 required
                 aria-invalid={!!errors.password}
                 aria-describedby="password-error"
-                autoComplete="current-password" 
+                autoComplete="current-password"
               />
-
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
@@ -147,7 +286,7 @@ const Login = ({ createCompte = false, redirection }) => {
             )}
           </div>
 
-          {/* Forgot Password */}
+          {/* Autres éléments du formulaire inchangés... */}
           <div className="flex items-center justify-between">
             <div
               onClick={() => setShowModalForgetPassword(true)}
@@ -157,7 +296,6 @@ const Login = ({ createCompte = false, redirection }) => {
             </div>
           </div>
 
-          {/* Submit Button */}
           <div className="pt-3 flex justify-center">
             <button
               className="bg-custom-text-orange text-white font-bold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
@@ -168,7 +306,6 @@ const Login = ({ createCompte = false, redirection }) => {
             </button>
           </div>
 
-          {/* Create Account */}
           {createCompte && (
             <div className="flex justify-center">
               <button
@@ -181,16 +318,13 @@ const Login = ({ createCompte = false, redirection }) => {
             </div>
           )}
 
-          {/* General Errors */}
           {errors.account && (
             <p className="text-red-500 text-sm mt-1">{errors.account[0]}</p>
           )}
         </form>
-
-        
       </div>
 
-      {/* Modals */}
+      {/* Modales */}
       {createCompte && (
         <CustomModal
           isOpen={showModalInscription}
