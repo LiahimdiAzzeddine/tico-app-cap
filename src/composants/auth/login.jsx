@@ -6,25 +6,23 @@ import {
   IonIcon,
   useIonLoading,
   IonCheckbox,
-  IonModal,
-  IonButton,
+  IonActionSheet,
 } from "@ionic/react";
 import CustomModal from "../modales/CustomModal";
 import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
-import { Capacitor } from "@capacitor/core";
-import { NativeBiometric } from "capacitor-native-biometric";
-import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth";  // Import the new hook
+
+import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth"; // Import the new hook
 
 const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
   const {
-    biometricAvailable, 
-    hasCredentials, 
+    biometricAvailable,
+    hasCredentials,
     biometricError,
-    loadCredentialsWithBiometric, 
-    saveCredentialsWithBiometric
-  } = useBiometricAuth();  // Use the new hook
+    loadCredentialsWithBiometric,
+    saveCredentialsWithBiometric,
+  } = useBiometricAuth(); // Use the new hook
 
   const [values, setValues] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +30,7 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
   const [present, dismiss] = useIonLoading();
   const [saveBiometric, setSaveBiometric] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showActionSheet, setShowActionSheet] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,10 +52,9 @@ const Login = ({ createCompte = false, redirection }) => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
   const handleCheckboxClick = (e) => {
     if (!saveBiometric) {
-      setShowModal(true);
+      setShowActionSheet(true);
       e.preventDefault();
     } else {
       setSaveBiometric(false);
@@ -66,19 +63,19 @@ const Login = ({ createCompte = false, redirection }) => {
 
   const acceptBiometric = () => {
     setSaveBiometric(true);
-    setShowModal(false);
+    setShowActionSheet(false);
   };
 
   const declineBiometric = () => {
     setSaveBiometric(false);
-    setShowModal(false);
+    setShowActionSheet(false);
   };
 
   useEffect(() => {
     if (success && saveBiometric) {
-      saveCredentialsWithBiometric({ 
-        username: values.email, 
-        password: values.password 
+      saveCredentialsWithBiometric({
+        username: values.email,
+        password: values.password,
       });
     }
     if (success) {
@@ -96,8 +93,8 @@ const Login = ({ createCompte = false, redirection }) => {
         </h2>
 
         {biometricError && (
-        <div className="text-red-500 text-sm mt-1">{biometricError}</div>
-      )}
+          <div className="text-red-500 text-sm mt-1">{biometricError}</div>
+        )}
         <form
           onSubmit={handleSubmitLogin}
           autocorrect="on"
@@ -206,14 +203,13 @@ const Login = ({ createCompte = false, redirection }) => {
             </button>
             {/* Bouton Face ID */}
             {biometricAvailable && hasCredentials && (
-        <button
-          onClick={() => loadCredentialsWithBiometric(handleSubmit)}
-          className="bg-custom-blue text-white font-bold text-lg py-2 px-2 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
-        >
-          <img src={FaceId} className="w-8 h-auto" />
-        </button>
-      )}
-
+              <button
+                onClick={() => loadCredentialsWithBiometric(handleSubmit)}
+                className="bg-custom-blue text-white font-bold text-lg py-2 px-2 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
+              >
+                <img src={FaceId} className="w-8 h-auto" />
+              </button>
+            )}
           </div>
 
           {/* Création de compte */}
@@ -251,24 +247,31 @@ const Login = ({ createCompte = false, redirection }) => {
       >
         <ForgotPassword />
       </CustomModal>
-      {/* Modal d'explication pour Face ID */}
-      <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
-        <div className="p-4">
-          <h3 className="text-lg font-bold mb-2">Activer Face ID</h3>
-          <p>
-            En activant cette option, vos identifiants seront enregistrés et
-            pourront être utilisés pour une connexion rapide avec Face ID.
-          </p>
-          <div className="flex justify-end mt-4 space-x-2">
-            <IonButton color="danger" onClick={declineBiometric}>
-              Refuser
-            </IonButton>
-            <IonButton color="success" onClick={acceptBiometric}>
-              Accepter
-            </IonButton>
-          </div>
-        </div>
-      </IonModal>
+      {/* IonActionSheet for Face ID confirmation */}
+      <IonActionSheet
+        mode={"ios"}
+        isOpen={showActionSheet}
+        onDidDismiss={() => setShowActionSheet(false)}
+        header="Activer Face ID"
+        subHeader=" En activant cette option, vos identifiants seront enregistrés et
+            pourront être utilisés pour une connexion rapide avec Face ID."
+        buttons={[
+          {
+            text: "Activer Face ID",
+            role: "success",
+            handler: () => {
+              acceptBiometric();
+            },
+          },
+          {
+            text: "Annuler",
+            role: "cancel",
+            handler: () => {
+              declineBiometric();
+            },
+          },
+        ]}
+      />
     </>
   );
 };

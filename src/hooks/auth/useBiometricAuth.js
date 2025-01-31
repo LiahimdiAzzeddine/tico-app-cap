@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { NativeBiometric } from 'capacitor-native-biometric';
 
-const SERVER_ID = 'com.votreappazz.id';
+const SERVER_ID = 'com.TiCO.id';
 
 export const useBiometricAuth = () => {
   const [biometricAvailable, setBiometricAvailable] = useState(false);
@@ -79,7 +79,20 @@ export const useBiometricAuth = () => {
       setHasCredentials(false);
     }
   };
-
+  const deleteCredentialsWithBiometric = async () => {
+    try {
+      await NativeBiometric.deleteCredentials({
+        server: SERVER_ID,
+      });
+      
+      console.log('Identifiants supprimés avec succès');
+      setHasCredentials(false);
+      setBiometricError(''); // Effacer toute erreur précédente
+    } catch (error) {
+      console.error('Erreur lors de la suppression des identifiants:', error);
+      setBiometricError('Impossible de supprimer les identifiants');
+    }
+  };
   useEffect(() => {
     checkBiometricAvailability();
   }, []);
@@ -91,6 +104,7 @@ export const useBiometricAuth = () => {
     checkBiometricAvailability,
     loadCredentialsWithBiometric,
     saveCredentialsWithBiometric,
+    deleteCredentialsWithBiometric,
     checkExistingCredentials,
   };
 };
