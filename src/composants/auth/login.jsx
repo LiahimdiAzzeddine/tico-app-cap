@@ -2,12 +2,19 @@ import React, { useState, useEffect } from "react";
 import useLogin from "../../hooks/auth/useLogin";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
 import FaceId from "../../assets/auth/face-id.svg";
-import { IonIcon, useIonLoading, IonCheckbox, IonModal, IonButton } from "@ionic/react";
+import {
+  IonIcon,
+  useIonLoading,
+  IonCheckbox,
+  IonModal,
+  IonButton,
+} from "@ionic/react";
 import CustomModal from "../modales/CustomModal";
 import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
 import { Capacitor } from "@capacitor/core";
 import { NativeBiometric } from "capacitor-native-biometric";
+import useBiometricAuth from "../../hooks/auth/useBiometricAuth";
 
 const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
@@ -16,77 +23,18 @@ const Login = ({ createCompte = false, redirection }) => {
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
   const [present, dismiss] = useIonLoading();
-  const [biometricAvailable, setBiometricAvailable] = useState(false);
-  const [biometricError, setBiometricError] = useState("");
-  const [hasCredentials, setHasCredentials] = useState(false);
-  const [saveBiometric, setSaveBiometric] = useState(false);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
 
-  // Vérification de la disponibilité de Face ID
-  const checkBiometricAvailability = async () => {
-    try {
-      const { isAvailable } = await NativeBiometric.isAvailable();
-      setBiometricAvailable(isAvailable);
-      if (isAvailable) {
-        loadCredentialsWithBiometric();
-      }
-    } catch (error) {
-      setBiometricError("Erreur lors de la vérification biométrique:" + error);
-    }
-  };
+  const {
+    biometricAvailable,
+    biometricError,
+    hasCredentials,
+    saveBiometric,
+    setSaveBiometric,
+    loadCredentialsWithBiometric,
+    saveCredentialsWithBiometric,
+  } = useBiometricAuth(handleSubmit);
 
-  // Sauvegarde des identifiants avec biométrie
-  const saveCredentialsWithBiometric = async () => {
-    if (biometricAvailable && saveBiometric) {
-      try {
-        // Vérifie que nous avons des valeurs à sauvegarder
-        if (!values.email || !values.password) {
-          setBiometricError("Pas d'identifiants à sauvegarder");
-          return;
-        }
-
-        await NativeBiometric.setCredentials({
-          username: values.email,
-          password: values.password,
-          server: "com.votreappazz.id",
-        });
-
-        console.log("Identifiants sauvegardés avec succès");
-      } catch (error) {
-        console.error("Erreur lors de la sauvegarde:", error);
-        setBiometricError("Erreur lors de la sauvegarde");
-
-        // Gestion spécifique des erreurs
-        if (error.code === "BIOMETRIC_SAVE_FAILED") {
-          console.log("Échec de la sauvegarde des identifiants");
-          setBiometricError("Échec de la sauvegarde des identifiants");
-        }
-      }
-    }
-  };
-
-  // Chargement des identifiants avec Face ID
-
-  const loadCredentialsWithBiometric = async () => {
-    if (biometricAvailable) {
-      try {
-        await NativeBiometric.verifyIdentity({
-          reason: "Connexion via Face ID",
-          title: "Authentification requise",
-          subtitle: "Utilisez Face ID pour vous connecter",
-          description: "Placez votre visage devant l'appareil",
-        });
-
-        const credentials = await NativeBiometric.getCredentials({ server: "com.votreappazz.id" });
-
-        if (credentials.username && credentials.password) {
-          await handleSubmit({ email: credentials.username, password: credentials.password });
-        }
-      } catch (error) {
-        setBiometricError("Erreur lors de l'authentification: " + error.message);
-      }
-    }
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -109,28 +57,8 @@ const Login = ({ createCompte = false, redirection }) => {
     setShowPassword(!showPassword);
   };
 
-  // Ajoutez une fonction pour vérifier l'existence des credentials
 
-    // Vérifier si des credentials sont enregistrés
-    const checkExistingCredentials = async () => {
-      try {
-        const credentials = await NativeBiometric.getCredentials({ server: "com.votreappazz.id" });
-        setHasCredentials(!!credentials.username && !!credentials.password);
-      } catch {
-        setHasCredentials(false);
-        setBiometricError("Pas de credentials enregistrés");
-      }
-    };
-
-  // Modifiez le useEffect initial pour inclure la vérification des credentials
-  useEffect(() => {
-    const initialize = async () => {
-      await checkBiometricAvailability();
-      await checkExistingCredentials();
-    };
-
-    initialize();
-  }, []);
+  
 
   // Sauvegarde des identifiants après connexion réussie
   useEffect(() => {
@@ -173,10 +101,6 @@ const Login = ({ createCompte = false, redirection }) => {
         {biometricError && (
           <div className="text-red-500 text-sm mt-1">{biometricError}</div>
         )}
-        <h1>
-        <h1>hasCredentials: {hasCredentials ? "Oui" : "Non"}</h1>
-        </h1>
-        
         <form
           onSubmit={handleSubmitLogin}
           autocorrect="on"
@@ -264,10 +188,13 @@ const Login = ({ createCompte = false, redirection }) => {
             >
               Mot de passe oublié ?
             </div>
-            {(biometricAvailable && !hasCredentials) &&(
-                 <IonCheckbox checked={saveBiometric} onClick={handleCheckboxClick}>
-            Activer Face ID
-          </IonCheckbox>
+            {biometricAvailable && !hasCredentials && (
+              <IonCheckbox
+                checked={saveBiometric}
+                onClick={handleCheckboxClick}
+              >
+                Activer Face ID
+              </IonCheckbox>
             )}
           </div>
 
@@ -281,7 +208,7 @@ const Login = ({ createCompte = false, redirection }) => {
               Se&nbsp;connecter
             </button>
             {/* Bouton Face ID */}
-            {(biometricAvailable && hasCredentials) && (
+            {biometricAvailable && hasCredentials && (
               <button
                 onClick={loadCredentialsWithBiometric}
                 className="bg-custom-blue text-white font-bold text-lg py-2 px-2 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
@@ -326,14 +253,21 @@ const Login = ({ createCompte = false, redirection }) => {
       >
         <ForgotPassword />
       </CustomModal>
-        {/* Modal d'explication pour Face ID */}
+      {/* Modal d'explication pour Face ID */}
       <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
         <div className="p-4">
           <h3 className="text-lg font-bold mb-2">Activer Face ID</h3>
-          <p>En activant cette option, vos identifiants seront enregistrés et pourront être utilisés pour une connexion rapide avec Face ID.</p>
+          <p>
+            En activant cette option, vos identifiants seront enregistrés et
+            pourront être utilisés pour une connexion rapide avec Face ID.
+          </p>
           <div className="flex justify-end mt-4 space-x-2">
-            <IonButton color="danger" onClick={declineBiometric}>Refuser</IonButton>
-            <IonButton color="success" onClick={acceptBiometric}>Accepter</IonButton>
+            <IonButton color="danger" onClick={declineBiometric}>
+              Refuser
+            </IonButton>
+            <IonButton color="success" onClick={acceptBiometric}>
+              Accepter
+            </IonButton>
           </div>
         </div>
       </IonModal>
