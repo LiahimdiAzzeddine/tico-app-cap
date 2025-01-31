@@ -67,7 +67,7 @@ const Login = ({ createCompte = false, redirection }) => {
         await NativeBiometric.setCredentials({
           username: values.email,
           password: values.password,
-          server: "com.votreapp.id",
+          server: "com.votreappaz.id",
         });
         console.log("Identifiants sauvegardés avec succès");
         return true;
@@ -85,7 +85,7 @@ const Login = ({ createCompte = false, redirection }) => {
     if (biometricAvailable) {
       try {
         const credentials = await NativeBiometric.getCredentials({
-          server: "com.votreapp.id",
+          server: "com.votreappaz.id",
         });
         const hasCredentials = Boolean(credentials?.username && credentials?.password);
         setHasCredentials(hasCredentials);
@@ -110,7 +110,7 @@ const Login = ({ createCompte = false, redirection }) => {
         });
 
         const credentials = await NativeBiometric.getCredentials({
-          server: "com.votreapp.id",
+          server: "com.votreappaz.id",
         });
 
         if (credentials && credentials.username && credentials.password) {
