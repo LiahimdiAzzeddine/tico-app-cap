@@ -250,6 +250,18 @@ ion-chip:hover {
   position: relative;
   display: inline-block;
 }
+ion-checkbox {
+  --size: 20px;
+  --checkbox-background-checked: #ff8200;
+  color: #ff8200;
+  font-family: 'Archivo';
+  
+}
+
+ion-checkbox::part(container) {
+  border-radius: 6px;
+  border: 2px solid #ff8200;
+}
 
 .marker-effect-orange::before {
   content: '';
