@@ -1,36 +1,32 @@
 import React, { useState, useEffect } from "react";
 import useLogin from "../../hooks/auth/useLogin";
 import { eyeOffOutline, eyeOutline } from "ionicons/icons";
-import FaceId from "../../assets/auth/face-id.svg";
-import {
-  IonIcon,
-  useIonLoading,
-  IonCheckbox,
-  IonActionSheet,
-} from "@ionic/react";
+import { IonIcon, useIonLoading } from "@ionic/react";
 import CustomModal from "../modales/CustomModal";
 import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
-
-import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth"; // Import the new hook
+import { Capacitor } from '@capacitor/core';
+import { SavePassword } from 'capacitor-ios-autofill-save-password';
 
 const Login = ({ createCompte = false, redirection }) => {
   const { handleSubmit, loading, error, success } = useLogin();
-  const {
-    biometricAvailable,
-    hasCredentials,
-    biometricError,
-    loadCredentialsWithBiometric,
-    saveCredentialsWithBiometric,
-  } = useBiometricAuth(); // Use the new hook
-
   const [values, setValues] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
-  const [present, dismiss] = useIonLoading();
-  const [saveBiometric, setSaveBiometric] = useState(false);
-  const [showActionSheet, setShowActionSheet] = useState(false);
+    const [present, dismiss] = useIonLoading();
+  
+  const savePassword = async () => {
+    if (Capacitor.getPlatform() === 'ios') {
+      SavePassword.promptDialog({
+        username: values.email,
+        password: values.password,
+      })
+      .then(() => console.log('promptDialog success'))
+      .catch((err) => console.error('promptDialog failure', err));
+  }
+   
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,44 +40,21 @@ const Login = ({ createCompte = false, redirection }) => {
       spinner: "bubbles",
       cssClass: "custom-loading-dialog",
     });
-
+    
     await handleSubmit(values);
     await dismiss();
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-  const handleCheckboxClick = (e) => {
-    if (!saveBiometric) {
-      setShowActionSheet(true);
-      e.preventDefault();
-    } else {
-      setSaveBiometric(false);
-    }
-  };
-
-  const acceptBiometric = () => {
-    setSaveBiometric(true);
-    setShowActionSheet(false);
-  };
-
-  const declineBiometric = () => {
-    setSaveBiometric(false);
-    setShowActionSheet(false);
-  };
-
   useEffect(() => {
-    if (success && saveBiometric) {
-      saveCredentialsWithBiometric({
-        username: values.email,
-        password: values.password,
-      });
-    }
     if (success) {
+      savePassword();
       redirection();
     }
   }, [success]);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword); // Inverse directement l'état
+  };
 
   const errors = error || {};
 
@@ -92,9 +65,6 @@ const Login = ({ createCompte = false, redirection }) => {
           Se&nbsp;connecter
         </h2>
 
-        {biometricError && (
-          <div className="text-red-500 text-sm mt-1">{biometricError}</div>
-        )}
         <form
           onSubmit={handleSubmitLogin}
           autocorrect="on"
@@ -124,8 +94,10 @@ const Login = ({ createCompte = false, redirection }) => {
               required
               aria-invalid={!!errors.email}
               aria-describedby="email-error"
-              autoComplete="username"
+              autoComplete="email"
+              inputmode="password"
             />
+
             {errors.email && (
               <p id="email-error" className="text-red-500 text-sm mt-1">
                 {errors.email[0]}
@@ -157,8 +129,9 @@ const Login = ({ createCompte = false, redirection }) => {
                 required
                 aria-invalid={!!errors.password}
                 aria-describedby="password-error"
-                autoComplete="current-password"
+                autoComplete="current-password" 
               />
+
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
@@ -174,7 +147,7 @@ const Login = ({ createCompte = false, redirection }) => {
             )}
           </div>
 
-          {/* Mot de passe oublié */}
+          {/* Forgot Password */}
           <div className="flex items-center justify-between">
             <div
               onClick={() => setShowModalForgetPassword(true)}
@@ -182,18 +155,10 @@ const Login = ({ createCompte = false, redirection }) => {
             >
               Mot de passe oublié ?
             </div>
-            {biometricAvailable && !hasCredentials && (
-              <IonCheckbox
-                checked={saveBiometric}
-                onClick={handleCheckboxClick}
-              >
-                Activer Face ID
-              </IonCheckbox>
-            )}
           </div>
 
-          {/* Bouton Se connecter */}
-          <div className="pt-3 flex justify-center flex-row gap-3">
+          {/* Submit Button */}
+          <div className="pt-3 flex justify-center">
             <button
               className="bg-custom-text-orange text-white font-bold text-lg py-2 px-6 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
               disabled={loading}
@@ -201,18 +166,9 @@ const Login = ({ createCompte = false, redirection }) => {
             >
               Se&nbsp;connecter
             </button>
-            {/* Bouton Face ID */}
-            {biometricAvailable && hasCredentials && (
-              <button
-                onClick={() => loadCredentialsWithBiometric(handleSubmit)}
-                className="bg-custom-blue text-white font-bold text-lg py-2 px-2 rounded-xl transform transition-transform duration-150 ease-in-out active:scale-90 Archivo"
-              >
-                <img src={FaceId} className="w-8 h-auto" />
-              </button>
-            )}
           </div>
 
-          {/* Création de compte */}
+          {/* Create Account */}
           {createCompte && (
             <div className="flex justify-center">
               <button
@@ -225,14 +181,16 @@ const Login = ({ createCompte = false, redirection }) => {
             </div>
           )}
 
-          {/* Message d'erreur général */}
+          {/* General Errors */}
           {errors.account && (
             <p className="text-red-500 text-sm mt-1">{errors.account[0]}</p>
           )}
         </form>
+
+        
       </div>
 
-      {/* Modales */}
+      {/* Modals */}
       {createCompte && (
         <CustomModal
           isOpen={showModalInscription}
@@ -247,31 +205,6 @@ const Login = ({ createCompte = false, redirection }) => {
       >
         <ForgotPassword />
       </CustomModal>
-      {/* IonActionSheet for Face ID confirmation */}
-      <IonActionSheet
-        mode={"ios"}
-        isOpen={showActionSheet}
-        onDidDismiss={() => setShowActionSheet(false)}
-        header="Activer Face ID"
-        subHeader=" En activant cette option, vos identifiants seront enregistrés et
-            pourront être utilisés pour une connexion rapide avec Face ID."
-        buttons={[
-          {
-            text: "Activer Face ID",
-            role: "success",
-            handler: () => {
-              acceptBiometric();
-            },
-          },
-          {
-            text: "Annuler",
-            role: "cancel",
-            handler: () => {
-              declineBiometric();
-            },
-          },
-        ]}
-      />
     </>
   );
 };

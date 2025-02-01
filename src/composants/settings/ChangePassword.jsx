@@ -5,7 +5,7 @@ import { eyeOffOutline, eyeOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 import { useToast } from "../../context/ToastContext";
 import useChangePassword from "../../hooks/auth/useChangePassword";
-import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth";
+//import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth";
 
 const ChangePassword = ({ Close = null }) => {
   const location = useLocation();
@@ -24,6 +24,7 @@ const ChangePassword = ({ Close = null }) => {
     new: false,
     confirm: false,
   });
+  /*
   const {
       biometricAvailable,
       hasCredentials,
@@ -44,7 +45,7 @@ const ChangePassword = ({ Close = null }) => {
         true
       );
     }
-  };
+  };*/
   useEffect(() => {
     // Extraire les paramètres de l'URL
     const params = new URLSearchParams(location.search);
@@ -73,17 +74,15 @@ const ChangePassword = ({ Close = null }) => {
       token
     );
     if (onClose) {
-      if(hasCredentials){
-        confirmDeleteCredentials()
-      }
       Close(false);
     }
   };
   useEffect(() => {
     if (onClose) {
+      /*
       if(hasCredentials){
         confirmDeleteCredentials()
-      }
+      }*/
       Close(false);
     }
   }, [onClose]);
