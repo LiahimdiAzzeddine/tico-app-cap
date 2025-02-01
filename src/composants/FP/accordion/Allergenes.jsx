@@ -58,7 +58,8 @@ const Allergenes = ({ allergenes = [] }) => {
       <div className="mt-4 grid grid-cols-3 gap-x-4 gap-y-6 items-start">
         {allergenes.length > 0 ? (
           allergenes.map((allergene, index) => (
-            <div key={index} className="flex flex-col items-start max-w-12">
+          
+            <div key={index} className="flex flex-col items-center w-full">
               {allergenesImg[allergene] ? (
                 <img
                   src={allergenesImg[allergene]}
@@ -66,17 +67,18 @@ const Allergenes = ({ allergenes = [] }) => {
                   className="max-w-12 max-h-12 m-auto"
                 />
               ) : (
-                <div className="w-12 h-12  flex items-center justify-center bg-gray-200 rounded-full ">
+                <div className="w-14 h-14  flex items-center justify-center bg-gray-200 rounded-full ">
                   <span className=" text-gray-500 text-sm">N/A</span>
                 </div>
               )}
               <span className="text-sm text-custom-blue mt-1 ArchivoBold m-auto">
                 {allergene
                   ? allergenesEngToFr[allergene]
-                  : "Inconnu"}
+                  : <>Incertain</>}
               </span>
             </div>
           ))
+          
         ) : (
           <div className="text-gray-500 ArchivoBold text-sm">
             Aucun allergène disponible.
