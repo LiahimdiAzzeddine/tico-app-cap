@@ -151,7 +151,7 @@ const InfoSection = ({
                 <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo min-h-12">
                   <span className="text-[0.6rem] text-custom-blue ArchivoLight tracking-normal leading-archivo">
                     Ne contient pas d’additifs<br></br>
-                    (À confirmer par la maque)
+                    (À confirmer par la marque)
                   </span>
                 </div>
                 <div>
