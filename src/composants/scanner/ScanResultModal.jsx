@@ -19,6 +19,7 @@ import ModalHeader from "../modales/ModalHeader";
 import { createProduct } from "../../utils/product";
 import LoadingFbState from "./UI/LoadingFbState";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import { GlobalProvider } from "../FP/GlobalProvider";
 
 const ScanResultModal = ({
   scannedResult,
@@ -29,6 +30,8 @@ const ScanResultModal = ({
   const [isAnimating, setIsAnimating] = useState(false);
   const [modalBreakpoint, setModalBreakpoint] = useState(0.3);
   const isAuthenticated = useIsAuthenticated();
+  const [scrolled, setScrolled] = useState(false);
+  
   const {
     productData,
     loading,
@@ -103,7 +106,11 @@ const ScanResultModal = ({
     setError(null);
   };
 
+  function handleScrollEnd() {
+    setScrolled(true);
+  }
   return (
+    <GlobalProvider>
     <IonModal
       isOpen={modalisOpen}
       onClose={handleDismiss}
@@ -140,7 +147,9 @@ const ScanResultModal = ({
       }
 
     
-      <IonContent className="ion-padding-bottom">
+      <IonContent className="ion-padding-bottom" 
+      scrollEvents={true}
+    onIonScrollEnd={handleScrollEnd} >
         <>
           {isConnected ? (
             <>
@@ -163,6 +172,7 @@ const ScanResultModal = ({
               ) : productData ? (
                 <FicheProduit
                   productData={product}
+                  scrolled={scrolled}
                   resetBarcode={handleDismiss}
                 />
               ) : (
@@ -197,6 +207,7 @@ const ScanResultModal = ({
         </>
       </IonContent>
     </IonModal>
+    </GlobalProvider>
   );
 };
 

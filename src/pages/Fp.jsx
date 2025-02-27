@@ -10,10 +10,12 @@ import { useToast } from "../context/ToastContext";
 import { ErrorMessage } from "../composants/scanner/UI/ErrorMessage";
 import LoadingFbState from "../composants/scanner/UI/LoadingFbState";
 import { createProduct } from "../utils/product";
+import { GlobalProvider } from "../composants/FP/GlobalProvider";
 
 const Fp = () => {
   const { gtin } = useParams(); // Récupérer le GTIN depuis l'URL
   const [product, setProduct] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
   const { productData, loading, error, fetchProduct, setProductData, setError } =
     useGetProduct(gtin);
   const { isConnected } = useNetwork();
@@ -64,8 +66,15 @@ const Fp = () => {
     }
   };
 
+
+  function handleScrollEnd() {
+    setScrolled(true);
+  }
   return (
-    <IonContent className="ion-padding-bottom">
+    <IonContent className="ion-padding-bottom"
+    scrollEvents={true}
+    onIonScrollEnd={handleScrollEnd}
+    >
       {loading ? (
         <LoadingFbState />
       ) : error ? (
@@ -81,7 +90,9 @@ const Fp = () => {
           />
         )
       ) : productData ? (
-        <FicheProduit productData={product} />
+        <GlobalProvider>
+        <FicheProduit productData={product} scrolled={scrolled}/>
+        </GlobalProvider>
       ) : (
         <>
           {isConnected ? (

@@ -45,7 +45,7 @@ function Recettes({ recettes, targetRefRecettes }) {
       {recettes ? <div className="pt-6"></div> : ""}
 
       {recettes.map((item, index) => (
-        <div className="flex flex-col w-full space-y-4 pb-2">
+        <div className="flex flex-col w-full space-y-4 pb-2" key={index}>
           <div
             key={item.id}
             className="relative bg-[#ecf8f8] rounded-e-full pl-3 pr-6 py-6 flex items-center"

@@ -1,4 +1,4 @@
-import { IonPage, IonContent, IonButton } from "@ionic/react";
+import { IonPage, IonContent, IonButton, useIonLoading } from "@ionic/react";
 import React, { useState,useEffect } from "react";
 import { useIonRouter } from "@ionic/react";
 
@@ -18,6 +18,8 @@ import CGUConfidentialite from "../composants/settings/CGUConfidentialite";
 
 const Settings = () => {
   const { triggerToast } = useToast();
+    const [present, dismiss] = useIonLoading();
+  
   const history = useIonRouter();
   const [showModalFAQ, setShowModalFAQ] = useState(false);
   const [showModalContact, setShowModalContact] = useState(false);
@@ -32,6 +34,11 @@ const Settings = () => {
     history.push(path, "root", "replace");
   };
   const handleLogout = async () => {
+    await present({
+      mode: "ios",
+      spinner: "bubbles",
+      cssClass: "custom-loading-dialog",
+    });
     const result = await logout();
     if (result.success) {
       triggerToast("Déconnexion réussie.", "success");
@@ -42,6 +49,7 @@ const Settings = () => {
         "error"
       );
     }
+    await dismiss();
   };
 
   return (

@@ -4,11 +4,13 @@ import Recettes from "../../assets/fb/recettes.svg"; // Correction de la casse
 import BubbleImg from "../../assets/fb/BubbleImg.svg";
 import { Share } from "@capacitor/share";
 import { ContactModal } from "./Modal";
+import { useGlobalContext } from "./GlobalProvider";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 function Sections({scrollToTarget, targetRefRecettes,gtin,productName}) {
   const [isOpen, setIsOpen] = useState(false);
+  const { setHasRequested,hasRequested  } = useGlobalContext();
 
   // Fonction de partage
   const handleShare = async () => {
@@ -45,7 +47,7 @@ function Sections({scrollToTarget, targetRefRecettes,gtin,productName}) {
               className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95"
               onClick={() => setIsOpen(true)}
             >
-              <img src={BubbleImg} className="h-12" alt="BubbleImg" />
+              <img src={BubbleImg} className={`h-12 cursor-pointer transition-all duration-300 transform ${!hasRequested ? 'animate-pulse' : ''} scale-105 active:scale-110 alt="BubbleImg`} />
             </div>
           </div>
         </div>

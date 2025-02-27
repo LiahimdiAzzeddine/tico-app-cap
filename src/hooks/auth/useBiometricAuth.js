@@ -86,19 +86,22 @@ const [present, dismiss] = useIonLoading();
     }
   };
   const deleteCredentialsWithBiometric = async () => {
-    try {
-      await NativeBiometric.deleteCredentials({
-        server: SERVER_ID,
-      });
-      
-      console.log('Identifiants supprimés avec succès');
-      setHasCredentials(false);
-      setBiometricError(''); // Effacer toute erreur précédente
-    } catch (error) {
-      console.error('Erreur lors de la suppression des identifiants:', error);
-      setBiometricError('Impossible de supprimer les identifiants');
+    if (biometricAvailable && hasCredentials) {
+      try {
+        await NativeBiometric.deleteCredentials({ server: SERVER_ID });
+        setHasCredentials(false);
+        setBiometricError('');
+        return 'Vos credentials biométriques ont été supprimés avec succès';
+      } catch (error) {
+        console.error('Erreur lors de la suppression des identifiants:', error);
+        setBiometricError('Impossible de supprimer les identifiants');
+        throw new Error('Erreur lors de la suppression des credentials'); // Lancer une erreur pour être captée dans l'interface
+      }
+    } else {
+      return 'Aucun identifiant à supprimer';
     }
   };
+  
   useEffect(() => {
     checkBiometricAvailability();
   }, []);

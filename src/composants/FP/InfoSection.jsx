@@ -13,6 +13,7 @@ import Nutri_score_E from "../../assets/fb/score/Nutri-score-E.png";
 import Sections from "./Sections";
 import { useIonRouter } from "@ionic/react";
 import { useAlert } from "../../context/AlertProvider";
+import { useGlobalContext } from "./GlobalProvider";
 
 const InfoSection = ({
   product,
@@ -23,7 +24,8 @@ const InfoSection = ({
   targetRefRecettes,
   targetRefAdditifs,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+    const { setHasRequested,hasRequested,setIsCourager  } = useGlobalContext();
+  
   const [isOpenadd, setIsOpenadd] = useState(false);
   const [isOpenNutrition, setIsOpenNutrition] = useState(false);
   const isAuthenticated = useIsAuthenticated();
@@ -60,7 +62,7 @@ const InfoSection = ({
         "Se connecter"
       );
     } else {
-      setIsOpen(true);
+      setIsCourager(true);
     }
   };
 
@@ -239,13 +241,7 @@ const InfoSection = ({
             </div>
           </div>
         </div>
-        <Solliciter
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          gtin={product?.gtin}
-          productName={product?.name}
-          authUser={authUser}
-        />
+     
         <ContactAdditif
           isOpen={isOpenadd}
           setIsOpen={setIsOpenadd}
@@ -268,6 +264,8 @@ const InfoSection = ({
           targetRefRecettes={targetRefRecettes}
           gtin={product?.gtin}
           productName={product?.name}
+          hasRequested={hasRequested} 
+          setHasRequested={setHasRequested}
         />
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "../../api/axios";
 import { useToast } from "../../context/ToastContext"; 
+import { useGlobalContext } from "../../composants/FP/GlobalProvider";
 
 const TRANSPARENCY_REQUESTS_URL = "/api/transparency-requests/store";
 
@@ -9,6 +10,8 @@ const useTransparencyRequests = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [sended, setSended] = useState(false);
+  const { setHasRequested,hasRequested  } = useGlobalContext();
+    
 
   const handleSubmit = async (formValues) => {
     setLoading(true);
@@ -19,7 +22,8 @@ const useTransparencyRequests = () => {
       const response = await axios.post(TRANSPARENCY_REQUESTS_URL, formValues);
       // Succès : Ajoute des détails si nécessaire
       triggerToast("Demande envoyée avec succès !", "success");
-      setSended(true); // Marque la demande comme envoyée
+      setSended(true);
+      setHasRequested(true)
     } catch (err) {
       const errors = "Erreur inconnue.";
       setError(errors); // Met à jour l'état des erreurs

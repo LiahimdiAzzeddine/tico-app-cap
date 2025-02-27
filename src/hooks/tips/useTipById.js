@@ -16,7 +16,6 @@ const useTipById = (id) => {
       try {
         // Appel à l'API pour récupérer le conseil par ID
         const response = await axios.get(`/api/tips/${id}`);
-        console.log("🚀 ~ fetchTipById ~ response.data:", response.data)
         setTip(response.data);
       } catch (err) {
         setError(err.message || "An error occurred");

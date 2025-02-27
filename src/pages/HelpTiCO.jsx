@@ -19,7 +19,7 @@ const HelpTiCO = () => {
   };
  
   const OpenSite = () => {
-    const url = "https://www.foodhea.com";
+    const url = "https://www.onparticipe.fr/c/tico_scan";
     window.open(url, "_blank");
   };
   
@@ -70,7 +70,8 @@ const HelpTiCO = () => {
 
             <div className="max-w-sm flex flex-col items-center justify-start space-y-7 w-full">
               <div className=" text-custom-blue  w-full text-center ArchivoLight leading-archivo tracking-normal">
-              En découvrir plus sur le projet et comment<br></br> <span className="ArchivoBold">apporter votre soutien</span> 
+              Nous avons besoin d’aide pour financer<br></br> la première campagne de communication. <br></br>
+              <span className="ArchivoBold">Chaque contribution compte</span> pour bâtir<br></br> un futur plus clair et responsable
                
               </div>
               <div className="relative flex flex-col items-center justify-center w-2/4">
@@ -85,7 +86,7 @@ const HelpTiCO = () => {
                   }}
                  
                 >
-                      <span className="ArchivoBold">En&nbsp;savoir&nbsp;plus</span>
+                      <span className="ArchivoBold">Faire&nbsp;un&nbsp;don</span>
                 </button>
               </div>
               

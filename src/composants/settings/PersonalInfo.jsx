@@ -4,15 +4,15 @@ import useGetProfile from "../../hooks/users/useGetProfile";
 import CustomModal from "../modales/CustomModal";
 import ChangePassword from "./ChangePassword";
 import deleteUserAccount from "../../hooks/users/deleteUserAccount";
-import FaceId from "../../assets/auth/face-id-icon.png";
+import FaceId from "../../assets/auth/face-id-icon.svg";
 
 import {
   useIonLoading,
   useIonRouter,
   IonActionSheet, // Import IonActionSheet
 } from "@ionic/react";
-import { IonList, IonItem, IonLabel, IonIcon } from "@ionic/react";
-import { lockClosed, trashBin, personRemove } from "ionicons/icons";
+import { IonItem, IonLabel, IonIcon } from "@ionic/react";
+import { lockClosed, trashBin } from "ionicons/icons";
 import { useAlert } from "../../context/AlertProvider";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth";
@@ -95,20 +95,14 @@ const PersonalInfo = () => {
   // Function to confirm and delete biometric credentials
   const confirmDeleteCredentials = async () => {
     try {
-      await deleteCredentialsWithBiometric();
-      triggerAlert(
-        "Vos credentials biométriques ont été supprimés avec succès",
-        "Succès",
-        null,
-        "ios",
-        "",
-        "Ok",
-        true
-      );
-      setShowActionSheet(false); // Close the action sheet after successful deletion
+      const message = await deleteCredentialsWithBiometric();
+
+      triggerAlert(message, "Succès", null, "ios", "", "Ok", true);
+
+      setShowActionSheet(false);
     } catch (error) {
       triggerAlert(
-        "Erreur lors de la suppression des credentials",
+        error.message || "Erreur lors de la suppression des credentials",
         "Erreur",
         null,
         "ios",
@@ -118,6 +112,7 @@ const PersonalInfo = () => {
       );
     }
   };
+
   // Function to handle account deletion
   const handleAccountDeletion = async () => {
     // Display loading spinner
@@ -130,7 +125,6 @@ const PersonalInfo = () => {
 
     // Call the deleteAccount function
     const result = await deleteAccount();
-    console.log("🚀 ~ handleAccountDeletion ~ result:", result);
 
     // Hide loading spinner
     dismiss();
@@ -215,14 +209,19 @@ const PersonalInfo = () => {
             </p>
           </div>
 
-          <IonList>
+          <div className="pt-6">
             {/* Change Password Item */}
             <IonItem
               button
               onClick={() => setShowModalPass(true)}
               disabled={!isOnline}
+              className="ionitems"
             >
-              <IonIcon slot="start" icon={lockClosed} />
+              <IonIcon
+                slot="start"
+                className="ionitemsIcon"
+                icon={lockClosed}
+              />
               <IonLabel>
                 Changer mon mot de passe
                 {!isOnline && (
@@ -238,8 +237,9 @@ const PersonalInfo = () => {
               button
               onClick={() => setShowModalDelete(true)}
               disabled={!isOnline}
+              className="ionitems"
             >
-              <IonIcon slot="start" icon={trashBin} />
+              <IonIcon className="ionitemsIcon" slot="start" icon={trashBin} />
               <IonLabel>Supprimer mon compte</IonLabel>
             </IonItem>
             {hasCredentials && (
@@ -247,6 +247,7 @@ const PersonalInfo = () => {
                 button
                 onClick={() => setShowActionSheet(true)}
                 disabled={!isOnline}
+                className="ionitems"
               >
                 <img
                   src={FaceId}
@@ -256,23 +257,7 @@ const PersonalInfo = () => {
                 <IonLabel>Supprimer les credentials biométriques</IonLabel>
               </IonItem>
             )}
-
-            {/* Action Sheet for additional options */}
-            <IonActionSheet
-              isOpen={showActionSheet}
-              buttons={[
-                {
-                  text: "Option 1",
-                  handler: () => console.log("Option 1 selected"),
-                },
-                {
-                  text: "Option 2",
-                  handler: () => console.log("Option 2 selected"),
-                },
-              ]}
-              onDidDismiss={() => setShowActionSheet(false)}
-            />
-          </IonList>
+          </div>
         </div>
       </div>
 
@@ -318,7 +303,7 @@ const PersonalInfo = () => {
         mode={"ios"}
         onDidDismiss={() => setShowActionSheet(false)}
         header="Supprimer les credentials biométriques"
-        subHeader="Cette action supprimera vos credentials biométriques de manière irréversible."
+        subHeader="Cette action supprimera vos credentials biométriques de manière irréversible dans l'appli."
         buttons={[
           {
             text: "Supprimer",

@@ -14,6 +14,7 @@ import { useAlert } from "../../context/AlertProvider";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useIonRouter } from "@ionic/react";
+import { useGlobalContext } from "./GlobalProvider";
 
 // Composants pour chaque contenu de panneau
 const ProductDetailsAccordion = ({
@@ -24,7 +25,8 @@ const ProductDetailsAccordion = ({
   targetRefAdditifs,
   scrollToTarget,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { setHasRequested,hasRequested,setIsCourager  } = useGlobalContext();
+
   const { triggerAlert } = useAlert();
   const isAuthenticated = useIsAuthenticated();
   const authUser = useAuthUser();
@@ -44,7 +46,7 @@ const ProductDetailsAccordion = ({
         "Se connecter"
       );
     } else {
-      setIsOpen(true);
+      setIsCourager(true);
     }
   };
 
@@ -127,7 +129,7 @@ const ProductDetailsAccordion = ({
                     src={BubbleImg}
                     onClick={() => OpenContactSolliciter()}
                     alt="Bubble"
-                    className="absolute top-1/2 left-3/4 transform -translate-x-1/4 translate-y-[-50%] w-20"
+                    className={`absolute top-1/2 left-3/4 transform -translate-x-1/4 translate-y-[-50%] w-20 ${!hasRequested ? 'animate-pulse' : ''} scale-100 active:scale-105`}
                   />
                 )}
               </div>
@@ -154,13 +156,7 @@ const ProductDetailsAccordion = ({
           );
         })}
       </div>
-      <Solliciter
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        gtin={product?.gtin}
-        productName={product?.name}
-        authUser={authUser}
-      />
+     
     </>
   );
 };

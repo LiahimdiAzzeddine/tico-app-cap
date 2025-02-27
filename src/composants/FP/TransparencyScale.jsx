@@ -71,10 +71,12 @@ const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
       </div>
       <div className="flex flex-col items-end mt-1">
         <Link 
+        to={"#"}
         onClick={() => {
           setShowModalTransparency(true);
         }}
           className="text-[#6dc3bc] underline underline-offset-1 text-[0.6rem] ArchivoItalic"
+          
         >
           En savoir plus sur notre échelle de transparence
         </Link>

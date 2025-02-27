@@ -16,6 +16,7 @@ import useGetProductLater from "../hooks/product/useGetProductLater";
 import { createProduct } from "../utils/product";
 import SimpleLyout from "../composants/layout/SimpleLyout";
 import VF from "../assets/history/vf.svg";
+import { GlobalProvider } from "../composants/FP/GlobalProvider";
 
 const LaterProducts = () => {
   const [products, setProducts] = useState([]);
@@ -190,10 +191,12 @@ const LaterProducts = () => {
         <ModalHeader image={"fb"} onClose={handleModalClose} />
         <IonContent className="ion-padding-bottom">
           {selectedProduct && (
+            <GlobalProvider>
             <FicheProduit
               productData={selectedProduct}
               resetBarcode={handleModalClose}
             />
+            </GlobalProvider>
           )}
         </IonContent>
         </IonPage>

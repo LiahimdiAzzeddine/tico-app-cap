@@ -11,6 +11,7 @@ import SimpleLyout from "../layout/SimpleLyout";
 
 import { deleteByGtin } from "../../hooks/useIndexedDB";
 import VF from "../../assets/history/vf.svg";
+import { GlobalProvider } from "../FP/GlobalProvider";
 
 const History = () => {
   const [products, setProducts] = useState([]);
@@ -119,7 +120,9 @@ const History = () => {
             }}
           />
           <IonContent className="ion-padding-bottom">
+            <GlobalProvider>
             <FicheProduit productData={ean} resetBarcode={setIsOpenFb} />
+            </GlobalProvider>
           </IonContent>
         </IonPage>
       </IonModal>

@@ -54,7 +54,6 @@ export function createProduct(scannedResult, productData) {
     nutType: line._nuttype,
     forced: line._forced,
   }));
-  console.log("🚀 ~ createProduct ~ lines:", lines);
   // Fonction de transformation des ingrédients
   const transformIngredient = (ingredient) => {
     return {
@@ -202,5 +201,6 @@ export function createProduct(scannedResult, productData) {
       productData.OFFproduct?._transformation,
       " "
     ),
+    alreadyRequest:productData.alreadyRequest,
   };
 }

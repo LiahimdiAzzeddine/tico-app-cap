@@ -47,7 +47,6 @@ const useChangePassword = () => {
         // Gestion des erreurs spécifiques par champ
         const errorMessages = err.response.data.errors;
         const formattedErrors =err.response?.data?.errors || {};
-        console.log("🚀 ~ formattedErrors ~ err:", formattedErrors);
         // Si les erreurs existent, on les stocke dans l'état
         setError(formattedErrors);
         // Affichage du toast d'erreur pour l'utilisateur

@@ -33,7 +33,9 @@ const ChangePassword = ({ Close = null }) => {
     } = useBiometricAuth();
   const confirmDeleteCredentials = async () => {
     try {
-      await deleteCredentialsWithBiometric();
+      if(biometricAvailable &&hasCredentials){
+       await deleteCredentialsWithBiometric(); 
+      }
     } catch (error) {
       triggerAlert(
         "Erreur lors de la suppression des credentials",

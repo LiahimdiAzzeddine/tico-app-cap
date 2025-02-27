@@ -30,8 +30,8 @@ function NameProduct(props) {
           </div>
 
           <div className="text-sm text-[#42a29a] font-bold">
-            <span className="ArchivoBoldItalique">
-              {(Number(props.Transparent)) * 10}% de transparence
+            <span className="ArchivoBold">
+              {Number(props.Transparent) * 10}% de transparence
             </span>
             <span className="pallybold leading-archivo">
               Ti<span className="tracking-tightest leading-archivo">CO</span>
@@ -43,24 +43,23 @@ function NameProduct(props) {
 
       {/* Modal Fullscreen avec Ionic */}
       <IonModal isOpen={isOpen} onDidDismiss={() => setIsOpen(false)}>
-  <IonContent className="bg-black flex items-center justify-center h-screen">
-    <div className="flex flex-col items-center justify-center h-full w-full">
-      <IonButton
-        fill="clear"
-        className="absolute top-2 right-4 text-custom-blue text-2xl z-50 safe-area-top"
-        onClick={() => setIsOpen(false)}
-      >
-        <IonIcon icon={closeOutline} />
-      </IonButton>
-      <img
-        src={props.ImageSrc ? props.ImageSrc : productDeffaultImg}
-        alt="Zoomed Image"
-        className="w-auto max-w-full max-h-[90vh] object-contain"
-      />
-    </div>
-  </IonContent>
-</IonModal>
-
+        <IonContent className="bg-black flex items-center justify-center h-screen">
+          <div className="flex flex-col items-center justify-center h-full w-full">
+            <IonButton
+              fill="clear"
+              className="absolute top-2 right-4 text-custom-blue text-2xl z-50 safe-area-top"
+              onClick={() => setIsOpen(false)}
+            >
+              <IonIcon icon={closeOutline} />
+            </IonButton>
+            <img
+              src={props.ImageSrc ? props.ImageSrc : productDeffaultImg}
+              alt="Zoomed Image"
+              className="w-auto max-w-full max-h-[90vh] object-contain"
+            />
+          </div>
+        </IonContent>
+      </IonModal>
     </div>
   );
 }

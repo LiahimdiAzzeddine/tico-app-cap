@@ -11,7 +11,6 @@ const useGetProfile = () => {
     const fetchProfile = async () => {
       try {
         const response = await privateClient.get('/api/profile');
-        console.log("🚀 ~ fetchProfile ~ response:", response)
         setProfile(response.data.data); 
       } catch (err) {
         setError(err.response ? err.response.data.error : "An error occurred");

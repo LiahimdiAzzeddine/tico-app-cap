@@ -4,16 +4,16 @@ import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { Solliciter } from "./Modal";
 import { useIonRouter } from "@ionic/react";
 import illustrationOrigines from "../../assets/fb/BubbleImg.svg";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import flecheLeft from "../../assets/fb/FICHEFleche.svg";
+import { useGlobalContext } from "./GlobalProvider";
 
-const Encourager = ({ product }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Encourager = ({ product}) => {
   const { triggerAlert } = useAlert();
   const isAuthenticated = useIsAuthenticated();
-  const authUser = useAuthUser();
   const history = useIonRouter();
-  
+  const { hasRequested, setIsCourager } = useGlobalContext();
+
+
   const goToPage = (path) => {
     history.push(path, "root", "replace");
   };
@@ -30,8 +30,9 @@ const Encourager = ({ product }) => {
         "Se connecter"
       );
     } else {
-      setIsOpen(true);
+      setIsCourager(true);
     }
+    //setHasRequested(true);
   };
 
   return (
@@ -65,20 +66,14 @@ const Encourager = ({ product }) => {
         )}
         <div className="flex-shrink-0 w-16 md:w-20 flex flex-row justify-start items-start p-0 m-auto">
           <img
-            className="w-full h-auto m-auto pr-2"
+            className={`w-full h-auto m-auto pr-2 cursor-pointer transition-all duration-300 transform ${!hasRequested ? 'animate-pulse' : ''} scale-105 active:scale-110`}
             src={illustrationOrigines}
             alt="Illustration des origines du produit"
             onClick={() => OpenContactSolliciter()}
           />
         </div>
       </div>
-      <Solliciter
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        gtin={product?.gtin}
-        productName={product?.name}
-        authUser={authUser}
-      />
+    
     </>
   );
 };

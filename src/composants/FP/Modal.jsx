@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useAlert } from "../../context/AlertProvider";
-import { useIonRouter } from "@ionic/react";
+import { useIonLoading, useIonRouter } from "@ionic/react";
 import useProductIssues from "../../hooks/contact/useProductIssues";
 import useTransparencyRequests from "../../hooks/contact/useTransparencyRequests";
 
@@ -22,6 +22,8 @@ import Nutri_score_C from "../../assets/fb/score/Nutri-score-C.png";
 import Nutri_score_D from "../../assets/fb/score/Nutri-score-D.png";
 import Nutri_score_E from "../../assets/fb/score/Nutri-score-E.png";
 import { IonModal } from "@ionic/react";
+import { useGlobalContext } from "./GlobalProvider";
+import { Link } from "react-router-dom";
 
 const Modal = ({ isOpen, onClose, children }) => {
   const handleBackgroundClick = (e) => {
@@ -155,9 +157,11 @@ export const ContactModal = ({ isOpen, setIsOpen, gtin, productName }) => {
             >
               <img src={flecheLeft} className="w-6" />
               <span className="ArchivoLight text-center leading-archivo ">
-                Encourager la marque à faire la transparence   <span className="pallybold leading-archivo">
-    Ti<span className="tracking-tightest leading-archivo">CO</span>
-  </span>
+                Encourager la marque à faire la transparence{" "}
+                <span className="pallybold leading-archivo">
+                  Ti
+                  <span className="tracking-tightest leading-archivo">CO</span>
+                </span>
               </span>
             </div>
           </div>
@@ -271,18 +275,27 @@ export const Solliciter = ({
   productName,
 }) => {
   const { handleSubmit, loading, error, sended } = useTransparencyRequests();
+  const { hasRequested, setHasRequested } = useGlobalContext();
+  const [present, dismiss] = useIonLoading();
+
   const [formValues, setFormValues] = useState({
     user_id: authUser?.id || "",
     gtin: gtin || "",
     productName: productName,
   });
 
-  const handleRequest = () => {
-    handleSubmit({
+  const handleRequest = async () => {
+    await present({
+      mode: "ios",
+      spinner: "bubbles",
+      cssClass: "custom-loading-help",
+    });
+    await handleSubmit({
       user_id: authUser?.id || "",
       gtin: gtin || "",
       productName: productName,
     });
+    await dismiss();
   };
 
   return (
@@ -301,7 +314,7 @@ export const Solliciter = ({
         </h1>*/}
 
         {/* Bouton pour envoyer la demande */}
-        {!sended ? (
+        {!hasRequested ? (
           <div className="text-xl text-custom-blue flex items-start">
             <img
               src={flecheLeft}
@@ -309,24 +322,26 @@ export const Solliciter = ({
             />
             <button
               onClick={handleRequest}
-              className="bg-custom-blue text-white px-8 py-1 rounded-xl"
+              className="bg-custom-blue text-white px-8 py-1 rounded-xl disabled:opacity-40"
               disabled={loading}
             >
-              {loading ? (
-                <span>Envoi en cours...</span>
-              ) : (
-                <>
-                  Encourager
-                  <br />
-                  la marque
-                </>
-              )}
+              Encourager
+              <br />
+              la marque
             </button>
           </div>
         ) : (
-          <p className="text-[#6dc3bc] font-bold text-sm">
-            Votre demande a été envoyée avec succès!
-          </p>
+          <div className="text-center flex flex-col gap-2 ">
+            <p className="text-custom-blue font-bold ArchivoLight">
+              Demande effectuée
+            </p>
+            <Link
+              to={"#"}
+              className="text-custom-blue font-bold ArchivoLight underline "
+            >
+              Suivre l’état de mes demandes
+            </Link>
+          </div>
         )}
 
         {/* Message d'erreur */}
@@ -468,14 +483,16 @@ export const ContactAdditif = ({
             )}
           </div>
           <div className="pt-4">
-            {(showInfo === "additifs") ?(
+            {showInfo === "additifs" ? (
               <button
                 className="w-full text-center text-custom-blue  underline underline-offset-2 focus:outline-none ArchivoItalic"
                 onClick={MoreInfo}
               >
                 En savoir plus
               </button>
-            ):("")}
+            ) : (
+              ""
+            )}
           </div>
         </div>
 
