@@ -9,7 +9,7 @@ function NameProduct(props) {
   return (
     <div>
       <div className="flex flex-row justify-center px-4 space-x-10">
-        <div className="max-w-28 max-h-32 w-auto h-auto flex flex-col justify-center items-center">
+        <div className="max-w-24 max-h-28 w-auto h-auto flex flex-col justify-center items-center">
           <img
             src={props.ImageSrc ? props.ImageSrc : productDeffaultImg}
             alt={`${props.Name} - ${props.Brand}`}

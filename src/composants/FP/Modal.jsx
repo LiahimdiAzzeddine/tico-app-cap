@@ -7,7 +7,6 @@ import useProductIssues from "../../hooks/contact/useProductIssues";
 import useTransparencyRequests from "../../hooks/contact/useTransparencyRequests";
 
 import closeImg from "../../assets/fb/popup/close.svg";
-import ContactImg from "../../assets/fb/BubbleImg.svg";
 import BubbleIImage from "../../assets/fb/BubbleIImage.svg";
 import flecheLeft from "../../assets/fb/popup/flecheleft.svg";
 import { motion } from "framer-motion";
@@ -300,7 +299,7 @@ export const Solliciter = ({
 
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      <div className="flex flex-col items-center justify-center w-full space-y-9">
+      <div className="flex flex-col items-center justify-center w-full space-y-4">
         {/* Bubble Icon */}
         <img
           src={BubbleIImage}
@@ -315,21 +314,25 @@ export const Solliciter = ({
 
         {/* Bouton pour envoyer la demande */}
         {!hasRequested ? (
-          <div className="text-xl text-custom-blue flex items-start">
+          <>
+          <p className="text-custom-blue text-sm ArchivoLight font-bold leading-archivo  text-center">
+          Les informations dans les applications ne sont pas toujours fiables, alors afin de garantir les données dans TiCO nous avons choisi de travailler avec les marques&nbsp;!
+          </p>
+          <div className="text-lg text-custom-blue flex items-start">
             <img
               src={flecheLeft}
-              className="w-7 absolute -translate-x-10 -translate-y-2 "
+              className="w-8 absolute -translate-x-10 -translate-y-2 "
             />
             <button
               onClick={handleRequest}
-              className="bg-custom-blue text-white px-8 py-1 rounded-xl disabled:opacity-40"
+              className="bg-custom-blue text-white px-8 leading-archivo py-1 rounded-lg disabled:opacity-40"
               disabled={loading}
             >
-              Encourager
-              <br />
+              <div>Encourager</div>
               la marque
             </button>
           </div>
+          </>
         ) : (
           <div className="text-center flex flex-col gap-2 ">
             <p className="text-custom-blue font-bold ArchivoLight">
@@ -344,19 +347,7 @@ export const Solliciter = ({
           </div>
         )}
 
-        {/* Message d'erreur */}
-        {error && <p className="text-red-500">{error}</p>}
-
-        {/* Lien pour annuler */}
-        <div className="text-[#6dc3bc] text-center w-full">
-          Finalement j'ai tout ce qu'il me faut <br />
-          <button
-            onClick={() => setIsOpen(false)}
-            className="underline underline-offset-2"
-          >
-            Annuler ma demande
-          </button>
-        </div>
+     
       </div>
     </Modal>
   );
@@ -415,9 +406,10 @@ export const ContactAdditif = ({
 
         {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-auto px-4">
-          <div className="max-w-md mx-auto h-full">
+          
             {/* Content Section */}
             {showInfo === "transformation" ? (
+              <div className="max-w-md mx-auto h-full">
               <div className="space-y-2 flex pb-7 flex-col justify-center items-center h-full">
                 <div className="text-custom-blue text-start ArchivoLight leading-archivo">
                   La naturalité des ingrédients s’oppose à
@@ -432,7 +424,9 @@ export const ContactAdditif = ({
                   nécessite plus d’information de la part de la marque.
                 </div>
               </div>
+              </div>
             ) : (
+              <div className="max-w-md mx-auto">
               <div className="flex flex-col items-center justify-center py-3">
                 <div className="">
                   <div className="flex items-end space-x-2 pt-1">
@@ -480,8 +474,9 @@ export const ContactAdditif = ({
                   )}
                 </div>
               </div>
+              </div>
             )}
-          </div>
+       
           <div className="pt-4">
             {showInfo === "additifs" ? (
               <button

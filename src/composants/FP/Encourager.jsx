@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { useAlert } from "../../context/AlertProvider";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
-import { Solliciter } from "./Modal";
 import { useIonRouter } from "@ionic/react";
 import illustrationOrigines from "../../assets/fb/BubbleImg.svg";
 import flecheLeft from "../../assets/fb/FICHEFleche.svg";
 import { useGlobalContext } from "./GlobalProvider";
+import { motion } from "framer-motion";
 
-const Encourager = ({ product}) => {
+const Encourager = ({ product }) => {
   const { triggerAlert } = useAlert();
   const isAuthenticated = useIsAuthenticated();
   const history = useIonRouter();
   const { hasRequested, setIsCourager } = useGlobalContext();
-
 
   const goToPage = (path) => {
     history.push(path, "root", "replace");
@@ -37,43 +36,32 @@ const Encourager = ({ product}) => {
 
   return (
     <>
-      <div className="flex flex-row justify-start items-start space-x-4 px-3 pb-3 ArchivoLight">
-        {!product.isFoodheaProduct ? (
-          <div className="flex-1 text-[#42a29a] text-xs sm:text-sm md:text-base leading-tight sm:leading-normal flex flex-col justify-center min-h-14 ">
-            <span className="block">
-              Informations non garanties,{" "}
-              <span className="font-bold">encourager la marque </span>
-            </span>
-            <span className="block">
-              à jouer la carte de la transparence{" "}
-              <span className="pallybold whitespace-nowrap relative">
-                Ti
-                <span className="tracking-tightest inline-flex items-center">
-                  CO
-                  <img
-                    src={flecheLeft}
-                    className="w-6 absolute -right-[3.25rem] top-2 -rotate-[21deg] transform"
-                    alt=""
-                  />
-                </span>
-              </span>
-            </span>
-          </div>
-        ) : (
-          <div className="flex-1 flex flex-col justify-center min-h-14 text-[#42a29a] text-xs sm:text-sm md:text-base leading-tight sm:leading-normal">
-            Encourager la marque à atteindre 100% de transparence
-          </div>
-        )}
-        <div className="flex-shrink-0 w-16 md:w-20 flex flex-row justify-start items-start p-0 m-auto">
-          <img
-            className={`w-full h-auto m-auto pr-2 cursor-pointer transition-all duration-300 transform ${!hasRequested ? 'animate-pulse' : ''} scale-105 active:scale-110`}
+      <div className="flex flex-row justify-start items-center px-3 pb-3 ArchivoLight gap-2">
+        <div onClick={() => OpenContactSolliciter()} className=" text-custom-blue underline-offset-2 underline text-base sm:text-sm md:text-base leading-tight sm:leading-normal flex flex-col justify-center min-h-14">
+          <span className="block">
+            <span className="font-bold">Encourager la marque</span> à fournir
+          </span>
+          <span className="block relative">
+            toutes les informations{" "}
+            <img
+              src={flecheLeft}
+              className="w-9 absolute -right-6 top-2 -rotate-[30deg] transform"
+              alt=""
+            />
+          </span>
+        </div>
+
+        <div className="flex-1 flex justify-center pl-6">
+          <motion.img
+            className="h-auto cursor-pointer w-16"
             src={illustrationOrigines}
             alt="Illustration des origines du produit"
             onClick={() => OpenContactSolliciter()}
+            animate={hasRequested ? { scale: 1 } : { scale: [1, 1.2, 1] }} 
+            transition={{ repeat: hasRequested ? 0 : Infinity, duration: 2.5, ease: "easeInOut" }} 
           />
         </div>
       </div>
-    
     </>
   );
 };

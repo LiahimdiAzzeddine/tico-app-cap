@@ -13,8 +13,11 @@ import Poisson from "../../../assets/fb/Allergenes/Poisson.svg";
 import Sesame from "../../../assets/fb/Allergenes/Sésame.svg";
 import Soja from "../../../assets/fb/Allergenes/Soja.svg";
 import Sulfites from "../../../assets/fb/Allergenes/Sulfites.svg";
+import { useGlobalContext } from "../GlobalProvider";
 
 const Allergenes = ({ allergenes = [] }) => {
+    const { setIsCourager } = useGlobalContext();
+  
   // Mapping allergens to images
   const allergenesImg = {
     peanuts: Arachides,
@@ -67,8 +70,8 @@ const Allergenes = ({ allergenes = [] }) => {
                   className="max-w-12 max-h-12 m-auto"
                 />
               ) : (
-                <div className="w-14 h-14  flex items-center justify-center bg-gray-200 rounded-full ">
-                  <span className=" text-gray-500 text-sm">N/A</span>
+                <div className="w-14 h-14  flex items-center justify-center bg-gray-200 rounded-full" onClick={()=>{setIsCourager(true)}}>
+                  <span className=" text-custom-blue text-2xl">?</span>
                 </div>
               )}
               <span className="text-sm text-custom-blue mt-1 ArchivoBold m-auto">

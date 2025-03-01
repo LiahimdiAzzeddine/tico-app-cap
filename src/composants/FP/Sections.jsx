@@ -5,12 +5,13 @@ import BubbleImg from "../../assets/fb/BubbleImg.svg";
 import { Share } from "@capacitor/share";
 import { ContactModal } from "./Modal";
 import { useGlobalContext } from "./GlobalProvider";
+import { motion } from "framer-motion";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-function Sections({scrollToTarget, targetRefRecettes,gtin,productName}) {
+function Sections({ scrollToTarget, targetRefRecettes, gtin, productName }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { setHasRequested,hasRequested  } = useGlobalContext();
+  const { setHasRequested, hasRequested } = useGlobalContext();
 
   // Fonction de partage
   const handleShare = async () => {
@@ -18,16 +19,16 @@ function Sections({scrollToTarget, targetRefRecettes,gtin,productName}) {
       await Share.share({
         title: "Découvrez cette fiche produit",
         text: "Découvrez les informations nutritionnelles et d'autres détails sur ce produit.", // Ajout d'un texte de description
-        url: backendUrl + "/tico/fp/"+gtin, // Assurez-vous que cette URL est accessible
+        url: backendUrl + "/tico/fp/" + gtin, // Assurez-vous que cette URL est accessible
         dialogTitle: "Fiche produit",
       });
     } catch (error) {
       console.error("Erreur lors du partage:", error);
     }
   };
-  const scrollRecettes=()=>{
-    scrollToTarget(targetRefRecettes)
-  }
+  const scrollRecettes = () => {
+    scrollToTarget(targetRefRecettes);
+  };
 
   return (
     <>
@@ -40,19 +41,34 @@ function Sections({scrollToTarget, targetRefRecettes,gtin,productName}) {
             >
               <img src={Partage} className="h-12" alt="Partage" />
             </button>
-            <div onClick={()=>scrollRecettes()} className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95">
+            <div
+              onClick={() => scrollRecettes()}
+              className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95"
+            >
               <img src={Recettes} className="h-12" alt="Recettes" />
             </div>
+
             <div
               className="w-2/3 flex flex-row justify-center items-center transform transition-transform duration-150 ease-in-out active:scale-95"
               onClick={() => setIsOpen(true)}
             >
-              <img src={BubbleImg} className={`h-12 cursor-pointer transition-all duration-300 transform ${!hasRequested ? 'animate-pulse' : ''} scale-105 active:scale-110 alt="BubbleImg`} />
+              <motion.img
+                src={BubbleImg}
+                className="h-12 cursor-pointer"
+                alt="BubbleImg"
+                animate={hasRequested ? { scale: 1 } : { scale: [1, 1.2, 1] }} 
+            transition={{ repeat: hasRequested ? 0 : Infinity, duration: 2.5, ease: "easeInOut" }} 
+              />
             </div>
           </div>
         </div>
       </div>
-      <ContactModal isOpen={isOpen} setIsOpen={setIsOpen} gtin={gtin} productName={productName} />
+      <ContactModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        gtin={gtin}
+        productName={productName}
+      />
     </>
   );
 }

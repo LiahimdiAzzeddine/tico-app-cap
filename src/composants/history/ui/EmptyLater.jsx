@@ -1,18 +1,27 @@
-import { bookmarkOutline } from "ionicons/icons"; // Changement d'icône
 import { IonIcon } from "@ionic/react";
+import { bookmarkOutline } from "ionicons/icons";
 
-export const EmptyLater = () => (
+const EmptyLater = ({
+  icon = bookmarkOutline,
+  title,
+  description,
+  iconColor = "text-custom-green-background", 
+  iconSize = "h-16",
+  textColor = "text-custom-green-text",
+  descriptionColor = "text-custom-blue"
+}) => (
   <div className="flex flex-col items-center py-4 text-center space-y-3 w-full">
     <IonIcon
-      icon={bookmarkOutline} // Nouvelle icône
-      className="w-full h-16 text-custom-green-background  mb-2" // Taille et animation modifiées
+      icon={icon}
+      className={`w-full ${iconSize} ${iconColor} mb-2`}
     />
-    <h3 className="text-xl font-semibold text-custom-green-text mb-1 ArchivoBold w-full">
-      Aucun produit sauvegardé
+    <h3 className={`text-xl font-semibold ${textColor} mb-1 ArchivoBold w-full`}>
+      {title}
     </h3>
-    <p className="text-custom-blue ArchivoItalic leading-archivo">
-    Hors ligne ? <br></br>
-Scanner des produits pour les consulter plus&nbsp;tard
+    <p className={`${descriptionColor} ArchivoItalic leading-archivo`}>
+      {description}
     </p>
   </div>
 );
+
+export default EmptyLater;

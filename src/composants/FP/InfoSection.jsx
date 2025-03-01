@@ -14,6 +14,7 @@ import Sections from "./Sections";
 import { useIonRouter } from "@ionic/react";
 import { useAlert } from "../../context/AlertProvider";
 import { useGlobalContext } from "./GlobalProvider";
+import flecheLeft from "../../assets/fb/FICHEFleche.svg";
 
 const InfoSection = ({
   product,
@@ -24,8 +25,8 @@ const InfoSection = ({
   targetRefRecettes,
   targetRefAdditifs,
 }) => {
-    const { setHasRequested,hasRequested,setIsCourager  } = useGlobalContext();
-  
+  const { setHasRequested, hasRequested, setIsCourager } = useGlobalContext();
+
   const [isOpenadd, setIsOpenadd] = useState(false);
   const [isOpenNutrition, setIsOpenNutrition] = useState(false);
   const isAuthenticated = useIsAuthenticated();
@@ -92,7 +93,10 @@ const InfoSection = ({
                 className="flex flex-row items-center justify-between py-2 space-x-4 "
                 onClick={() => setIsOpenNutrition(true)}
               >
-                <img src={selectedNutriscoreImage} className="w-auto h-12 min-h-12" />
+                <img
+                  src={selectedNutriscoreImage}
+                  className="w-auto h-12 min-h-12"
+                />
                 <div>
                   <IonIcon
                     className="text-xl text-custom-blue"
@@ -112,11 +116,30 @@ const InfoSection = ({
               )}
             </div>
             {(!selectedComent || !selectedNutriscoreImage) && (
-              <div className="text-xs flex flex-row space-x-1">
-                <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                  Encourager la marque à atteindre <span className="whitespace-nowrap">100% de transparence</span>
-                </div>
-              </div>
+               <div className="w-full flex  justify-center">
+               <div className="flex items-center space-x-2 text-xs w-[9rem]">
+               <div className="flex-grow text-[#42a29a] Archivo text-[0.6rem]">
+                 <span className="block relative">
+                   Indisponible
+                   <img
+                     src={flecheLeft}
+                     className="w-6 absolute right-2 top-2 -rotate-[40deg] transform"
+                     alt=""
+                   />
+                 </span>
+               </div>
+               
+               {/* Icône cliquable */}
+               <div className="flex-shrink-0">
+                 <img
+                   className="w-10 sm:w-8 "
+                   src={illustrationOrigines}
+                   alt="Illustration des origines du produit"
+                   onClick={() => OpenContactSolliciter()}
+                 />
+               </div>
+             </div>
+             </div>
             )}
           </div>
 
@@ -152,8 +175,7 @@ const InfoSection = ({
               >
                 <div className="text-custom-blue flex items-center justify-center text-[0.7rem] font-bold Archivo min-h-12">
                   <span className="text-[0.6rem] text-custom-blue ArchivoLight tracking-normal leading-archivo">
-                    Ne contient pas d’additifs<br></br>
-                    (À confirmer par la marque)
+                    Ne contient pas d’additifs
                   </span>
                 </div>
                 <div>
@@ -169,11 +191,13 @@ const InfoSection = ({
             {product?.commentaire ? (
               <div className="text-[0.6rem] text-[#42a29a]"></div>
             ) : (
-              <div className="text-xs flex flex-row space-x-1">
-                <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                  Encourager la marque à atteindre <span className="whitespace-nowrap">100% de transparence</span>
-                </div>
+              <div className="w-full flex  justify-start">
+              <div className="flex items-start">
+              <div className="flex-grow text-[#42a29a] Archivo text-[0.6rem]">
+              À confirmer par un décryptage du produit
               </div>
+            </div>
+            </div>
             )}
           </div>
 
@@ -211,11 +235,30 @@ const InfoSection = ({
                     </div>
                   </>
                 ) : (
-                  <div className="text-xs flex flex-row space-x-1">
-                    <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                      Encourager la marque à atteindre <span className="whitespace-nowrap">100% de transparence</span>
-                    </div>
+                  <div className="w-full flex  justify-center">
+                  <div className="flex items-center space-x-2 text-xs w-[9rem]">
+                  <div className="flex-grow text-[#42a29a] Archivo text-[0.6rem]">
+                    <span className="block relative">
+                      Indisponible
+                      <img
+                        src={flecheLeft}
+                        className="w-6 absolute right-2 top-2 -rotate-[40deg] transform"
+                        alt=""
+                      />
+                    </span>
                   </div>
+                  
+                  {/* Icône cliquable */}
+                  <div className="flex-shrink-0">
+                    <img
+                      className="w-10 sm:w-8 "
+                      src={illustrationOrigines}
+                      alt="Illustration des origines du produit"
+                      onClick={() => OpenContactSolliciter()}
+                    />
+                  </div>
+                </div>
+                </div>
                 )}
               </div>
             </div>
@@ -232,16 +275,35 @@ const InfoSection = ({
               {product?.commentaire ? (
                 <div className="text-xs text-[#42a29a]"></div>
               ) : (
-                <div className="text-xs flex flex-row space-x-1">
-                  <div className="text-[#42a29a]  Archivo text-[0.6rem] w-full">
-                    Encourager la marque à atteindre <span className="whitespace-nowrap">100% de transparence</span>
-                  </div>
+                <div className="w-full flex  justify-center">
+                <div className="flex items-center space-x-2 text-xs w-[9rem]">
+                <div className="flex-grow text-[#42a29a] Archivo text-[0.6rem]">
+                  <span className="block relative">
+                    Indisponible
+                    <img
+                      src={flecheLeft}
+                      className="w-6 absolute right-2 top-2 -rotate-[40deg] transform"
+                      alt=""
+                    />
+                  </span>
                 </div>
+                
+                {/* Icône cliquable */}
+                <div className="flex-shrink-0">
+                  <img
+                    className="w-10 sm:w-8 "
+                    src={illustrationOrigines}
+                    alt="Illustration des origines du produit"
+                    onClick={() => OpenContactSolliciter()}
+                  />
+                </div>
+              </div>
+              </div>
               )}
             </div>
           </div>
         </div>
-     
+
         <ContactAdditif
           isOpen={isOpenadd}
           setIsOpen={setIsOpenadd}
@@ -264,7 +326,7 @@ const InfoSection = ({
           targetRefRecettes={targetRefRecettes}
           gtin={product?.gtin}
           productName={product?.name}
-          hasRequested={hasRequested} 
+          hasRequested={hasRequested}
           setHasRequested={setHasRequested}
         />
       </div>

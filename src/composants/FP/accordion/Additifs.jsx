@@ -3,8 +3,13 @@ import pastilleNote1 from "../../../assets/fb/pastille-note-1.svg";
 import pastilleNote2 from "../../../assets/fb/pastille-note-2.svg";
 import pastilleNote3 from "../../../assets/fb/pastille-note-3.svg";
 import pastilleNote4 from "../../../assets/fb/pastille-note-4.svg";
+import { useGlobalContext } from "../GlobalProvider";
+import { Link } from "react-router-dom";
+
 
 const Additifs = ({ additifs,targetRefAdditifs }) => {
+      const { setIsCourager } = useGlobalContext();
+  
   const getPastilleImage = (note) => {
     if (note === 1) {
       return pastilleNote1; // High severity
@@ -63,8 +68,12 @@ const Additifs = ({ additifs,targetRefAdditifs }) => {
           ))
         ) : (
           <div className="text-custom-blue ArchivoLight tracking-normal text-sm">
-          Ne contient pas d'additifs<br></br>
+            <div>
+          Ne contient pas d'Additifs
+          </div>
+          <Link to={"#"} className="underline font-bold"  onClick={()=>{setIsCourager(true)}}>
           À confirmer par la marque
+          </Link>
          </div>
         )}
       </div>

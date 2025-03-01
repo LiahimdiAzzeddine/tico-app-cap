@@ -72,7 +72,14 @@ function Home() {
                 className="bg-[#4E986D] ArchivoBold text-white text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => goToPage("/laterProducts")}
               >
-                Mes produits à consulter
+              Produits à consulter
+              </button>
+              <button
+                mode="md"
+                className="bg-[#4E986D] ArchivoBold text-white text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                onClick={() => goToPage("/mesDemandes")}
+              >
+              Suivi de mes demandes
               </button>
             </div>
           </div>

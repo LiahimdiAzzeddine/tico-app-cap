@@ -25,7 +25,7 @@ const ProductDetailsAccordion = ({
   targetRefAdditifs,
   scrollToTarget,
 }) => {
-  const { setHasRequested,hasRequested,setIsCourager  } = useGlobalContext();
+  const { setHasRequested, hasRequested, setIsCourager } = useGlobalContext();
 
   const { triggerAlert } = useAlert();
   const isAuthenticated = useIsAuthenticated();
@@ -125,11 +125,19 @@ const ProductDetailsAccordion = ({
                 </button>
                 {/* Positionner l'image BubbleImg au-dessus du titre */}
                 {panel === 4 && (
-                  <img
+                  <motion.img
                     src={BubbleImg}
                     onClick={() => OpenContactSolliciter()}
                     alt="Bubble"
-                    className={`absolute top-1/2 left-3/4 transform -translate-x-1/4 translate-y-[-50%] w-20 ${!hasRequested ? 'animate-pulse' : ''} scale-100 active:scale-105`}
+                    className="absolute top-1/2 left-3/4 transform -translate-x-1/4 translate-y-[-50%] w-20"
+                    animate={
+                      hasRequested ? { scale: 1 } : { scale: [1, 1.2, 1] }
+                    }
+                    transition={{
+                      repeat: hasRequested ? 0 : Infinity,
+                      duration: 2.5,
+                      ease: "easeInOut",
+                    }}
                   />
                 )}
               </div>
@@ -156,7 +164,6 @@ const ProductDetailsAccordion = ({
           );
         })}
       </div>
-     
     </>
   );
 };

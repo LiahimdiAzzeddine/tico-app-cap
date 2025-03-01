@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { IonContent, IonModal, IonPage, useIonRouter } from "@ionic/react";
 import { useNetwork } from "../context/NetworkContext";
 import LaterItem from "../composants/history/LaterItem";
-import { EmptyLater } from "../composants/history/ui/EmptyLater";
 import ModalHeader from "../composants/modales/ModalHeader";
 import FicheProduit from "../composants/FP/FicheProduit";
 import { useAlert } from "../context/AlertProvider"; 
@@ -17,6 +16,8 @@ import { createProduct } from "../utils/product";
 import SimpleLyout from "../composants/layout/SimpleLyout";
 import VF from "../assets/history/vf.svg";
 import { GlobalProvider } from "../composants/FP/GlobalProvider";
+import EmptyLater from "../composants/history/ui/EmptyLater";
+import { bookmarkOutline } from "ionicons/icons";
 
 const LaterProducts = () => {
   const [products, setProducts] = useState([]);
@@ -179,7 +180,12 @@ const LaterProducts = () => {
                   />
                 ))
               ) : (
-                <EmptyLater />
+                <EmptyLater 
+                title="Aucun produit sauvegardé" 
+                description="Hors ligne ? Scanner des produits pour les consulter plus tard"
+                icon={bookmarkOutline} 
+
+              />              
               )}
             </>
           )}

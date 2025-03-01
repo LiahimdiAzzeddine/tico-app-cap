@@ -28,6 +28,7 @@ import ReturnImage from "./assets/fb/flech.svg";
 import Home from "./pages/Home";
 import HelpTiCO from "./pages/HelpTiCO";
 import Scanner from "./pages/Scanner";
+import MesDemandes from "./pages/MesDemandes";
 
 function App() {
   const { triggerAlert } = useAlert();
@@ -155,6 +156,7 @@ function App() {
       <Route exact path="/tab4" component={Recipes} />
       <Route exact path="/tab5" component={Tips} />
       <Route exact path="/laterProducts" component={LaterProducts} />
+      <Route exact path="/mesDemandes" component={MesDemandes} />
       <Route exact path="/history" component={History} />
       <Route exact path="/recipe/:id">
         <SimpleLyout

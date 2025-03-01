@@ -4,10 +4,11 @@ import NameProduct from "./NameProduct";
 import ProductDetailsAccordion from "./ProductDetailsAccordion";
 import Recettes from "./Recettes";
 import InfoSection from "./InfoSection";
-import Encourager from "./encourager";
 import { useGlobalContext } from "./GlobalProvider";
 import { Solliciter } from "./Modal";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import Encourager from "./Encourager";
 
 const FicheProduit = (props) => {
   const [currentPosition, setCurrentPosition] = useState(
@@ -18,6 +19,7 @@ const FicheProduit = (props) => {
   const targetRefRecettes = useRef(null);
   const targetRefAdditifs = useRef(null);
   const authUser = useAuthUser();
+  const isAuthenticated = useIsAuthenticated();
 
   const { setHasRequested,hasRequested, isCourager, setIsCourager } = useGlobalContext();
 
@@ -28,7 +30,7 @@ const FicheProduit = (props) => {
   }, [props.productData]);
 
   useEffect(() => {
-    if (props?.scrolled !== undefined && props?.scrolled==true && props.productData?.alreadyRequest !== undefined && props.productData?.alreadyRequest==false && hasRequested==false) {
+    if (isAuthenticated && props?.scrolled !== undefined && props?.scrolled==true && props.productData?.alreadyRequest !== undefined && props.productData?.alreadyRequest==false && hasRequested==false) {
       setIsCourager(props?.scrolled)
     }
   }, [props.scrolled]);
@@ -67,14 +69,19 @@ const FicheProduit = (props) => {
                 currentPosition={currentPosition}
                 setCurrentPosition={setCurrentPosition}
               />
-
               <NameProduct
                 Name={props.productData?.name}
                 Brand={props.productData?.trademark}
                 Transparent={props.productData?.transparency_scale}
                 ImageSrc={props.productData?.image}
               />
-              <Encourager product={props.productData} />
+              {
+                Number(props.productData?.transparency_scale)!=1?(
+                   <Encourager product={props.productData} />
+                ):(
+                  <div className="pt-2"></div>
+                )
+              } 
               <InfoSection
                 product={props.productData}
                 togglePanel={togglePanel}
