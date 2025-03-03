@@ -95,16 +95,8 @@ const Demande = ({ demande, index, length, incrementInsistCount }) => {
         {/* Boutons de statut */}
         <button
           className={`p-2 m-auto flex justify-center items-center 
-  ${
-    demandeState.status === "processing"
-      ? "text-green-500"
-      : ""
-  }
-  ${
-    demandeState.status === "pending"
-      ? "text-yellow-500"
-      : ""
-  }
+  ${demandeState.status === "processing" ? "text-green-500" : ""}
+  ${demandeState.status === "pending" ? "text-yellow-500" : ""}
   ${demandeState.status === "rejected" ? "text-red-500" : ""}
 `}
         >
