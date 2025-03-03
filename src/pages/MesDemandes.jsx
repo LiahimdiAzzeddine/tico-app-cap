@@ -8,12 +8,14 @@ import EmptyLater from "../composants/history/ui/EmptyLater";
 import { attachOutline } from "ionicons/icons";
 import useGetRequestsByUserId from "../hooks/auth/useGetRequestsByUserId";
 import Demande from "../composants/history/Demande";
+import useIncrementInsistCount from "../hooks/auth/useIncrementInsistCount";
+
 
 const MesDemandes = () => {
   const { isConnected } = useNetwork();
   const { triggerAlert } = useAlert();
   const history = useIonRouter();
-
+  const { incrementInsistCount, loading: loadingIncre, error: errorIncre } = useIncrementInsistCount();
   const { loading, error, requests, fetchRequests, setError } =
     useGetRequestsByUserId();
 
@@ -52,7 +54,7 @@ const MesDemandes = () => {
         image={VF}
       >
         <div className="p-4 details flex flex-col h-full">
-          <div className="flex flex-col items-center justify-center min-h-[10vh] backgroundHistorique">
+          <div className="flex flex-col items-center justify-center min-h-[10vh] backgroundHistorique ">
             <h2 className="text-center text-custom-green-text text-[1.7rem] titre-bold z-10">
               Suivi&nbsp;de&nbsp;mes&nbsp;demandes
             </h2>
@@ -66,10 +68,11 @@ const MesDemandes = () => {
                 {requests.length > 0 ? (
                   requests.map((demande, index) => (
                     <Demande
-                      product={demande}
+                      demande={demande}
                       index={index}
                       length={requests.length}
                       key={demande.gtin || index}
+                      incrementInsistCount={incrementInsistCount} // Passer la méthode comme prop
                     />
                   ))
                 ) : (

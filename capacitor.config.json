@@ -20,8 +20,13 @@
       "splashImmersive": true,
       "layoutName": "launch_screen"
     }
-  }
-  
+  },
+  "server": {
+  "url": "http://192.168.11.104:3000",
+  "cleartext": true
+}
+
+
 
 }
  

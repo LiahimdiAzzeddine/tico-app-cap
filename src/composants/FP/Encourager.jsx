@@ -37,7 +37,7 @@ const Encourager = ({ product }) => {
   return (
     <>
       <div className="flex flex-row justify-start items-center px-3 pb-3 ArchivoLight gap-2">
-        <div onClick={() => OpenContactSolliciter()} className=" text-custom-blue underline-offset-2 underline text-base sm:text-sm md:text-base leading-tight sm:leading-normal flex flex-col justify-center min-h-14">
+        <div onClick={() => OpenContactSolliciter()} className=" text-custom-blue underline-offset-2 underline text-base sm:text-sm md:text-sm ArchivoLight leading-tight sm:leading-normal flex flex-col justify-center min-h-14">
           <span className="block">
             <span className="font-bold">Encourager la marque</span> à fournir
           </span>

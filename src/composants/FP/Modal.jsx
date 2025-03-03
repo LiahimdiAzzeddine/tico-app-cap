@@ -315,7 +315,7 @@ export const Solliciter = ({
         {/* Bouton pour envoyer la demande */}
         {!hasRequested ? (
           <>
-          <p className="text-custom-blue text-sm ArchivoLight font-bold leading-archivo  text-center">
+          <p className="text-custom-blue text-sm ArchivoLight font-bold leading-archivo  text-center pb-4">
           Les informations dans les applications ne sont pas toujours fiables, alors afin de garantir les données dans TiCO nous avons choisi de travailler avec les marques&nbsp;!
           </p>
           <div className="text-lg text-custom-blue flex items-start">
@@ -325,7 +325,7 @@ export const Solliciter = ({
             />
             <button
               onClick={handleRequest}
-              className="bg-custom-blue text-white px-8 leading-archivo py-1 rounded-lg disabled:opacity-40"
+              className="bg-custom-blue text-white px-8 leading-archivo py-1 rounded-lg disabled:opacity-40 shadow-xl shadow-blue-300/50 ring-2 ring-custom-blue/10"
               disabled={loading}
             >
               <div>Encourager</div>
