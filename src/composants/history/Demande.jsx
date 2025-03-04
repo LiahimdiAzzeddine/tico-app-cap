@@ -6,7 +6,6 @@ import {
   addOutline,
 } from "ionicons/icons";
 import { IonIcon, IonSpinner } from "@ionic/react";
-import demandeBg from "../../assets/history/productBg.svg";
 import image64 from "../../assets/history/64.png";
 import formatDate from "../../utils/formatDate";
 
@@ -49,11 +48,10 @@ const Demande = ({ demande, index, length, incrementInsistCount }) => {
       <div className="flex items-center py-2">
         {/* Image du produit */}
         <div
-          className="w-16 h-16 mr-4 rounded flex flex-col justify-center items-center bg-no-repeat bg-contain bg-center m-auto"
-          style={{ backgroundImage: `url(${demandeBg})` }}
+          className="w-16 h-16 mr-4 rounded flex flex-col justify-center items-center bg-no-repeat bg-contain bg-center m-auto productBg"
         >
           <img
-            src={demandeState.image || defaultImage}
+            src={"https://images.openfoodfacts.org/images/products/"+demandeState.image || defaultImage}
             alt={demandeState.gtin}
             className="w-auto h-14 rounded object-cover"
             onError={(e) => {
