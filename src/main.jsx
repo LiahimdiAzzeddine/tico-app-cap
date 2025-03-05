@@ -45,10 +45,10 @@ createRoot(document.getElementById("root")).render(
     <NetworkProvider>
       <ToastProvider>
         <AlertProvider>
-        <IonApp>
-        <IonReactRouter>
-          <App />
-          </IonReactRouter>
+          <IonApp>
+            <IonReactRouter>
+              <App />
+            </IonReactRouter>
           </IonApp>
         </AlertProvider>
       </ToastProvider>

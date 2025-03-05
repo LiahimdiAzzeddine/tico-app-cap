@@ -41,7 +41,6 @@ function App() {
   };
 
   useEffect(() => {
-    
     const handleAppUrlOpen = (data) => {
       if (!data?.url) return;
       const { url } = data;
@@ -142,7 +141,7 @@ function App() {
       </Route>
       <Route path="/validation/:token" exact={true}>
         <SimpleLyout
-         image={ReturnImage}
+          image={ReturnImage}
           Close={() => {
             goToPage("/tab3");
           }}
