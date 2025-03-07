@@ -17,11 +17,9 @@ const ScanPage = () => {
     });
   //if (!isVisible) return null;
   return (
-    <FirstVisitGuard>
     <ScannerLyout>
     <Main/>
     </ScannerLyout>
-    </FirstVisitGuard>
   );
 };
 

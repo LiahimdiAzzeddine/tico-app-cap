@@ -7,6 +7,14 @@ import HomeLayout from "../composants/layout/HomeLyout";
 import { useIonViewWillLeave, useIonViewWillEnter } from "@ionic/react";
 
 function Home() {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Message affiché chaque seconde");
+    }, 1000);
+
+    return () => clearInterval(interval); // Nettoyage pour éviter les fuites de mémoire
+  }, []);
+  
   const isAuthenticated = useIsAuthenticated();
   const authUser = useAuthUser();
   const name = authUser?.username;

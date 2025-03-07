@@ -29,6 +29,7 @@ import Home from "./pages/Home";
 import HelpTiCO from "./pages/HelpTiCO";
 import Scanner from "./pages/Scanner";
 import MesDemandes from "./pages/MesDemandes";
+import HomeOrTutorial from "./guards/HomeOrTutorial";
 
 function App() {
   const { triggerAlert } = useAlert();
@@ -107,7 +108,7 @@ function App() {
   }, []);
 
   return (
-    <IonRouterOutlet swipeGesture={true} animated={true}>
+    <IonRouterOutlet swipeGesture={true} animated={true} id="main">
       <Route exact path="/welcome" component={Welcome} />
       <Route exact path="/login">
         <AuthLayout
@@ -194,7 +195,7 @@ function App() {
           <Fp />
         </SimpleLyout>
       </Route>
-      <Redirect exact from="/" to="/tab3" />
+      <Route path="/" component={HomeOrTutorial} exact />
     </IonRouterOutlet>
   );
 }

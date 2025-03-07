@@ -284,6 +284,7 @@ export const Solliciter = ({
   });
 
   const handleRequest = async () => {
+    
     await present({
       mode: "ios",
       spinner: "bubbles",
@@ -339,7 +340,8 @@ export const Solliciter = ({
               Demande effectuée
             </p>
             <Link
-              to={"#"}
+              to={"/mesDemandes"}
+              onClick={() => setIsOpen(false)}
               className="text-custom-blue font-bold ArchivoLight underline "
             >
               Suivre l’état de mes demandes

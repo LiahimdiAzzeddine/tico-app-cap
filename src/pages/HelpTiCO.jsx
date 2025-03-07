@@ -70,9 +70,8 @@ const HelpTiCO = () => {
 
             <div className="max-w-sm flex flex-col items-center justify-start space-y-7 w-full">
               <div className=" text-custom-blue  w-full text-center ArchivoLight leading-archivo tracking-normal">
-              Nous avons besoin d’aide pour financer<br></br> la première campagne de communication. <br></br>
-              <span className="ArchivoBold">Chaque contribution compte</span> pour bâtir<br></br> un futur plus clair et responsable
-               
+              Soutenir le développement de <span className="pallybold leading-archivo">Ti<span className="tracking-tightest leading-archivo">CO</span></span> et découvrir comment 
+              <span className="ArchivoBold"> obtenir le guide de décryptage et le calendrier </span>des fruits,légumes, conseils et recettes de saison.
               </div>
               <div className="relative flex flex-col items-center justify-center w-2/4">
                 <img

@@ -1,7 +1,13 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { motion } from "framer-motion";
+import {
+  IonAccordion,
+  IonAccordionGroup,
+  IonItem,
+  IonLabel,
+} from "@ionic/react";
 import fleche from "../../assets/fb/flechBottom.svg";
-import BubbleImg from "../../assets/fb/BubbleImg.svg"; // L'image Bubble
+import BubbleImg from "../../assets/fb/BubbleImg.svg";
 import NutritionalInfo from "./accordion/NutritionalInfo";
 import OriginsInfo from "./accordion/OriginsInfo";
 import IngredientsInfo from "./accordion/IngredientsInfo";
@@ -9,14 +15,12 @@ import LabelsInfo from "./accordion/LabelsInfo";
 import BrandInfo from "./accordion/BrandInfo";
 import UsageInfo from "./accordion/UsageInfo";
 import PackagingInfo from "./accordion/PackagingInfo";
-import { Solliciter } from "./Modal";
 import { useAlert } from "../../context/AlertProvider";
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { useIonRouter } from "@ionic/react";
 import { useGlobalContext } from "./GlobalProvider";
+import TransformationInfo from "./accordion/TransformationInfo";
 
-// Composants pour chaque contenu de panneau
 const ProductDetailsAccordion = ({
   product,
   togglePanel,
@@ -25,15 +29,15 @@ const ProductDetailsAccordion = ({
   targetRefAdditifs,
   scrollToTarget,
 }) => {
-  const { setHasRequested, hasRequested, setIsCourager } = useGlobalContext();
-
+  const { hasRequested, setIsCourager } = useGlobalContext();
   const { triggerAlert } = useAlert();
   const isAuthenticated = useIsAuthenticated();
-  const authUser = useAuthUser();
   const history = useIonRouter();
+
   const goToPage = (path) => {
     history.push(path, "root", "replace");
   };
+
   const OpenContactSolliciter = () => {
     if (!isAuthenticated) {
       triggerAlert(
@@ -50,121 +54,147 @@ const ProductDetailsAccordion = ({
     }
   };
 
-  const disabledPanels = [3, 4, 5, 6, 7, 8]; // Désactive les panneaux 2, 4 et 6
+  const handleAccordionChange = (e) => {
+    const value = e.detail.value;
+    if (value) {
+      togglePanel(parseInt(value));
+    } else {
+      togglePanel(null);
+    }
+  };
 
-  const panelContents = [
-    <NutritionalInfo
-      togglePanel={togglePanel}
-      product={product}
-      scrollToTarget={scrollToTarget}
-      targetRefNutriInfo={targetRefNutriInfo}
-    />,
-    <IngredientsInfo
-      togglePanel={togglePanel}
-      ingredients={product?.ingredients}
-      allergenesArray={product?.allergens}
-      additifsArray={product?.additifs}
-      targetRefAdditifs={targetRefAdditifs}
-      scrollToTarget={scrollToTarget}
-    />,
-    <></>, // Naturalité des ingrédients
-    <OriginsInfo togglePanel={togglePanel} origin={product.origin} />,
-    <LabelsInfo />,
-    <BrandInfo />,
-    <UsageInfo />,
-    <PackagingInfo />,
+  const panelConfigs = [
+    {
+      id: "1",
+      title: "Informations nutritionnelles",
+      disabled: false,
+      ref: targetRefNutriInfo,
+      content: (
+        <NutritionalInfo
+          togglePanel={togglePanel}
+          product={product}
+          scrollToTarget={scrollToTarget}
+          targetRefNutriInfo={targetRefNutriInfo}
+        />
+      ),
+    },
+    {
+      id: "2",
+      title: "Ingrédients, additifs",
+      disabled: false,
+      ref: targetRefAdditifs,
+      content: (
+        <IngredientsInfo
+          togglePanel={togglePanel}
+          ingredients={product?.ingredients}
+          allergenesArray={product?.allergens}
+          additifsArray={product?.additifs}
+          targetRefAdditifs={targetRefAdditifs}
+          scrollToTarget={scrollToTarget}
+        />
+      ),
+    },
+    {
+      id: "3",
+      title: "Impact environnemental",
+      disabled: false,
+      content: <TransformationInfo />,
+    },
+    {
+      id: "4",
+      title: "Origines",
+      disabled: false,
+      content: (
+        <OriginsInfo togglePanel={togglePanel} origin={product.origin} />
+      ),
+    },
+    {
+      id: "5",
+      title: "Labels et mentions",
+      disabled: true,
+      content: <LabelsInfo />,
+    },
+    {
+      id: "6",
+      title: "Produit & marque",
+      disabled: true,
+      content: <BrandInfo />,
+    },
+    {
+      id: "7",
+      title: "Utilisation et conservation",
+      disabled: true,
+      content: <UsageInfo />,
+    },
+    {
+      id: "8",
+      title: "Emballage",
+      disabled: true,
+      content: <PackagingInfo />,
+    },
   ];
 
   return (
-    <>
-      <div className="relative pb-6" style={{ position: "relative" }}>
-        {[...Array(8)].map((_, index) => {
-          const panel = index + 1;
-          const panelref = index + 1 + "section";
-          const title = [
-            "Informations nutritionnelles",
-            "Ingrédients, additifs",
-            "Naturalité des ingrédients",
-            "Origines",
-            "Labels et mentions",
-            "Produit & marque",
-            "Utilisation et conservation",
-            "Emballage",
-          ][index];
-
-          const isDisabled = disabledPanels.includes(panel);
-
-          return (
-            <div
-              key={panel}
-              className="pt-3"
-              ref={
-                panel === 1
-                  ? targetRefNutriInfo
-                  : panel == 2
-                  ? targetRefAdditifs
-                  : null
-              }
+    <div className="pb-6">
+      <IonAccordionGroup
+        value={openPanel ? openPanel.toString() : undefined}
+        onIonChange={handleAccordionChange}
+        
+      >
+        {panelConfigs.map((panel) => (
+          <IonAccordion
+            key={panel.id}
+            value={panel.id}
+            disabled={panel.disabled}
+            ref={panel.ref}
+            className="relative z-0 pl-0"
+            style={{ display: "contents"}}
+            toggleIcon={<></>}
+          >
+            <IonItem
+              slot="header"
+              lines="full"
+              style={{ overflow: "visible" }}
+              className={`ion-no-padding ${panel.id === "3" ? "z-50" : "z-0"} ${panel.disabled ? "text-custom-gray" : "text-custom-blue"}`}
+              
             >
-              <div className="relative">
-                <button
-                  onClick={() => !isDisabled && togglePanel(panel)}
-                  className={`px-3 w-full flex justify-start items-center ArchivoExtraBold text-xl ${
-                    isDisabled
-                      ? "text-custom-gray cursor-not-allowed"
-                      : openPanel === panel
-                      ? "text-custom-blue"
-                      : "text-custom-blue"
-                  }`}
-                  disabled={isDisabled}
-                >
-                  {title}
-                  {!isDisabled && (
-                    <img src={fleche} className="w-9 h-auto px-2" />
-                  )}
-                </button>
-                {/* Positionner l'image BubbleImg au-dessus du titre */}
-                {panel === 4 && (
-                  <motion.img
-                    src={BubbleImg}
-                    onClick={() => OpenContactSolliciter()}
-                    alt="Bubble"
-                    className="absolute top-1/2 left-3/4 transform -translate-x-1/4 translate-y-[-50%] w-20"
-                    animate={
-                      hasRequested ? { scale: 1 } : { scale: [1, 1.2, 1] }
-                    }
-                    transition={{
-                      repeat: hasRequested ? 0 : Infinity,
-                      duration: 2.5,
-                      ease: "easeInOut",
-                    }}
-                  />
+              <IonLabel
+                className="text-xl z-40 ion-no-padding "
+                style={{ display: "contents" }}
+              >
+                <span className="ArchivoExtraBold mr-2 px-3">{panel.title}</span>
+                {!panel.disabled && (
+                  <img src={fleche} className="w-9 h-auto px-2" />
                 )}
-              </div>
-              {/* Animation Framer Motion pour l'ouverture et la fermeture */}
-              {openPanel === panel && !isDisabled && (
-                <motion.div
-                  className="mt-2"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {panelContents[panel - 1]}
-                </motion.div>
-              )}
-              <div className="px-3 pt-1">
-                <hr
-                  className={`w-full mx-auto ${
-                    isDisabled ? "border-gray-200" : "border-[#c6e8e5]"
-                  }`}
+              </IonLabel>
+
+              {/* Image bulle spéciale pour le panneau 5 (Labels et mentions) */}
+              {panel.id === "5" && (
+                <motion.img
+                  src={BubbleImg}
+                  onClick={() => OpenContactSolliciter()}
+                  alt="Bubble"
+                  className="absolute right-8 w-16 z-50"
+                  animate={hasRequested ? { scale: 1 } : { scale: [1, 1.2, 1] }}
+                  transition={{
+                    repeat: hasRequested ? 0 : Infinity,
+                    duration: 2.5,
+                    ease: "easeInOut",
+                  }}
+                  style={{
+                    pointerEvents: "auto", // Rend l'image cliquable
+                    opacity: 1,             // Assure que l'image soit complètement visible
+                  }}
                 />
-              </div>
+              )}
+            </IonItem>
+            <div slot="content" className=" z-0 p-0">
+              {panel.content}
             </div>
-          );
-        })}
-      </div>
-    </>
+          </IonAccordion>
+        ))}
+      </IonAccordionGroup>
+    </div>
   );
 };
 
