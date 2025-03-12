@@ -27,7 +27,9 @@ export default {
         "custom-red-bg-clear":"#fad4ce",
         "custom-orange":"#ffeda3",
         "custom-text-orange":"#FF8200",
-        "custom-orange-bg":"#FFECA7"
+        "custom-orange-bg":"#FFECA7",
+        'mockup-green':'#2d6b66',
+        'mockup-blue':'#6dc3bc'
       },
       screens: {
         'iphonese': '320px',   // Taille spécifique pour iPhone SE

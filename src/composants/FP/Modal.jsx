@@ -370,7 +370,9 @@ export const ContactAdditif = ({
   const MoreInfo = async () => {
     setIsOpen(false);
     await togglePanel(2);
+    setTimeout(() => {
     scrollToTarget(targetRefAdditifs, "additifs");
+    },100)
   };
 
   return (
@@ -531,7 +533,10 @@ export const NutrriInfo = ({
   const MoreInfo = () => {
     setIsOpen(false);
     togglePanel(1);
-    scrollToTarget(targetRefNutriInfo);
+    setTimeout(() => {
+      scrollToTarget(targetRefNutriInfo);
+    }, 100);
+    
   };
 
   return (

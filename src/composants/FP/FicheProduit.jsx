@@ -21,7 +21,8 @@ const FicheProduit = (props) => {
   const authUser = useAuthUser();
   const isAuthenticated = useIsAuthenticated();
 
-  const { setHasRequested,hasRequested, isCourager, setIsCourager } = useGlobalContext();
+  const { setHasRequested, hasRequested, isCourager, setIsCourager } =
+    useGlobalContext();
 
   useEffect(() => {
     if (props.productData?.alreadyRequest !== undefined) {
@@ -30,11 +31,18 @@ const FicheProduit = (props) => {
   }, [props.productData]);
 
   useEffect(() => {
-    if (isAuthenticated && props?.scrolled !== undefined && props?.scrolled==true && props.productData?.alreadyRequest !== undefined && props.productData?.alreadyRequest==false && hasRequested==false) {
-      setIsCourager(props?.scrolled)
+    if (
+      isAuthenticated &&
+      props?.scrolled !== undefined &&
+      props?.scrolled == true &&
+      props.productData?.alreadyRequest !== undefined &&
+      props.productData?.alreadyRequest == false &&
+      hasRequested == false
+    ) {
+      setIsCourager(props?.scrolled);
     }
   }, [props.scrolled]);
-  
+
   const scrollToTargetById = (containerRef, id) => {
     if (containerRef?.current) {
       const targetElement = containerRef.current.querySelector(`#${id}`);
@@ -57,14 +65,14 @@ const FicheProduit = (props) => {
   const togglePanel = (panel) => {
     setOpenPanel(openPanel === panel ? null : panel);
   };
- 
+
   return (
     <>
-      <div className="max-w-screen-sm m-auto" >
+      <div className="max-w-screen-sm m-auto">
         <div className="flex flex-col h-full bg-white">
           {/* Scrollable Outlet Content */}
-          <div className="flex-grow"  >
-            <div className="flex flex-col space-y-6" >
+          <div className="flex-grow">
+            <div className="flex flex-col space-y-6">
               <TransparencyScale
                 currentPosition={currentPosition}
                 setCurrentPosition={setCurrentPosition}
@@ -75,13 +83,11 @@ const FicheProduit = (props) => {
                 Transparent={props.productData?.transparency_scale}
                 ImageSrc={props.productData?.image}
               />
-              {
-                Number(props.productData?.transparency_scale)!=1?(
-                   <Encourager product={props.productData} />
-                ):(
-                  <div className="pt-2"></div>
-                )
-              } 
+              {Number(props.productData?.transparency_scale) != 1 ? (
+                <Encourager product={props.productData} />
+              ) : (
+                <div className="pt-2"></div>
+              )}
               <InfoSection
                 product={props.productData}
                 togglePanel={togglePanel}

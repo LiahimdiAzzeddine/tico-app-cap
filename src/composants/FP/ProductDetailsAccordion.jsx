@@ -98,7 +98,7 @@ const ProductDetailsAccordion = ({
       id: "3",
       title: "Impact environnemental",
       disabled: false,
-      content: <TransformationInfo />,
+      content: <TransformationInfo togglePanel={togglePanel} />,
     },
     {
       id: "4",
@@ -111,20 +111,20 @@ const ProductDetailsAccordion = ({
     {
       id: "5",
       title: "Labels et mentions",
-      disabled: true,
-      content: <LabelsInfo />,
+      disabled: false,
+      content: <LabelsInfo togglePanel={togglePanel} />,
     },
     {
       id: "6",
-      title: "Produit & marque",
-      disabled: true,
-      content: <BrandInfo />,
+      title: "Marque & entreprise",
+      disabled: false,
+      content: <BrandInfo togglePanel={togglePanel} />,
     },
     {
       id: "7",
       title: "Utilisation et conservation",
-      disabled: true,
-      content: <UsageInfo />,
+      disabled: false,
+      content: <UsageInfo togglePanel={togglePanel}/>,
     },
     {
       id: "8",
@@ -136,43 +136,56 @@ const ProductDetailsAccordion = ({
 
   return (
     <div className="pb-6">
-      <IonAccordionGroup
+      <IonAccordionGroup 
+      id="group1"
         value={openPanel ? openPanel.toString() : undefined}
         onIonChange={handleAccordionChange}
-        
       >
         {panelConfigs.map((panel) => (
           <IonAccordion
             key={panel.id}
             value={panel.id}
             disabled={panel.disabled}
-            ref={panel.ref}
-            className="relative z-0 pl-0"
-            style={{ display: "contents"}}
+            className="z-0 pl-0"
+            style={{ display: "contents" }}
             toggleIcon={<></>}
           >
             <IonItem
               slot="header"
-              lines="full"
-              style={{ overflow: "visible" }}
-              className={`ion-no-padding ${panel.id === "3" ? "z-50" : "z-0"} ${panel.disabled ? "text-custom-gray" : "text-custom-blue"}`}
-              
+              lines="inset"
+              style={{
+                overflow: "visible",
+                "--border-color":
+                  openPanel == panel.id ? "transparent" : "#c6e8e5",
+                "--inner-border-width": "0 0 2px 0",
+                "--padding-end": "16px",
+                "--padding-top": "2px",
+              }}
+              className={`relative ${panel.id === "4" ? "z-50" : "z-0"} ${
+                panel.disabled ? "text-custom-gray" : "text-custom-blue"
+              }`}
             >
               <IonLabel
-                className="text-xl z-40 ion-no-padding "
+                className="text-xl z-40 ion-no-padding"
                 style={{ display: "contents" }}
               >
-                <span className="ArchivoExtraBold mr-2 px-3">{panel.title}</span>
+                <span className="ArchivoExtraBold mr-1 pt-2">
+                  {panel.title}
+                </span>
                 {!panel.disabled && (
-                  <img src={fleche} className="w-9 h-auto px-2" />
+                  <img src={fleche} className="w-9 h-auto px-2 pt-3" />
                 )}
               </IonLabel>
 
-              {/* Image bulle spéciale pour le panneau 5 (Labels et mentions) */}
-              {panel.id === "5" && (
+              {/* Image bulle bien visible uniquement pour le premier panel désactivé */}
+              {panel.id === "8" && (
                 <motion.img
                   src={BubbleImg}
-                  onClick={() => OpenContactSolliciter()}
+                  onClick={(event) => {
+                    event.preventDefault(); // Empêche le comportement par défaut
+                    event.stopPropagation(); // Empêche l’ouverture de l’accordéon
+                    OpenContactSolliciter();
+                  }}
                   alt="Bubble"
                   className="absolute right-8 w-16 z-50"
                   animate={hasRequested ? { scale: 1 } : { scale: [1, 1.2, 1] }}
@@ -183,12 +196,13 @@ const ProductDetailsAccordion = ({
                   }}
                   style={{
                     pointerEvents: "auto", // Rend l'image cliquable
-                    opacity: 1,             // Assure que l'image soit complètement visible
+                    opacity: "1 !important", // Forcer l'affichage normal de l'image
+                    filter: "none !important", // Annule tout effet de désactivation
                   }}
                 />
               )}
             </IonItem>
-            <div slot="content" className=" z-0 p-0">
+            <div slot="content" className="z-0 p-0" ref={panel.ref}>
               {panel.content}
             </div>
           </IonAccordion>
