@@ -1,23 +1,14 @@
 import React, { useState } from "react";
 import FICHETOP from "../../../assets/fb/FICHETOP.svg";
 import factory from "../../../assets/fb/factory.svg";
-import { IonText, IonButton } from "@ionic/react";
 
-function OriginsInfo({ togglePanel }) {
+function OriginsInfo({ togglePanel, scoreOrigin, transformation, transcondi }) {
   const [showInfo, setShowInfo] = useState(false);
-
-  // Données factices des origines des ingrédients
-  const [origin] = useState([
-    { ingredient: "Tomates", origin: "Maroc" },
-    { ingredient: "Sucre de canne", origin: "Brésil" },
-    { ingredient: "Vanille", origin: "Madagascar" },
-  ]);
-  const [matieres] = useState([
-    { ingredient: "Cacao", origin: "Espagne" },
-    { ingredient: "Blé", origin: "France" },
-    { ingredient: "Café", origin: "Madagascar" },
-  ]);
-
+  const TransCondi = {
+    T: "transformation",
+    C: "conditionnement",
+    E: "embouteillage",
+  };
   return (
     <div
       className="bg-custom-green-clear rounded-e-[2rem] left-0 min-h-72 z-0 relative pb-6"
@@ -74,51 +65,79 @@ function OriginsInfo({ togglePanel }) {
         )}
 
         <div className="mt-4 flex flex-col gap-4">
-          <div className="flex flex-row justify-center items-center gap-3">
-            <img src={factory} className="w-9" alt="Factory icon" />
-            <div className="text-sm text-custom-blue Archivo">
-              Lieu de transformation / conditionnement / embouteillage :
+          {(transcondi != null || transformation != null) && (
+            <div className="flex flex-row justify-start items-center gap-3 px-4">
+              <img src={factory} className="w-8" alt="Factory icon" />
+              <div className="text-base text-custom-blue Archivo">
+                Lieu de {transcondi ? TransCondi[transcondi] : "Incertain"}:
+              </div>
+              <div className="text-base text-mockup-blue ArchivoBold">
+                {transformation ? transformation : "Incertain"}
+              </div>
             </div>
-            <div className="text-lg text-mockup-blue ArchivoBold">France</div>
-          </div>
-          <div className="mt-1">
-            <h4 className="text-base text-custom-blue ArchivoBold">
-            Ingrédients – <span className="text-mockup-blue">leurs origines</span>
-            </h4>
-            {origin.map((item, index) => (
-              <div key={index} className="mt-2">
-                <h4 className="text-base text-custom-blue ArchivoBold leading-tight">
-                  {item.ingredient} -{" "}
-                  <span className="text-mockup-blue">{item.origin}</span>
-                </h4>
-                <p className="text-sm text-mockup-green Archivo leading-tight">
-                  Commentaire
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="text-sm text-mockup-green Archivo leading-tight">
-            Commentaire général ingrédients
-          </p>
-          <div className="mt-1">
-            <h4 className="text-base text-custom-blue ArchivoBold">
-            3 matières premières principales – <span className="text-mockup-blue">leurs origines</span>
-            </h4>
-            {matieres.map((item, index) => (
-              <div key={index} className="mt-2">
-                <h4 className="text-base text-custom-blue ArchivoBold leading-tight">
-                  {item.ingredient} -{" "}
-                  <span className="text-mockup-blue">{item.origin}</span>
-                </h4>
-                <p className="text-sm text-mockup-green Archivo leading-tight">
-                  Commentaire
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="text-sm text-mockup-green Archivo leading-tight">
-            Commentaire général MP
-          </p>
+          )}
+          {scoreOrigin?._ing?.length > 0 && (
+            <div className="mt-1">
+              <h4 className="text-lg text-custom-blue ArchivoBold">
+                <span className="marker-effect-cyan ArchivoExtraBold">
+                  Ingrédients
+                </span>{" "}
+                – <span className="text-mockup-blue">leurs origines</span>
+              </h4>
+              {(scoreOrigin?._ing).map((item, index) => (
+                <div key={index} className="mt-2">
+                  <h4 className="text-base text-custom-blue ArchivoBold leading-tight">
+                    {item?._label}
+                    <span className="text-mockup-blue">
+                      {" "}
+                      - {item?._country || "Inconnu"}
+                    </span>
+                  </h4>
+                  {item?._com && (
+                    <p className="pl-4 text-sm text-mockup-green Archivo leading-tight">
+                      {item?._com}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {scoreOrigin?._ing_comment && (
+            <p className="text-sm text-mockup-green Archivo leading-tight">
+              {scoreOrigin._ing_comment}
+            </p>
+          )}
+          {scoreOrigin?._mpas?.length > 0 && (
+            <div className="mt-1">
+              <h4 className="text-base text-custom-blue ArchivoBold">
+                <span className="text-lg marker-effect-cyan ArchivoExtraBold">
+                  Matières premières
+                </span>{" "}
+                – <span className="text-mockup-blue text-lg">leurs origines</span>
+                <div className="text-xs ArchivoItalic pt-1">
+                  Les 3 matières premières principales
+                </div>
+              </h4>
+              {(scoreOrigin?._mpas).map((item, index) => (
+                <div key={index} className="mt-2">
+                  <h4 className="text-base text-custom-blue ArchivoBold leading-tight">
+                    {item._label}
+                  </h4>
+                  {item?._com && (
+                    <p className="pl-4 text-sm text-mockup-green Archivo leading-tight">
+                      {item?._com}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          {scoreOrigin?._mpa_comment && (
+            <p className="text-sm text-mockup-green Archivo leading-tight">
+              {scoreOrigin._mpa_comment}
+            </p>
+          )}
         </div>
         <img
           src={FICHETOP}

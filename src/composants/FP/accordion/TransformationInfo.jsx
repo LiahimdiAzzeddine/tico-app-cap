@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import FICHETOP from "../../../assets/fb/FICHETOP.svg";
 import planetScore from "../../../assets/fb/planetScore/b-abe-planet-score-243x132.png";
 import {
@@ -9,34 +9,36 @@ import {
 } from "@ionic/react";
 import fleche from "../../../assets/fb/flechBottom.svg";
 
-const panelConfigs = [
-  {
-    id: "10",
-    title: "Pesticides",
-    disabled: false,
-    content: <div className="p-4 text-mockup-green">Contenu sur les pesticides...</div>,
-  },
-  {
-    id: "20",
-    title: "Biodiversité",
-    disabled: false,
-    content: <div className="p-4 text-mockup-green">Contenu sur la biodiversité...</div>,
-  },
-  {
-    id: "30",
-    title: "Climat",
-    disabled: false,
-    content: <div className="p-4 text-mockup-green">Contenu sur le climat...</div>,
-  },
-  {
-    id: "40",
-    title: "Bien-être animal",
-    disabled: false,
-    content: <div className="p-4 text-mockup-green">Contenu sur le bien-être animal...</div>,
-  },
-];
 
-function TransformationInfo({ togglePanel }) {
+function TransformationInfo({ togglePanel,scoreEnv }) {
+  const [showInfo, setShowInfo] = useState(false);
+  const panelConfigs = [
+    {
+      id: "10",
+      title: "Pesticides",
+      disabled: scoreEnv?._pest?false:true,
+      content: <div className="p-4 text-mockup-green">{scoreEnv?._pest}</div>,
+    },
+    {
+      id: "20",
+      title: "Biodiversité",
+      disabled:scoreEnv?._biod?false:true,
+      content: <div className="p-4 text-mockup-green">{scoreEnv?._biod}</div>,
+    },
+    {
+      id: "30",
+      title: "Climat",
+      disabled:scoreEnv?._climat?false:true,
+      content: <div className="p-4 text-mockup-green">{scoreEnv?._climat}</div>,
+    },
+    {
+      id: "40",
+      title: "Bien-être animal",
+      disabled:scoreEnv?._bea?false:true,
+      content: <div className="p-4 text-mockup-green">{scoreEnv?._bea}</div>,
+    },
+  ];
+  
   // Add a handler for child accordion changes
   const handleChildAccordionChange = (e) => {
     // Stop event propagation to prevent parent accordion from closing
@@ -61,15 +63,26 @@ function TransformationInfo({ togglePanel }) {
             Planet-Score
           </span>
         </h1>
-        <div className="px-4 py-4 flex flex-col gap-1 w-11/12 justify-center justify-items-center m-auto bg-no-repeat bg-contain bg-bottom recetteBg">
+        <div className="px-4 py-4 flex flex-col gap-1 w-11/12 justify-center justify-items-center m-auto bg-no-repeat bg-contain bg-center recetteBg">
           <div className="w-full  py-3">
             <img
-              src={planetScore}
-              className="w-9/12 m-auto max-w-60 max-h-60"
+              src={scoreEnv?._url?scoreEnv?._url:planetScore}
+              className="w-8/12 m-auto max-w-60 max-h-60"
               alt="Planet score b"
             />
           </div>
-          <div className="text-sm text-mockup-green Archivo pb-4">
+          {!showInfo && (
+          <div className="text-center pb-1">
+            <a
+              className="text-sm text-mockup-green Archivo normal-case underline underline-offset-1"
+              onClick={() => setShowInfo(!showInfo)}
+            >
+              En savoir plus
+            </a>
+          </div>
+        )}
+         {showInfo && (<div className="pb-3">
+          <div className="text-sm text-mockup-green Archivo pb-3">
             Le Planet-Score est un système d'évaluation complet qui donne une
             vision globale de la durabilité d'un produit. Il prend en compte
             deux grandes thématiques :
@@ -78,11 +91,21 @@ function TransformationInfo({ togglePanel }) {
               <li>- &nbsp;Bien-être animal</li>
             </ul>
           </div>
-          <div className="text-sm text-mockup-green Archivo">
+          <div className="text-sm text-mockup-green Archivo pb-3">
             Basé sur des données scientifiques solides, c'est le score le plus
             précis pour mesurer l'impact d'un produit sur l'environnement. Son
             évaluation est réalisée par une équipe d'experts indépendants,
             garantissant une analyse fiable et objective.
+          </div>
+          <a
+              className="text-sm text-mockup-green Archivo underline underline-offset-1 cursor-pointer"
+              onClick={() => setShowInfo(!showInfo)}
+            >
+              Fermer
+            </a>
+          </div>)}
+          <div className="text-sm text-mockup-green Archivo">
+          {scoreEnv?._general}
           </div>
         </div>
         <div className="w-full pb-6">

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo,useEffect } from "react";
 const NutritionTable = ({ product, portion }) => {
   const [unit, setUnit] = useState("100g");
   const [AGS, setAGS] = useState(false);
@@ -52,9 +52,12 @@ const NutritionTable = ({ product, portion }) => {
   };
 
   const NutritionRow = ({ item, level = 0, portion, parentId = "" }) => {
-    if (item.name == "AGS") {
-      setAGS(true);
-    }
+    
+    useEffect(() => {
+      if (item.name === "AGS") {
+        setAGS(true);
+      }
+    }, [item.name, setAGS]);
     const value =
       unit === "portion" && portion
         ? calculatePortionValue(item.value.qt, portion)
@@ -88,13 +91,11 @@ const NutritionTable = ({ product, portion }) => {
             {value !== null && value !== undefined && value !== 0 ? (
               <>
                 <div>
-      {formattedValue} {item.value.unit}
-    </div>
-    {item.value.unit === 'kcal' && (
-      <div>
-        {(formattedValue * 4.184).toFixed(2)} kJ
-      </div>
-    )}
+                  {formattedValue} {item.value.unit}
+                </div>
+                {item.value.unit === "kcal" && (
+                  <div>{(formattedValue * 4.184).toFixed(2)} kJ</div>
+                )}
               </>
             ) : (
               ""

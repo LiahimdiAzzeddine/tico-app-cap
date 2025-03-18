@@ -13,9 +13,13 @@ import AccountCreationForm from "./Register";
 import ForgotPassword from "./ForgotPassword";
 
 import { useBiometricAuth } from "../../hooks/auth/useBiometricAuth"; // Import the new hook
+import useSendValidationEmail from "../../hooks/auth/useSendValidationEmail";
 
 const Login = ({ createCompte = false, redirection }) => {
-  const { handleSubmit, loading, error, success } = useLogin();
+  const { handleSubmit, loading, error, success, status,setStatus } = useLogin();
+  const [values, setValues] = useState({ email: "", password: "" });
+  const {  sendValidationEmail } = useSendValidationEmail({ to_email: values.email,setStatus });
+
   const {
     biometricAvailable,
     hasCredentials,
@@ -24,7 +28,7 @@ const Login = ({ createCompte = false, redirection }) => {
     saveCredentialsWithBiometric,
   } = useBiometricAuth(); // Use the new hook
 
-  const [values, setValues] = useState({ email: "", password: "" });
+  
   const [showPassword, setShowPassword] = useState(false);
   const [showModalInscription, setShowModalInscription] = useState(false);
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
@@ -227,7 +231,18 @@ const Login = ({ createCompte = false, redirection }) => {
 
           {/* Message d'erreur général */}
           {errors.account && (
-            <p className="text-red-500 text-sm mt-1">{errors.account[0]}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {errors.account[0] ? errors.account[0] : errors.message}
+            </p>
+          )}
+
+          {status ==404 && (
+            <div
+            onClick={sendValidationEmail}
+              className="font-medium text-custom-text-orange hover:text-custom-text-orange cursor-pointer Archivo"
+            >
+            Demander un nouveau lien de validation
+            </div>
           )}
         </form>
       </div>

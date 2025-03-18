@@ -55,6 +55,8 @@ const TipDetails = ({ tip }) => {
           </h2>
           <p
             className="text-custom-blue text-base break-words leading-archivo"
+            style={{ color: '#0F548D !important' }}
+
             dangerouslySetInnerHTML={{ __html: details }}
           />
         </div>

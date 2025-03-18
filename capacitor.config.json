@@ -9,7 +9,7 @@
       "resizeOnFullScreen": true
     },
     "SplashScreen": {
-      "launchShowDuration": 3000,
+      "launchShowDuration": 2000,
       "backgroundColor": "#FFFFFF",
       "androidSplashResourceName": "splash",
       "showSpinner": true,
@@ -22,7 +22,7 @@
     }
   },
 "server": {
-  "url": "http://192.168.11.109:3000",
+  "url": "http://192.168.11.120:3000",
   "cleartext": true
 }
 

@@ -20,6 +20,7 @@ import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { useIonRouter } from "@ionic/react";
 import { useGlobalContext } from "./GlobalProvider";
 import TransformationInfo from "./accordion/TransformationInfo";
+import Naturalite from "./accordion/Naturalite";
 
 const ProductDetailsAccordion = ({
   product,
@@ -29,6 +30,7 @@ const ProductDetailsAccordion = ({
   targetRefAdditifs,
   scrollToTarget,
 }) => {
+  console.log("🚀 ~ product:", product)
   const { hasRequested, setIsCourager } = useGlobalContext();
   const { triggerAlert } = useAlert();
   const isAuthenticated = useIsAuthenticated();
@@ -97,15 +99,15 @@ const ProductDetailsAccordion = ({
     {
       id: "3",
       title: "Impact environnemental",
-      disabled: false,
-      content: <TransformationInfo togglePanel={togglePanel} />,
+      disabled: product.scores?._scoreEnv?false:true,
+      content: <TransformationInfo togglePanel={togglePanel} scoreEnv={product.scores?._scoreEnv} />,
     },
     {
       id: "4",
       title: "Origines",
-      disabled: false,
+      disabled: product.scores?._scoreOrigin?false:true,
       content: (
-        <OriginsInfo togglePanel={togglePanel} origin={product.origin} />
+        <OriginsInfo togglePanel={togglePanel} scoreOrigin={product.scores?._scoreOrigin} transformation={product.transformation} transcondi={product.transcondi}/>
       ),
     },
     {
@@ -122,15 +124,21 @@ const ProductDetailsAccordion = ({
     },
     {
       id: "7",
-      title: "Utilisation et conservation",
+      title: "Utilisation & conservation",
       disabled: false,
       content: <UsageInfo togglePanel={togglePanel}/>,
     },
     {
       id: "8",
+      title: "Naturalité des ingrédients",
+      disabled: false,
+      content: <Naturalite  togglePanel={togglePanel}/>,
+    },
+    {
+      id: "9",
       title: "Emballage",
-      disabled: true,
-      content: <PackagingInfo />,
+      disabled: false,
+      content: <PackagingInfo  togglePanel={togglePanel}/>,
     },
   ];
 
@@ -178,7 +186,7 @@ const ProductDetailsAccordion = ({
               </IonLabel>
 
               {/* Image bulle bien visible uniquement pour le premier panel désactivé */}
-              {panel.id === "8" && (
+              {panel.id === "12" && (
                 <motion.img
                   src={BubbleImg}
                   onClick={(event) => {

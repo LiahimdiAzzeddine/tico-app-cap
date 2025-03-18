@@ -8,6 +8,7 @@ const LOGIN_URL = "/api/auth/login";
 const useLogin = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const errRef = useRef(null);
   
@@ -43,14 +44,16 @@ const useLogin = () => {
       // Handle API errors
       const errorMessage = error.response?.data?.message || "Échec de la connexion.";
       const errorDetails = error.response?.data?.errors || null;
-
+      if(error.status){
+       setStatus(error.status) 
+      }
       setError(errorDetails);
       triggerToast(errorMessage, "danger");
-
       errRef.current?.focus();
     } finally {
       setLoading(false);
     }
+      
   };
 
   return {
@@ -59,6 +62,8 @@ const useLogin = () => {
     error,
     errRef,
     success,
+    status,
+    setStatus,
   };
 };
 
