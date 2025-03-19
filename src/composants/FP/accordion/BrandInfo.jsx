@@ -5,212 +5,178 @@ import {
   logoFacebook,
   logoInstagram,
   logoLinkedin,
-  chatbubbleEllipsesOutline,
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
-function BrandInfo({ togglePanel }) {
-  const [showFullText, setShowFullText] = useState(false);
-
-  const toggleText = () => {
-    setShowFullText(!showFullText);
+function SocialLinks({ networks }) {
+  const getIcon = (label) => {
+    switch (label) {
+      case "Facebook":
+        return logoFacebook;
+      case "LinkedIn":
+        return logoLinkedin;
+      case "Instagram":
+        return logoInstagram;
+      case "YouTube":
+        return logoYoutube;
+      default:
+        return null;
+    }
   };
 
   return (
+    <div className="flex gap-3">
+      {networks && networks.length > 0 ? (
+        networks.map((network) => (
+          <a
+            key={network._label || network._url}
+            href={network._url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-7 h-7 text-mockup-green"
+          >
+            <IonIcon
+              icon={getIcon(network._label)}
+              className="w-7 h-7 text-mockup-green"
+              alt={network._label}
+            />
+          </a>
+        ))
+      ) : (
+        <span className="text-xs text-gray-400">Aucun réseau social</span>
+      )}
+    </div>
+  );
+}
+
+function ReadMoreText({ text, maxLength = 150 }) {
+  const [showFullText, setShowFullText] = useState(false);
+  
+  if (!text) return <p className="text-xs text-gray-400">Aucune information disponible</p>;
+  
+  const toggleText = () => {
+    setShowFullText((prevState) => !prevState);
+  };
+  
+  const shouldShowToggle = text.length > maxLength;
+  const displayText = showFullText ? text : text.slice(0, maxLength) + (shouldShowToggle ? "... " : "");
+  
+  return (
+    <p className="inline">
+      {displayText}
+      {shouldShowToggle && (
+        <button
+          onClick={toggleText}
+          className="text-[#2c6b66] font-bold Archivo underline ml-1"
+        >
+          {showFullText ? "Lire moins" : "Lire plus"}
+        </button>
+      )}
+    </p>
+  );
+}
+
+function EntitySection({ entity, title, entityType }) {
+  const [showFullText, setShowFullText] = useState(false);
+  const socialNetworks = Object.values(entity?._reseaux || {});
+  
+  // Fonction pour extraire l'ID de la vidéo YouTube
+  const getYoutubeId = (url) => {
+    if (!url) return null;
+    const match = url.match(
+      /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
+    );
+    return match ? match[1] : null;
+  };
+  
+  const youtubeId = entity?._historyvideo ? getYoutubeId(entity._historyvideo) : null;
+
+  return (
+    <>
+      <h1 className="text-xl text-custom-blue font-bold ArchivoExtraBold">
+        <span className="marker-effect-cyan">{title}</span>
+      </h1>
+
+      <div className="px-1 py-1 flex flex-row gap-3">
+        {entity?._logoUrl ? (
+          <img src={entity._logoUrl} className="w-1/3 object-contain" alt={title} />
+        ) : (
+          <div className="w-1/3 bg-gray-200 flex items-center justify-center rounded">
+            <span className="text-gray-400 text-xs">Logo non disponible</span>
+          </div>
+        )}
+        <div className="flex flex-col gap-3">
+          <SocialLinks networks={socialNetworks} />
+          <div className="flex flex-col font-bold gap-1">
+            {entity?._url && (
+              <a
+                href={entity._url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-[#2c6b66] Archivo normal-case underline underline-offset-1 cursor-pointer"
+              >
+                Site internet
+              </a>
+            )}
+            <a
+              href="#"
+              className="text-xs text-[#2c6b66] Archivo normal-case underline underline-offset-1 cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                // Peut être remplacé par une modalité de contact
+                alert(`Contacter le SAV ${entityType}`);
+              }}
+            >
+              Contact SAV
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div className="px-1 text-[#2c6b66] text-sm Archivo">
+        <ReadMoreText text={entity?._history} />
+      </div>
+
+      {youtubeId && (
+        <div className="px-4">
+          <iframe
+            className="w-full h-40 bg-custom-blue rounded"
+            src={`https://www.youtube.com/embed/${youtubeId}`}
+            title={`Vidéo de ${entityType}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      )}
+    </>
+  );
+}
+
+function BrandInfo({ togglePanel, markInfo, provider }) {
+  return (
     <div
-      className="bg-custom-green-clear rounded-e-[2rem] left-0 min-h-72 z-0 relative pb-8"
+      className="bg-custom-green-clear rounded-e-[2rem] left-0 min-h-72 z-0 relative pb-12"
       style={{ width: "calc(100% - 16px)" }}
     >
       <div className="px-4 py-6 flex flex-col gap-4">
-        <h1 className="text-xl text-custom-blue font-bold ArchivoExtraBold">
-          <span className="marker-effect-cyan ArchivoExtraBold">La marque</span>
-        </h1>
-
-        <div className="px-4 py-1 flex flex-row gap-3">
-          {/* Logo de la marque */}
-          <img
-            src="https://cdn.worldvectorlogo.com/logos/logo-bleu-blanc-coeur-1.svg"
-            className="w-1/3"
-            alt="Marque"
-          />
-
-          {/* Réseaux sociaux */}
-          <div className="flex flex-col gap-3">
-            <div className="flex gap-2">
-              <IonIcon
-                icon={logoYoutube}
-                className="w-7 h-7 text-mockup-green"
-                alt="YouTube"
-              />
-              <IonIcon
-                icon={logoFacebook}
-                className="w-7 h-7 text-mockup-green"
-                alt="Facebook"
-              />
-              <IonIcon
-                icon={logoInstagram}
-                className="w-7 h-7 text-mockup-green"
-                alt="Instagram"
-              />
-              <IonIcon
-                icon={logoLinkedin}
-                className="w-7 h-7 text-mockup-green"
-                alt="LinkedIn"
-              />
-              <IonIcon
-                icon={chatbubbleEllipsesOutline}
-                className="w-7 h-7 text-mockup-green"
-                alt="chatbubbleEllipsesOutline"
-              />
-            </div>
-
-            {/* Liens du site */}
-            <div className="flex flex-col font-bold gap-1">
-              <a
-                href="#"
-                className="text-xs text-[#2c6b66] Archivo normal-case underline underline-offset-1 cursor-pointer"
-              >
-                Site internet
-              </a>
-              <a
-                href="#"
-                className="text-xs text-[#2c6b66] Archivo normal-case underline underline-offset-1 cursor-pointer"
-              >
-                Contact SAV
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Texte avec "Lire plus" */}
-        <div className="px-4 text-[#2c6b66] text-sm  Archivo">
-          {showFullText ? (
-            <>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua.
-            </>
-          ) : (
-            <>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
-              ipsum dolor sit...
-            </>
-          )}
-          <button
-            onClick={toggleText}
-            className="text-[#2c6b66] font-bold  Archivo underline"
-          >
-            {showFullText ? "Lire moins" : "Lire plus"}
-          </button>
-        </div>
-
-        {/* Vidéo */}
-        <div className="px-4">
-          <video className="w-full bg-custom-blue h-40" controls>
-            <source src="video.mp4" type="video/mp4" />
-            Votre navigateur ne supporte pas la vidéo.
-          </video>
-        </div>
-        <h1 className="text-xl text-custom-blue font-bold ArchivoExtraBold">
-          <span className="marker-effect-cyan ArchivoExtraBold">
-            L’entreprise
-          </span>
-        </h1>
-
-        <div className="px-4 py-1 flex flex-row gap-3">
-          {/* Logo de la marque */}
-          <img
-            src="https://cdn.worldvectorlogo.com/logos/logo-bleu-blanc-coeur-1.svg"
-            className="w-1/3"
-            alt="Marque"
-          />
-
-          {/* Réseaux sociaux */}
-          <div className="flex flex-col gap-3">
-            <div className="flex gap-3">
-              <IonIcon
-                icon={logoYoutube}
-                className="w-7 h-7 text-mockup-green"
-                alt="YouTube"
-              />
-              <IonIcon
-                icon={logoFacebook}
-                className="w-7 h-7 text-mockup-green"
-                alt="Facebook"
-              />
-              <IonIcon
-                icon={logoInstagram}
-                className="w-7 h-7 text-mockup-green"
-                alt="Instagram"
-              />
-              <IonIcon
-                icon={logoLinkedin}
-                className="w-7 h-7 text-mockup-green"
-                alt="LinkedIn"
-              />
-              <IonIcon
-                icon={chatbubbleEllipsesOutline}
-                className="w-7 h-7 text-mockup-green"
-                alt="chatbubbleEllipsesOutline"
-              />
-            </div>
-
-            {/* Liens du site */}
-            <div className="flex flex-col font-bold gap-1">
-              <a
-                href="#"
-                className="text-xs text-[#2c6b66] Archivo normal-case underline underline-offset-1 cursor-pointer"
-              >
-                Site internet
-              </a>
-              <a
-                href="#"
-                className="text-xs text-[#2c6b66] Archivo normal-case underline underline-offset-1 cursor-pointer"
-              >
-                Contact SAV
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Texte avec "Lire plus" */}
-        <div className="px-4 text-[#2c6b66] text-sm  Archivo">
-          {showFullText ? (
-            <>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua.
-            </>
-          ) : (
-            <>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
-              ipsum dolor sit...
-            </>
-          )}
-          <button
-            onClick={toggleText}
-            className="text-[#2c6b66] font-bold  Archivo underline"
-          >
-            {showFullText ? "Lire moins" : "Lire plus"}
-          </button>
-        </div>
-
-        {/* Vidéo */}
-        <div className="px-4 pb-6">
-          <video className="w-full bg-custom-blue h-40" controls>
-            <source src="video.mp4" type="video/mp4" />
-            Votre navigateur ne supporte pas la vidéo.
-          </video>
-        </div>
+        <EntitySection 
+          entity={markInfo} 
+          title="La marque" 
+          entityType="de la marque" 
+        />
+        
+        <EntitySection 
+          entity={provider} 
+          title="L'entreprise" 
+          entityType="de l'entreprise" 
+        />
+        
         <img
           src={FICHETOP}
-          className="w-12 absolute bottom-1 right-0"
+          className="w-12 absolute bottom-1 right-0 cursor-pointer transition-transform hover:scale-110"
           onClick={(e) => {
-            e.stopPropagation(); // Stop propagation
+            e.stopPropagation();
             togglePanel(6);
           }}
           alt="Toggle Panel"
@@ -219,6 +185,5 @@ function BrandInfo({ togglePanel }) {
     </div>
   );
 }
-[];
 
 export default BrandInfo;

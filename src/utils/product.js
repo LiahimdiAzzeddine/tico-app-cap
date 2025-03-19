@@ -117,6 +117,16 @@ export function createProduct(scannedResult, productData) {
       OFFproduct?._trademark_txt,
       "Marque inconnue"
     ),
+    markInfo:getValidValue(
+      foodheaproduct?._trademark,
+      OFFproduct?._trademark,
+      null
+    ),
+    provider:getValidValue(
+      foodheaproduct?._provider,
+      OFFproduct?._provider,
+      null
+    ),
     nutriscore: getValidValue(
       foodheaproduct?._nutriscore,
       OFFproduct?._nutriscore,
@@ -185,6 +195,15 @@ export function createProduct(scannedResult, productData) {
       null
     ),
     alreadyRequest,
-    scores:foodheaproduct?._scores,
+    scores: getValidValue(
+      foodheaproduct?._scores,
+      OFFproduct?._scores,
+      null
+    ),
+    engagements:getValidValue(
+      foodheaproduct?._engagements,
+      OFFproduct?._engagements,
+      null
+    ),
   };
 }

@@ -113,14 +113,14 @@ const ProductDetailsAccordion = ({
     {
       id: "5",
       title: "Labels et mentions",
-      disabled: false,
-      content: <LabelsInfo togglePanel={togglePanel} />,
+      disabled: product.engagements?false:true,
+      content: <LabelsInfo togglePanel={togglePanel} engagements={product.engagements} />,
     },
     {
       id: "6",
       title: "Marque & entreprise",
-      disabled: false,
-      content: <BrandInfo togglePanel={togglePanel} />,
+      disabled: (product?.markInfo || product?.provider)?false:true,
+      content: <BrandInfo togglePanel={togglePanel} markInfo={product.markInfo} provider={product?.provider} />,
     },
     {
       id: "7",

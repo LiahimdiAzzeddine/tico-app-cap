@@ -1,40 +1,28 @@
 import React, { useState } from "react";
 import FICHETOP from "../../../assets/fb/FICHETOP.svg";
+const VITE_LABEL_IMAGES = import.meta.env.VITE_LABEL_IMAGES;
 
-function LabelsInfo({ togglePanel }) {
-  const labels = [
-    {
-      name: "Label Rouge",
-      image:
-        "https://www.brive-tourisme.com/uploads/2022/02/telechargement.png",
-      description:
-        "Label Rouge est un signe national officiel de qualité, permettant d'identifier les produits bénéficiant d’un niveau de qualité supérieure aux produits similaires de leur catégorie. Respect du cahier des charges et contrôles réguliers garantissent cette qualité.",
-    },
-    {
-      name: "Bleu-Blanc-Cœur",
-      image:
-        "https://cdn.worldvectorlogo.com/logos/logo-bleu-blanc-coeur-1.svg",
-      description:
-        "Bleu-Blanc-Cœur est une marque aux caractéristiques d’un label. C’est une démarche agricole et alimentaire durable visant à améliorer la qualité nutritionnelle et environnementale, en intégrant une meilleure alimentation des animaux.",
-    },
-  ];
-  const mentions = [
-    {
-      name: "Lorem, ipsum dolor ",
-      image:
-        "https://www.logoai.com/uploads/output/2021/11/08/4d51348a67e197aeefe296d4bc379d24.jpg?t=1636384250",
-      description:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia, asperiores adipisci. Suscipit voluptates ullam perferendis tenetur similique eveniet quo sint, numquam iusto possimus eius perspiciatis provident quia reprehenderit? Beatae, odit!",
-    },
-    {
-      name: "Lorem, ipsum dolor ",
-      image:
-        "https://www.creativefabrica.com/wp-content/uploads/2021/03/10/Modern-Colorful-M-Letter-Logo-Design-Graphics-9428025-1-1-580x435.jpg",
-      description:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia, asperiores adipisci. Suscipit voluptates ullam perferendis tenetur similique eveniet quo sint, numquam iusto possimus eius perspiciatis provident quia reprehenderit? Beatae, odit!",
-    },
-  ];
-
+function LabelsInfo({ togglePanel,engagements }) {
+  const labels = [];
+  const mentions = [];
+  
+  Object.values(engagements || {}).forEach(e => {
+    const generic = e._generic;
+    if (!generic) return;
+  
+    const item = {
+      _label: generic._label,
+      _image: `${VITE_LABEL_IMAGES}${generic._image}`,
+      _details: generic._details
+    };
+  
+    if (generic._labeltype === 'L') {
+      labels.push(item);
+    } else if (generic._labeltype === 'M') {
+      mentions.push(item);
+    }
+  });
+  
   return (
     <div
       className="bg-custom-green-clear rounded-e-[2rem] left-0 min-h-72 z-0 relative pb-8"
@@ -81,20 +69,25 @@ function LabelCard({ label }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const maxLength = 100; // Nombre de caractères max avant coupure
 
+  const details = label._details || ""; // Éviter les erreurs si _details est undefined
+  const isLongText = details.length > maxLength;
+
   return (
     <div className="flex flex-row gap-4 items-center">
-      <img src={label.image} alt={label.name} className="w-1/4 max-w-36" />
+      {label._image && (
+        <img src={label._image} alt={label._label} className="w-1/4 max-w-36" />
+      )}
       <div className="text-sm text-[#2c6b66] Archivo">
-        <strong>{label.name}</strong> –{" "}
-        {isExpanded
-          ? label.description
-          : label.description.slice(0, maxLength) + "..."}{" "}
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="text-[#2c6b66] underline"
-        >
-          {isExpanded ? "Voir moins" : "Lire plus"}
-        </button>
+        <strong>{label._label}</strong> –{" "}
+        {isExpanded || !isLongText ? details : details.slice(0, maxLength) + "..."}  
+        {isLongText && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-[#2c6b66] underline cursor-pointer ml-1"
+          >
+            {isExpanded ? "Voir moins" : "Lire plus"}
+          </button>
+        )}
       </div>
     </div>
   );
