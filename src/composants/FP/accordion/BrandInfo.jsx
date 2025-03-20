@@ -99,7 +99,12 @@ function EntitySection({ entity, title, entityType,isVisible }) {
 
       <div className="px-1 py-1 flex flex-row gap-3">
         {entity?._logoUrl ? (
-          <img src={entity._logoUrl} className="w-2/5 object-contain" alt={title} />
+          <img 
+          src={entity?._logoUrl?.startsWith("http://") ? entity._logoUrl.replace("http://", "https://") : entity?._logoUrl} 
+          className="w-2/5 object-contain" 
+          alt={title} 
+        />
+        
         ) : (
           <div className="w-2/5 min-h-20 bg-gray-200 flex items-center justify-center rounded">
             <span className="text-gray-400 text-xs">Logo non disponible</span>
