@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { IonModal, IonContent, IonButton, IonIcon } from "@ionic/react";
 import { closeOutline } from "ionicons/icons";
-import productDeffaultImg from "../../assets/history/64.png";
+import productDeffaultImg from "../../assets/history/500x400.svg";
 
 function NameProduct(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
-      <div className="flex flex-row justify-center px-4 space-x-10">
-        <div className="max-w-24 max-h-28 w-auto h-auto flex flex-col justify-center items-center">
+      <div className="flex flex-row justify-start px-4 space-x-8">
+        <div className="max-w-24 max-h-20 w-auto h-auto flex flex-col justify-center items-center">
           <img
             src={props.ImageSrc ? props.ImageSrc : productDeffaultImg}
             alt={`${props.Name} - ${props.Brand}`}
@@ -17,7 +17,6 @@ function NameProduct(props) {
             onClick={() => setIsOpen(true)}
           />
         </div>
-
         <div className="flex flex-col justify-around space-y-1">
           <div>
             <span className="text-xl titre-roboto-bold text-[#0f548d] ArchivoBold leading-archivo">

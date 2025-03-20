@@ -4,29 +4,30 @@ import factory from "../../../assets/fb/factory.svg";
 
 function OriginsInfo({ togglePanel, scoreOrigin, transformation, transcondi }) {
   const [showInfo, setShowInfo] = useState(false);
+  const matieres = scoreOrigin?._mpas?.filter((item) => item !== null) || [];
+
   const TransCondi = {
     T: "transformation",
     C: "conditionnement",
     E: "embouteillage",
   };
+
   return (
     <div
       className="bg-custom-green-clear rounded-e-[2rem] left-0 min-h-72 z-0 relative pb-6"
       style={{ width: "calc(100% - 16px)" }}
     >
       <div className="px-4 py-6">
-        {!showInfo && (
+        {!showInfo ? (
           <div className="text-center">
             <a
-              className="text-xs text-mockup-green Archivo normal-case underline underline-offset-1"
-              onClick={() => setShowInfo(!showInfo)}
+              className="text-xs text-mockup-green Archivo normal-case underline underline-offset-1 cursor-pointer"
+              onClick={() => setShowInfo(true)}
             >
               Comprendre les origines d’un produit
             </a>
           </div>
-        )}
-
-        {showInfo && (
+        ) : (
           <div className="text-base text-start text-mockup-green Archivo">
             <p className="text-xs">
               Bienvenue dans le merveilleux onglet des origines ! L’origine d’un
@@ -57,7 +58,7 @@ function OriginsInfo({ togglePanel, scoreOrigin, transformation, transcondi }) {
             </p>
             <a
               className="text-xs text-mockup-green Archivo underline underline-offset-1 cursor-pointer"
-              onClick={() => setShowInfo(!showInfo)}
+              onClick={() => setShowInfo(false)}
             >
               Fermer
             </a>
@@ -65,17 +66,18 @@ function OriginsInfo({ togglePanel, scoreOrigin, transformation, transcondi }) {
         )}
 
         <div className="mt-4 flex flex-col gap-4">
-          {(transcondi != null || transformation != null) && (
-            <div className="flex flex-row justify-start items-center gap-3 px-4">
+          {(transcondi || transformation) && (
+            <div className="flex flex-row items-center gap-3 px-4">
               <img src={factory} className="w-8" alt="Factory icon" />
               <div className="text-base text-custom-blue Archivo">
-                Lieu de {transcondi ? TransCondi[transcondi] : "Incertain"}:
+                Lieu de {transcondi ? TransCondi[transcondi] : "Incertain"} :
               </div>
               <div className="text-base text-mockup-blue ArchivoBold">
-                {transformation ? transformation : "Incertain"}
+                {transformation || "Incertain"}
               </div>
             </div>
           )}
+
           {scoreOrigin?._ing?.length > 0 && (
             <div className="mt-1">
               <h4 className="text-lg text-custom-blue ArchivoBold">
@@ -84,10 +86,10 @@ function OriginsInfo({ togglePanel, scoreOrigin, transformation, transcondi }) {
                 </span>{" "}
                 – <span className="text-mockup-blue">leurs origines</span>
               </h4>
-              {(scoreOrigin?._ing).map((item, index) => (
+              {scoreOrigin._ing.map((item, index) => (
                 <div key={index} className="mt-2">
                   <h4 className="text-base text-custom-blue ArchivoBold leading-tight">
-                    {item?._label}
+                    {item?._label}{" "}
                     <span className="text-mockup-blue">
                       {" "}
                       - {item?._country || "Inconnu"}
@@ -95,7 +97,7 @@ function OriginsInfo({ togglePanel, scoreOrigin, transformation, transcondi }) {
                   </h4>
                   {item?._com && (
                     <p className="pl-4 text-sm text-mockup-green Archivo leading-tight">
-                      {item?._com}
+                      {item._com}
                     </p>
                   )}
                 </div>
@@ -108,37 +110,45 @@ function OriginsInfo({ togglePanel, scoreOrigin, transformation, transcondi }) {
               {scoreOrigin._ing_comment}
             </p>
           )}
-          {scoreOrigin?._mpas?.length > 0 && (
+
+          {matieres.length > 0 && (
             <div className="mt-1">
               <h4 className="text-base text-custom-blue ArchivoBold">
                 <span className="text-lg marker-effect-cyan ArchivoExtraBold">
                   Matières premières
                 </span>{" "}
-                – <span className="text-mockup-blue text-lg">leurs origines</span>
-                <div className="text-xs ArchivoItalic pt-1">
+                –{" "}
+                <span className="text-mockup-blue text-lg">leurs origines</span>
+              </h4>
+              {matieres.length >= 3 && (
+                <div className="text-xs ArchivoItalic pt-1 text-custom-blue">
                   Les 3 matières premières principales
                 </div>
-              </h4>
-              {(scoreOrigin?._mpas).map((item, index) => (
+              )}
+              {matieres.slice(0, 3).map((item, index) => (
                 <div key={index} className="mt-2">
-                  <h4 className="text-base text-custom-blue ArchivoBold leading-tight">
-                    {item._label}
-                  </h4>
+                  {item?._label && (
+                    <h4 className="text-base text-custom-blue ArchivoBold leading-tight">
+                      {item._label}
+                    </h4>
+                  )}
                   {item?._com && (
                     <p className="pl-4 text-sm text-mockup-green Archivo leading-tight">
-                      {item?._com}
+                      {item._com}
                     </p>
                   )}
                 </div>
               ))}
             </div>
           )}
+
           {scoreOrigin?._mpa_comment && (
-            <p className="text-sm text-mockup-green Archivo leading-tight">
+            <p className="text-sm text-mockup-green Archivo leading-tight pb-4">
               {scoreOrigin._mpa_comment}
             </p>
           )}
         </div>
+
         <img
           src={FICHETOP}
           className="w-12 absolute bottom-0 right-0 cursor-pointer"

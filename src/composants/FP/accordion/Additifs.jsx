@@ -6,10 +6,9 @@ import pastilleNote4 from "../../../assets/fb/pastille-note-4.svg";
 import { useGlobalContext } from "../GlobalProvider";
 import { Link } from "react-router-dom";
 
+const Additifs = ({ additifs, targetRefAdditifs }) => {
+  const { setIsCourager } = useGlobalContext();
 
-const Additifs = ({ additifs,targetRefAdditifs }) => {
-      const { setIsCourager } = useGlobalContext();
-  
   const getPastilleImage = (note) => {
     if (note === 1) {
       return pastilleNote1; // High severity
@@ -35,12 +34,13 @@ const Additifs = ({ additifs,targetRefAdditifs }) => {
 
   return (
     <>
-      <h1 className="text-xl text-custom-blue font-bold pt-3"  >
+      <h1 className="text-xl text-custom-blue font-bold pt-3">
         <span className="marker-effect-cyan ArchivoExtraBold">Additifs</span>
       </h1>
-      <div className="mt-4" id="additifs">
-        {additifs && additifs.length > 0 ? (
-          additifs.map((item, index) => (
+
+      {additifs && additifs.length > 0 ? (
+        additifs.map((item, index) => (
+          <div className="pt-4 pb-8" id="additifs">
             <div key={index} className="flex items-start space-x-2 pb-1">
               {/* Pastille image */}
               <img
@@ -58,25 +58,35 @@ const Additifs = ({ additifs,targetRefAdditifs }) => {
                   </span>
                 </div>
                 <div className="text-custom-blue text-sm ArchivoItalic ">
-                  {[item?.fonction1, item?.fonction2, SelectedNoteUFC(item?.noteUFC)]
+                  {[
+                    item?.fonction1,
+                    item?.fonction2,
+                    SelectedNoteUFC(item?.noteUFC),
+                  ]
                     .filter(Boolean) // Supprime les valeurs nulles, indéfinies ou vides
                     .join(" | ")}{" "}
                   {/* Combine les valeurs disponibles avec " | " */}
                 </div>
               </div>
             </div>
-          ))
-        ) : (
-          <div className="text-custom-blue ArchivoLight tracking-normal text-sm">
-            <div>
-          Ne contient pas d'Additifs
           </div>
-          <Link to={"#"} className="underline font-bold"  onClick={()=>{setIsCourager(true)}}>
-          À confirmer par la marque
-          </Link>
-         </div>
-        )}
-      </div>
+        ))
+      ) : (
+        <div className="pt-4 pb-8" id="additifs">
+          <div className="text-custom-blue ArchivoLight tracking-normal text-sm flex flex-col gap-1">
+            <div className="">Ne contient pas d'Additifs</div>
+            <Link
+              to={"#"}
+              className="underline font-bold"
+              onClick={() => {
+                setIsCourager(true);
+              }}
+            >
+              À confirmer par la marque
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 };

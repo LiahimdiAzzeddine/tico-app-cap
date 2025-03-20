@@ -5,6 +5,7 @@ import {
   logoFacebook,
   logoInstagram,
   logoLinkedin,
+  chatbubbleEllipsesOutline
 } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
@@ -20,7 +21,7 @@ function SocialLinks({ networks }) {
       case "YouTube":
         return logoYoutube;
       default:
-        return null;
+        return chatbubbleEllipsesOutline;
     }
   };
 
@@ -33,11 +34,11 @@ function SocialLinks({ networks }) {
             href={network._url}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-7 h-7 text-mockup-green"
+            className="w-8 h-8 text-mockup-green"
           >
             <IonIcon
               icon={getIcon(network._label)}
-              className="w-7 h-7 text-mockup-green"
+              className="w-8 h-8 text-mockup-green"
               alt={network._label}
             />
           </a>
@@ -67,7 +68,7 @@ function ReadMoreText({ text, maxLength = 150 }) {
       {shouldShowToggle && (
         <button
           onClick={toggleText}
-          className="text-[#2c6b66] font-bold Archivo underline ml-1"
+          className="text-[#2c6b66] font-bold Archivo underline"
         >
           {showFullText ? "Lire moins" : "Lire plus"}
         </button>
@@ -76,8 +77,7 @@ function ReadMoreText({ text, maxLength = 150 }) {
   );
 }
 
-function EntitySection({ entity, title, entityType }) {
-  const [showFullText, setShowFullText] = useState(false);
+function EntitySection({ entity, title, entityType,isVisible }) {
   const socialNetworks = Object.values(entity?._reseaux || {});
   
   // Fonction pour extraire l'ID de la vidéo YouTube
@@ -99,9 +99,9 @@ function EntitySection({ entity, title, entityType }) {
 
       <div className="px-1 py-1 flex flex-row gap-3">
         {entity?._logoUrl ? (
-          <img src={entity._logoUrl} className="w-1/3 object-contain" alt={title} />
+          <img src={entity._logoUrl} className="w-2/5 object-contain" alt={title} />
         ) : (
-          <div className="w-1/3 bg-gray-200 flex items-center justify-center rounded">
+          <div className="w-2/5 min-h-20 bg-gray-200 flex items-center justify-center rounded">
             <span className="text-gray-400 text-xs">Logo non disponible</span>
           </div>
         )}
@@ -118,17 +118,17 @@ function EntitySection({ entity, title, entityType }) {
                 Site internet
               </a>
             )}
+            {entity?._email && (
             <a
               href="#"
               className="text-xs text-[#2c6b66] Archivo normal-case underline underline-offset-1 cursor-pointer"
               onClick={(e) => {
+                window.location.href = "mailto:"+entity?._email;
                 e.preventDefault();
-                // Peut être remplacé par une modalité de contact
-                alert(`Contacter le SAV ${entityType}`);
-              }}
+            }}
             >
               Contact SAV
-            </a>
+            </a>)}
           </div>
         </div>
       </div>
@@ -137,7 +137,7 @@ function EntitySection({ entity, title, entityType }) {
         <ReadMoreText text={entity?._history} />
       </div>
 
-      {youtubeId && (
+      {(youtubeId && isVisible) && (
         <div className="px-4">
           <iframe
             className="w-full h-40 bg-custom-blue rounded"
@@ -145,7 +145,6 @@ function EntitySection({ entity, title, entityType }) {
             title={`Vidéo de ${entityType}`}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
           />
         </div>
       )}
@@ -153,25 +152,29 @@ function EntitySection({ entity, title, entityType }) {
   );
 }
 
-function BrandInfo({ togglePanel, markInfo, provider }) {
+function BrandInfo({ togglePanel, markInfo, provider,openPanel }) {
   return (
     <div
-      className="bg-custom-green-clear rounded-e-[2rem] left-0 min-h-72 z-0 relative pb-12"
+      className="bg-custom-green-clear rounded-e-[2rem] left-0 z-0 relative pb-12"
       style={{ width: "calc(100% - 16px)" }}
     >
       <div className="px-4 py-6 flex flex-col gap-4">
-        <EntitySection 
+        {markInfo&&(
+          <EntitySection 
           entity={markInfo} 
           title="La marque" 
           entityType="de la marque" 
+          isVisible={openPanel}
         />
-        
+        )}
+        {provider&&(
         <EntitySection 
           entity={provider} 
           title="L'entreprise" 
           entityType="de l'entreprise" 
-        />
-        
+          isVisible={openPanel}
+        />  
+        )}
         <img
           src={FICHETOP}
           className="w-12 absolute bottom-1 right-0 cursor-pointer transition-transform hover:scale-110"
@@ -186,4 +189,4 @@ function BrandInfo({ togglePanel, markInfo, provider }) {
   );
 }
 
-export default BrandInfo;
+export default React.memo(BrandInfo);

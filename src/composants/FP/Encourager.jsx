@@ -37,7 +37,7 @@ const Encourager = ({ product }) => {
   return (
     <>
       <div className="flex flex-row justify-start items-center px-3 pb-3 ArchivoLight gap-2">
-        <div onClick={() => OpenContactSolliciter()} className=" text-custom-blue underline-offset-2 underline text-base sm:text-sm md:text-sm ArchivoLight leading-tight sm:leading-normal flex flex-col justify-center min-h-14">
+        <div onClick={() => OpenContactSolliciter()} className=" text-custom-blue underline-offset-2 underline text-customMd sm:text-xs md:text-sm ArchivoLight leading-tight sm:leading-normal flex flex-col justify-center min-h-14">
           <span className="block">
             <span className="font-bold">Encourager la marque</span> à fournir
           </span>
@@ -45,7 +45,7 @@ const Encourager = ({ product }) => {
             toutes les informations{" "}
             <img
               src={flecheLeft}
-              className="w-9 absolute -right-6 top-2 -rotate-[30deg] transform"
+              className="w-[2.25rem] absolute -right-9 top-2 -rotate-[30deg] transform"
               alt=""
             />
           </span>
@@ -53,7 +53,7 @@ const Encourager = ({ product }) => {
 
         <div className="flex-1 flex justify-center pl-6">
           <motion.img
-            className="h-auto cursor-pointer w-16"
+            className="h-auto cursor-pointer w-14"
             src={illustrationOrigines}
             alt="Illustration des origines du produit"
             onClick={() => OpenContactSolliciter()}

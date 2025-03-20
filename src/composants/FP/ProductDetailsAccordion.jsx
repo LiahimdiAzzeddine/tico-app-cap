@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import {
   IonAccordion,
@@ -30,7 +30,7 @@ const ProductDetailsAccordion = ({
   targetRefAdditifs,
   scrollToTarget,
 }) => {
-  console.log("🚀 ~ product:", product)
+  console.log("🚀 ~ product:", product);
   const { hasRequested, setIsCourager } = useGlobalContext();
   const { triggerAlert } = useAlert();
   const isAuthenticated = useIsAuthenticated();
@@ -99,57 +99,97 @@ const ProductDetailsAccordion = ({
     {
       id: "3",
       title: "Impact environnemental",
-      disabled: product.scores?._scoreEnv?false:true,
-      content: <TransformationInfo togglePanel={togglePanel} scoreEnv={product.scores?._scoreEnv} />,
+      disabled: product.scores?._scoreEnv ? false : true,
+      content: (
+        <TransformationInfo
+          togglePanel={togglePanel}
+          scoreEnv={product.scores?._scoreEnv}
+        />
+      ),
     },
     {
       id: "4",
       title: "Origines",
-      disabled: product.scores?._scoreOrigin?false:true,
+      disabled: product.scores?._scoreOrigin ? false : true,
       content: (
-        <OriginsInfo togglePanel={togglePanel} scoreOrigin={product.scores?._scoreOrigin} transformation={product.transformation} transcondi={product.transcondi}/>
+        <OriginsInfo
+          togglePanel={togglePanel}
+          scoreOrigin={product.scores?._scoreOrigin}
+          transformation={product.transformation}
+          transcondi={product.transcondi}
+        />
       ),
     },
     {
       id: "5",
       title: "Labels et mentions",
-      disabled: product.engagements?false:true,
-      content: <LabelsInfo togglePanel={togglePanel} engagements={product.engagements} />,
+      disabled: product.engagements?.lenght >0 ? false : true,
+      content: (
+        <LabelsInfo
+          togglePanel={togglePanel}
+          engagements={product.engagements}
+        />
+      ),
     },
     {
       id: "6",
       title: "Marque & entreprise",
-      disabled: (product?.markInfo || product?.provider)?false:true,
-      content: <BrandInfo togglePanel={togglePanel} markInfo={product.markInfo} provider={product?.provider} />,
+      disabled: product?.markInfo || product?.provider ? false : true,
+      content: (
+        <BrandInfo
+          togglePanel={togglePanel}
+          markInfo={product.markInfo}
+          provider={product?.provider}
+          openPanel={openPanel} 
+        />
+      ),
     },
     {
       id: "7",
       title: "Utilisation & conservation",
-      disabled: false,
-      content: <UsageInfo togglePanel={togglePanel}/>,
+      disabled: product?.conservation || product?.utilisation ? false : true,
+      content: (
+        <UsageInfo
+          togglePanel={togglePanel}
+          conservation={product?.conservation}
+          utilisation={product?.utilisation}
+        />
+      ),
     },
     {
       id: "8",
       title: "Naturalité des ingrédients",
-      disabled: false,
-      content: <Naturalite  togglePanel={togglePanel}/>,
+      disabled: product.scores?._scoreNat ? false : true,
+      content: (
+        <Naturalite
+          togglePanel={togglePanel}
+          scoreNat={product.scores?._scoreNat}
+        />
+      ),
     },
     {
       id: "9",
       title: "Emballage",
-      disabled: false,
-      content: <PackagingInfo  togglePanel={togglePanel}/>,
+      disabled: product.scores?._pack ? false : true,
+      content: (
+        <PackagingInfo togglePanel={togglePanel} pack={product.scores?._pack} />
+      ),
     },
   ];
 
+  // Trouver l'index du premier onglet désactivé
+  const firstDisabledPanelIndex = useMemo(() => {
+    return panelConfigs.findIndex(panel => panel.disabled === true);
+  }, [panelConfigs]);
+
   return (
     <div className="pb-6">
-      <IonAccordionGroup 
-      id="group1"
+      <IonAccordionGroup
+        id="group1"
         value={openPanel ? openPanel.toString() : undefined}
         onIonChange={handleAccordionChange}
       >
-        {panelConfigs.map((panel) => (
+        {panelConfigs.map((panel, index) => (
           <IonAccordion
             key={panel.id}
             value={panel.id}
@@ -169,7 +209,7 @@ const ProductDetailsAccordion = ({
                 "--padding-end": "16px",
                 "--padding-top": "2px",
               }}
-              className={`relative ${panel.id === "4" ? "z-50" : "z-0"} ${
+              className={`relative ${panel.id === firstDisabledPanelIndex ? "z-50" : "z-0"} ${
                 panel.disabled ? "text-custom-gray" : "text-custom-blue"
               }`}
             >
@@ -185,17 +225,17 @@ const ProductDetailsAccordion = ({
                 )}
               </IonLabel>
 
-              {/* Image bulle bien visible uniquement pour le premier panel désactivé */}
-              {panel.id === "12" && (
+              {/* Image bulle uniquement pour le premier panel désactivé */}
+              {panel.disabled && index === firstDisabledPanelIndex && (
                 <motion.img
                   src={BubbleImg}
                   onClick={(event) => {
                     event.preventDefault(); // Empêche le comportement par défaut
-                    event.stopPropagation(); // Empêche l’ouverture de l’accordéon
+                    event.stopPropagation(); // Empêche l'ouverture de l'accordéon
                     OpenContactSolliciter();
                   }}
                   alt="Bubble"
-                  className="absolute right-8 w-16 z-50"
+                  className="absolute right-8 w-14 z-50"
                   animate={hasRequested ? { scale: 1 } : { scale: [1, 1.2, 1] }}
                   transition={{
                     repeat: hasRequested ? 0 : Infinity,

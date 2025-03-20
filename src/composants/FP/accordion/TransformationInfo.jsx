@@ -64,15 +64,14 @@ function TransformationInfo({ togglePanel,scoreEnv }) {
           </span>
         </h1>
         <div className="px-4 py-4 flex flex-col gap-1 w-11/12 justify-center justify-items-center m-auto bg-no-repeat bg-contain bg-center recetteBg">
-          <div className="w-full  py-3">
+          <div className="w-full pt-3 pb-1">
             <img
               src={scoreEnv?._url?scoreEnv?._url:planetScore}
               className="w-8/12 m-auto max-w-60 max-h-60"
               alt="Planet score b"
             />
-          </div>
-          {!showInfo && (
-          <div className="text-center pb-1">
+            {!showInfo && (
+          <div className="text-center py-1">
             <a
               className="text-sm text-mockup-green Archivo normal-case underline underline-offset-1"
               onClick={() => setShowInfo(!showInfo)}
@@ -81,6 +80,8 @@ function TransformationInfo({ togglePanel,scoreEnv }) {
             </a>
           </div>
         )}
+          </div>
+          
          {showInfo && (<div className="pb-3">
           <div className="text-sm text-mockup-green Archivo pb-3">
             Le Planet-Score est un système d'évaluation complet qui donne une

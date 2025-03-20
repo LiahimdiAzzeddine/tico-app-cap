@@ -63,8 +63,8 @@ function IngredientsInfo({
   
 
   return (
-    <div className="bg-custom-green-clear rounded-e-[2rem] left-0 min-h-72 z-0 relative pb-8" style={{ width: 'calc(100% - 16px)' }}>
-      <div className="px-4 py-6">
+    <div className="bg-custom-green-clear rounded-e-[2rem] left-0  z-0 relative pb-8" style={{ width: 'calc(100% - 16px)' }}>
+      <div className="px-4 pt-6">
         <h1 className="text-xl text-custom-blue font-bold">
           <span className="marker-effect-cyan ArchivoExtraBold">Ingrédients</span>
         </h1>
@@ -97,7 +97,7 @@ function IngredientsInfo({
               </div>
             ))
           ) : (
-            <p className="text-custom-blue ArchivoBold text-sm">
+            <p className="text-custom-blue ArchivoBold text-xs">
               Aucun ingrédient disponible ne revisite ce produit entièrement. 
             </p>
           )}

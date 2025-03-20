@@ -200,10 +200,21 @@ export function createProduct(scannedResult, productData) {
       OFFproduct?._scores,
       null
     ),
+    conservation:getValidValue(
+      foodheaproduct?._conservation,
+      OFFproduct?._conservation,
+      null
+    ),
+    utilisation:getValidValue(
+      foodheaproduct?._utilisation,
+      OFFproduct?.__utilisation,
+      null
+    ),
     engagements:getValidValue(
       foodheaproduct?._engagements,
       OFFproduct?._engagements,
       null
     ),
+  
   };
 }

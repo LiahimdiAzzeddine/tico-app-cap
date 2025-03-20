@@ -13,7 +13,7 @@ import { createProduct } from "../utils/product";
 import { GlobalProvider } from "../composants/FP/GlobalProvider";
 
 const Fp = () => {
-  const { gtin } = useParams(); // Récupérer le GTIN depuis l'URL
+  const { gtin } = useParams(); 
   const [product, setProduct] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const { productData, loading, error, fetchProduct, setProductData, setError } =

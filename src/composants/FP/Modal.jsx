@@ -26,7 +26,6 @@ import { Link } from "react-router-dom";
 
 const Modal = ({ isOpen, onClose, children }) => {
   const handleBackgroundClick = (e) => {
-    // Vérifie si le clic vient de l'arrière-plan (pas d'un enfant)
     if (e.target.classList.contains("customionmodal")) {
       onClose();
     }
@@ -276,6 +275,10 @@ export const Solliciter = ({
   const { handleSubmit, loading, error, sended } = useTransparencyRequests();
   const { hasRequested, setHasRequested } = useGlobalContext();
   const [present, dismiss] = useIonLoading();
+  const history = useIonRouter();
+  const goToPage = (path) => {
+    history.push(path, "root", "replace");
+  };
 
   const [formValues, setFormValues] = useState({
     user_id: authUser?.id || "",
@@ -340,8 +343,8 @@ export const Solliciter = ({
               Demande effectuée
             </p>
             <Link
-              to={"/mesDemandes"}
-              onClick={() => setIsOpen(false)}
+
+              onClick={() => goToPage("/mesDemandes")}
               className="text-custom-blue font-bold ArchivoLight underline "
             >
               Suivre l’état de mes demandes
