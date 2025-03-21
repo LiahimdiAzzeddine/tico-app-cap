@@ -40,8 +40,8 @@ const Additifs = ({ additifs, targetRefAdditifs }) => {
 
       {additifs && additifs.length > 0 ? (
         additifs.map((item, index) => (
-          <div className="pt-4 pb-8" id="additifs">
-            <div key={index} className="flex items-start space-x-2 pb-1">
+          <div className="pt-4 pb-8" id="additifs" key={index}>
+            <div className="flex items-start space-x-2 pb-1">
               {/* Pastille image */}
               <img
                 src={getPastilleImage(item?.noteUFC ?? 4)} // Valeur par défaut si noteUFC est absente

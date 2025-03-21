@@ -298,7 +298,7 @@ export const Solliciter = ({
       gtin: gtin || "",
       productName: productName,
     });
-    await dismiss();
+    
   };
 
   return (
@@ -343,8 +343,8 @@ export const Solliciter = ({
               Demande effectuée
             </p>
             <Link
-
               onClick={() => goToPage("/mesDemandes")}
+              to={"#"}
               className="text-custom-blue font-bold ArchivoLight underline "
             >
               Suivre l’état de mes demandes
