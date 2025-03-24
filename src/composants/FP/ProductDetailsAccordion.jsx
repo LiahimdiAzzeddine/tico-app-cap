@@ -123,7 +123,7 @@ const ProductDetailsAccordion = ({
     {
       id: "5",
       title: "Labels et mentions",
-      disabled: product.engagements?.lenght >0 ? false : true,
+      disabled: Object.keys(product.engagements?product.engagements:{}).length>0 ? false : true,
       content: (
         <LabelsInfo
           togglePanel={togglePanel}

@@ -23,8 +23,7 @@ const Main = () => {
   const lastScannedCodeRef = useRef(null);
   const shouldDetectRef = useRef(true);
 
-  const updateAppState = (newState) =>
-    setAppState((prevState) => ({ ...prevState, ...newState }));
+  const updateAppState = (newState) => setAppState((prevState) => ({ ...prevState, ...newState }));
 
   const handlePermissionStatus = (status) => {
     if (status.granted) {
@@ -108,24 +107,24 @@ const Main = () => {
     updateAppState({ hideBg: false });
     BarcodeScanner.stopScan();
     scannerActiveRef.current = false;
-    shouldDetectRef.current = true; // Réinitialiser la détection pour le prochain scan
+    shouldDetectRef.current = true; 
   };
 
   const scan = async () => {
     if (!scannerActiveRef.current) return;
-
+  
     try {
       const result = await BarcodeScanner.startScan({
-        targetedFormats: ["CODE_128", "EAN_13", "EAN_8"],
+        targetedFormats: shouldDetectRef.current ? ["CODE_128", "EAN_13", "EAN_8"] : ["EAN_8"], // Désactive la détection
       });
-
+  
       if (result.hasContent && shouldDetectRef.current) {
         if (result.content !== lastScannedCodeRef.current) {
           lastScannedCodeRef.current = result.content;
           openModal(result.content);
         }
       }
-
+  
       // Continuer le scan si le scanner est toujours actif
       if (scannerActiveRef.current) {
         scan();
@@ -134,6 +133,7 @@ const Main = () => {
       updateAppState({ error: `Erreur de scan: ${error.message}` });
     }
   };
+  
 
   const toggleFlash = async () => {
     if (appState.flashOn) {
@@ -165,6 +165,7 @@ const Main = () => {
       }
       shouldDetectRef.current = true;
       lastScannedCodeRef.current = null;
+      
     }
   };
 

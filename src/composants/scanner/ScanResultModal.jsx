@@ -45,6 +45,8 @@ const ScanResultModal = ({
   const { triggerToast } = useToast();
 
   const DetectBreakpoint = (point) => {
+    const event = new CustomEvent("breakpointChanged", { detail: { point } });
+    window.dispatchEvent(event);
     setModalBreakpoint(point);
     setBreakpoint(point);
   };
