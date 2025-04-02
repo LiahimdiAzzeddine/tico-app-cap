@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IonHeader, IonToolbar } from "@ionic/react";
+import { IonButton, IonHeader, IonToolbar } from "@ionic/react";
 import tico from "../../assets/navbar/tico.png";
 import info from "../../assets/navbar/info.svg";
 import FAQComponent from "../settings/FAQ/FAQComponent";
@@ -55,12 +55,12 @@ const TopNavbar = () => {
     <>
       <IonHeader  className="ion-no-border z-0">
         <IonToolbar
-          className="px-5"
+          className=""
           style={{ "--ion-toolbar-background": "#ffff" }}
         >
-          <div className="flex justify-between items-center pb-2 pt-2">
-            <button
-              className="flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200"
+          <div className="flex justify-between items-center ">
+            <IonButton
+fill="clear" className="p-0 m-0" 
               onClick={handleLogoClick}
               role="button"
               aria-label="Go to home"
@@ -71,16 +71,15 @@ const TopNavbar = () => {
                 <span className="block w-[0.35rem] h-[0.35rem] bg-custom-blue rounded-full"></span>
               </div>
               <img src={tico} alt="Tico" className="h-6 ml-4" />
-            </button>
+            </IonButton>
 
             {/* Bouton d'information avec icône */}
-            <button
-              className="flex items-center justify-center rounded-full hover:opacity-80 transition-opacity duration-200"
-              onClick={()=>{handleInfoClick()}}
-              aria-label="Open FAQ"
-            >
-              <img src={info} alt="Info" className="w-9 h-9" />
-            </button>
+       
+               <IonButton fill="clear" className="p-0 m-0"    onClick={()=>{handleInfoClick()}}
+              aria-label="Open FAQ">
+               <img src={info} alt="Info" className="w-9 h-9" />
+                          </IonButton>
+      
           </div>
         </IonToolbar>
       </IonHeader>

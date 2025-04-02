@@ -7,6 +7,7 @@ import BX from "../../assets/home/bx.svg";
 import flecheRecette from "../../assets/recettes/fleche.svg";
 import OF from "../../assets/tips/OFleche.svg";
 import VF from "../../assets/history/vf.svg";
+import { IonButton } from "@ionic/react";
 
 function ModalHeader({ image, onClose }) {
   // Mapping des images par type
@@ -25,18 +26,17 @@ function ModalHeader({ image, onClose }) {
 
   return (
     <div
-      className="flex justify-between items-center pt-2 pb-1 px-5 modal-background"
+      className="flex justify-between items-center pt-2 pb-1 px-0 modal-background"
       style={{ zIndex: 10 }}
     >
-      <button
-        className="text-custom-blue transform transition-transform duration-150 ease-in-out active:scale-90"
-        onClick={onClose}
-      >
+      <IonButton fill="clear" className="p-0 m-0" onClick={onClose}>
         <img src={SRC} alt="Close" className="w-auto h-10" />
-      </button>
+      </IonButton>
       <div className="flex flex-row items-end">
         <div className="text-orange-500 font-bold text-2xl titre-bold transform transition-transform duration-150 ease-in-out active:scale-90">
-          <img src={Tico} alt="Tico" className="h-6" />
+          <IonButton fill="clear" className="p-0 m-0 ionTicobutton">
+            <img src={Tico} alt="Tico" className="h-6" />
+          </IonButton>
         </div>
       </div>
     </div>

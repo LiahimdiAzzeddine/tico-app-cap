@@ -298,6 +298,7 @@ export const Solliciter = ({
       gtin: gtin || "",
       productName: productName,
     });
+    await dismiss();
     
   };
 

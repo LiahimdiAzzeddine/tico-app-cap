@@ -9,6 +9,8 @@ import { NetworkProvider } from "./context/NetworkContext.jsx";
 import { setupIonicReact } from "@ionic/react";
 import { IonApp } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import { GlobalTabsProvider } from "./context/useTabsContext";
+
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -47,7 +49,9 @@ createRoot(document.getElementById("root")).render(
         <AlertProvider>
           <IonApp>
             <IonReactRouter>
-              <App />
+              <GlobalTabsProvider>
+               <App /> 
+              </GlobalTabsProvider>
             </IonReactRouter>
           </IonApp>
         </AlertProvider>

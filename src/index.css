@@ -507,4 +507,15 @@ ion-tab-bar[selected-tab="tab4"],ion-tab-bar[selected-tab="tab5"] {
   margin-bottom: 5px;
   --border-color: #d9d9d900;
 }
-
+.ionRecipebutton {
+  --ripple-color: rgba(255, 20, 145, 0.089);
+  --padding-start:0.5rem !important;
+  --padding-end:0.5rem !important;
+}
+.ionTicobutton {
+  --ripple-color: rgba(194, 160, 160, 0.171);
+  --padding-start:0.1rem !important;
+}
+ion-button {
+  --ripple-color: rgba(194, 160, 160, 0.171);
+}

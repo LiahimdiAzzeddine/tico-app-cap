@@ -67,9 +67,16 @@ function Home() {
         {/* Buttons Section with Background */}
         <div className="min-h-[30%]  flex items-center justify-start w-full max-w-sm px-2  pb-4">
           <div className="w-full max-w-sm  flex items-center justify-center h-full">
-            <div className="flex flex-col items-center justify-start w-3/4 space-y-6 h-full">
+            <div className="flex flex-col items-center justify-start w-3/4 space-y-4 h-full">
+            <button
+                className="bg-[#4E986D] ArchivoBold text-white  text-customLg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                onClick={() => goToPage("/mission")}
+              >
+                La mission de TiCO
+              </button>
+
               <button
-                className="bg-[#4E986D] ArchivoBold text-white  text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-[#4E986D] ArchivoBold text-white  text-customLg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => goToPage("/history")}
               >
                 Historique de scan
@@ -77,14 +84,14 @@ function Home() {
 
               <button
                 mode="md"
-                className="bg-[#4E986D] ArchivoBold text-white text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-[#4E986D] ArchivoBold text-white text-customLg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => goToPage("/laterProducts")}
               >
               Produits à consulter
               </button>
               <button
                 mode="md"
-                className="bg-[#4E986D] ArchivoBold text-white text-lg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
+                className="bg-[#4E986D] ArchivoBold text-white text-customLg py-2 px-6 rounded-xl w-full transform transition-transform duration-150 ease-in-out active:scale-90"
                 onClick={() => goToPage("/mesDemandes")}
               >
               Suivi de mes demandes

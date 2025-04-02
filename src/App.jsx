@@ -30,6 +30,8 @@ import HelpTiCO from "./pages/HelpTiCO";
 import Scanner from "./pages/Scanner";
 import MesDemandes from "./pages/MesDemandes";
 import HomeOrTutorial from "./guards/HomeOrTutorial";
+import Mission from "./pages/Mission";
+import Demande from "./pages/Demande";
 
 function App() {
   const { triggerAlert } = useAlert();
@@ -157,7 +159,9 @@ function App() {
       <Route exact path="/tab5" component={Tips} />
       <Route exact path="/laterProducts" component={LaterProducts} />
       <Route exact path="/mesDemandes" component={MesDemandes} />
+      <Route exact path="/mesDemandes/:id" component={Demande} />
       <Route exact path="/history" component={History} />
+      <Route exact path="/mission" component={Mission} />
       <Route exact path="/recipe/:id">
         <SimpleLyout
           bgHeader="#fad4ce"

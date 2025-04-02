@@ -2,6 +2,7 @@ import React from "react";
 import produitFleche from "../../../assets/recettes/recipeFleche.svg";
 import productBg from "../../../assets/history/productBg.svg";
 import image64 from "../../../assets/history/64.png";
+import { IonButton } from "@ionic/react";
 
 // Optional: Default image if loading fails
 const defaultImage = image64;
@@ -53,9 +54,9 @@ const Item = ({ recipe, index, length, OpenFb }) => {
         </div>
 
         {/* Arrow button */}
-        <button onClick={() => OpenFb(recipe)}>
-          <img src={produitFleche} alt="flèche" className="w-10 h-10 ml-4" />
-        </button>
+          <IonButton fill="clear" className="p-0 m-0 ionRecipebutton" size="small" onClick={() => OpenFb(recipe)}>
+          <img src={produitFleche} alt="flèche" className="w-10 h-10" />
+        </IonButton>
       </div>
 
       {index < length - 1 && (

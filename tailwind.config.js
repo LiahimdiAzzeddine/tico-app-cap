@@ -5,6 +5,8 @@ export default {
     extend: {
       fontSize: {
         customMd: "0.9rem",
+        customOne: "1rem",
+        customLg: "1.1rem",
       },
       lineHeight: {
         clash: 1,
