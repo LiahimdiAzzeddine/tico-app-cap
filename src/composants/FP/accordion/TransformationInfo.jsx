@@ -66,7 +66,7 @@ function TransformationInfo({ togglePanel,scoreEnv }) {
         <div className="px-4 py-4 flex flex-col gap-1 w-11/12 justify-center justify-items-center m-auto bg-no-repeat bg-contain bg-center recetteBg">
           <div className="w-full pt-3 pb-1">
             <img
-              src={scoreEnv?._url?scoreEnv?._url:planetScore}
+              src={scoreEnv?._imageurl?scoreEnv?._imageurl:planetScore}
               className="w-8/12 m-auto max-w-60 max-h-60"
               alt="Planet score b"
             />

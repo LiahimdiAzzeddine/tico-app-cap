@@ -82,7 +82,12 @@ const TransparencyScale = ({ currentPosition, setCurrentPosition }) => {
         </Link>
       </div>
     </div>
-    <WhiteModal isOpen={showModalTransparency} ContentPadding={"ion-padding-top"} scroll={true} onClose={() => setShowModalTransparency(false)}>
+    <WhiteModal 
+        isOpen={showModalTransparency} 
+        ContentPadding="ion-padding-top" 
+        scroll={true} 
+        onClose={() => setShowModalTransparency(false)}
+      >
         <TransparencyInfo />
       </WhiteModal>
     </>

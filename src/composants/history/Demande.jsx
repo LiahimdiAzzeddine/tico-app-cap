@@ -42,7 +42,7 @@ const Demande = ({ demande, index, length, incrementInsistCount }) => {
 
   return (
     <div key={index} >
-      <Link className="flex items-center py-2" to={"/mesDemandes/1"}>
+      <Link className="flex items-center py-2" to={`/mesDemandes/${demandeState.id}`}>
         {/* Image du produit */}
         <div className="w-16 h-16 mr-4 rounded flex flex-col justify-center items-center bg-no-repeat bg-contain bg-center m-auto productBg">
           <img

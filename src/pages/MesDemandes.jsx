@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useIonRouter } from "@ionic/react";
-import { useNetwork } from "../context/NetworkContext";
-import { useAlert } from "../context/AlertProvider";
 import SimpleLyout from "../composants/layout/SimpleLyout";
 import VF from "../assets/history/vf.svg";
 import EmptyLater from "../composants/history/ui/EmptyLater";
@@ -12,8 +10,6 @@ import useIncrementInsistCount from "../hooks/auth/useIncrementInsistCount";
 
 
 const MesDemandes = () => {
-  const { isConnected } = useNetwork();
-  const { triggerAlert } = useAlert();
   const history = useIonRouter();
   const { incrementInsistCount, loading: loadingIncre, error: errorIncre } = useIncrementInsistCount();
   const { loading, error, requests, fetchRequests, setError } =
