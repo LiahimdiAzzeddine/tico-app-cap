@@ -99,7 +99,7 @@ function Recipes() {
         <div className="h-24 pb-4 pt-1  bg-white">
           <div className="flex flex-col items-center justify-center h-5/6 max-h-28 min-h-20 backgroundRecette">
             <h2 className="text-center text-custom-red text-2xl font-bold">
-              Tit'recettes
+               
             </h2>
           </div>
         </div>
