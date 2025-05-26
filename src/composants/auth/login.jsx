@@ -103,7 +103,6 @@ const Login = ({ createCompte = false, redirection }) => {
           onSubmit={handleSubmitLogin}
           autocorrect="on"
           autoComplete="on"
-          className="space-y-4 w-11/12 max-w-xs h-5/6"
         >
           {/* Email Input */}
           <div className="flex flex-col items-center">
@@ -153,7 +152,7 @@ const Login = ({ createCompte = false, redirection }) => {
                 autocorrect="on"
                 value={values.password}
                 onChange={handleChange}
-                className={`w-full p-2 border-[1.5px] rounded-xl focus:outline-none ${
+                className={`w-full p-2 border-[1.5px] rounded-xl ${
                   errors.password
                     ? "border-red-500"
                     : "border-orange-300 focus:border-custom-text-orange"
@@ -166,7 +165,7 @@ const Login = ({ createCompte = false, redirection }) => {
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute right-3 top-1/2 -translate-y-[35%] text-gray-500 focus:outline-none"
+                className="absolute right-3  text-gray-500"
               >
                 <IonIcon icon={showPassword ? eyeOffOutline : eyeOutline} />
               </button>

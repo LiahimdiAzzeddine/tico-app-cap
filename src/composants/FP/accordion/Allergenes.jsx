@@ -74,7 +74,7 @@ const Allergenes = ({ allergenes = [] }) => {
                   <span className=" text-custom-blue text-2xl">?</span>
                 </div>
               )}
-              <span className="text-sm text-custom-blue mt-1 ArchivoBold m-auto">
+              <span className="text-sm text-custom-blue mt-1 Archivo m-auto">
                 {allergene
                   ? allergenesEngToFr[allergene]
                   : <>Incertain</>}

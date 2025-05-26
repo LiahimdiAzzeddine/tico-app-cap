@@ -15,31 +15,31 @@ import { getTipPreferences } from "../hooks/useCapacitorStorage";
 function Tips() {
   const [page, setPage] = useState(1);
   const [tipPreferences, setTipPreferences] = useState(null); // Ajout des préférences
-  const { tips, loading, error } = useLastTips(page, 100, tipPreferences); // Passage des préférences
+  const { tips, loading, error } = useLastTips(page, 1000, tipPreferences); // Passage des préférences
   const [showModalRecipe, setShowModalRecipe] = useState(false);
   const [selectedTip, setSelectedTip] = useState(null);
   const authUser = useAuthUser();
   const userId = authUser?.id;
-  const [relod,setRelod] = useState(false)
+  const [relod, setRelod] = useState(false);
 
   // Charger les préférences utilisateur au montage
   useEffect(() => {
     const fetchPreferences = async () => {
       try {
         const storedPreferences = await getTipPreferences(userId);
-        setTipPreferences([...storedPreferences]); 
+        setTipPreferences([...storedPreferences]);
       } catch (error) {
-        console.error("Erreur lors de la récupération des préférences :", error);
+        console.error(
+          "Erreur lors de la récupération des préférences :",
+          error
+        );
       }
-      
     };
 
     fetchPreferences();
-  }, [userId,relod]);
+  }, [userId, relod]);
 
-  const tipsList = Array.isArray(tips)
-    ? tips.map((tip) => createTip(tip))
-    : [];
+  const tipsList = Array.isArray(tips) ? tips.map((tip) => createTip(tip)) : [];
 
   const handleTipClick = (tip) => {
     setSelectedTip(tip); // Définit le conseil sélectionné
@@ -59,11 +59,9 @@ function Tips() {
     <TapLayout icon={OF} filter={2} setRelod={setRelod}>
       <div className="details h-full w-full">
         <div className="h-[17%] pb-4">
-          <div
-            className="flex flex-col items-center justify-center h-5/6 max-h-28 backgroundTips"
-          >
+          <div className="flex flex-col items-center justify-center h-5/6 max-h-28 backgroundTips">
             <h2 className="text-center text-custom-text-orange text-2xl titre-bold">
-              Ti'conseils 
+              Ti'conseils
             </h2>
           </div>
         </div>
@@ -99,7 +97,8 @@ function Tips() {
         bgcontent="#ffeda3"
         image="of"
       >
-        {selectedTip && <TipDetails tip={selectedTip} />} {/* Affiche les détails */}
+        {selectedTip && <TipDetails tip={selectedTip} />}{" "}
+        {/* Affiche les détails */}
       </ModalPage>
     </TapLayout>
   );

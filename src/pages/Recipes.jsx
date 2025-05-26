@@ -47,7 +47,7 @@ function Recipes() {
 
   const authUser = useAuthUser();
   const userId = authUser?.id;
-  const { showInput,setShowInput } = useGlobalTabsContext();
+  const { showInput, setShowInput } = useGlobalTabsContext();
 
   const recipeList = Array.isArray(recipes)
     ? recipes.map((recipe) => createRecipe(recipe))
@@ -87,10 +87,7 @@ function Recipes() {
   };
   const handleClose = (vale) => {
     setSearchTerm("");
- 
   };
-
-  
 
   return (
     <TapLayout icon={flecheRecette} filter={1}>
@@ -98,39 +95,38 @@ function Recipes() {
         {/* Header */}
         <div className="h-24 pb-4 pt-1  bg-white">
           <div className="flex flex-col items-center justify-center h-5/6 max-h-28 min-h-20 backgroundRecette">
-            <h2 className="text-center text-custom-red text-2xl font-bold">
-               
-            </h2>
+            <h2 className="text-center text-custom-red text-2xl font-bold"></h2>
           </div>
         </div>
 
         {/* Barre de recherche */}
         {showInput && (
-  <div className="px-4 py-2 bg-white flex items-center gap-2">
-    <IonInput
-      type="text"
-      placeholder="Rechercher une recette..."
-      aria-label="Rechercher une recette"
-      className="flex-1 px-2 text-sm"
-      color="danger"
-      value={searchTerm}
-      onIonChange={(e) => handleSearch(e.detail.value)}
-      debounce={500}
-    />
-    
- 
-      <IonButton fill="clear" className="p-0 m-0" onClick={()=>{    setSearch(!search)
-          }}>
-        <IonIcon
-          icon={searchOutline}
-          
-          className="h-6 w-6 text-custom-red"
-        />
-      </IonButton>
-    
-  </div>
-)}
+          <div className="px-4 py-2 bg-white flex items-center gap-2">
+            <IonInput
+              type="text"
+              placeholder="Rechercher une recette..."
+              aria-label="Rechercher une recette"
+              className="flex-1 px-2 text-sm"
+              color="danger"
+              value={searchTerm}
+              onIonChange={(e) => handleSearch(e.detail.value)}
+              debounce={500}
+            />
 
+            <IonButton
+              fill="clear"
+              className="p-0 m-0"
+              onClick={() => {
+                setSearch(!search);
+              }}
+            >
+              <IonIcon
+                icon={searchOutline}
+                className="h-6 w-6 text-custom-red"
+              />
+            </IonButton>
+          </div>
+        )}
 
         {/* Liste des recettes */}
         <IonContent className="flex-1 bg-white rounded-b-[2rem] overflow-hidden">

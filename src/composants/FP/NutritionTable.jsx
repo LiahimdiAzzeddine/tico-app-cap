@@ -152,7 +152,7 @@ const NutritionTable = ({ product, portion }) => {
       {hierarchicalData ? (
         <>
           {portion && portion != 0 && (
-            <div className="flex items-center justify-center gap-6 p-4">
+            <div className="flex items-center justify-center gap-6 ">
               <button
                 onClick={() => setUnit("100g")}
                 className={`font-medium Archivo py-1 rounded transition-colors ${
@@ -161,7 +161,7 @@ const NutritionTable = ({ product, portion }) => {
                     : "text-gray-500 hover:text-gray-700"
                 }`}
               >
-                Par 100g
+                Par 100go
               </button>
 
               <div
